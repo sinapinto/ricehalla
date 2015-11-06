@@ -24,6 +24,10 @@ module.exports = {
       }
     })
   ],
+  resolve: {
+    extensions: ['', '.jsx', '.js', '.json'],
+    modulesDirectories: ['node_modules', 'src']
+  },
   module: {
     loaders: [{
       test: /\.js$/,
