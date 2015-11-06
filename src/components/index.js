@@ -1,1 +1,1 @@
-export { Sidebar } from './Sidebar';
+export { Comp } from './Comp/Comp';

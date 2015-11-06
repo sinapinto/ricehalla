@@ -2,10 +2,11 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'inline-source-map',
 
   entry: [
     'webpack-hot-middleware/client',
+    'bootstrap-sass!./src/theme/bootstrap.config.js',
     './src/index'
   ],
 
@@ -21,18 +22,21 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.jsx', '.js', '.json'],
+    extensions: ['', '.js', '.json'],
     modulesDirectories: ['node_modules', 'src']
   },
 
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
-    }, {
-      test: /\.scss$/,
-      loader: 'style!css!sass'
-    }]
+    loaders: [
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.scss$/, loader: 'style!css?modules!autoprefixer!sass' }
+
+
+    ]
   }
 };
