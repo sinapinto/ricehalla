@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export class Contest extends Component {
+  static propTypes = {
+    contestID: PropTypes.number.isRequired,
+    params: PropTypes.object.isRequired
+  };
+
   render() {
-    var { contestID } = this.props.params;
-    const styles = require('./Contest.scss');
+    const { contestID } = this.props.params;
+    // const styles = require('./Contest.scss');
 
     return (
       <div>

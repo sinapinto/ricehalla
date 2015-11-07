@@ -9,7 +9,7 @@ export class Home extends Component {
       <div className={styles.home}>
         <div className="jumbotron">
           <div className={styles.jumbotron}>
-            <div class="container">
+            <div className="container">
               <h1>wew lad</h1>
               <p>asdf</p>
             </div>
