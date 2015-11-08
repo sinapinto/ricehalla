@@ -6,7 +6,7 @@
     "clean": "rm -rf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "start": "node devServer.js",
+    "start": "node entry/server.js",
     "lint": "eslint -c .eslintrc src"
   },
   "repository": {
@@ -41,6 +41,8 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
     "file-loader": "^0.8.4",
     "history": "^1.13.0",
     "react": "^0.14.2",
