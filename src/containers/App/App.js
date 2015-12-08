@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
 export class App extends Component {
   static propTypes = {
@@ -12,10 +12,9 @@ export class App extends Component {
       <div className={styles.app}>
         <nav className="navbar navbar-default navbar-fixed-top">
           <div className="container">
-            <Link to="/home" className="navbar-brand">rice wars</Link>
+            <IndexLink to="/" className="navbar-brand">rice wars</IndexLink>
             <ul className="nav navbar-nav navbar-right">
-              <li><Link to="/ayy">ayy</Link></li>
-              <li><Link to="/lmao">lmao</Link></li>
+              <li><Link to="/create">new contest</Link></li>
             </ul>
           </div>
         </nav>
