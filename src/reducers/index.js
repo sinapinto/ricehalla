@@ -1,14 +1,8 @@
 import { combineReducers } from 'redux';
-
-const reducer = function reducer(state = 0, action) {
-  switch (action.type) {
-  default:
-    return state;
-  }
-};
+import contest from 'reducers/contest';
 
 const rootReducer = combineReducers({
-  reducer
+  contest
 });
 
 export default rootReducer;

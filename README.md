@@ -11,4 +11,3 @@ Run the development server
 ```
 npm start
 ```
-files inside `src` (except `index.js`) will be hot reloaded
