@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import contest from 'reducers/contest';
+import redditPosts from './posts';
 
 const rootReducer = combineReducers({
-  contest
+  redditPosts
 });
 
 export default rootReducer;
