@@ -4,13 +4,13 @@ export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 
-function requestPosts() {
+export function requestPosts() {
   return {
     type: REQUEST_POSTS
   };
 }
 
-function receivePosts(json) {
+export function receivePosts(json) {
   return {
     type: RECEIVE_POSTS,
     posts: json.data.children.map(child => child.data)

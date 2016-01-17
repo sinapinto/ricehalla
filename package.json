@@ -4,10 +4,12 @@
   "description": "",
   "scripts": {
     "start": "node devServer.js",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "lint": "eslint -c .eslintrc src"
+    "lint": "eslint -c .eslintrc src",
+    "test": "NODE_ENV=test mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,11 @@
     "eslint": "^1.10.3",
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-react": "^3.11.3",
+    "expect": "^1.13.4",
     "express": "^4.13.3",
+    "jsdom": "^7.2.2",
+    "mocha": "^2.3.4",
+    "react-addons-test-utils": "^0.14.6",
     "redux-logger": "^2.3.2",
     "rimraf": "^2.5.0",
     "webpack": "^1.12.9",
