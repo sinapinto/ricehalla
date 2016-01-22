@@ -1,10 +1,10 @@
 {
   "name": "ricewars",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "scripts": {
     "start": "node devServer.js",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "lint": "eslint -c .eslintrc src",
@@ -33,7 +33,6 @@
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.6",
     "redux-logger": "^2.3.2",
-    "rimraf": "^2.5.0",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"
@@ -43,6 +42,7 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.6",
+    "react-router": "^2.0.0-rc5",
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3"
   }
