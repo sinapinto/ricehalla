@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 
 app.use('/static', express.static(__dirname + '/../dist'));
 
-const renderFullPage = (html, initialState) => {
+const renderFullPage = (reactHTML, initialState) => {
   return `
     <!doctype html>
     <html>
@@ -21,11 +21,11 @@ const renderFullPage = (html, initialState) => {
         <title>ssr</title>
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="root">${reactHTML}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; 
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="http://localhost:3001/static/bundle.js"></script>
       </body>
     </html>
   `;
@@ -59,5 +59,5 @@ app.listen(port, (err) => {
   if (err) {
     console.error(err);
   }
-  console.info("Server is listening to port: http://localhost:%s", port);
+  console.info("Server is listening at http://localhost:%s", port);
 });
