@@ -2,7 +2,7 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrent --kill-others \"node devServer.js\" \"env NODE_ENV=prod bin/server.js\"",
+    "start": "concurrent --kill-others \"node devServer.js\" \"node bin/server.js\"",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rm -rf dist",
@@ -22,6 +22,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.0",
+    "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.4.3",
     "concurrently": "^1.0.0",
     "eslint": "^1.10.3",

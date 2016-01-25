@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 var port = parseInt(process.env.PORT) + 1 || 3001;
 
-module.exports = {
+var config = {
   // cheap: no column-mappings in the source-map
   // module: source-maps from loaders are simplified to a single mapping per line.
   devtool: 'cheap-module-eval-source-map',
@@ -16,19 +16,27 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    // filename: '[name]-[hash].js',
+    // chunkFilename: '[name]-[chunkhash].js',
     publicPath: 'http://localhost:' + port + '/static/'
   },
 
   plugins: [
+    // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
   ],
 
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loader: 'babel',
+      query: {
+        presets: ["react", "es2015", "stage-0", "react-hmre"]
+      },
       include: path.join(__dirname, 'src')
     }]
   }
 };
+
+module.exports = config;
