@@ -1,15 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import createRouter from './routes';
 import configureStore from './store/configureStore';
+import Root from './containers/Root';
 
 const store = configureStore(window.__INITIAL_STATE__);
 
 render(
-  <Provider store={store}>
-    { createRouter(browserHistory) }
-  </Provider>,
+  <Root store={store} />,
   document.getElementById('root')
 );
