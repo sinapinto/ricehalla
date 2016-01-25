@@ -2,7 +2,7 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrent --kill-others \"node devServer.js\" \"node bin/server.js\"",
+    "start": "PORT=8000 concurrent --kill-others \"node webpack.server.js\" \"node bin/server.js\"",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rm -rf dist",

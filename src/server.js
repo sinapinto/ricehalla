@@ -8,7 +8,7 @@ import createRoutes from './routes';
 import { Provider } from 'react-redux';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT) || 3000;
 
 app.use('/static', express.static(__dirname + '/../dist'));
 
@@ -25,7 +25,7 @@ const renderFullPage = (reactHTML, initialState) => {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; 
         </script>
-        <script src="http://localhost:3001/static/bundle.js"></script>
+        <script src="http://localhost:${port + 1}/static/bundle.js"></script>
       </body>
     </html>
   `;

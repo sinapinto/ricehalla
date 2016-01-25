@@ -16,13 +16,10 @@ var config = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    // filename: '[name]-[hash].js',
-    // chunkFilename: '[name]-[chunkhash].js',
     publicPath: 'http://localhost:' + port + '/static/'
   },
 
   plugins: [
-    // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
