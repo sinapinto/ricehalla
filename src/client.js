@@ -19,15 +19,13 @@ if (process.env.NODE_ENV !== 'production') {
   if (!rootElem.firstChild ||
       !rootElem.firstChild.attributes ||
       !rootElem.firstChild.attributes['data-react-checksum']) {
-        console.error('Server-side React render was discarded. ' +
-                      'Make sure that your initial render does ' +
-                      'not contain any client-side code.');
-      }
+    console.error('Server-side React render was discarded. ' +
+                  'Make sure that your initial render does ' +
+                  'not contain any client-side code.');
+  }
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  // Babel6 no longer exports default module.exports
-  // https://phabricator.babeljs.io/T2212
   const DevTools = require('./containers/DevTools').default;
 
   render(

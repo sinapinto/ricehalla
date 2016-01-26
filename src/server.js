@@ -1,18 +1,18 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import createLocation from 'history/lib/createLocation'
-import { RouterContext, match, createMemoryHistory } from 'react-router'
+import createLocation from 'history/lib/createLocation';
+import { RouterContext, match, createMemoryHistory } from 'react-router';
 import configureStore from './store/configureStore';
 import createRoutes from './routes';
 import { Provider } from 'react-redux';
 
 const app = express();
-const port = parseInt(process.env.PORT) || 3000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 
-app.use('/static', express.static(__dirname + '/../dist'));
+app.use('/static', express.static(`${__dirname}/../dist`));
 
-const renderHTML = (reactHTML, initialState, scriptSrc) => {
+function renderHTML(reactHTML, initialState, scriptSrc) {
   return `
     <!doctype html>
     <html>
@@ -23,7 +23,7 @@ const renderHTML = (reactHTML, initialState, scriptSrc) => {
       <body>
         <div id="root">${reactHTML}</div>
         <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; 
+          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
         </script>
         <script src="${scriptSrc}"></script>
       </body>

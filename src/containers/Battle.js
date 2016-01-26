@@ -11,6 +11,7 @@ class Battle extends Component {
 }
 
 Battle.propTypes = {
+  params: PropTypes.object.isRequired
 };
 
 export default Battle;

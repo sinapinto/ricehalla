@@ -4,7 +4,7 @@ import rootReducer from '../reducers';
 
 
 export default function configureStore(initialState) {
-  const middleware = [ thunk ];
+  const middleware = [thunk];
   let finalCreateStore;
 
   if (process.env.NODE_ENV === 'production') {
