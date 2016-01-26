@@ -12,7 +12,7 @@ const port = parseInt(process.env.PORT) || 3000;
 
 app.use('/static', express.static(__dirname + '/../dist'));
 
-const renderFullPage = (reactHTML, initialState) => {
+const renderHTML = (reactHTML, initialState, scriptSrc) => {
   return `
     <!doctype html>
     <html>
@@ -25,7 +25,7 @@ const renderFullPage = (reactHTML, initialState) => {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; 
         </script>
-        <script src="http://localhost:${port + 1}/static/bundle.js"></script>
+        <script src="${scriptSrc}"></script>
       </body>
     </html>
   `;
@@ -44,11 +44,14 @@ app.get('*', (req, res) => {
     } else if (renderProps) {
       const reactHTML = renderToString(
         <Provider store={store}>
-          { <RouterContext {...renderProps}/> }
+            { <RouterContext {...renderProps}/> }
         </Provider>
       );
       const initialState = store.getState();
-      res.status(200).send(renderFullPage(reactHTML, initialState));
+      const scriptSrc = (process.env.NODE_ENV === 'production')
+        ? '/static/bundle.js'
+        : `http://localhost:${port + 1}/static/bundle.js`;
+      res.status(200).send(renderHTML(reactHTML, initialState, scriptSrc));
     } else {
       res.status(404).send('Not found');
     }
@@ -59,5 +62,5 @@ app.listen(port, (err) => {
   if (err) {
     console.error(err);
   }
-  console.info("Server is listening at http://localhost:%s", port);
+  console.info('Server is listening at http://localhost:%s', port);
 });

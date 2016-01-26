@@ -6,7 +6,7 @@
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rm -rf dist",
-    "lint": "eslint -c .eslintrc src",
+    "lint": "./node_modules/.bin/eslint -c .eslintrc src",
     "test": "NODE_ENV=test mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
     "test:watch": "npm test -- --watch"
   },
