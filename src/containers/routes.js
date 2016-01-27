@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Router } from 'react-router';
-import App from './containers/App';
-import Battle from './containers/Battle';
+import App from './App';
+import Battle from './Battle';
 
 export default function (history) {
   return (

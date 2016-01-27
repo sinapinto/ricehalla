@@ -13,6 +13,7 @@
   // custom rules
   "rules": {
     "comma-dangle": 0,
+    "no-console": 0,
   },
 
 }

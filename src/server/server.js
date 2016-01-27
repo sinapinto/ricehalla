@@ -3,16 +3,15 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import createLocation from 'history/lib/createLocation';
 import { RouterContext, match, createMemoryHistory } from 'react-router';
-import configureStore from './store/configureStore';
-import createRoutes from './routes';
+import configureStore from '../store/configureStore';
+import createRoutes from '../containers/routes';
 import { Provider } from 'react-redux';
+import fetchCounter from './api/counter';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 3000;
 
-app.use('/static', express.static(`${__dirname}/../dist`));
-
-function renderHTML(reactHTML, initialState, scriptSrc) {
+function renderHTML(html, initialState, scriptSrc) {
   return `
     <!doctype html>
     <html>
@@ -21,7 +20,7 @@ function renderHTML(reactHTML, initialState, scriptSrc) {
         <title>ssr</title>
       </head>
       <body>
-        <div id="root">${reactHTML}</div>
+        <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
         </script>
@@ -31,18 +30,18 @@ function renderHTML(reactHTML, initialState, scriptSrc) {
   `;
 }
 
-app.get('*', (req, res) => {
+
+function handleRender(req, res) {
   const store = configureStore();
   const location = createLocation(req.url);
   const routes = createRoutes(createMemoryHistory());
-
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const reactHTML = renderToString(
+      const html = renderToString(
         <Provider store={store}>
             { <RouterContext {...renderProps}/> }
         </Provider>
@@ -51,12 +50,16 @@ app.get('*', (req, res) => {
       const scriptSrc = (process.env.NODE_ENV === 'production')
         ? '/static/bundle.js'
         : `http://localhost:${port + 1}/static/bundle.js`;
-      res.status(200).send(renderHTML(reactHTML, initialState, scriptSrc));
+      res.status(200).send(renderHTML(html, initialState, scriptSrc));
     } else {
       res.status(404).send('Not found');
     }
   });
-});
+}
+
+app.use('/static', express.static(`${__dirname}/../dist`));
+
+app.use(handleRender);
 
 app.listen(port, (err) => {
   if (err) {
