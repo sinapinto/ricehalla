@@ -1,44 +1,37 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/posts';
-import Submission from '../components/Submission';
+import { loadCounter } from '../actions';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.dispatch(fetchPosts());
+  static fetchData({ store }) {
+    return store.dispatch(loadCounter());
   }
 
   handleClick(e) {
     e.preventDefault();
-    this.props.dispatch(fetchPosts());
+    this.props.dispatch(loadCounter());
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>refresh</button>
-        {this.props.posts.items.map(item => <Submission key={item.id} item={item} />)}
+        <button onClick={::this.handleClick}>click</button>
+        {' '}
+        Counter: {this.props.count.magic}
       </div>
     );
   }
 }
 
-App.propTypes = {
-  posts: PropTypes.shape({
-    items: PropTypes.array.isRequired
-  }).isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-
 function mapStateToProps(state) {
   return {
-    posts: state.redditPosts
+    count: state.counter
   };
 }
 
 export default connect(mapStateToProps)(App);
+
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  count: PropTypes.object.isRequired,
+};

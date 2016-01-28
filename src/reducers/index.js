@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import redditPosts from './posts';
+import counter from './counter';
 
 const rootReducer = combineReducers({
-  redditPosts
+  counter
 });
 
 export default rootReducer;

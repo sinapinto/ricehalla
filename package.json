@@ -2,12 +2,12 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "PORT=3000 concurrent --kill-others \"node src/server/webpack.js\" \"node src/server\"",
+    "start": "concurrent --kill-others \"node src/server\" \"node src/server/webpack.js\"",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rm -rf dist",
     "lint": "./node_modules/.bin/eslint -c .eslintrc src || exit 0",
-    "test": "NODE_ENV=test mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
+    "test": "mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
     "test:watch": "npm test -- --watch"
   },
   "repository": {
@@ -36,6 +36,7 @@
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
+    "redux-logger": "^2.4.0",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"

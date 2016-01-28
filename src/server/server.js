@@ -6,7 +6,6 @@ import { RouterContext, match, createMemoryHistory } from 'react-router';
 import configureStore from '../store/configureStore';
 import createRoutes from '../containers/routes';
 import { Provider } from 'react-redux';
-import fetchCounter from './api/counter';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -30,27 +29,41 @@ function renderHTML(html, initialState, scriptSrc) {
   `;
 }
 
-
 function handleRender(req, res) {
-  const store = configureStore();
+  const store = configureStore({
+    counter: {magic: 1}
+  });
   const location = createLocation(req.url);
   const routes = createRoutes(createMemoryHistory());
+
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const html = renderToString(
-        <Provider store={store}>
-            { <RouterContext {...renderProps}/> }
-        </Provider>
-      );
-      const initialState = store.getState();
-      const scriptSrc = (process.env.NODE_ENV === 'production')
-        ? '/static/bundle.js'
-        : `http://localhost:${port + 1}/static/bundle.js`;
-      res.status(200).send(renderHTML(html, initialState, scriptSrc));
+
+      function getReduxPromise() {
+        const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
+        return comp.fetchData ?  comp.fetchData({store}) : Promise.resolve();
+      }
+
+
+      getReduxPromise().then(() => {
+        const html = renderToString(
+          <Provider store={store}>
+              { <RouterContext {...renderProps}/> }
+          </Provider>
+        );
+        const initialState = store.getState();
+        const scriptSrc = (process.env.NODE_ENV === 'production')
+          ? '/static/bundle.js'
+          : `http://localhost:${port + 1}/static/bundle.js`;
+        res.status(200).send(renderHTML(html, initialState, scriptSrc));
+
+
+      });
+
     } else {
       res.status(404).send('Not found');
     }
@@ -59,7 +72,12 @@ function handleRender(req, res) {
 
 app.use('/static', express.static(`${__dirname}/../dist`));
 
-app.use(handleRender);
+app.get('/api/counter', (req, res) => {
+  setTimeout(() => res.status(200).send({ response: 420 }), 400);
+});
+
+// app.use(handleRender);
+app.get('*', handleRender);
 
 app.listen(port, (err) => {
   if (err) {

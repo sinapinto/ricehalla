@@ -3,5 +3,5 @@
 // react-transform-hmr when rendering on the server.
 // see: https://github.com/gaearon/react-transform-hmr/issues/38
 {
-  "presets": ["react", "es2015"]
+  "presets": ["react", "es2015", "stage-0"]
 }

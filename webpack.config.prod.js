@@ -18,6 +18,9 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: false,
+    })
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
