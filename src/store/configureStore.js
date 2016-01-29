@@ -7,20 +7,24 @@ import api from '../middleware/api';
 
 export default function configureStore(initialState) {
   const middleware = [thunk, api];
-  let finalCreateStore;
 
   if (process.env.NODE_ENV === 'production') {
-    finalCreateStore = applyMiddleware(...middleware)(createStore);
-    return finalCreateStore(rootReducer, initialState);
+    return createStore(
+      rootReducer,
+      initialState,
+      applyMiddleware(...middleware)(createStore)
+    );
   }
 
-  finalCreateStore = compose(
-    applyMiddleware(...middleware),
-    // applyMiddleware(createLogger({ logger: console })),
-    DevTools.instrument() // must come after all async store enhancers
-  )(createStore);
-
-  const store = finalCreateStore(rootReducer, initialState);
+  const store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(...middleware),
+      // applyMiddleware(createLogger({ logger: console })),
+      DevTools.instrument() // must come after all async store enhancers
+    )
+  );
 
   // Enable Webpack hot module replacement for reducers
   if (module.hot) {
