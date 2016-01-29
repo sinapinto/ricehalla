@@ -3,12 +3,14 @@ import { renderToString } from 'react-dom/server';
 
 function getStateMarkup(state) {
   return {
-    __html:  `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
+    __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`,
   };
 }
 
 export default class Page extends Component {
   static propTypes = {
+    component: PropTypes.element,
+    state: PropTypes.object,
     script: PropTypes.string,
   };
 
@@ -28,7 +30,7 @@ export default class Page extends Component {
           <title>ricewars™</title>
         </head>
         <body>
-          <div id="root" dangerouslySetInnerHTML={{__html: markup}}/>
+          <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
           <script dangerouslySetInnerHTML={getStateMarkup(state)} />
           <script src={script} charSet="UTF-8" />
         </body>

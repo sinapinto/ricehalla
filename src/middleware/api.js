@@ -30,7 +30,7 @@ export default store => next => action => {
     .then(
       json => next({
         type: successType,
-        json
+        json,
       }),
       error => next({
         type: failureType,

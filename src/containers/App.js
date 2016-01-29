@@ -25,7 +25,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    count: state.counter
+    count: state.counter,
   };
 }
 

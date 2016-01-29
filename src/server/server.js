@@ -15,7 +15,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 
 function handleRender(req, res) {
   const store = configureStore({
-    counter: { magic: 1 }
+    counter: { magic: 1 },
   });
   const location = createLocation(req.url);
   const routes = createRoutes(createMemoryHistory());

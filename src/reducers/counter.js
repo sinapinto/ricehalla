@@ -9,17 +9,17 @@ export default function (state = initialState, action) {
     case ActionTypes.COUNTER_REQUEST:
       return {
         ...state,
-        magic: 10
+        magic: 10,
       };
     case ActionTypes.COUNTER_SUCCESS:
       return {
         ...state,
-        magic: 20
+        magic: 20,
       };
     case ActionTypes.COUNTER_FAILURE:
       return {
         ...state,
-        magic: 30
+        magic: 30,
       };
     default:
       return state;

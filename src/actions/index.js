@@ -8,8 +8,8 @@ function fetchCounter() {
   return {
     [CALL_API]: {
       types: [COUNTER_REQUEST, COUNTER_SUCCESS, COUNTER_FAILURE],
-      endpoint: 'api/counter'
-    }
+      endpoint: 'api/counter',
+    },
   };
 }
 
