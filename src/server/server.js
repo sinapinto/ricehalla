@@ -3,31 +3,15 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import createLocation from 'history/lib/createLocation';
 import { RouterContext, match, createMemoryHistory } from 'react-router';
+import { Provider } from 'react-redux';
+
 import configureStore from '../store/configureStore';
 import createRoutes from '../containers/routes';
-import { Provider } from 'react-redux';
+
+import Page from './page';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 3000;
-
-function renderHTML(html, initialState, scriptSrc) {
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <title>ssr</title>
-      </head>
-      <body>
-        <div id="root">${html}</div>
-        <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-        </script>
-        <script src="${scriptSrc}"></script>
-      </body>
-    </html>
-  `;
-}
 
 function handleRender(req, res) {
   const store = configureStore({
@@ -48,16 +32,17 @@ function handleRender(req, res) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       getReduxPromise().then(() => {
-        const html = renderToString(
+        const component = (
           <Provider store={store}>
-              { <RouterContext {...renderProps}/> }
+            { <RouterContext {...renderProps}/> }
           </Provider>
         );
-        const initialState = store.getState();
         const scriptSrc = (process.env.NODE_ENV === 'production')
           ? '/static/bundle.js'
           : `http://localhost:${port + 1}/static/bundle.js`;
-        res.status(200).send(renderHTML(html, initialState, scriptSrc));
+
+        res.status(200).send('<!DOCTYPE html>\n' +
+          renderToString(<Page component={component} state={store.getState()} script={scriptSrc} />));
       });
     } else {
       res.status(404).send('Not found');
