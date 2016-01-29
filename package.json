@@ -2,9 +2,9 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrent --kill-others \"node src/server\" \"node src/server/webpack.js\"",
+    "start": "concurrent --kill-others \"node src/server\" \"node webpack/webpack-dev-server.js\"",
     "build": "npm run clean && npm run build:webpack",
-    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:webpack": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
     "clean": "rm -rf dist",
     "lint": "./node_modules/.bin/eslint -c .eslintrc src || exit 0",
     "test": "mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",

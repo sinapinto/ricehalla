@@ -16,7 +16,7 @@ export default function configureStore(initialState) {
 
   finalCreateStore = compose(
     applyMiddleware(...middleware),
-    applyMiddleware(createLogger({ logger: console })),
+    // applyMiddleware(createLogger({ logger: console })),
     DevTools.instrument() // must come after all async store enhancers
   )(createStore);
 

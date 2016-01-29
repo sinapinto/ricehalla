@@ -10,7 +10,7 @@
     "node": true
   },
 
-  // custom rules
+  // custom overrides
   "rules": {
     "comma-dangle": 0,
     "no-console": 0,

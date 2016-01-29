@@ -3,11 +3,12 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
+  context: path.resolve(__dirname, '..'),
   entry: [
     './src/client.js'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '../dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
@@ -30,8 +31,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      loaders: ['babel']
     }]
   }
 };
