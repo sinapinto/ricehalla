@@ -17,7 +17,7 @@ export default class Page extends Component {
   render() {
     const {
       component = '',
-      state = '',
+      state = {},
       script = '',
     } = this.props;
 

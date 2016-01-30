@@ -1,16 +1,19 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var rootPath = path.resolve(__dirname, '..');
+var assetsPath = path.resolve(rootPath, './static/dist');
+
 module.exports = {
   devtool: 'source-map',
-  context: path.resolve(__dirname, '..'),
+  context: rootPath,
   entry: [
     './src/client.js'
   ],
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: assetsPath,
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -19,9 +22,6 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.DefinePlugin({
-      __DEVELOPMENT__: false,
-    })
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
@@ -31,6 +31,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
+      include: path.resolve(rootPath, './src'),
       loaders: ['babel']
     }]
   }

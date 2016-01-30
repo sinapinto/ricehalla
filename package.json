@@ -5,7 +5,7 @@
     "start": "concurrent --kill-others \"node src/server\" \"node webpack/webpack-dev-server.js\"",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf static/dist",
     "lint": "./node_modules/.bin/eslint -c .eslintrc src || exit 0",
     "test": "mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
     "test:watch": "npm test -- --watch"
@@ -49,6 +49,7 @@
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc5",
     "redux": "^3.1.2",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "serve-favicon": "^2.3.0"
   }
 }

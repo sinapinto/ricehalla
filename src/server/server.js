@@ -1,4 +1,7 @@
+import path from 'path';
 import express from 'express';
+import favicon from 'serve-favicon';
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import createLocation from 'history/lib/createLocation';
@@ -9,9 +12,18 @@ import configureStore from '../store/configureStore';
 import createRoutes from '../containers/routes';
 
 import Page from './page';
+import prefetchData from './prefetchData';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 3000;
+
+app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
+
+app.use(express.static(path.join(__dirname, '../../static')));
+
+app.get('/api/counter', (req, res) => {
+  setTimeout(() => res.status(200).send({ response: 420 }), 400);
+});
 
 function handleRender(req, res) {
   const store = configureStore({
@@ -21,25 +33,20 @@ function handleRender(req, res) {
   const routes = createRoutes(createMemoryHistory());
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
-    function getReduxPromise() {
-      const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
-      return comp.fetchData ? comp.fetchData({ store }) : Promise.resolve();
-    }
-
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      getReduxPromise().then(() => {
+      prefetchData(renderProps.components).then(() => {
         const component = (
           <Provider store={store}>
             { <RouterContext {...renderProps}/> }
           </Provider>
         );
         const scriptSrc = (process.env.NODE_ENV === 'production')
-          ? '/static/bundle.js'
-          : `http://localhost:${port + 1}/static/bundle.js`;
+          ? '/dist/bundle.js'
+          : `http://localhost:${port + 1}/dist/bundle.js`;
 
         res.status(200).send('<!DOCTYPE html>\n' +
           renderToString(<Page component={component} state={store.getState()} script={scriptSrc} />));
@@ -50,11 +57,6 @@ function handleRender(req, res) {
   });
 }
 
-// app.use('/static', express.static(`${__dirname}/../dist`));
-
-app.get('/api/counter', (req, res) => {
-  setTimeout(() => res.status(200).send({ response: 420 }), 400);
-});
 
 app.all('*', handleRender);
 

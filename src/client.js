@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
     <Provider store={store}>
       <div>
         { createRouter(browserHistory) }
-        { process.env.NODE_ENV !== 'production' && <DevTools /> }
+        <DevTools />
       </div>
     </Provider>,
     rootElem

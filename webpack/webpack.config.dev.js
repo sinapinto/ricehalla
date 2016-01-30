@@ -3,13 +3,16 @@ var webpack = require('webpack');
 
 var port = parseInt(process.env.PORT, 10) + 1 || 3001;
 
-var config = {
+var rootPath = path.resolve(__dirname, '..');
+var assetsPath = path.resolve(rootPath, './static/dist');
+
+module.exports = {
   // cheap: no column-mappings in the source-map.
   // module: source-maps from loaders are simplified to a single mapping per line.
   devtool: 'cheap-module-eval-source-map',
 
   // the base directory for resolving the entry option
-  context: path.resolve(__dirname, '..'),
+  context: rootPath,
 
   // the entry point for the bundle
   entry: [
@@ -21,12 +24,12 @@ var config = {
     // the output directory as an absolute path (required).
     // Note: this option makes no difference when only using the in-memory
     // bundles from webpack-dev-middleware
-    path: path.join(__dirname, '../dist'),
+    path: assetsPath,
 
     filename: 'bundle.js',
 
     // the public URL address of the output files when referenced in a browser.
-    publicPath: 'http://localhost:' + port + '/static/'
+    publicPath: 'http://localhost:' + port + '/dist/'
   },
 
   plugins: [
@@ -46,7 +49,7 @@ var config = {
       {
         // these conditions MUST be met
         test: /\.js$/,
-        include: path.resolve(__dirname, '../src'),
+        include: path.resolve(rootPath, './src'),
 
         loader: 'babel',
         query: {
@@ -56,5 +59,3 @@ var config = {
     ]
   }
 };
-
-module.exports = config;
