@@ -2,19 +2,17 @@ import path from 'path';
 import express from 'express';
 import favicon from 'serve-favicon';
 
-import handleRender from './handleRender';
+import render from './render';
+import battle from './battle';
 
 const app = express();
 
 app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
-
 app.use(express.static(path.join(__dirname, '../../static')));
 
-app.get('/api/counter', (req, res) => {
-  setTimeout(() => res.status(200).send({ response: 420 }), 400);
-});
+app.get('/api/battle', battle);
 
-app.all('*', handleRender);
+app.all('*', render);
 
 app.listen(__PORT__, (err) => {
   if (err) {

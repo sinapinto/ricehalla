@@ -10,7 +10,7 @@ import createRoutes from '../containers/routes';
 import Page from './page';
 import prefetchData from './prefetchData';
 
-export default function handleRender(req, res) {
+export default function render(req, res) {
   const store = configureStore({
     counter: { magic: 1 },
   });
