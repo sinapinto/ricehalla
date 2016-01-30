@@ -1,12 +1,14 @@
 import path from 'path';
 import express from 'express';
 import favicon from 'serve-favicon';
+import compression from 'compression';
 
 import render from './render';
 import battle from './battle';
 
 const app = express();
 
+app.use(compression());
 app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
 app.use(express.static(path.join(__dirname, '../../static')));
 
