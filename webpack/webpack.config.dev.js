@@ -40,7 +40,7 @@ module.exports = {
 
     // define free variables
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
+      __DEV__: true,
     })
   ],
 

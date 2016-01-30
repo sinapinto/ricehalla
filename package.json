@@ -2,7 +2,7 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrent --kill-others \"node src/server\" \"node webpack/webpack-dev-server.js\"",
+    "start": "concurrent --kill-others \"env NODE_ENV=development node src/server\" \"node webpack/webpack-dev-server.js\"",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
     "clean": "rm -rf static/dist",

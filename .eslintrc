@@ -4,13 +4,16 @@
   // use babel's parser since eslint currently has no ES7 support
   "parser": "babel-eslint",
 
-  // define global variables
   "env": {
     "browser": true,
     "node": true
   },
 
-  // custom overrides
+  "globals" : {
+    "__DEV__": false,
+    "__PORT__": 3000
+  },
+
   "rules": {
     "no-console": 0,
   },

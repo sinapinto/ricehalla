@@ -13,4 +13,3 @@ export default function prefetchData(components) {
   }, []);
   return Promise.all(promises);
 }
-

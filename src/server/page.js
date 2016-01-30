@@ -16,12 +16,12 @@ export default class Page extends Component {
 
   render() {
     const {
-      component = '',
+      component,
       state = {},
       script = '',
     } = this.props;
 
-    const markup = renderToString(component);
+    const markup = component ? renderToString(component) : '';
 
     return (
       <html>
