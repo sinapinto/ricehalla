@@ -46,16 +46,16 @@ export default function render(req, res) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       prefetchData(renderProps.components, store).then(() => {
+        const component = (
+          <Provider store={store}>
+            { <RouterContext {...renderProps} /> }
+          </Provider>
+        );
         const html = (
           <Page component={component}
             state={store.getState()}
             script={scriptSrc}
           />
-        );
-        const component = (
-          <Provider store={store}>
-            { <RouterContext {...renderProps} /> }
-          </Provider>
         );
         res.status(200).send(`<!DOCTYPE html>\n${renderToString(html)}`);
       }).catch(

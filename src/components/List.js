@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { loadBattle } from '../actions';
 
 export default class List extends Component {
   /**

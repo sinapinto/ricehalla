@@ -21,4 +21,5 @@ export default class FetchButton extends Component {
 }
 
 FetchButton.propTypes = {
+  getBattle: PropTypes.func.isRequired,
 };
