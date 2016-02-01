@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import path from 'path';
 import express from 'express';
 import favicon from 'serve-favicon';
@@ -12,7 +14,7 @@ app.use(compression());
 app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
 app.use(express.static(path.join(__dirname, '../../static')));
 
-app.get('/api/battle', battle);
+app.get('/api/battle/:id', battle);
 
 app.all('*', render);
 

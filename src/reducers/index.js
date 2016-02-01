@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import counter from './counter';
+import battle from './battle';
 
+// keep in sync with the initial state used on the server.
 const rootReducer = combineReducers({
-  counter,
+  battle,
 });
 
 export default rootReducer;

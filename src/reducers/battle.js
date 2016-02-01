@@ -1,25 +1,28 @@
 import * as ActionTypes from '../actions';
 
 const initialState = {
-  magic: 1,
+  isFetching: false,
+  entities: {},
+  ids: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.COUNTER_REQUEST:
+    case ActionTypes.BATTLE_REQUEST:
       return {
         ...state,
-        magic: 10,
+        isFetching: true,
       };
-    case ActionTypes.COUNTER_SUCCESS:
+    case ActionTypes.BATTLE_SUCCESS:
       return {
         ...state,
-        magic: 20,
+        isFetching: false,
+        ids: state.ids.concat(parseInt(action.json.response, 10)),
       };
-    case ActionTypes.COUNTER_FAILURE:
+    case ActionTypes.BATTLE_FAILURE:
       return {
         ...state,
-        magic: 30,
+        isFetching: false,
       };
     default:
       return state;

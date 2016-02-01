@@ -1,20 +1,23 @@
 import { CALL_API } from '../middleware/api';
 
-export const COUNTER_REQUEST = 'COUNTER_REQUEST';
-export const COUNTER_SUCCESS = 'COUNTER_SUCCESS';
-export const COUNTER_FAILURE = 'COUNTER_FAILURE';
+export const BATTLE_REQUEST = 'BATTLE_REQUEST';
+export const BATTLE_SUCCESS = 'BATTLE_SUCCESS';
+export const BATTLE_FAILURE = 'BATTLE_FAILURE';
 
-function fetchCounter() {
+/**
+ * The "types" array will be used by the api middleware to be
+ * able to dispatch actions of different types.
+ */
+
+function fetchBattle(id) {
   return {
     [CALL_API]: {
-      types: [COUNTER_REQUEST, COUNTER_SUCCESS, COUNTER_FAILURE],
-      endpoint: 'api/counter',
+      types: [BATTLE_REQUEST, BATTLE_SUCCESS, BATTLE_FAILURE],
+      endpoint: `api/battle/${id}`,
     },
   };
 }
 
-export function loadCounter() {
-  return dispatch => {
-    return dispatch(fetchCounter());
-  };
+export function loadBattle(id) {
+  return dispatch => dispatch(fetchBattle(id));
 }

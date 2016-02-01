@@ -1,37 +1,32 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadCounter } from '../actions';
+import { loadBattle } from '../actions';
+import FetchButton from '../components/FetchButton';
+import List from '../components/List';
 
 class App extends Component {
-  static fetchData({ store }) {
-    return store.dispatch(loadCounter());
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.props.dispatch(loadCounter());
-  }
-
   render() {
+    const { status, ids, ...other } = this.props.battle;
+
     return (
       <div>
-        <button onClick={::this.handleClick}>click</button>
-        {' '}
-        Counter: {this.props.count.magic}
+        <FetchButton getBattle={this.props.loadBattle} />
+        <List isFetching={status}
+          ids={ids}
+          loadingLabel="fetching.."
+          {...other}
+        />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    count: state.counter,
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect(
+  state => ({ battle: state.battle }),
+  { loadBattle }
+)(App);
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  count: PropTypes.object.isRequired,
+  battle: PropTypes.object.isRequired,
+  loadBattle: PropTypes.func.isRequired,
 };

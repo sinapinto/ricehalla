@@ -4,6 +4,10 @@ const API_ROOT = 'http://localhost:3000/';
 
 export const CALL_API = Symbol('CALL_API');
 
+/**
+ * Middleware provides a third-party extension point between
+ * dispatching an action, and the moment it reaches the reducer.
+ */
 export default store => next => action => {
   const { [CALL_API]: callAPI, ...rest } = action;
   if (typeof callAPI === 'undefined') {
@@ -18,7 +22,7 @@ export default store => next => action => {
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected an array of three types');
   }
-  if (!types.every(type => typeof types === 'string')) {
+  if (!types.every(type => typeof type === 'string')) {
     throw new Error('Expected types to be strings');
   }
 
