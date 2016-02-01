@@ -6,5 +6,6 @@ require('babel-register');
 // keep in sync with .eslintrc
 global.__PORT__ = parseInt(process.env.PORT, 10) || 3000;
 global.__DEV__ = process.env.NODE_ENV !== 'production';
+global.__DEBUG__ = typeof process.env.DEBUG !== 'undefined';
 
 require('./server.js');

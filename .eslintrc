@@ -11,11 +11,11 @@
 
   "globals" : {
     "__DEV__": false,
-    "__PORT__": 3000
+    "__PORT__": 3000,
+    "__DEBUG__": true
   },
 
   "rules": {
-    "no-console": 0,
   },
 
 }
