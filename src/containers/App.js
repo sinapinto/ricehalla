@@ -21,7 +21,8 @@ class App extends Component {
       return (
         <h3
           onClick={this.handleDismiss}
-          style={{ color: "red" }}>
+          style={{ color: 'red' }}
+        >
           {errorMessage}
         </h3>
       );
@@ -54,7 +55,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect( mapStateToProps, {
+export default connect(mapStateToProps, {
   loadBattle,
   resetErrorMessage,
 })(App);
@@ -65,4 +66,5 @@ App.propTypes = {
   resetErrorMessage: PropTypes.func.isRequired,
   // state
   battle: PropTypes.object.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };

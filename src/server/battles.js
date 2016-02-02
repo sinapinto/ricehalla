@@ -4,8 +4,8 @@ const battles = [
 ];
 
 const error = {
-  message: "oh no! an error!",
-}
+  message: 'oh no! an error!',
+};
 
 function getMockData() {
   if (Math.random() > ERROR_CHANCE) {

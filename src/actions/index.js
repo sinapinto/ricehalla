@@ -27,5 +27,5 @@ export const RESET_ERROR = 'RESET_ERROR';
 export function resetErrorMessage() {
   return {
     type: RESET_ERROR,
-  }
+  };
 }
