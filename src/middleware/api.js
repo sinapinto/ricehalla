@@ -34,7 +34,7 @@ export default store => next => action => {
   return fetch(fullURL)
     .then(response => response.json())
     .then(
-      json => next({ ...rest, type: SUCCESS, json }),
+      json => next({ ...rest, type: SUCCESS, ...json }),
       error => next({ ...rest, type: FAILURE, error })
     );
 };

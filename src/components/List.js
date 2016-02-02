@@ -7,7 +7,7 @@ export default class List extends Component {
    * this component before rendering.
    */
   static fetchData({ store }) {
-    return store.dispatch(loadBattle(900));
+    return store.dispatch(loadBattle());
   }
 
   renderList() {

@@ -17,7 +17,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        ids: state.ids.concat(parseInt(action.json.response, 10)),
       };
     case ActionTypes.BATTLE_FAILURE:
       return {

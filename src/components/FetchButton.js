@@ -8,7 +8,7 @@ export default class FetchButton extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.getBattle(3);
+    this.props.loadBattle();
   }
 
   render() {
@@ -21,5 +21,5 @@ export default class FetchButton extends Component {
 }
 
 FetchButton.propTypes = {
-  getBattle: PropTypes.func.isRequired,
+  loadBattle: PropTypes.func.isRequired,
 };
