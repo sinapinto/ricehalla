@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadBattle, resetErrorMessage } from '../actions';
-import FetchButton from '../components/FetchButton';
-import List from '../components/List';
+import { loadBattle, resetErrorMessage } from '../../actions';
+import FetchButton from '../../components/FetchButton';
+import List from '../../components/List';
+import { Link } from 'react-router';
+import style from './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -19,10 +21,7 @@ class App extends Component {
     const { errorMessage } = this.props;
     if (errorMessage) {
       return (
-        <h3
-          onClick={this.handleDismiss}
-          style={{ color: 'red' }}
-        >
+        <h3 onClick={this.handleDismiss}>
           {errorMessage}
         </h3>
       );
@@ -37,12 +36,12 @@ class App extends Component {
       <div>
         {this.renderErrorMessage()}
         <FetchButton loadBattle={this.props.loadBattle} />
-        <List
-          isFetching={status}
-          ids={ids}
-          loadingLabel="fetching.."
-          {...other}
-        />
+        <List isFetching={status}
+              ids={ids}
+              loadingLabel="fetching.."
+              {...other} />
+        <Link className={style.piss} to="/create">sdlfkj</Link>
+        { this.props.children }
       </div>
     );
   }
@@ -66,5 +65,5 @@ App.propTypes = {
   resetErrorMessage: PropTypes.func.isRequired,
   // state
   battle: PropTypes.object.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
 };

@@ -9,15 +9,15 @@ import { Provider } from 'react-redux';
 import configureStore from '../store/configureStore';
 import createRoutes from '../containers/routes';
 
-import Page from './page';
+import Html from './Html';
 import prefetchData from './prefetchData';
-
 
 export default function render(req, res) {
   const scriptSrc = __DEV__
-    ? `http://localhost:${__PORT__ + 1}/dist/bundle.js`
+    ? `http://localhost:${__PORT__}/dist/bundle.js`
     : '/dist/bundle.js';
   const store = configureStore({
+    errorMessage: null,
     battle: {
       isFetching: false,
       entities: {},
@@ -28,11 +28,11 @@ export default function render(req, res) {
   const routes = createRoutes(createMemoryHistory());
 
   function hydrateClient() {
-    const html = <Page state={store.getState()} script={scriptSrc} />;
+    const html = <Html state={store.getState()} script={scriptSrc} />;
     res.send(`<!DOCTYPE html>\n${renderToString(html)}`);
   }
 
-  if (__DEBUG__) {
+  if (__DISABLE_SSR__) {
     hydrateClient();
     return;
   }
@@ -52,7 +52,7 @@ export default function render(req, res) {
           </Provider>
         );
         const html = (
-          <Page component={component}
+          <Html component={component}
             state={store.getState()}
             script={scriptSrc}
           />

@@ -1,6 +1,18 @@
 const ERROR_CHANCE = 0.5;
 
 const battles = [
+  {
+    id: 47,
+    name: 'rice battle!',
+    participants: [12, 32, 38],
+    entries: ['entry one', 'two', 'and three'],
+  },
+  {
+    id: 41,
+    name: 'rice battle number two!',
+    participants: [12, 32, 38],
+    entries: ['uno', 'dos', 'tres'],
+  },
 ];
 
 const error = {

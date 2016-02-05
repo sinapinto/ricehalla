@@ -8,7 +8,6 @@ function errorMessage(state = null, action) {
   if (type === ActionTypes.RESET_ERROR) {
     return null;
   }
-
   if (message) {
     return message;
   }

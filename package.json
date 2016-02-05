@@ -2,13 +2,16 @@
   "name": "ricewars",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrent --kill-others \"env NODE_ENV=development node src/server\" \"node webpack/webpack-dev-server.js\"",
-    "build": "npm run clean && npm run build:webpack",
-    "build:webpack": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
+    "start": "node static/dist/server.js",
+    "build:dev": "npm run clean && npm run build:dev:server && npm run build:dev:client",
+    "build:dev:client": "webpack --config webpack/client.babel.js",
+    "build:dev:server": "webpack --config webpack/server.babel.js",
+    "build:pro": "npm run clean && npm run build:pro:server && npm run build:pro:client",
+    "build:pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
+    "build:pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
-    "lint": "./node_modules/.bin/eslint -c .eslintrc src || exit 0",
-    "test": "mocha --require ./src/test/setup.js --compilers js:babel-core/register --recursive src/test/**/*.spec.js",
-    "test:watch": "npm test -- --watch"
+    "postinstall": "npm run build",
+    "lint": "eslint src || exit 0"
   },
   "repository": {
     "type": "git",
@@ -16,6 +19,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^6.3.1",
     "babel-core": "^6.3.15",
     "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
@@ -24,15 +28,14 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "babel-register": "^6.4.3",
-    "concurrently": "^1.0.0",
+    "css-loader": "^0.23.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^4.0.0",
     "eslint-plugin-react": "^3.11.3",
     "expect": "^1.13.4",
     "express": "^4.13.3",
-    "jsdom": "^7.2.2",
-    "mocha": "^2.3.4",
-    "react-addons-test-utils": "^0.14.6",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "postcss-loader": "^0.8.0",
     "react-transform-catch-errors": "^1.0.1",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.2.0",
@@ -40,6 +43,7 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
     "redux-logger": "^2.4.0",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"
@@ -55,5 +59,25 @@
     "redux": "^3.1.2",
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-1"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "eslint-config-airbnb",
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "globals": {
+      "__DEV__": false,
+      "__PORT__": 3000,
+      "__DISABLE_SSR__": true
+    }
   }
 }
