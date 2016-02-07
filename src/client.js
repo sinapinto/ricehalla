@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
-import createRouter from './containers/routes';
+import createRouter from './containers/Routes';
 import configureStore from './store/configureStore';
 import DevTools from './containers/DevTools';
 
@@ -17,6 +17,7 @@ render(
   rootElem
 );
 
+// re-render with redux devtools in development
 if (process.env.NODE_ENV !== 'production') {
   render(
     <Provider store={store}>

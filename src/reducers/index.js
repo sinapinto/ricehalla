@@ -14,7 +14,6 @@ function errorMessage(state = null, action) {
   return state;
 }
 
-// keep in sync with the initial state used on the server.
 const rootReducer = combineReducers({
   errorMessage,
   battle,

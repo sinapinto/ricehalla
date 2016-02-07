@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
-// import createLogger from 'redux-logger';
 import api from '../middleware/api';
 
 export default function configureStore(initialState) {
@@ -21,8 +20,7 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(...middleware),
-      // applyMiddleware(createLogger({ logger: console })),
-      DevTools.instrument() // must come after all async store enhancers
+      DevTools.instrument()
     )
   );
 

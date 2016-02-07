@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 class Create extends Component {
   constructor(props) {
@@ -15,4 +15,3 @@ class Create extends Component {
 }
 
 export default Create;
-

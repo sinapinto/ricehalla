@@ -1,18 +1,17 @@
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
+import postcss from './postcss.js';
 
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
-const PORT = process.env.PORT || 3000;
-
+const PORT = parseInt(process.env.PORT, 10) || 3000;
 const DEV = process.env.NODE_ENV !== 'production';
-
 const cssLoader = DEV ?
-  'css-loader/locals?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]' :
-  'css-loader/locals?minimize&modules&localIdentName=[hash:base64:4]'
+  'css/locals?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss' :
+  'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss';
 
-const nodeModules = fs.readdirSync( 'node_modules' )
+const nodeModules = fs.readdirSync('node_modules')
   .filter(file => !file.includes('.bin'))
   .map(mod => ({ [mod]: `commonjs ${mod}` }))
   .reduce((prev, curr) => ({ ...prev, ...curr }));
@@ -53,5 +52,6 @@ export default {
         loader: cssLoader
       },
     ]
-  }
-}
+  },
+  postcss
+};

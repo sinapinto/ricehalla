@@ -5,10 +5,8 @@ import { renderToString } from 'react-dom/server';
 import createLocation from 'history/lib/createLocation';
 import { RouterContext, match, createMemoryHistory } from 'react-router';
 import { Provider } from 'react-redux';
-
 import configureStore from '../store/configureStore';
-import createRoutes from '../containers/routes';
-
+import createRoutes from '../containers/Routes';
 import Html from './Html';
 import prefetchData from './prefetchData';
 
@@ -16,24 +14,17 @@ export default function render(req, res) {
   const scriptSrc = __DEV__
     ? `http://localhost:${__PORT__}/dist/bundle.js`
     : '/dist/bundle.js';
-  const store = configureStore({
-    errorMessage: null,
-    battle: {
-      isFetching: false,
-      entities: {},
-      ids: [],
-    },
-  });
+  const store = configureStore();
   const location = createLocation(req.url);
   const routes = createRoutes(createMemoryHistory());
 
-  function hydrateClient() {
+  function hydrateOnClient() {
     const html = <Html state={store.getState()} script={scriptSrc} />;
     res.send(`<!DOCTYPE html>\n${renderToString(html)}`);
   }
 
   if (__DISABLE_SSR__) {
-    hydrateClient();
+    hydrateOnClient();
     return;
   }
 
@@ -41,7 +32,7 @@ export default function render(req, res) {
     if (error) {
       console.error('ROUTER ERROR:', error);
       res.status(500);
-      hydrateClient();
+      hydrateOnClient();
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
@@ -61,7 +52,7 @@ export default function render(req, res) {
       }).catch(
         err => {
           console.error(err);
-          hydrateClient();
+          hydrateOnClient();
         });
     } else {
       res.status(404).send('Not found');

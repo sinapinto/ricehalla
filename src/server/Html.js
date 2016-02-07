@@ -1,12 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { renderToString } from 'react-dom/server';
 
-function getStateMarkup(state) {
-  return {
-    __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`,
-  };
-}
-
 export default class Page extends Component {
   static propTypes = {
     component: PropTypes.element,
@@ -32,7 +26,10 @@ export default class Page extends Component {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
-          <script dangerouslySetInnerHTML={getStateMarkup(state)} />
+          <script dangerouslySetInnerHTML={{
+            __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
+          }}
+          />
           <script src={script} charSet="UTF-8" />
         </body>
       </html>

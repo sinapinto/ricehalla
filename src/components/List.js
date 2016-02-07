@@ -11,6 +11,9 @@ export default class List extends Component {
   }
 
   renderList() {
+    if (!this.props.ids) {
+      return null;
+    }
     return this.props.ids.map(id => <li key={id}>id: {id}</li>);
   }
 

@@ -1,39 +1,37 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import postcss from './postcss.js';
 
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
-const port = process.env.PORT || 3000;
-
+const PORT = parseInt(process.env.PORT, 10) || 3000;
 const DEV = process.env.NODE_ENV !== 'production';
-
 const cssLoader = DEV ?
-  'css-loader?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]' :
-  'css-loader?minimize&modules&localIdentName=[hash:base64:4]'
+  'style!css?modules&sourceMap&localIdentName=[name]_[local]_[hash:base64:3]!postcss' :
+  ExtractTextPlugin.extract('style', 'css?minimize&modules&localIdentName=[hash:base64:4]!postcss');
 
 export default {
   context: rootPath,
   devtool: DEV ? 'cheap-module-eval-source-map' : 'source-map',
-  entry: (DEV ? [
-    `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+  entry: DEV ? [
+    `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
     './src/client.js'
-  ] : ['./src/client.js']),
+  ] : ['./src/client.js'],
   output: {
     filename: 'bundle.js',
     path: assetsPath,
-    publicPath: DEV ? `http://localhost:${port}/dist/` : '/dist/'
+    publicPath: DEV ? `http://localhost:${PORT}/dist/` : '/dist/'
   },
   target: 'web',
-  plugins: (DEV ? [
+  plugins: DEV ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('[name].css'),
   ] : [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new ExtractTextPlugin('[name].css'),
@@ -42,7 +40,7 @@ export default {
         warnings: false
       }
     })
-  ]),
+  ],
   module: {
     loaders: [
       {
@@ -70,8 +68,9 @@ export default {
         }
       }, {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', cssLoader)
+        loader: cssLoader
       },
     ]
-  }
-}
+  },
+  postcss
+};
