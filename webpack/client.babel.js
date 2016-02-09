@@ -16,8 +16,12 @@ export default {
   devtool: DEV ? 'cheap-module-eval-source-map' : 'source-map',
   entry: DEV ? [
     `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+    'font-awesome-webpack!./src/config/font-awesome.config.js',
     './src/client.js'
-  ] : ['./src/client.js'],
+  ] : [
+    'font-awesome-webpack!./src/config/font-awesome.config.prod.js',
+    './src/client.js'
+  ],
   output: {
     filename: 'bundle.js',
     path: assetsPath,
@@ -69,6 +73,14 @@ export default {
       }, {
         test: /\.css$/,
         loader: cssLoader
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
       },
     ]
   },
