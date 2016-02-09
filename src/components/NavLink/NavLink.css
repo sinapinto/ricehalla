@@ -1,0 +1,14 @@
+.navLink {
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #4183c4;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  color: #1e70bf;
+}
+
+.navLink + .navLink {
+  margin-left: 1em;
+}

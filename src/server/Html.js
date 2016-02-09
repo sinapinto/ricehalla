@@ -22,7 +22,9 @@ export default class Page extends Component {
         <head>
           <meta charSet="UTF-8" />
           <title>ricewars™</title>
-          <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8"/>
+          {/* style-loader is used in dev */}
+          { !__DEV__ &&
+            <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8"/> }
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>

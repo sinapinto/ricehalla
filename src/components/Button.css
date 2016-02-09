@@ -1,0 +1,23 @@
+.btnDefault {
+  cursor: pointer;
+  background-color: #e0e1e2;
+  color: rgba(0,0,0,.6);
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 1.0em 1.0em;
+  border-radius: 4px;
+}
+
+.btnDefault:hover {
+  background-color: #cacbcd;
+  color: rgba(0,0,0,.8);
+}
+
+.primary {
+}
+
+.primary:hover {
+}

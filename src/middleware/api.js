@@ -4,9 +4,7 @@ const API_ROOT = 'http://localhost:3000/';
 
 export const CALL_API = Symbol('CALL_API');
 
-/* eslint-disable no-unused-vars */
-export default store => next => action => {
-/* eslint-enable no-unused-vars */
+export default store => next => action => { // eslint-disable-line no-unused-vars
   const { [CALL_API]: callAPI, ...rest } = action;
   if (typeof callAPI === 'undefined') {
     return next(action);

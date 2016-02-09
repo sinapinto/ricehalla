@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from "./Button.css";
 
 export default class FetchButton extends Component {
   constructor() {
@@ -12,11 +13,7 @@ export default class FetchButton extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <button onClick={this.handleClick}>Fetch Data</button>
-      </div>
-    );
+    return <button className={styles.btnDefault} onClick={this.handleClick}>Fetch Data</button>;
   }
 }
 

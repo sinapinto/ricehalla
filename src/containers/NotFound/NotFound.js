@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import styles from './NotFound.css';
 
 class NotFound extends Component {
   render() {
     return (
-      <div>
-        not found
+      <div className={styles.wrapper}>
+        not found :-(
       </div>
     );
   }

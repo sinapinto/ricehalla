@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { loadBattle, resetErrorMessage } from '../../actions';
 import FetchButton from '../../components/FetchButton';
 import List from '../../components/List';
-import { Link } from 'react-router';
 import styles from './Home.css';
 
 class Home extends Component {
@@ -32,15 +31,22 @@ class Home extends Component {
   render() {
     const { isFetching, ids, ...other } = this.props.battle;
     return (
-      <div className={styles.home}>
-        <h3>HOme view</h3>
+      <div className={styles.wrapper}>
+        <h1 className={styles.header}>Welcome to rice wars</h1>
+        <p className={styles.paragraph}> Lorem ipsum dolor sit amet,
+          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+          non proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.</p>
         {this.renderErrorMessage()}
         <FetchButton loadBattle={this.props.loadBattle} />
         <List isFetching={isFetching}
           ids={ids}
           loadingLabel="fetching.."
         />
-        <Link className={styles.piss} to="/create">sdlfkj</Link>
       </div>
     );
   }

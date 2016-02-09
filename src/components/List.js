@@ -2,10 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { loadBattle } from '../actions';
 
 export default class List extends Component {
-  /**
-   * used by the server to fetch data needed by
-   * this component before rendering.
-   */
   static fetchData({ store }) {
     return store.dispatch(loadBattle());
   }

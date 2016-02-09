@@ -37,7 +37,7 @@ export default {
       },
       __PORT__: PORT,
       __DEV__: DEV,
-      __DISABLE_SSR__: false,
+      __DISABLE_SSR__: true,
     }),
   ],
   module: {

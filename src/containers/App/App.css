@@ -1,0 +1,41 @@
+@import "../../styles/variables.css";
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  border-bottom: 1px solid #dddddd;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.04);
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.navWrapper {
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.navLogo {
+  font-weight: 700;
+  user-select: none;
+  font-size: 1.2em;
+  margin: 0;
+  text-decoration: none;
+  color: #2BD294;
+}
+
+.appContent {
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+}

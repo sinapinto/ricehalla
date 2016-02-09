@@ -1,6 +1,16 @@
-.home {
-  font-size: 40px;
+@import "../../styles/variables.css";
+
+.wrapper {
+  margin: 3em auto;
 }
-.piss {
-  color: red;
+
+.header {
+  font-size: 26px;
+  font-weight: normal;
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 1.5em;
+  color: rgba(0,0,0,0.87);
 }
