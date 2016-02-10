@@ -4,9 +4,11 @@ class Register extends Component {
   render() {
     return (
       <div>
+        todo
       </div>
     );
   }
 }
 
 export default Register;
+

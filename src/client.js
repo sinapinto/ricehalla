@@ -19,7 +19,7 @@ render(
 );
 
 // re-render with redux devtools in development
-if (process.env.NODE_ENV !== 'production') {
+if (__DEV__ && __DEVTOOLS__) {
   render(
     <Provider store={store}>
       <div>

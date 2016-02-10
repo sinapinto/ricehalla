@@ -1,14 +1,14 @@
 .navLink {
-  font-size: 0.9em;
+  font-size: 0.8em;
+  font-weight: 700;
   text-decoration: none;
-  color: #4183c4;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .navLink:hover {
-  text-decoration: underline;
-  color: #1e70bf;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .navLink + .navLink {
-  margin-left: 1em;
+  margin-left: 2em;
 }

@@ -84,7 +84,8 @@
     "globals": {
       "__DEV__": false,
       "__PORT__": 3000,
-      "__DISABLE_SSR__": false
+      "__DISABLE_SSR__": false,
+      "__DEVTOOLS__": false
     },
     "rules": {
       "comma-dangle": 0

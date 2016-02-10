@@ -14,12 +14,9 @@ const cssLoader = DEV ?
 export default {
   context: rootPath,
   devtool: DEV ? 'cheap-module-eval-source-map' : 'source-map',
-  entry: DEV ? [
-    `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
-    'font-awesome-webpack!./src/config/font-awesome.config.js',
-    './src/client.js'
-  ] : [
-    'font-awesome-webpack!./src/config/font-awesome.config.prod.js',
+  entry: [
+    DEV && `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+    `font-awesome-webpack!./src/config/font-awesome.config.${DEV ? '' : 'prod.'}js`,
     './src/client.js'
   ],
   output: {
@@ -31,12 +28,21 @@ export default {
   plugins: DEV ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-  ] : [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      },
+      __DEVTOOLS__: false, // rebuild after changing
+      __DEV__: true,
+    }),
+  ] : [ // prod
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
-      }
+      },
+      __DEVTOOLS__: true,
+      __DEV__: false,
     }),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.UglifyJsPlugin({

@@ -6,7 +6,7 @@ import styles from './App.css';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className={styles.appWrapper}>
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>rice&nbsp;wars</Link>
@@ -16,9 +16,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div className={styles.appContent}>
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
     );
   }

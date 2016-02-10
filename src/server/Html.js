@@ -21,6 +21,7 @@ export default class Page extends Component {
       <html>
         <head>
           <meta charSet="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>ricewars™</title>
           {/* style-loader is used in dev */}
           { !__DEV__ &&

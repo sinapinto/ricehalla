@@ -1,14 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadBattle, resetErrorMessage } from '../../actions';
-import FetchButton from '../../components/FetchButton';
+import Button from '../../components/Button/Button.js';
 import List from '../../components/List';
 import styles from './Home.css';
 
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.handleDismiss = this.handleDismiss.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.props.loadBattle();
   }
 
   handleDismiss(e) {
@@ -31,7 +37,7 @@ class Home extends Component {
   render() {
     const { isFetching, ids, ...other } = this.props.battle;
     return (
-      <div className={styles.wrapper}>
+      <section className={styles.textSection}>
         <h1 className={styles.header}>Welcome to rice wars</h1>
         <p className={styles.paragraph}> Lorem ipsum dolor sit amet,
           consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -42,12 +48,12 @@ class Home extends Component {
           non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.</p>
         {this.renderErrorMessage()}
-        <FetchButton loadBattle={this.props.loadBattle} />
+        <Button handleClick={this.handleClick}>Fetch Data</Button>
         <List isFetching={isFetching}
           ids={ids}
           loadingLabel="fetching.."
         />
-      </div>
+      </section>
     );
   }
 }
