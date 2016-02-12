@@ -26,3 +26,37 @@
   text-align: center;
   font-size: 1em;
 }
+
+/* input */
+.inputWrapper {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.inputWrapper i {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+  cursor: default;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 2em;
+  text-align: center;
+  top: 50%;
+  margin-top: -0.5em;
+}
+
+.input {
+  font-size: 0.9em;
+  font-weight: 300;
+  width: 100%;
+  padding: 10px 20px 10px 30px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.input:focus {
+  border: 1px solid rgba(0,0,0,0.3);
+  outline: none;
+}

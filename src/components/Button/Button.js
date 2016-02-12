@@ -1,10 +1,17 @@
 import React, { PropTypes } from 'react';
 import styles from './Button.css';
 
-const Button = ({ handleClick, children, ...other }) => (
+const themes = {
+  normal: styles.btnNormal,
+  primary: styles.btnPrimary,
+  success: styles.btnSuccess,
+  error: styles.btnError,
+};
+
+const Button = ({ handleClick, theme = 'normal', children, ...other }) => (
   <button {...other}
     type="submit"
-    className={styles.btnDefault}
+    className={themes[theme]}
     onClick={handleClick}
   >
     {children}
@@ -15,5 +22,6 @@ export default Button;
 
 Button.propTypes = {
   handleClick: PropTypes.func.isRequired,
+  theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
   children: PropTypes.string.isRequired,
 };

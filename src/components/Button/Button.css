@@ -1,6 +1,7 @@
-.btnDefault {
+/* default */
+.btnNormal {
   cursor: pointer;
-  background-color: #e0e1e2;
+  background-color: rgb(217, 218, 219);
   color: rgba(0,0,0,.6);
   font-weight: 700;
   font-size: 0.9em;
@@ -12,8 +13,59 @@
   padding: 0.8em 1em;
   border-radius: 4px;
 }
-
-.btnDefault:hover {
-  background-color: #cacbcd;
+.btnNormal:hover {
+  background-color: rgb(202, 203, 205);
   color: rgba(0,0,0,.8);
+}
+.btnNormal:active
+.btnNormal:focus, {
+  background-color: rgb(193, 194, 195);
+}
+
+/* primary */
+.btnPrimary {
+  composes: btnNormal;
+  background-color: rgb(33, 133, 208);
+  color: rgb(255,255,255);
+}
+.btnPrimary:hover {
+  background-color: rgb(22, 120, 194);
+  color: rgb(255,255,255);
+}
+.btnPrimary:active,
+.btnPrimary:focus {
+  background-color: rgb(26, 105, 165);
+  color: rgb(255,255,255);
+}
+
+/* success */
+.btnSuccess {
+  composes: btnNormal;
+  background-color: rgb(33, 186, 69);
+  color: rgb(255,255,255);
+}
+.btnSuccess:hover {
+  background-color: rgb(22, 171, 57);
+  color: rgb(255,255,255);
+}
+.btnSuccess:active,
+.btnSuccess:focus {
+  background-color: rgb(25, 144, 53);
+  color: rgb(255,255,255);
+}
+
+/* error */
+.btnError {
+  composes: btnNormal;
+  background-color: rgb(219, 40, 40);
+  color: rgb(255,255,255);
+}
+.btnError:hover {
+  background-color: rgb(209, 26, 26);
+  color: rgb(255,255,255);
+}
+.btnError:active,
+.btnError:focus {
+  background-color: rgb(181, 31, 31);
+  color: rgb(255,255,255);
 }

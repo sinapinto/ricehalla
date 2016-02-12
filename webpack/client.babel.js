@@ -32,8 +32,9 @@ export default {
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       },
-      __DEVTOOLS__: false, // rebuild after changing
+      __DEVTOOLS__: true, // rebuild after changing
       __DEV__: true,
+      __PORT__: PORT,
     }),
   ] : [ // prod
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -43,6 +44,7 @@ export default {
       },
       __DEVTOOLS__: true,
       __DEV__: false,
+      __PORT__: PORT,
     }),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.UglifyJsPlugin({

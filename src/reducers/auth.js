@@ -1,27 +1,30 @@
 import * as ActionTypes from '../actions';
 
 const initialState = {
-  isFetching: false,
-  entities: {},
-  ids: [],
+  loggingIn: false,
+  user: null,
+  error: null,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.BATTLE_REQUEST:
+    case ActionTypes.LOGIN_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        loggingIn: true,
       };
-    case ActionTypes.BATTLE_SUCCESS:
+    case ActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        loggingIn: false,
+        user: 'bob',
       };
-    case ActionTypes.BATTLE_FAILURE:
+    case ActionTypes.LOGIN_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        loggingIn: false,
+        user: null,
+        loginError: action.error,
       };
     default:
       return state;

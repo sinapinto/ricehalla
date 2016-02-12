@@ -22,7 +22,7 @@ render(
 if (__DEV__ && __DEVTOOLS__) {
   render(
     <Provider store={store}>
-      <div>
+      <div style={{ height: '100%' }}>
         { createRouter(browserHistory) }
         <DevTools />
       </div>

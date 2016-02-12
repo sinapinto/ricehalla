@@ -1,22 +1,8 @@
 import { combineReducers } from 'redux';
-import * as ActionTypes from '../actions';
-import battle from './battle';
-
-function errorMessage(state = null, action) {
-  const { type, message } = action;
-
-  if (type === ActionTypes.RESET_ERROR) {
-    return null;
-  }
-  if (message) {
-    return message;
-  }
-  return state;
-}
+import auth from './auth';
 
 const rootReducer = combineReducers({
-  errorMessage,
-  battle,
+  auth,
 });
 
 export default rootReducer;

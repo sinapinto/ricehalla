@@ -1,41 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { loadBattle, resetErrorMessage } from '../../actions';
-import Button from '../../components/Button/Button.js';
-import List from '../../components/List';
+import React, { Component } from 'react';
 import styles from './Home.css';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDismiss = this.handleDismiss.bind(this);
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.props.loadBattle();
-  }
-
-  handleDismiss(e) {
-    e.preventDefault();
-    this.props.resetErrorMessage();
-  }
-
-  renderErrorMessage() {
-    const { errorMessage } = this.props;
-    if (errorMessage) {
-      return (
-        <h3 onClick={this.handleDismiss}>
-          {errorMessage}
-        </h3>
-      );
-    }
-    return null;
-  }
-
   render() {
-    const { isFetching, ids, ...other } = this.props.battle;
     return (
       <section className={styles.textSection}>
         <h1 className={styles.header}>Welcome to rice wars</h1>
@@ -47,28 +14,9 @@ class Home extends Component {
           dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
           non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.</p>
-        {this.renderErrorMessage()}
-        <Button handleClick={this.handleClick}>Fetch Data</Button>
-        <List isFetching={isFetching}
-          ids={ids}
-          loadingLabel="fetching.."
-        />
       </section>
     );
   }
 }
 
-export default connect(
-  state => ({
-    battle: state.battle,
-    errorMessage: state.errorMessage
-  }),
-  { loadBattle, resetErrorMessage }
-)(Home);
-
-Home.propTypes = {
-  loadBattle: PropTypes.func.isRequired,
-  battle: PropTypes.object.isRequired,
-  resetErrorMessage: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string,
-};
+export default Home;
