@@ -7,9 +7,6 @@ const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 const DEV = process.env.NODE_ENV !== 'production';
-const cssLoader = DEV ?
-  'css/locals?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss' :
-  'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss';
 
 const nodeModules = fs.readdirSync('node_modules')
   .filter(file => !file.includes('.bin'))
@@ -49,7 +46,9 @@ export default {
         query: { presets: ['react', 'es2015', 'stage-1'] }
       }, {
         test: /\.css$/,
-        loader: cssLoader
+        loader: DEV
+          ? 'css/locals?modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss'
+          : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'
       },
     ]
   },

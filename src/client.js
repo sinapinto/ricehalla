@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import createRouter from './containers/Routes';
 import configureStore from './store/configureStore';
 import DevTools from './containers/DevTools';
-import 'font-awesome/css/font-awesome.min.css';
+import './styles/fontawesome.global.css';
 
 const store = configureStore(window.__INITIAL_STATE__);
 const rootElem = document.getElementById('root');
