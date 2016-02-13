@@ -14,9 +14,12 @@ const cssLoader = DEV ?
 export default {
   context: rootPath,
   devtool: DEV ? 'cheap-module-eval-source-map' : 'source-map',
-  entry: [
-    DEV && `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
-    `font-awesome-webpack!./src/config/font-awesome.config.${DEV ? '' : 'prod.'}js`,
+  entry: DEV ? [
+    `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+    'font-awesome-webpack!./src/config/font-awesome.config.js',
+    './src/client.js'
+  ] : [
+    'font-awesome-webpack!./src/config/font-awesome.config.prod.js',
     './src/client.js'
   ],
   output: {
