@@ -6,6 +6,7 @@ import { login, clearErrorMessage } from '../../actions';
 
 class Login extends Component {
   constructor(props) {
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -20,9 +21,13 @@ class Login extends Component {
     return (
       <div className={styles.wrapper}>
         <form className={styles.form}>
-          <h2 className={styles.heading}>Login</h2>
+          <div style={{ marginBottom: '20px' }}>
+            <span className="fa-stack fa-4x">
+              <i className="fa fa-circle fa-stack-2x" style={{ color: 'rgb(225,225,225)' }}></i>
+              <i className="fa fa-user fa-stack-1x" style={{ color: 'rgb(189,189,189)' }}></i>
+            </span>
+          </div>
           <div className={styles.inputWrapper}>
-            <i className="fa fa-user"></i>
             <input
               autoFocus="true"
               type="text"
@@ -33,7 +38,6 @@ class Login extends Component {
             />
           </div>
           <div className={styles.inputWrapper}>
-            <i className="fa fa-lock"></i>
             <input
               type="password"
               ref="password"
@@ -45,7 +49,7 @@ class Login extends Component {
           <Button
             theme="primary"
             handleClick={this.handleSubmit}
-            style={{ width: '80%' }}
+            style={{ width: '100%' }}
           >
             Sign In
           </Button>

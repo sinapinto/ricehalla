@@ -5,11 +5,11 @@ module.exports = {
     mixins: false,
     'bordered-pulled': false,
     'fixed-width': false,
-    larger: false,
+    larger: true,
     list: false,
     path: false,
     'rotated-flipped': false,
     animated: false,
-    stacked: false
+    stacked: true
   }
 };

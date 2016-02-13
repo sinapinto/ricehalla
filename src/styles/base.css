@@ -1,11 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+/* @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700); */
 
-html {
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
+:root {
+  font-family: Arial;
 }
 
 html,
@@ -16,18 +12,16 @@ body {
   width: 100%;
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 body {
   padding-top: 3.5em;
-}
-
-:global(#root) {
-  height: 100%;
-}
-
-:root {
-  font-family: "Lato", Arial;
-  font-weight: 400;
-  --nav-height: 20px;
 }
 
 button,
@@ -36,4 +30,8 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+}
+
+:global(#root) {
+  height: 100%;
 }
