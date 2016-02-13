@@ -21,7 +21,6 @@ const Button = ({ handleClick, theme = 'normal', children, ...other }) => (
 export default Button;
 
 Button.propTypes = {
-  handleClick: PropTypes.func.isRequired,
   theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
   children: PropTypes.string.isRequired,
 };

@@ -47,3 +47,7 @@
   border: 1px solid rgb(33, 133, 208);
   outline: none;
 }
+
+.invalid, .invalid:focus, .invalid:hover, .invalid:active {
+  border: 1px solid rgb(245, 0, 0);
+}
