@@ -1,12 +1,14 @@
+/* eslint-disable max-len */
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import postcss from './postcss.js';
 
+const DEV = process.env.NODE_ENV !== 'production';
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-const DEV = process.env.NODE_ENV !== 'production';
 
 export default {
   context: rootPath,
@@ -30,7 +32,6 @@ export default {
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       },
-      __DEVTOOLS__: true, // rebuild after changing
       __DEV__: true,
       __PORT__: PORT,
     }),
@@ -40,7 +41,6 @@ export default {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       },
-      __DEVTOOLS__: true,
       __DEV__: false,
       __PORT__: PORT,
     }),

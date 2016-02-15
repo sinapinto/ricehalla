@@ -1,30 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import Button from '../../components/Button/Button.js';
 import styles from './Login.css';
-import { login, clearErrorMessage } from '../../actions/index.js';
+import { login } from '../../actions/auth.js';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
+      username: '',
+      password: '',
       invalidUsername: false,
       invalidPassword: false,
     };
   }
 
+  handleChange(e) {
+    if (e.target.type === 'password') {
+      this.setState({ password: e.target.value });
+    } else {
+      this.setState({ username: e.target.value });
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const username = this.refs.username.value;
-    const password = this.refs.password.value;
+    const { username, password } = this.state;
 
     if (validator.isNull(username) || !validator.isAlphanumeric(username)) {
+      this.refs.username.focus();
       this.setState({
         invalidUsername: true
       });
     } else if (validator.isNull(password) || !validator.isAlphanumeric(password)) {
+      this.refs.password.focus();
       this.setState({
         invalidUsername: false,
         invalidPassword: true,
@@ -54,7 +66,7 @@ class Login extends Component {
             <input
               autoFocus="true"
               type="text"
-              ref="username"
+              onChange={this.handleChange}
               placeholder="Username"
               className={`${styles.input} ${invalidUsername && styles.invalid}`}
               required
@@ -63,8 +75,8 @@ class Login extends Component {
           <div className={styles.inputWrapper}>
             <input
               type="password"
-              ref="password"
               placeholder="Password"
+              onChange={this.handleChange}
               className={`${styles.input} ${invalidPassword && styles.invalid}`}
               required
             />
@@ -83,6 +95,10 @@ class Login extends Component {
 }
 
 export default connect(
-  state => ({ user: state.auth.user }),
-  { login, clearErrorMessage }
+  state => state,
+  { login }
 )(Login);
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};

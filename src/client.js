@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import createRouter from './containers/Routes';
-import configureStore from './store/configureStore';
+import configureStore from './utils/configureStore';
 import DevTools from './containers/DevTools';
 import './styles/fontawesome.global.css';
 
@@ -13,17 +13,17 @@ const rootElem = document.getElementById('root');
 
 render(
   <Provider store={store}>
-      { createRouter(browserHistory) }
+      { createRouter(browserHistory, store) }
   </Provider>,
   rootElem
 );
 
 // re-render with redux devtools in development
-if (__DEV__ && __DEVTOOLS__) {
+if (__DEV__) {
   render(
     <Provider store={store}>
       <div style={{ height: '100%' }}>
-        { createRouter(browserHistory) }
+        { createRouter(browserHistory, store) }
         <DevTools />
       </div>
     </Provider>,

@@ -2,10 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
-import api from '../middleware/api';
 
 export default function configureStore(initialState) {
-  const middleware = [thunk, api];
+  const middleware = [thunk];
 
   if (process.env.NODE_ENV === 'production') {
     return createStore(

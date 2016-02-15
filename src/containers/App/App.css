@@ -11,7 +11,7 @@
   padding: 1em;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: rgb(247, 247, 247);
   z-index: 1;
 }
 
@@ -38,5 +38,5 @@
   font-size: 1.2em;
   margin: 0;
   text-decoration: none;
-  color: rgb(0, 53, 93);
+  color: rgb(22, 120, 194);
 }

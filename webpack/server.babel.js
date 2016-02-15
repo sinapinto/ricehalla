@@ -3,13 +3,14 @@ import fs from 'fs';
 import webpack from 'webpack';
 import postcss from './postcss.js';
 
+const DEV = process.env.NODE_ENV !== 'production';
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-const DEV = process.env.NODE_ENV !== 'production';
 
 const nodeModules = fs.readdirSync('node_modules')
-  .filter(file => !file.includes('.bin'))
+  .filter(file => file !== '.bin')
   .map(mod => ({ [mod]: `commonjs ${mod}` }))
   .reduce((prev, curr) => ({ ...prev, ...curr }));
 

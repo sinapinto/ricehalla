@@ -1,22 +1,22 @@
 /* eslint-disable no-console */
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import createLocation from 'history/lib/createLocation';
 import { RouterContext, match, createMemoryHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from '../store/configureStore';
-import createRoutes from '../containers/Routes';
+import configureStore from '../utils/configureStore';
+import createRouter from '../containers/Routes';
 import Html from './Html';
-import prefetchData from './prefetchData';
+import prefetchData from '../utils/prefetchData';
 
 export default function render(req, res) {
   const scriptSrc = __DEV__
     ? `http://localhost:${__PORT__}/dist/bundle.js`
     : '/dist/bundle.js';
-  const store = configureStore();
+  const token = req.cookies.token;
+  const store = configureStore({ auth: { token } });
   const location = createLocation(req.url);
-  const routes = createRoutes(createMemoryHistory());
+  const routes = createRouter(createMemoryHistory(), store);
 
   function hydrateOnClient() {
     const html = <Html state={store.getState()} script={scriptSrc} />;
