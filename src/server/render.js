@@ -14,6 +14,7 @@ export default function render(req, res) {
     ? `http://localhost:${__PORT__}/dist/bundle.js`
     : '/dist/bundle.js';
   const token = req.cookies.token;
+  // verify?
   const store = configureStore({ auth: { token } });
   const location = createLocation(req.url);
   const routes = createRouter(createMemoryHistory(), store);
@@ -21,11 +22,6 @@ export default function render(req, res) {
   function hydrateOnClient() {
     const html = <Html state={store.getState()} script={scriptSrc} />;
     res.send(`<!DOCTYPE html>\n${renderToString(html)}`);
-  }
-
-  if (__DISABLE_SSR__) {
-    hydrateOnClient();
-    return;
   }
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {

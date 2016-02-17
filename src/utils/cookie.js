@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default {
   set({ key, value = '', path = '/', domain = '', expires = '' }) {
     if (typeof window === 'undefined' || !window.document) {
@@ -25,4 +23,4 @@ export default {
   remove(key) {
     return this.set({ key, expires: 'Thu, 01 Jan 1970 00:00:00 GMT' });
   },
-}
+};

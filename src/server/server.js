@@ -31,11 +31,11 @@ app.use(express.static(path.join(__dirname, '../../static')));
 
 app.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'aa' && password === 'bb') {
-    const token = jwt.sign({ username }, 'secret-key', { expiresIn: 10 });
-    res.status(201).cookie('token', token).json({ token });
+  if (username !== 'aa' || password !== 'bb') {
+    res.sendStatus(401);
   } else {
-    res.status(401).send('Authentication failure.');
+    const token = jwt.sign({ username }, 'secret-key', { expiresIn: "10h" });
+    res.status(201).cookie('token', token).json({ token });
   }
 });
 

@@ -1,12 +1,10 @@
 import * as ActionTypes from '../actions/auth';
-import jwtDecode from 'jwt-decode';
 
 const initialState = {
   isFetching: false,
   isAuthenticated: false,
-  username: null,
   token: null,
-  statusText: '',
+  loginError: '',
 };
 
 export default function (state = initialState, action) {
@@ -20,23 +18,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        username: jwtDecode(action.token).username,
+        isAuthenticated: true,
         token: action.token,
-        statusText: 'Logged in',
+        loginError: '',
       };
     case ActionTypes.LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
-        username: null,
+        isAuthenticated: false,
         token: null,
-        statusText: `Authentication error: ${action.errorMessage}`,
+        loginError: action.error,
       };
     case ActionTypes.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        username: null,
         token: null,
       };
     default:

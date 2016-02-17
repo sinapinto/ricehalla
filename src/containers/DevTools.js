@@ -10,6 +10,6 @@ export default createDevTools(
     defaultPosition="left"
     defaultIsVisible={false}
   >
-    <LogMonitor expandActionRoot={true} expandStateRoot={true} />
+    <LogMonitor expandActionRoot expandStateRoot />
   </DockMonitor>
 );

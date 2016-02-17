@@ -1,5 +1,13 @@
 @import "../../styles/base.css";
 
+.root {
+  padding: 0 16px;
+  display: flex;
+  height: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
 .nav {
   position: fixed;
   top: 0;
@@ -13,14 +21,6 @@
   align-items: center;
   background-color: rgb(247, 247, 247);
   z-index: 1;
-}
-
-.appWrapper {
-  padding: 0 16px;
-  display: flex;
-  height: 100%;
-  max-width: 768px;
-  margin: 0 auto;
 }
 
 .navWrapper {

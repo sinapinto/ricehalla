@@ -23,6 +23,10 @@
   margin-bottom: 10px;
 }
 
+.error {
+  color: rgb(220, 40, 40);
+}
+
 /* input */
 .inputWrapper {
   position: relative;

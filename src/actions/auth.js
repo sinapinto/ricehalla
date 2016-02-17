@@ -17,7 +17,7 @@ function loginRequest() {
 function loginError(error) {
   return {
     type: LOGIN_FAILURE,
-    errorMessage: error.message || 'something went wrong',
+    error: error.message || 'An unkown error occured. Try again later.',
   };
 }
 
@@ -32,16 +32,22 @@ export function login(username, password) {
       },
       body: JSON.stringify({ username, password }),
     })
-    .then(response => response.json())
-    .then(response => {
+    .then(res => {
+      if (res.status >= 200 && res.status < 300) {
+        return res;
+      }
+      throw new Error('Invalid username or password');
+    })
+    .then(res => res.json())
+    .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
         username,
-        token: response.token,
+        token: res.token,
       });
       cookie.set({
         key: 'token',
-        value: response.token,
+        value: res.token,
         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       });
       browserHistory.push('/dashboard');

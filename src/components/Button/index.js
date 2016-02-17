@@ -8,15 +8,17 @@ const themes = {
   error: styles.btnError,
 };
 
-const Button = ({ handleClick, theme = 'normal', children, ...other }) => (
-  <button {...other}
-    type="submit"
-    className={themes[theme]}
-    onClick={handleClick}
-  >
-    {children}
-  </button>
-);
+function Button({ handleClick, theme = 'normal', children, ...other }) {
+  return (
+    <button {...other}
+      type="submit"
+      className={themes[theme]}
+      onClick={handleClick}
+    >
+      {children}
+    </button>
+  );
+}
 
 export default Button;
 

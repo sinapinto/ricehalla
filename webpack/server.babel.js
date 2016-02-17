@@ -11,8 +11,7 @@ const assetsPath = path.resolve(rootPath, './static/dist');
 
 const nodeModules = fs.readdirSync('node_modules')
   .filter(file => file !== '.bin')
-  .map(mod => ({ [mod]: `commonjs ${mod}` }))
-  .reduce((prev, curr) => ({ ...prev, ...curr }));
+  .map(mod => ({ [mod]: `commonjs ${mod}` }));
 
 export default {
   context: rootPath,
@@ -35,7 +34,6 @@ export default {
       },
       __PORT__: PORT,
       __DEV__: DEV,
-      __DISABLE_SSR__: false,
     }),
   ],
   module: {
