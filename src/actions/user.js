@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import cookie from '../utils/cookie'
 
 const API_BASE = `http://localhost:${__PORT__}`;
 
@@ -52,5 +51,5 @@ export function loadUser() {
     .catch(error => {
       dispatch(userFailure());
     });
-  }
+  };
 }

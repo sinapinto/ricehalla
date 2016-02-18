@@ -10,9 +10,6 @@ import Html from './Html';
 import prefetchData from '../utils/prefetchData';
 
 export default function render(req, res) {
-  const scriptSrc = __DEV__
-    ? `http://localhost:${__PORT__}/dist/bundle.js`
-    : '/dist/bundle.js';
   const token = req.cookies.token;
   const initialState = {
     auth: {
@@ -25,7 +22,7 @@ export default function render(req, res) {
   const routes = createRouter(createMemoryHistory(), store);
 
   function hydrateOnClient() {
-    const html = <Html state={store.getState()} script={scriptSrc} />;
+    const html = <Html state={store.getState()} />;
     res.send(`<!DOCTYPE html>\n${renderToString(html)}`);
   }
 
@@ -43,7 +40,7 @@ export default function render(req, res) {
             { <RouterContext {...renderProps} /> }
           </Provider>
         );
-        const html = <Html component={component} state={store.getState()} script={scriptSrc} />;
+        const html = <Html component={component} state={store.getState()} />;
         res.status(200).send(`<!DOCTYPE html>\n${renderToString(html)}`);
       }).catch(
         err => {

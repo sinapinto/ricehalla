@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import bcrypt from 'bcrypt';
 import render from './render';
+import config from '../config';
 
 const app = express();
 
@@ -32,9 +33,9 @@ app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
 app.use(express.static(path.join(__dirname, '../../static')));
 
 app.use(expressJwt({
-  secret: 'secret-key',
+  secret: config.jwt.secret,
   credentialsRequired: false,
-  getToken: function (req) {
+  getToken: (req) => {
     return req.cookies.token;
   },
 }));
@@ -42,26 +43,22 @@ app.use(expressJwt({
 app.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'aa' && password === 'bb') {
-    const token = jwt.sign({ username }, 'secret-key', { expiresIn: '10h' });
+    const token = jwt.sign({ username }, config.jwt.secret, { expiresIn: config.jwt.expires });
     res.status(201).cookie('token', token).json({ token });
   } else {
     setTimeout(() => res.sendStatus(401), 1000);
   }
 });
 
-app.post('/auth/signup', (req, res) => {
+app.post('/auth/signup', (req, res, next) => {
   const { username, password } = req.body;
-  bcrypt.genSalt(10, function (err, salt) {
+  const salt = bcrypt.genSaltSync(10);
+  bcrypt.hash(password, salt, (err, hash) => {
     if (err) {
       next(err);
     }
-    bcrypt.hash(password, salt, function (err, hash) {
-      if (err) {
-        next(err);
-      }
-      // Store hash in your password DB.
-      res.sendStatus(201);
-    });
+    // Store hash in your password DB.
+    res.sendStatus(201);
   });
 });
 
@@ -75,7 +72,7 @@ app.get('/profile', (req, res) => {
     res.sendStatus(401);
   } else {
     try {
-      const decoded = jwt.verify(token.replace('Bearer ', ''), 'secret-key');
+      const decoded = jwt.verify(token.replace('Bearer ', ''), config.jwt.secret);
       res.status(200).json({ username: decoded.username });
     } catch (e) {
       res.sendStatus(401);

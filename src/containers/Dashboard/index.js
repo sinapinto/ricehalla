@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions/user';
+import Helmet from 'react-helmet';
 
 const propTypes = {
   data: PropTypes.string,
@@ -16,6 +17,7 @@ class Dashboard extends Component {
     const { data } = this.props;
     return (
       <div>
+        <Helmet title="Dashboard" />
         <h1>dashboard</h1>
         {data && data}
       </div>

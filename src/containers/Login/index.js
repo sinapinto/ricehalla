@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import Button from '../../components/Button';
 import styles from './Login.css';
 import { login } from '../../actions/auth';
@@ -120,6 +121,7 @@ class Login extends Component {
 
     return (
       <div className={styles.wrapper}>
+        <Helmet title="Login" />
         <form className={styles.form}>
           <div style={{ marginBottom: '20px' }}>
             <span className="fa-stack fa-4x">

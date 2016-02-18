@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
 import { logout } from '../../actions/auth';
 import NavLink from '../../components/NavLink';
+import config from '../../config';
 import styles from './App.css';
 
 const propTypes = {
@@ -28,6 +30,7 @@ class App extends Component {
     const { username, isAuthenticated } = this.props;
     return (
       <div className={styles.root}>
+        <Helmet {...config.app.head}/>
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>rice&nbsp;wars</Link>

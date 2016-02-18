@@ -1,28 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import { renderToString } from 'react-dom/server';
+import Helmet from 'react-helmet';
 
 export default class Page extends Component {
   static propTypes = {
     component: PropTypes.element,
     state: PropTypes.object,
-    script: PropTypes.string,
   };
 
   render() {
-    const {
-      component,
-      state = {},
-      script = '',
-    } = this.props;
-
+    const { component, state = '' } = this.props;
+    const head = Helmet.rewind();
     const markup = component ? renderToString(component) : '';
+    const script = __DEV__
+      ? `http://localhost:${__PORT__}/dist/bundle.js`
+      : '/dist/bundle.js';
 
     return (
       <html>
         <head>
-          <meta charSet="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>ricewars™</title>
+          {head.base.toComponent()}
+          {head.title.toComponent()}
+          {head.meta.toComponent()}
+          {head.link.toComponent()}
+          {head.script.toComponent()}
           {/* style-loader is used in dev */}
           { !__DEV__ &&
             <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8"/> }

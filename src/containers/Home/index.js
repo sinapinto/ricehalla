@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import Helmet from 'react-helmet';
 import styles from './Home.css';
-import ed from './ed.png';
 
 class Home extends Component {
   render() {
     return (
       <div className={styles.root}>
+        <Helmet title="Home" />
         <h1 className={styles.header}>Welcome to rice wars</h1>
         <p className={styles.paragraph}>
           Lorem ipsum dolor sit amet,
@@ -17,7 +18,6 @@ class Home extends Component {
           non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.
         </p>
-        <div><img src={ed} /></div>
       </div>
     );
   }
