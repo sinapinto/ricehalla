@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Home.css';
+import ed from './ed.png';
 
 class Home extends Component {
   render() {
@@ -16,6 +17,7 @@ class Home extends Component {
           non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.
         </p>
+        <div><img src={ed} /></div>
       </div>
     );
   }

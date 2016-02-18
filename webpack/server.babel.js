@@ -48,7 +48,13 @@ export default {
         loader: DEV
           ? 'css/locals?modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss'
           : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'
-      },
+      }, {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'url',
+        query: {
+          limit: 8192,
+        },
+      }
     ]
   },
   postcss

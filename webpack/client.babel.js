@@ -92,6 +92,12 @@ export default {
       }, {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
+      }, {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'url',
+        query: {
+          limit: 8192,
+        },
       },
     ]
   },
