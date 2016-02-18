@@ -5,14 +5,9 @@ import styles from './Login.css';
 import { login } from '../../actions/auth';
 
 const propTypes = {
-  loginError: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  loginError: PropTypes.string,
+  isFetching: PropTypes.bool,
   login: PropTypes.func.isRequired,
-};
-
-const defaultProps = {
-  loginError: '',
-  isFetching: false,
 };
 
 class Login extends Component {
@@ -167,13 +162,11 @@ class Login extends Component {
 }
 
 Login.propTypes = propTypes;
-Login.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-  const { loginError, isFetching } = state.auth;
   return {
-    loginError,
-    isFetching,
+    loginError: state.loginError,
+    isFetching: state.isFetching,
   };
 }
 

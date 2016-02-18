@@ -14,8 +14,13 @@ export default function render(req, res) {
     ? `http://localhost:${__PORT__}/dist/bundle.js`
     : '/dist/bundle.js';
   const token = req.cookies.token;
-  // verify?
-  const store = configureStore({ auth: { token } });
+  const initialState = {
+    auth: {
+      token,
+      isAuthenticated: !!req.user,
+    }
+  };
+  const store = configureStore(initialState);
   const location = createLocation(req.url);
   const routes = createRouter(createMemoryHistory(), store);
 
@@ -38,12 +43,7 @@ export default function render(req, res) {
             { <RouterContext {...renderProps} /> }
           </Provider>
         );
-        const html = (
-          <Html component={component}
-            state={store.getState()}
-            script={scriptSrc}
-          />
-        );
+        const html = <Html component={component} state={store.getState()} script={scriptSrc} />;
         res.status(200).send(`<!DOCTYPE html>\n${renderToString(html)}`);
       }).catch(
         err => {
