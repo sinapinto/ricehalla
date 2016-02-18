@@ -53,13 +53,11 @@ app.post('/auth/signup', (req, res) => {
   const { username, password } = req.body;
   bcrypt.genSalt(10, function (err, salt) {
     if (err) {
-      console.error(err);
-      return res.sendStatus(500);
+      next(err);
     }
     bcrypt.hash(password, salt, function (err, hash) {
       if (err) {
-        console.error(err);
-        return res.sendStatus(500);
+        next(err);
       }
       // Store hash in your password DB.
       res.sendStatus(201);
@@ -71,19 +69,19 @@ app.get('/auth/logout', (req, res) => {
   res.status(204).clearCookie('token').send();
 });
 
-// app.get('/profile', (req, res) => {
-//   const token = req.headers.authorization;
-//   if (!token) {
-//     res.sendStatus(401);
-//   } else {
-//     try {
-//       const decoded = jwt.verify(token.replace('Bearer ', ''), 'secret-key');
-//       res.status(200).json({ username: decoded.username });
-//     } catch (e) {
-//       res.sendStatus(401);
-//     }
-//   }
-// });
+app.get('/profile', (req, res) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res.sendStatus(401);
+  } else {
+    try {
+      const decoded = jwt.verify(token.replace('Bearer ', ''), 'secret-key');
+      res.status(200).json({ username: decoded.username });
+    } catch (e) {
+      res.sendStatus(401);
+    }
+  }
+});
 
 app.all('*', render);
 

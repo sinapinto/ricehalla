@@ -1,14 +1,14 @@
 .navLink {
-  font-size: 0.8em;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 1.32em 1em;
+  font-size: 0.9em;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.87);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .navLink:hover {
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.navLink + .navLink {
-  margin-left: 2em;
+  color: rgba(0, 0, 0, 1);
+  background-color: rgb(247,247,247);
 }

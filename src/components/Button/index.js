@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
 import styles from './Button.css';
 
+const propTypes = {
+  theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
+  children: PropTypes.string.isRequired,
+};
+
 const themes = {
   normal: styles.btnNormal,
   primary: styles.btnPrimary,
@@ -20,9 +25,6 @@ function Button({ handleClick, theme = 'normal', children, ...other }) {
   );
 }
 
-export default Button;
+Button.propTypes = propTypes;
 
-Button.propTypes = {
-  theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
-  children: PropTypes.string.isRequired,
-};
+export default Button;

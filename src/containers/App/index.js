@@ -31,18 +31,16 @@ class App extends Component {
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>rice&nbsp;wars</Link>
-            { isAuthenticated ? (
-              <div>
-                {`welcome ${username} `}
-                <a href="#" onClick={this.handleLogout}>Logout</a>
-              </div>
-              ) : (
-              <div>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/register">Register</NavLink>
-              </div>
-              )
-            }
+            { isAuthenticated &&
+                <span className={styles.welcome}>
+                  {`welcome ${username} `}
+                </span> }
+            { isAuthenticated &&
+                <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink> }
+            { !isAuthenticated &&
+                <NavLink to="/login">Login</NavLink> }
+            { !isAuthenticated &&
+                <NavLink to="/register">Register</NavLink> }
           </div>
         </div>
         {this.props.children}
