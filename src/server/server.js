@@ -49,9 +49,9 @@ app.post('/auth/login', (req, res) => {
 });
 
 app.post('/auth/signup', (req, res, next) => {
-  const { username, password } = req.body;
+  const { password } = req.body;
   const salt = bcrypt.genSaltSync(10);
-  bcrypt.hash(password, salt, (err, hash) => {
+  bcrypt.hash(password, salt, (err) => {
     if (err) {
       next(err);
     }

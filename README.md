@@ -1,4 +1,7 @@
 # ricewars
+
+[![Build Status](https://travis-ci.com/sinapinto/ricewars.svg?token=R6xtDQRGsfcWtpJ5CyHW&branch=master)](https://travis-ci.com/sinapinto/ricewars)
+
 An attempt at building a more sophisticated platform for rice contests
 
 ## development
