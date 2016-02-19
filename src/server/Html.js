@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
+import webpackConfig from '../../webpack/client.babel.js';
 
 export default class Page extends Component {
   static propTypes = {
@@ -12,9 +13,7 @@ export default class Page extends Component {
     const { component, state = '' } = this.props;
     const head = Helmet.rewind();
     const markup = component ? renderToString(component) : '';
-    const script = __DEV__
-      ? `http://localhost:${__PORT__}/dist/bundle.js`
-      : '/dist/bundle.js';
+    const script = webpackConfig.output.publicPath + webpackConfig.output.filename;
 
     return (
       <html>

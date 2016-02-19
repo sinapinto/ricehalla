@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - "0.12"
+  - "4.0"
+  - "4"
+  - "stable"
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change
+
+script:
+  - npm run lint
+  - npm test

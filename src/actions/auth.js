@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
 import cookie from '../utils/cookie';
 
 const API_BASE = `http://localhost:${__PORT__}`;
@@ -17,7 +16,7 @@ function loginRequest() {
 function loginError(message) {
   return {
     type: LOGIN_FAILURE,
-    error: message || 'An unkown error occured. Try again later.',
+    error: message || 'An error occured. Try again later.',
   };
 }
 
@@ -50,7 +49,6 @@ export function login(username, password) {
         value: res.token,
         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       });
-      browserHistory.push('/dashboard');
     })
     .catch(error => {
       dispatch(loginError(error.message));
@@ -64,6 +62,6 @@ export function logout() {
   return dispatch => {
     dispatch({ type: LOGOUT });
     cookie.remove('token');
-    browserHistory.push('/');
+    fetch(`${API_BASE}/auth/login`);
   };
 }

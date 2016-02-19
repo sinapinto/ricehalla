@@ -48,7 +48,7 @@ export function loadUser() {
         user: res.user,
       });
     })
-    .catch(error => {
+    .catch(() => {
       dispatch(userFailure());
     });
   };

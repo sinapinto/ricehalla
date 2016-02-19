@@ -35,9 +35,7 @@ app.use(express.static(path.join(__dirname, '../../static')));
 app.use(expressJwt({
   secret: config.jwt.secret,
   credentialsRequired: false,
-  getToken: (req) => {
-    return req.cookies.token;
-  },
+  getToken: (req) => req.cookies.token,
 }));
 
 app.post('/auth/login', (req, res) => {

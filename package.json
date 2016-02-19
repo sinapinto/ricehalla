@@ -11,7 +11,8 @@
     "build:pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
     "postinstall": "npm run build:dev",
-    "lint": "eslint src webpack"
+    "test": "mocha --require test/setup.js --compilers js:babel-core/register,css:test/compiler.js test/**/*.js",
+    "lint": "eslint src webpack test"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "babel-register": "^6.5.2",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
     "css-loader": "^0.23.1",
@@ -44,12 +46,16 @@
     "file-loader": "^0.8.5",
     "font-awesome": "^4.5.0",
     "isomorphic-fetch": "^2.2.1",
+    "jsdom": "^8.0.4",
     "jsonwebtoken": "^5.7.0",
     "jwt-decode": "^1.5.1",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
+    "mocha": "^2.4.5",
+    "nock": "^7.2.1",
     "postcss-loader": "^0.8.1",
     "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.3",
     "react-helmet": "^2.3.1",
     "react-redux": "^4.4.0",
@@ -61,6 +67,7 @@
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.4",
+    "redux-mock-store": "0.0.6",
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.0",
@@ -81,7 +88,8 @@
     "extends": "eslint-config-airbnb",
     "env": {
       "browser": true,
-      "node": true
+      "node": true,
+      "mocha": true
     },
     "globals": {
       "__DEV__": false,

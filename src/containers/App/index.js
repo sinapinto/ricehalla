@@ -15,10 +15,24 @@ const propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
+const contextTypes = {
+  router: PropTypes.object
+};
+
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.isAuthenticated && nextProps.isAuthenticated) {
+      // login
+      this.context.router.push('/dashboard');
+    } else if (this.props.isAuthenticated && !nextProps.isAuthenticated) {
+      // logout
+      this.context.router.push('/');
+    }
   }
 
   handleLogout(e) {
@@ -53,6 +67,7 @@ class App extends Component {
 }
 
 App.propTypes = propTypes;
+App.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
   const { auth: { isAuthenticated, token } } = state;
