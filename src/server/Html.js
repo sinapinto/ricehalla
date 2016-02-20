@@ -13,7 +13,7 @@ export default class Page extends Component {
     const { component, state = '' } = this.props;
     const head = Helmet.rewind();
     const markup = component ? renderToString(component) : '';
-    const script = webpackConfig.output.publicPath + webpackConfig.output.filename;
+    const bundle = webpackConfig.output.publicPath + webpackConfig.output.filename;
 
     return (
       <html>
@@ -33,7 +33,7 @@ export default class Page extends Component {
             __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
           }}
           />
-          <script src={script} charSet="UTF-8" />
+          <script src={bundle} charSet="UTF-8" />
         </body>
       </html>
     );

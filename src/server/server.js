@@ -8,8 +8,24 @@ import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import bcrypt from 'bcrypt';
+import Sequelize from 'sequelize';
 import render from './render';
 import config from '../config';
+
+/* eslint-disable */
+const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, config.db.config);
+const User = sequelize.define('user', {
+  username:           { type: Sequelize.STRING(50),  field: 'username',                                                    },
+  email:              { type: Sequelize.STRING(100), field: 'email',                                                       },
+  passwordHash:       { type: Sequelize.STRING(75),  field: 'password_hash',                                               },
+  isAdmin:            { type: Sequelize.BOOLEAN,     field: 'is_admin',             defaultValue: false,                   },
+  passwordResetToken: { type: Sequelize.STRING(75),  field: 'password_reset_token',                                        },
+  sessionToken:       { type: Sequelize.STRING(75),  field: 'session_token',        defaultValue: "",    allowNull: false, },
+  about:              { type: Sequelize.TEXT,        field: 'about',                                                       },
+  karma:              { type: Sequelize.INTEGER,     field: 'karma',                defaultValue: 0,     allowNull: false, },
+  invitedByUserId:    { type: Sequelize.INTEGER,     field: 'invited_by_user_id',                                          },
+});
+/* eslint-enable */
 
 const app = express();
 
@@ -38,25 +54,43 @@ app.use(expressJwt({
   getToken: (req) => req.cookies.token,
 }));
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', (req, res, next) => {
   const { username, password } = req.body;
-  if (username === 'aa' && password === 'bb') {
-    const token = jwt.sign({ username }, config.jwt.secret, { expiresIn: config.jwt.expires });
-    res.status(201).cookie('token', token).json({ token });
-  } else {
-    setTimeout(() => res.sendStatus(401), 1000);
-  }
+  User.findOne({
+    where: { username }
+  }).then(user => {
+    bcrypt.compare(password, user.dataValues.passwordHash, (err, success) => {
+      if (err) {
+        next(err);
+      } else if (success) {
+        const token = jwt.sign({ username }, config.jwt.secret, { expiresIn: config.jwt.expires });
+        res.status(201).cookie('token', token).json({ token });
+      } else {
+        res.sendStatus(401);
+      }
+    });
+  });
 });
 
 app.post('/auth/signup', (req, res, next) => {
-  const { password } = req.body;
+  const { username, password } = req.body;
   const salt = bcrypt.genSaltSync(10);
-  bcrypt.hash(password, salt, (err) => {
+  bcrypt.hash(password, salt, (err, hash) => {
     if (err) {
       next(err);
+    } else {
+      User.create({
+        username,
+        email: '',
+        passwordHash: hash,
+        isAdmin: false,
+        passwordResetToken: '',
+        sessionToken: '',
+        about: '',
+        karma: 0,
+        invitedByUserId: 0,
+      }).then(() => res.sendStatus(201));
     }
-    // Store hash in your password DB.
-    res.sendStatus(201);
   });
 });
 
@@ -80,9 +114,13 @@ app.get('/profile', (req, res) => {
 
 app.all('*', render);
 
-app.listen(__PORT__, (err) => {
-  if (err) {
-    console.error(err);
-  }
-  console.log(`▲ ${process.env.NODE_ENV} server listening at http://localhost:${__PORT__} ▲`);
+sequelize.sync()
+.then(() => {
+  app.listen(__PORT__, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`▲ ${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
+    }
+  });
 });

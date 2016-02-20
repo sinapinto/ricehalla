@@ -53,6 +53,8 @@
     "less-loader": "^2.2.2",
     "mocha": "^2.4.5",
     "nock": "^7.2.1",
+    "pg": "^4.4.6",
+    "pg-hstore": "^2.3.2",
     "postcss-loader": "^0.8.1",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.7",
@@ -69,6 +71,7 @@
     "redux-devtools-log-monitor": "^1.0.4",
     "redux-mock-store": "0.0.6",
     "redux-thunk": "^1.0.3",
+    "sequelize": "^3.19.3",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
@@ -77,11 +80,7 @@
     "webpack-hot-middleware": "^2.7.1"
   },
   "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-1"
-    ]
+    "presets": ["es2015", "react", "stage-1"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",

@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: false,
   token: null,
   loginError: '',
+  registerError: '',
 };
 
 export default function (state = initialState, action) {
@@ -29,6 +30,23 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         token: null,
         loginError: action.error,
+      };
+    case ActionTypes.REGISTER_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case ActionTypes.REGISTER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        loginError: '',
+      };
+    case ActionTypes.REGISTER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        registerError: action.error,
       };
     case ActionTypes.LOGOUT:
       return {

@@ -11,6 +11,7 @@ describe('auth reducer', () => {
       isAuthenticated: false,
       token: null,
       loginError: '',
+      registerError: '',
     });
   });
 

@@ -6,7 +6,7 @@ export default {
       titleTemplate: 'rice wars: %s',
       meta: [
         { name: 'description', content: 'desktop customization contests' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=2' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { charset: 'utf-8' },
         { property: 'og:site_name', content: 'ricewars' },
         { property: 'og:locale', content: 'en_US' },
@@ -16,8 +16,25 @@ export default {
       ]
     },
   },
+
   jwt: {
     expires: '1h',
     secret: '8XZ03T11vP896m73u2z9i301150xP826d69I836174t200785735Vo',
+  },
+
+  db: {
+    database: 'ricewars',
+    username: 'sina',
+    password: null,
+    config: {
+      dialect: 'postgres',
+      define: {
+        timestamps: true,
+        freezeTableName: false,
+      },
+      sync: {
+        force: false,
+      },
+    },
   },
 };

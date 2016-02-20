@@ -42,7 +42,7 @@ export default {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: { presets: ['react', 'es2015', 'stage-1'] }
+        query: { presets: ['es2015', 'react', 'stage-1'] }
       }, {
         test: /\.css$/,
         loader: DEV

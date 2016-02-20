@@ -44,7 +44,7 @@ class App extends Component {
     const { username, isAuthenticated } = this.props;
     return (
       <div className={styles.root}>
-        <Helmet {...config.app.head}/>
+        <Helmet {...config.app.head} />
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>rice&nbsp;wars</Link>

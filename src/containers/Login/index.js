@@ -53,15 +53,15 @@ class Login extends Component {
     const username = this.state.username.value;
     const password = this.state.password.value;
 
-    if (username.length === 0) {
+    if (username.length < 1 || username.length > 14) {
       this.setState({
         username: {
           value: this.state.value,
           valid: false,
-          message: 'Please enter a username'
+          message: 'Username must be less than 14 characters'
         },
       });
-    } else if (password.length === 0) {
+    } else if (password.length < 1 || password.length > 32) {
       this.setState({
         username: {
           value: this.state.username.value,
@@ -71,7 +71,7 @@ class Login extends Component {
         password: {
           value: this.state.password.value,
           valid: false,
-          message: 'Please enter a password'
+          message: 'Password must be between 8 and 32 characters long'
         },
       });
     } else {
