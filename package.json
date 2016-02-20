@@ -10,7 +10,6 @@
     "build:pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
     "build:pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
-    "postinstall": "npm run build:dev",
     "test": "mocha --require test/setup.js --compilers js:babel-core/register,css:test/compiler.js test/**/*.js",
     "lint": "eslint src webpack test"
   },
@@ -80,7 +79,11 @@
     "webpack-hot-middleware": "^2.7.1"
   },
   "babel": {
-    "presets": ["es2015", "react", "stage-1"]
+    "presets": [
+      "es2015",
+      "react",
+      "stage-1"
+    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
