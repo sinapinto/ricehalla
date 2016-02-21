@@ -3,12 +3,12 @@ import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import webpackConfig from '../../webpack/client.babel.js';
 
-export default class Page extends Component {
-  static propTypes = {
-    component: PropTypes.element,
-    state: PropTypes.object,
-  };
+const propTypes = {
+  component: PropTypes.element,
+  state: PropTypes.object,
+};
 
+class Page extends Component {
   render() {
     const { component, state = '' } = this.props;
     const head = Helmet.rewind();
@@ -39,3 +39,7 @@ export default class Page extends Component {
     );
   }
 }
+
+Page.propTypes = propTypes;
+
+export default Page;

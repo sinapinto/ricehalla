@@ -12,6 +12,7 @@ describe('auth reducer', () => {
       token: null,
       loginError: '',
       registerError: '',
+      hydrated: true
     });
   });
 
@@ -21,7 +22,12 @@ describe('auth reducer', () => {
         type: ActionTypes.LOGIN_REQUEST
       })
     ).toEqual({
-      isFetching: true
+      isFetching: true,
+      isAuthenticated: false,
+      token: null,
+      loginError: '',
+      registerError: '',
+      hydrated: true
     });
   });
 
@@ -36,6 +42,8 @@ describe('auth reducer', () => {
       isAuthenticated: false,
       token: null,
       loginError: 'error!',
+      registerError: '',
+      hydrated: true
     });
   });
 
@@ -50,6 +58,8 @@ describe('auth reducer', () => {
       isAuthenticated: true,
       token: 'token',
       loginError: '',
+      registerError: '',
+      hydrated: true
     });
   });
 });

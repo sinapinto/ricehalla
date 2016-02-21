@@ -9,15 +9,25 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+  // merge the (incomplete) initial state from server
+  let initializedState = { ...state };
+  if (!state.hydrated) {
+    initializedState = {
+      ...initialState,
+      ...state,
+      hydrated: true
+    };
+  }
+
   switch (action.type) {
     case ActionTypes.LOGIN_REQUEST:
       return {
-        ...state,
+        ...initializedState,
         isFetching: true,
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
-        ...state,
+        ...initializedState,
         isFetching: false,
         isAuthenticated: true,
         token: action.token,
@@ -25,7 +35,7 @@ export default function (state = initialState, action) {
       };
     case ActionTypes.LOGIN_FAILURE:
       return {
-        ...state,
+        ...initializedState,
         isFetching: false,
         isAuthenticated: false,
         token: null,
@@ -33,28 +43,28 @@ export default function (state = initialState, action) {
       };
     case ActionTypes.REGISTER_REQUEST:
       return {
-        ...state,
+        ...initializedState,
         isFetching: true,
       };
     case ActionTypes.REGISTER_SUCCESS:
       return {
-        ...state,
+        ...initializedState,
         isFetching: false,
         loginError: '',
       };
     case ActionTypes.REGISTER_FAILURE:
       return {
-        ...state,
+        ...initializedState,
         isFetching: false,
         registerError: action.error,
       };
     case ActionTypes.LOGOUT:
       return {
-        ...state,
+        ...initializedState,
         isAuthenticated: false,
         token: null,
       };
     default:
-      return state;
+      return initializedState;
   }
 }

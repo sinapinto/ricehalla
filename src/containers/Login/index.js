@@ -6,8 +6,8 @@ import styles from './Login.css';
 import { login } from '../../actions/auth';
 
 const propTypes = {
-  loginError: PropTypes.string,
-  isFetching: PropTypes.bool,
+  loginError: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
 };
 
@@ -20,13 +20,12 @@ class Login extends Component {
       username: {
         value: '',
         valid: false,
-        message: '',
       },
       password: {
         value: '',
         valid: false,
-        message: '',
       },
+      error: '',
     };
   }
 
@@ -50,68 +49,31 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const username = this.state.username.value;
-    const password = this.state.password.value;
+    const username = this.state.username;
+    const password = this.state.password;
 
-    if (username.length < 1 || username.length > 14) {
-      this.setState({
-        username: {
-          value: this.state.value,
-          valid: false,
-          message: 'Username must be less than 14 characters'
-        },
-      });
-    } else if (password.length < 1 || password.length > 32) {
-      this.setState({
-        username: {
-          value: this.state.username.value,
-          valid: true,
-          message: ''
-        },
-        password: {
-          value: this.state.password.value,
-          valid: false,
-          message: 'Password must be between 8 and 32 characters long'
-        },
-      });
-    } else {
-      this.setState({
-        username: {
-          ...this.state.username,
-          valid: true,
-        },
-        password: {
-          ...this.state.password,
-          valid: true,
-        },
-      }, () => this.props.login(username, password));
-    }
+    this.setState({
+      username: {
+        ...username,
+        valid: true,
+      },
+      password: {
+        ...password,
+        valid: true,
+      },
+      message: ''
+    }, () => this.props.login(username.value, password.value));
   }
 
   renderErrorMessage() {
     const { loginError } = this.props;
-    const { username, password } = this.state;
+    const { username, password, error } = this.state;
 
-    if (!username.valid) {
-      return (
-        <div className={styles.error}>
-          {username.message}
-        </div>
-      );
-    }
-    if (!password.valid) {
-      return (
-        <div className={styles.error}>
-          {password.message}
-        </div>
-      );
+    if (!username.valid || !password.valid) {
+      return <div className={styles.error}>{error}</div>;
     }
     if (loginError) {
-      return (
-        <div className={styles.error}>
-          {loginError}
-        </div>
-      );
+      return <div className={styles.error}>{loginError}</div>;
     }
     return null;
   }
@@ -167,8 +129,8 @@ Login.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    loginError: state.loginError,
-    isFetching: state.isFetching,
+    loginError: state.auth.loginError,
+    isFetching: state.auth.isFetching,
   };
 }
 

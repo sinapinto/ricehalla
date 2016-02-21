@@ -11,9 +11,9 @@
 This application is rendered on both the client and server for performance,
 accessibility, and SEO benefits. [Universal
 Javascript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9#.kexqan3d7)
-makes this managable, enabling the client and server to share code. The
-frontend is built using React and the backend is a Node.js server and a
-Postgres database.
+makes this manageable, enabling the client and server to share code. The
+frontend is built using React and the backend is a Node.js server and a SQL
+database.
 
 ## Core technologies
 
@@ -60,7 +60,7 @@ Postgres database.
   ```
 
 - Build the two development bundles: the client-side js app and the node.js
-  server (they get output to `dist/static/`).
+  server (they get output to `static/dist/`).
 
   ```sh
   $ npm run build:dev
@@ -68,7 +68,7 @@ Postgres database.
 
   *to build production bundles run `npm run build:pro` instead*
 
-- Finally, run the development server (your db is assumed to be running)
+- Finally, start the development server (your db is assumed to be running)
 
   ```sh
   $ npm start
@@ -81,9 +81,9 @@ Postgres database.
   needing to restart the server or refresh the webpage. (For certain changes to
   code this isn't possible and a warning will appear in the console.)
 
-  In development, you can view and edit the redux store using 
+  In development, you can view and manipulate the redux store using 
   [redux-devtools](https://github.com/gaearon/redux-devtools). By default the
-  monitor is hidden, but it's visibility can be toggled with `ctrl-h` and
+  monitor is hidden, but its visibility can be toggled with `ctrl-h` and
   repositioned with `ctrl-q`.
 
 ## Directory layout
@@ -91,7 +91,7 @@ Postgres database.
 ```
 .
 ├── static/
-│   ├── dist/                  # compiled output (e.g. server.js client.js)
+│   └── dist/                  # compiled output (e.g. server.js client.js)
 ├── src/
 │   ├── actions/               # redux action creators that trigger state updates
 │   ├── components/            # React "dumb" components (unconnected to store)
@@ -104,9 +104,9 @@ Postgres database.
 │   └── client.js              # entry-point for the client
 ├── test/
 ├── webpack/
-│   ├── client.babel.js        # client (dev and prod) webpack configuration
+│   ├── client.babel.js        # client webpack configuration
 │   ├── postcss.js             # postcss plugin configs for webpack
-│   └── server.babel.js        # server (dev and prod) webpack configuration
+│   └── server.babel.js        # server webpack configuration
 └── package.json               # node dependencies, scripts, and configurations
 ```
 
@@ -126,8 +126,9 @@ The ecosystem is very young and there is no absolute way of doing things.
 And this client-side code `require`/`import`s unusual things like images or css
 files which is made possible on the client-side with webpack.
 
-Unfortunately, building a server bundle slows down builds and complicates
-configuration. But in return, it allows us to:
+The current solution is to compile the server with webpack. Unfortunately,
+building a server bundle slows down builds and complicates configuration. But in
+return, it allows to:
 
 1. Load [any](https://webpack.github.io/docs/list-of-loaders.html) of the
    client-side assets on the server
@@ -143,7 +144,7 @@ scoped, meaning you don't need to worry about conflicting class names in
 separate files.
 
 **The problem:** Styles need to be shared by the client and server without
-relying on javascript (to avoid a flash of unstyled content).
+relying on javascript to load (to avoid a flash of unstyled content).
 
 In production, webpack extracts the styles into an external CSS file, and loads
 it with a `<link>` tag in the server-rendered markup.
@@ -160,10 +161,10 @@ animations and media queries difficult.
 
 ### Third-party styles
 
-Webpack should leave identifiers of third-party styles such as Bootstrap left
-intact while generating hashed identifiers for local styles. This is
-accomplished by using a separate `loaders` entry to the webpack config that
-tests for files ending with `.global.css` and treating them accordingly.
+Webpack should leave identifiers of third-party styles such as Bootstrap intact
+while generating hashed identifiers for local styles. This is accomplished by
+using a separate `loaders` entry to the webpack config that tests for files
+ending with `.global.css` and treating them accordingly.
 
 ## License
 

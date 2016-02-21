@@ -59,6 +59,9 @@ app.post('/auth/login', (req, res, next) => {
   User.findOne({
     where: { username }
   }).then(user => {
+    if (!user) {
+      return res.sendStatus(401);
+    }
     bcrypt.compare(password, user.dataValues.passwordHash, (err, success) => {
       if (err) {
         next(err);
