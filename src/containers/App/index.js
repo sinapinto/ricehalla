@@ -53,7 +53,7 @@ class App extends Component {
         <Helmet {...config.app.head} />
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
-            <Link to="/" className={styles.navLogo}>rice&nbsp;wars</Link>
+            <Link to="/" className={styles.navLogo}>ricehalla</Link>
             { isAuthenticated &&
                 <span className={styles.welcome}>
                   {`welcome ${username} `}

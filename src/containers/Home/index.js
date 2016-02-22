@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div className={styles.root}>
         <Helmet title="Home" />
-        <h1 className={styles.header}>Welcome to rice wars</h1>
+        <h1 className={styles.header}>ricehalla</h1>
         <p className={styles.paragraph}>
           Lorem ipsum dolor sit amet,
           consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

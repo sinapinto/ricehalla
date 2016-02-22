@@ -1,5 +1,5 @@
 {
-  "name": "ricewars",
+  "name": "ricehalla",
   "version": "0.0.0",
   "scripts": {
     "start": "node static/dist/server.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sinapinto/ricewars"
+    "url": "https://github.com/sinapinto/ricehalla"
   },
   "license": "MIT",
   "dependencies": {

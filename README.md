@@ -1,8 +1,8 @@
-# ricewars
+# ricehalla
 
-[![Build Status](https://travis-ci.org/sinapinto/ricewars.svg?branch=master)](https://travis-ci.org/sinapinto/ricewars)
-[![Dependency Status](https://david-dm.org/sinapinto/ricewars.svg)](https://david-dm.org/sinapinto/ricewars)
-[![devDependency Status](https://david-dm.org/sinapinto/ricewars/dev-status.svg)](https://david-dm.org/sinapinto/ricewars#info=devDependencies)
+[![Build Status](https://travis-ci.org/sinapinto/ricehalla.svg?branch=master)](https://travis-ci.org/sinapinto/ricehalla)
+[![Dependency Status](https://david-dm.org/sinapinto/ricehalla.svg)](https://david-dm.org/sinapinto/ricehalla)
+[![devDependency Status](https://david-dm.org/sinapinto/ricehalla/dev-status.svg)](https://david-dm.org/sinapinto/ricehalla#info=devDependencies)
 
 **(WIP)** a website for rice contests..
 
@@ -34,8 +34,8 @@ database.
 - Checkout the source from github
 
   ```
-  $ git clone git://github.com/sinapinto/ricewars.git
-  $ cd ricewars
+  $ git clone git://github.com/sinapinto/ricehalla.git
+  $ cd ricehalla
   ```
 
 - Set up an SQL database of your choice and set the connection details in

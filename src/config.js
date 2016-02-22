@@ -1,6 +1,6 @@
 export default {
   app: {
-    title: 'ricewars',
+    title: 'ricehalla',
     description: 'desktop customization contests',
     head: {
       titleTemplate: 'rice wars: %s',
@@ -8,9 +8,9 @@ export default {
         { name: 'description', content: 'desktop customization contests' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { charset: 'utf-8' },
-        { property: 'og:site_name', content: 'ricewars' },
+        { property: 'og:site_name', content: 'ricehalla' },
         { property: 'og:locale', content: 'en_US' },
-        { property: 'og:title', content: 'ricewars' },
+        { property: 'og:title', content: 'ricehalla' },
         { property: 'og:description', content: 'desktop customization contests' },
         { property: 'og:card', content: 'summary' },
       ]
@@ -21,7 +21,7 @@ export default {
     secret: '8XZ03T11vP896m73u2z9i301150xP826d69I836174t200785735Vo',
   },
   db: {
-    database: 'ricewars',
+    database: 'ricehalla',
     username: 'sina',
     password: null,
     config: {
