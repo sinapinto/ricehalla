@@ -9,13 +9,14 @@ const PORT = parseInt(process.env.PORT, 10) || 3000;
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
 
-const nodeModules = fs.readdirSync('node_modules')
+const nodeModules = fs
+  .readdirSync('node_modules')
   .filter(file => file !== '.bin')
   .map(mod => ({ [mod]: `commonjs ${mod}` }));
 
 export default {
   context: rootPath,
-  entry: './src/server/server.js',
+  entry: './src/server.js',
   devtool: 'cheap-eval-source-map',
   output: {
     path: assetsPath,

@@ -16,12 +16,10 @@ export default {
       ]
     },
   },
-
   jwt: {
     expires: '1h',
     secret: '8XZ03T11vP896m73u2z9i301150xP826d69I836174t200785735Vo',
   },
-
   db: {
     database: 'ricewars',
     username: 'sina',
@@ -29,12 +27,8 @@ export default {
     config: {
       dialect: 'postgres',
       define: {
-        timestamps: true,
-        freezeTableName: false,
-      },
-      sync: {
-        force: false,
-      },
-    },
+        freezeTableName: false
+      }
+    }
   },
 };

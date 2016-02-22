@@ -81,7 +81,7 @@ database.
   needing to restart the server or refresh the webpage. (For certain changes to
   code this isn't possible and a warning will appear in the console.)
 
-  In development, you can view and manipulate the redux store using 
+  In development, you can view and manipulate the redux store using
   [redux-devtools](https://github.com/gaearon/redux-devtools). By default the
   monitor is hidden, but its visibility can be toggled with `ctrl-h` and
   repositioned with `ctrl-q`.
@@ -90,6 +90,7 @@ database.
 
 ```
 .
+├── api/                       # server endpoints
 ├── static/
 │   └── dist/                  # compiled output (e.g. server.js client.js)
 ├── src/
@@ -97,11 +98,11 @@ database.
 │   ├── components/            # React "dumb" components (unconnected to store)
 │   ├── containers/            # React container components
 │   ├── reducers/              # redux reducers (take in action output new state)
-│   ├── server/                # entry-point for the server
 │   ├── styles/                # global css
 │   ├── utils/                 # misc helpers
+│   ├── client.js              # entry-point for the client
 │   ├── config.js              # settings for <head>, jwt, db, etc.
-│   └── client.js              # entry-point for the client
+│   └── server.js              # entry-point for the server
 ├── test/
 ├── webpack/
 │   ├── client.babel.js        # client webpack configuration

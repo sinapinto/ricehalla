@@ -25,10 +25,10 @@ class Page extends Component {
           {head.script.toComponent()}
           {/* style-loader is used in dev */}
           { !__DEV__ &&
-            <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8"/> }
+            <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8" /> }
         </head>
         <body>
-          <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
+          <div id="root" dangerouslySetInnerHTML={{ __html: markup }} />
           <script dangerouslySetInnerHTML={{
             __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
           }}

@@ -5,6 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.opaque {
+  opacity: 0.5;
 }
 
 .form {

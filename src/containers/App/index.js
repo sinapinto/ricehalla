@@ -28,10 +28,16 @@ class App extends Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.isAuthenticated && nextProps.isAuthenticated) {
       // login
-      this.context.router.push('/dashboard');
+      this
+       .context
+       .router
+       .push('/dashboard');
     } else if (this.props.isAuthenticated && !nextProps.isAuthenticated) {
       // logout
-      this.context.router.push('/');
+      this
+        .context
+        .router
+        .push('/');
     }
   }
 

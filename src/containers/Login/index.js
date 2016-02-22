@@ -49,8 +49,8 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
+    e.target.blur();
+    const { username, password } = this.state;
 
     this.setState({
       username: {
@@ -79,10 +79,10 @@ class Login extends Component {
   }
 
   render() {
-    const { invalidUsername, invalidPassword, isFetching } = this.state;
+    const { isFetching } = this.props;
 
     return (
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} ${isFetching && styles.opaque}`}>
         <Helmet title="Login" />
         <form className={styles.form}>
           <div style={{ marginBottom: '20px' }}>
@@ -97,7 +97,7 @@ class Login extends Component {
               type="text"
               onChange={this.handleChange}
               placeholder="Username"
-              className={`${styles.input} ${invalidUsername && styles.invalid}`}
+              className={styles.input}
               required
             />
           </div>
@@ -106,13 +106,13 @@ class Login extends Component {
               type="password"
               placeholder="Password"
               onChange={this.handleChange}
-              className={`${styles.input} ${invalidPassword && styles.invalid}`}
+              className={styles.input}
               required
             />
           </div>
           {this.renderErrorMessage()}
-          {isFetching && 'loading...'}
           <Button
+            disabled={isFetching}
             theme="primary"
             handleClick={this.handleSubmit}
             style={{ width: '100%' }}

@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...initializedState,
         isFetching: true,
+        loginError: '',
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
