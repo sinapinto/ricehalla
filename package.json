@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node static/dist/server.js",
-    "build:dev": "npm run clean && npm run build:dev:server && npm run build:dev:client",
-    "build:dev:client": "webpack --config webpack/client.babel.js",
-    "build:dev:server": "webpack --config webpack/server.babel.js",
-    "build:pro": "npm run clean && npm run build:pro:server && npm run build:pro:client",
-    "build:pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
-    "build:pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
+    "dev": "npm run clean && npm run dev:server && npm run dev:client",
+    "dev:client": "webpack --config webpack/client.babel.js",
+    "dev:server": "webpack --config webpack/server.babel.js",
+    "pro": "npm run clean && npm run pro:server && npm run pro:client",
+    "pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
+    "pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
     "test": "mocha --require test/setup.js --compilers js:babel-core/register,css:test/compiler.js test/**/*.js",
     "lint": "eslint src webpack test"

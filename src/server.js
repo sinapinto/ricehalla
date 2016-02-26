@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import favicon from 'serve-favicon';
@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import expressJwt from 'express-jwt';
 import sequelize from '../api/sequelize';
 import auth from '../api/auth';
+import user from '../api/user';
 import render from './utils/render';
 import config from './config';
 
@@ -39,16 +40,17 @@ app.use(expressJwt({
 }));
 
 app.use('/auth', auth);
-
+app.use('/api/user', user);
 app.get('*', render);
+
+app.use((err, req, res) => {
+  res.status(500).render('error', { error: err });
+});
 
 sequelize.sync()
 .then(() => {
-  app.listen(__PORT__, (err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(`▲ ${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
-    }
+  app.listen(__PORT__, () => {
+    /* eslint-disable no-console */
+    console.log(`▲ ${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
   });
 });

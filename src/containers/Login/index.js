@@ -51,6 +51,11 @@ class Login extends Component {
     e.preventDefault();
     e.target.blur();
     const { username, password } = this.state;
+    const { isFetching } = this.props;
+
+    if (isFetching) {
+      return null;
+    }
 
     this.setState({
       username: {
@@ -63,6 +68,8 @@ class Login extends Component {
       },
       message: ''
     }, () => this.props.login(username.value, password.value));
+
+    return undefined;
   }
 
   renderErrorMessage() {

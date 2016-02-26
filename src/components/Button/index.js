@@ -4,7 +4,7 @@ import styles from './Button.css';
 const propTypes = {
   theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
   children: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
 };
 
 const themes = {

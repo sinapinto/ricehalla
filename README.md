@@ -63,10 +63,10 @@ database.
   server (they get output to `static/dist/`).
 
   ```sh
-  $ npm run build:dev
+  $ npm run dev
   ```
 
-  *to build production bundles run `npm run build:pro` instead*
+  *to build production bundles run `npm run pro` instead*
 
 - Finally, start the development server (your db is assumed to be running)
 

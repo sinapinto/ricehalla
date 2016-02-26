@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadUser } from '../../actions/user';
 import Helmet from 'react-helmet';
+import jwtDecode from 'jwt-decode';
+import { loadUser } from '../../actions/user';
 
 const propTypes = {
-  data: PropTypes.string,
+  username: PropTypes.string,
   loadUser: PropTypes.func.isRequired,
 };
 
@@ -14,12 +15,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { username } = this.props;
     return (
       <div>
         <Helmet title="Dashboard" />
-        <h1>dashboard</h1>
-        {data && data}
+        <h1>dashboard for {username}</h1>
       </div>
     );
   }
@@ -28,8 +28,9 @@ class Dashboard extends Component {
 Dashboard.propTypes = propTypes;
 
 function mapStateToProps(state) {
+  const username = state.auth.isAuthenticated ? jwtDecode(state.auth.token).username : null;
   return {
-    data: state.data,
+    username,
   };
 }
 

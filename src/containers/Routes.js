@@ -4,6 +4,7 @@ import App from './App';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
+import Profile from './Profile';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 
@@ -25,6 +26,7 @@ export default function createRouter(history, store) {
         <IndexRoute component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/user/:id" component={Profile} />
         <Route onEnter={requireAuth}>
           <Route path="/dashboard" component={Dashboard} />
         </Route>

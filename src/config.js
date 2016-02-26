@@ -3,7 +3,7 @@ export default {
     title: 'ricehalla',
     description: 'desktop customization contests',
     head: {
-      titleTemplate: 'rice wars: %s',
+      titleTemplate: 'ricehalla: %s',
       meta: [
         { name: 'description', content: 'desktop customization contests' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

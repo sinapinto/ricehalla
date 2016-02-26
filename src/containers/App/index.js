@@ -55,15 +55,15 @@ class App extends Component {
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>ricehalla</Link>
             { isAuthenticated &&
-                <span className={styles.welcome}>
-                  {`welcome ${username} `}
-                </span> }
+                <NavLink to="/dashboard" className={styles.welcome}>
+                  {username}
+                </NavLink> }
             { isAuthenticated &&
                 <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink> }
             { !isAuthenticated &&
-                <NavLink to="/login">Login</NavLink> }
-            { !isAuthenticated &&
                 <NavLink to="/register">Register</NavLink> }
+            { !isAuthenticated &&
+                <NavLink to="/login" theme="primary">Log&nbsp;In</NavLink> }
           </div>
         </div>
         {this.props.children}
