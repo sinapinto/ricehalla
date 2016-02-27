@@ -77,7 +77,7 @@ App.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
   const { auth: { isAuthenticated, token } } = state;
-  const username = isAuthenticated ? jwtDecode(token).username : null;
+  const username = (token && isAuthenticated) ? jwtDecode(token).username : null;
   return {
     isAuthenticated,
     username,

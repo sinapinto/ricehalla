@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/sinapinto/ricehalla.svg?branch=master)](https://travis-ci.org/sinapinto/ricehalla)
 [![Dependency Status](https://david-dm.org/sinapinto/ricehalla.svg)](https://david-dm.org/sinapinto/ricehalla)
-[![devDependency Status](https://david-dm.org/sinapinto/ricehalla/dev-status.svg)](https://david-dm.org/sinapinto/ricehalla#info=devDependencies)
 
 **(WIP)** a website for rice contests..
 
@@ -24,7 +23,7 @@ database.
 * [babel](https://babeljs.io/)
 * [webpack](https://webpack.github.io/)
 * [eslint](http://eslint.org/)
-* [express](http://expressjs.com/)
+* [koa](http://koajs.com/)
 * [sequelize](http://docs.sequelizejs.com/en/latest/)
 
 *This project is young and in flux—new tools may be quickly added or dropped.*
@@ -38,8 +37,7 @@ database.
   $ cd ricehalla
   ```
 
-- Set up an SQL database of your choice and set the connection details in
-  `src/config.js`.
+- Set up an SQL database and update the connection details in `src/config.js`.
 
   In case you choose to use something other than
   [postgres](http://www.postgresql.org/), you will need to
@@ -52,8 +50,8 @@ database.
   $ npm install tedious # MSSQL
   ```
 
-- Once you have your database set up, install the node.js dependencies (requires
-  node >= 4.0, check your version with `node --version`).
+- Install the node dependencies (requires node >= 4.0, check your version with
+  `node --version`).
 
   ```sh
   $ npm install
@@ -90,7 +88,6 @@ database.
 
 ```
 .
-├── api/                       # server endpoints
 ├── static/
 │   └── dist/                  # compiled output (e.g. server.js client.js)
 ├── src/
@@ -98,11 +95,11 @@ database.
 │   ├── components/            # React "dumb" components (unconnected to store)
 │   ├── containers/            # React container components
 │   ├── reducers/              # redux reducers (take in action output new state)
+│   ├── server/                # backend
 │   ├── styles/                # global css
 │   ├── utils/                 # misc helpers
 │   ├── client.js              # entry-point for the client
-│   ├── config.js              # settings for <head>, jwt, db, etc.
-│   └── server.js              # entry-point for the server
+│   └── config.js              # various config settings
 ├── test/
 ├── webpack/
 │   ├── client.babel.js        # client webpack configuration

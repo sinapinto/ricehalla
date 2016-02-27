@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import ContainerBox from '../../components/ContainerBox';
+import Card from '../../components/Card';
 import styles from './Home.css';
 
 class Home extends Component {
@@ -8,9 +8,9 @@ class Home extends Component {
     return (
       <div className={styles.root}>
         <Helmet title="Home" />
-        <ContainerBox>
+        <Card>
           <h1 className={styles.header}>Contests</h1>
-        </ContainerBox>
+        </Card>
       </div>
     );
   }

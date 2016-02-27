@@ -17,14 +17,10 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      username: {
-        value: '',
-        valid: false,
-      },
-      password: {
-        value: '',
-        valid: false,
-      },
+      username: '',
+      password: '',
+      usernameValid: false,
+      passwordValid: false,
       error: '',
     };
   }
@@ -32,17 +28,11 @@ class Login extends Component {
   handleChange(e) {
     if (e.target.type === 'password') {
       this.setState({
-        password: {
-          ...this.state.password,
-          value: e.target.value
-        }
+        password: e.target.value
       });
     } else {
       this.setState({
-        username: {
-          ...this.state.username,
-          value: e.target.value
-        }
+        username: e.target.value
       });
     }
   }
@@ -54,29 +44,23 @@ class Login extends Component {
     const { isFetching } = this.props;
 
     if (isFetching) {
-      return null;
+      return undefined;
     }
 
     this.setState({
-      username: {
-        ...username,
-        valid: true,
-      },
-      password: {
-        ...password,
-        valid: true,
-      },
-      message: ''
-    }, () => this.props.login(username.value, password.value));
+      usernameValid: true,
+      passwordValid: true,
+      error: ''
+    }, () => this.props.login(username, password));
 
     return undefined;
   }
 
   renderErrorMessage() {
     const { loginError } = this.props;
-    const { username, password, error } = this.state;
+    const { usernameValid, passwordValid, error } = this.state;
 
-    if (!username.valid || !password.valid) {
+    if (!usernameValid || !passwordValid) {
       return <div className={styles.error}>{error}</div>;
     }
     if (loginError) {

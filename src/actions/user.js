@@ -28,7 +28,7 @@ export function loadUser(username) {
       return undefined;
     }
 
-    return fetch(`${API_BASE}/api/user/${username}`, {
+    return fetch(`${API_BASE}/api/v1/user/${username}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export function loadUser(username) {
     .then(res => {
       dispatch({
         type: USER_SUCCESS,
-        user: res.user,
+        user: res,
       });
     })
     .catch(() => {

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import ContainerBox from '../../components/ContainerBox';
+import Card from '../../components/Card';
 import { loadUser } from '../../actions/user';
 import styles from './Profile.css';
 
@@ -46,7 +46,7 @@ class Profile extends Component {
     return (
       <div className={styles.root}>
         <Helmet title={username} />
-        <ContainerBox>
+        <Card>
           <h2>{username}</h2>
           <ul className={styles.list}>
             <li><b>id:</b> {id}</li>
@@ -57,7 +57,7 @@ class Profile extends Component {
             <li><b>created at:</b> {createdAt}</li>
             <li><b>updated at:</b> {updatedAt}</li>
           </ul>
-        </ContainerBox>
+        </Card>
       </div>
     );
   }

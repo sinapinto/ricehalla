@@ -16,8 +16,8 @@ const nodeModules = fs
 
 export default {
   context: rootPath,
-  entry: './src/server.js',
-  devtool: 'cheap-eval-source-map',
+  entry: ['babel-polyfill', './src/server/'],
+  devtool: 'eval',
   output: {
     path: assetsPath,
     filename: 'server.js'
