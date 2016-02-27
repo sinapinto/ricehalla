@@ -2,7 +2,6 @@ import * as ActionTypes from '../actions/user';
 
 const initialState = {
   isFetching: false,
-  user: null,
 };
 
 export default function (state = initialState, action) {
@@ -16,7 +15,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        user: action.user,
+        ...action.user,
       };
     case ActionTypes.USER_FAILURE:
       return {

@@ -3,16 +3,19 @@ import User from './models/user';
 
 const router = new Router();
 
-router.get('/:id', (req, res, next) => {
-  User.findOne({
-    where: { id }
+router.get('/:username', (req, res, next) => {
+  User
+  .findOne({
+    where: { username: req.params.username }
   })
   .then(user => {
     if (!user) {
       return res.sendStatus(401);
     }
     res.status(201).json({ user });
-  });
+    return user;
+  })
+  .catch(err => next(err));
 });
 
 

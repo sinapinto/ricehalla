@@ -11,7 +11,7 @@
     "pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
     "test": "mocha --require test/setup.js --compilers js:babel-core/register,css:test/compiler.js test/**/*.js",
-    "lint": "eslint src webpack test"
+    "lint": "eslint src webpack test api"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
     "css-loader": "^0.23.1",
+    "debug": "^2.2.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.0",
     "eslint-plugin-react": "^4.0.0",

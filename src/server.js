@@ -51,6 +51,6 @@ sequelize.sync()
 .then(() => {
   app.listen(__PORT__, () => {
     /* eslint-disable no-console */
-    console.log(`▲ ${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
+    console.log(`${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
   });
 });

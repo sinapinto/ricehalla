@@ -15,15 +15,6 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING(75),
     field: 'password_hash',
   },
-  isAdmin: {
-    type: Sequelize.BOOLEAN,
-    field: 'is_admin',
-    defaultValue: false,
-  },
-  passwordResetToken: {
-    type: Sequelize.STRING(75),
-    field: 'password_reset_token',
-  },
   sessionToken: {
     type: Sequelize.STRING(75),
     field: 'session_token',

@@ -46,12 +46,8 @@ router.post('/signup', (req, res, next) => {
         username,
         email: '',
         passwordHash: hash,
-        isAdmin: false,
-        passwordResetToken: '',
         sessionToken: '',
         about: '',
-        karma: 0,
-        invitedByUserId: 0,
       }).then(() => res.sendStatus(201));
     }
   });

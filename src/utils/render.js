@@ -6,13 +6,31 @@ import { Provider } from 'react-redux';
 import createRouter from '../containers/Routes';
 import Html from '../containers/Html';
 import configureStore from './configureStore';
-import prefetchData from './prefetchData';
+const debug = require('debug')('app');
+
+/**
+ * Fetch data needed by components in the current route.
+ * Depends on components containing a prefetchData static method.
+ */
+function prefetchData(components, args) {
+  const promises = (Array.isArray(components) ? components : [components])
+    .filter(comp =>
+      comp && comp.prefetchData && typeof comp.prefetchData === 'function'
+    )
+    .map(comp =>
+      comp.prefetchData(args)
+    );
+
+  if (promises.length) {
+    debug('prefetch');
+  }
+  return Promise.all(promises);
+}
 
 export default (req, res) => {
-  const token = req.cookies.token;
   const initialState = {
     auth: {
-      token,
+      token: req.cookies.token,
       isAuthenticated: !!req.user,
     }
   };
@@ -32,7 +50,12 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      prefetchData(renderProps.components, store).then(() => {
+      prefetchData(renderProps.components, {
+        dispatch: store.dispatch,
+        path: renderProps.location.pathname,
+        query: renderProps.location.query,
+        params: renderProps.params,
+      }).then(() => {
         const component = (
           <Provider store={store}>
             { <RouterContext {...renderProps} /> }

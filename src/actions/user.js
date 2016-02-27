@@ -18,21 +18,21 @@ function userFailure() {
   };
 }
 
-export function loadUser() {
+export function loadUser(username) {
   return (dispatch, getState) => {
     const { auth: { token } } = getState();
     dispatch(userRequest());
 
-    if (!token) {
+    if (!username || typeof username !== 'string') {
       dispatch(userFailure());
-      return;
+      return undefined;
     }
 
-    fetch(`${API_BASE}/api/user`, {
+    return fetch(`${API_BASE}/api/user/${username}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : undefined,
       },
     })
     .then(res => {

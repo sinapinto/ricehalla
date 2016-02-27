@@ -31,7 +31,7 @@ class App extends Component {
       this
        .context
        .router
-       .push('/dashboard');
+       .push('/');
     } else if (this.props.isAuthenticated && !nextProps.isAuthenticated) {
       // logout
       this
@@ -55,7 +55,7 @@ class App extends Component {
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>ricehalla</Link>
             { isAuthenticated &&
-                <NavLink to="/dashboard" className={styles.welcome}>
+                <NavLink to={`/user/${username}`} className={styles.welcome}>
                   {username}
                 </NavLink> }
             { isAuthenticated &&
