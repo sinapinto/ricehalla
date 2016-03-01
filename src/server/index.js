@@ -101,5 +101,5 @@ app.use(mount('/', render));
 sequelize.sync()
 .then(() => {
   app.listen(__PORT__);
-  debug(`${process.env.NODE_ENV} server listening at http://localhost:${__PORT__}`);
+  debug(`${process.env.NODE_ENV} server listening at http://${__HOST__}:${__PORT__}`);
 });

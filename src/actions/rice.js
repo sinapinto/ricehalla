@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const API_BASE = `http://localhost:${__PORT__}`;
+const API_BASE = `//${__HOST__}:${__PORT__}`;
 
 export const RICE_REQUEST = 'RICE_REQUEST';
 export const RICE_SUCCESS = 'RICE_SUCCESS';

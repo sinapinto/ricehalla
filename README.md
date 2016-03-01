@@ -53,7 +53,7 @@ database.
   $ npm run dev
   ```
 
-  *to build production bundles run `npm run pro` instead*
+  to build production bundles instead run `HOST=domain.com PORT=80 npm run pro`
 
 - Finally, start the development server (your db is assumed to be running)
 

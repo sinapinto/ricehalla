@@ -3,9 +3,9 @@ import fs from 'fs';
 import webpack from 'webpack';
 import postcss from './postcss.js';
 
-const DEV = process.env.NODE_ENV !== 'production';
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-
+const __DEV__ = process.env.NODE_ENV !== 'production';
+const __HOST__ = process.env.HOST || 'localhost';
+const __PORT__ = parseInt(process.env.PORT, 10) || 3000;
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
 
@@ -31,10 +31,11 @@ export default {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: DEV ? JSON.stringify('development') : JSON.stringify('production')
+        NODE_ENV: __DEV__ ? JSON.stringify('development') : JSON.stringify('production')
       },
-      __PORT__: PORT,
-      __DEV__: DEV,
+      __DEV__,
+      __HOST__: JSON.stringify(__HOST__),
+      __PORT__,
     }),
   ],
   module: {
@@ -46,7 +47,7 @@ export default {
         query: { presets: ['es2015', 'react', 'stage-1'] }
       }, {
         test: /\.css$/,
-        loader: DEV
+        loader: __DEV__
           ? 'css/locals?modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss'
           : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'
       }, {

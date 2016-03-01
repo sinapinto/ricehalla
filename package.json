@@ -111,7 +111,8 @@
     },
     "globals": {
       "__DEV__": false,
-      "__PORT__": 3000
+      "__PORT__": 3000,
+      "__HOST__": "localhost"
     },
     "rules": {
       "comma-dangle": 0,

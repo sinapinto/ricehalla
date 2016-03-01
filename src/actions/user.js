@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const API_BASE = `http://localhost:${__PORT__}`;
+const API_BASE = `//${__HOST__}:${__PORT__}`;
 
 export const USER_REQUEST = 'USER_REQUEST';
 export const USER_SUCCESS = 'USER_SUCCESS';

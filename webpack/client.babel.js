@@ -4,17 +4,17 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import postcss from './postcss.js';
 
-const DEV = process.env.NODE_ENV !== 'production';
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-
+const __DEV__ = process.env.NODE_ENV !== 'production';
+const __HOST__ = process.env.HOST || 'localhost';
+const __PORT__ = parseInt(process.env.PORT, 10) || 3000;
 const rootPath = path.resolve(__dirname, '..');
 const assetsPath = path.resolve(rootPath, './static/dist');
 
 export default {
   context: rootPath,
-  devtool: DEV ? 'cheap-module-eval-source-map' : 'source-map',
-  entry: DEV ? [
-    `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+  devtool: __DEV__ ? 'cheap-module-eval-source-map' : 'source-map',
+  entry: __DEV__ ? [
+    `webpack-hot-middleware/client?path=http://localhost:${__PORT__}/__webpack_hmr`,
     './src/client.js'
   ] : [
     './src/client.js'
@@ -22,18 +22,19 @@ export default {
   output: {
     filename: 'bundle.js',
     path: assetsPath,
-    publicPath: DEV ? `http://localhost:${PORT}/dist/` : '/dist/'
+    publicPath: __DEV__ ? `http://localhost:${__PORT__}/dist/` : '/dist/'
   },
   target: 'web',
-  plugins: DEV ? [
+  plugins: __DEV__ ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       },
-      __DEV__: true,
-      __PORT__: PORT,
+      __DEV__,
+      __HOST__: JSON.stringify(__HOST__),
+      __PORT__,
     }),
   ] : [ // prod
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -41,8 +42,9 @@ export default {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       },
-      __DEV__: false,
-      __PORT__: PORT,
+      __DEV__,
+      __HOST__: JSON.stringify(__HOST__),
+      __PORT__,
     }),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.UglifyJsPlugin({
@@ -58,7 +60,7 @@ export default {
         include: path.resolve(rootPath, './src'),
         loader: 'babel',
         query: {
-          presets: ['react', 'es2015', 'stage-1'],
+          presets: ['es2015', 'react', 'stage-1'],
           env: {
             development: {
               plugins: [['react-transform', {
@@ -78,12 +80,12 @@ export default {
         }
       }, {
         test: /^((?!\.global).)*\.css$/,
-        loader: DEV
+        loader: __DEV__
           ? 'style!css?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:3]!postcss'
           : ExtractTextPlugin.extract('style', 'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
       }, {
         test: /\.global\.css$/,
-        loader: DEV
+        loader: __DEV__
           ? 'style!css!less'
           : ExtractTextPlugin.extract('style', 'css?minimize!less')
       }, {
