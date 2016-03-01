@@ -4,12 +4,11 @@ import sequelize from './sequelize';
 
 const User = sequelize.define('user', {
   username: {
+    allowNull: false,
     type: Sequelize.STRING(50),
-    field: 'username',
   },
   email: {
     type: Sequelize.STRING(100),
-    field: 'email',
   },
   passwordHash: {
     type: Sequelize.STRING(75),
@@ -17,7 +16,6 @@ const User = sequelize.define('user', {
   },
   about: {
     type: Sequelize.TEXT,
-    field: 'about',
   },
 });
 

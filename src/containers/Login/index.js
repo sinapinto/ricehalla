@@ -74,7 +74,7 @@ class Login extends Component {
 
     return (
       <div className={`${styles.wrapper} ${isFetching && styles.opaque}`}>
-        <Helmet title="Login" />
+        <Helmet title="Login | ricehalla" />
         <form className={styles.form}>
           <div style={{ marginBottom: '20px' }}>
             <span className="fa-stack fa-4x">

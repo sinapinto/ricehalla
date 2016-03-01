@@ -1,8 +1,10 @@
 import compose from 'koa-compose';
-import users from './users';
+import user from './user';
+import rice from './rice';
 
 const router = compose([
-  users.middleware()
+  user.middleware(),
+  rice.middleware()
 ]);
 
 export default router;

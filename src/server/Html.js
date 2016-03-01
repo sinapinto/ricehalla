@@ -11,18 +11,15 @@ const propTypes = {
 class Page extends Component {
   render() {
     const { component, state = '' } = this.props;
-    const head = Helmet.rewind();
     const markup = component ? renderToString(component) : '';
+    const head = Helmet.rewind();
     const bundle = webpackConfig.output.publicPath + webpackConfig.output.filename;
 
     return (
       <html>
         <head>
-          {head.base.toComponent()}
           {head.title.toComponent()}
           {head.meta.toComponent()}
-          {head.link.toComponent()}
-          {head.script.toComponent()}
           {/* style-loader is used in dev */}
           { !__DEV__ &&
             <link href="/dist/main.css" rel="stylesheet" type="text/css" charSet="UTF-8" /> }

@@ -45,7 +45,7 @@ class Profile extends Component {
 
     return (
       <div className={styles.root}>
-        <Helmet title={username} />
+        <Helmet title={`${username} | ricehalla`} />
         <Card>
           <h2>{username}</h2>
           <ul className={styles.list}>

@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
 import { logout } from '../../actions/auth';
 import NavLink from '../../components/NavLink';
-import config from '../../config';
 import styles from './App.css';
 
 const propTypes = {
@@ -50,7 +49,16 @@ class App extends Component {
     const { username, isAuthenticated } = this.props;
     return (
       <div className={styles.root}>
-        <Helmet {...config.app.head} />
+        <Helmet title="ricehalla" meta={[
+          { name: 'description', content: 'sharing dotfiles' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { charset: 'utf-8' },
+          { property: 'og:site_name', content: 'ricehalla' },
+          { property: 'og:locale', content: 'en_US' },
+          { property: 'og:title', content: 'ricehalla' },
+          { property: 'og:description', content: 'sharing dotfiles' }
+        ]}
+        />
         <div className={styles.nav}>
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>ricehalla</Link>

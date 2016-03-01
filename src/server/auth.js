@@ -4,13 +4,13 @@ import { User } from './db';
 import config from '../config';
 const router = require('koa-router')();
 
-router.post('/auth/signup', function *() {
+router.post('/signup', function *() {
   const { username, password } = this.request.body;
 
-  // check if user already exists
+  // throw if username is taken
   const exists = yield User.findOne({ where: { username } });
   if (exists) {
-    this.throw(400, 'user exists\n');
+    this.throw(400);
   }
 
   const salt = yield bcrypt.genSalt(10);
@@ -26,26 +26,22 @@ router.post('/auth/signup', function *() {
 });
 
 
-router.post('/auth/login', function *() {
+router.post('/login', function *() {
   const { username, password } = this.request.body;
   const user = yield User.findOne({ where: { username } });
-  if (!user) {
-    this.throw(401);
-  }
+  this.assert(user, 401);
 
   // check password
   const valid = yield bcrypt.compare(password, user.dataValues.passwordHash);
-  if (!valid) {
-    this.throw(401);
-  }
+  this.assert(valid, 401);
 
-  const token = jwt.sign({ username }, config.jwt.secret, { expiresIn: config.jwt.expires });
+  const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
   this.type = 'json';
   this.body = { token };
 });
 
 
-router.get('/auth/logout', function *() {
+router.get('/logout', function *() {
   this.cookies.set('token', '', { expires: new Date(0) });
   this.status = 200;
 });

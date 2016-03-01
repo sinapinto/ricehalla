@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/sinapinto/ricehalla.svg?branch=master)](https://travis-ci.org/sinapinto/ricehalla)
 [![Dependency Status](https://david-dm.org/sinapinto/ricehalla.svg)](https://david-dm.org/sinapinto/ricehalla)
 
-**(WIP)** a website for rice contests..
+**(WIP)** a website for sharing dotfiles..
 
 ---
 
@@ -28,7 +28,7 @@ database.
 
 *This project is young and in flux—new tools may be quickly added or dropped.*
 
-## Setting up for development
+## Getting started
 
 - Checkout the source from github
 
@@ -38,17 +38,6 @@ database.
   ```
 
 - Set up an SQL database and update the connection details in `src/config.js`.
-
-  In case you choose to use something other than
-  [postgres](http://www.postgresql.org/), you will need to
-  also install an appropriate node.js driver:
-
-  ```sh
-  # add one of the following
-  $ npm install mysql # For both mysql and mariadb dialects
-  $ npm install sqlite3
-  $ npm install tedious # MSSQL
-  ```
 
 - Install the node dependencies (requires node >= 4.0, check your version with
   `node --version`).
@@ -73,16 +62,7 @@ database.
   ```
 
   You can now open `http://localhost:3000` in your browser and use the website.
-
-  Thanks to Hot Module Replacement, writing updates to the client-side code
-  while the dev server is running will trigger the app to update live without
-  needing to restart the server or refresh the webpage. (For certain changes to
-  code this isn't possible and a warning will appear in the console.)
-
-  In development, you can view and manipulate the redux store using
-  [redux-devtools](https://github.com/gaearon/redux-devtools). By default the
-  monitor is hidden, but its visibility can be toggled with `ctrl-h` and
-  repositioned with `ctrl-q`.
+  Use `ctrl-h` to toggle redux devtools.
 
 ## Directory layout
 

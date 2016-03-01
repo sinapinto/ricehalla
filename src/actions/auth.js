@@ -103,6 +103,7 @@ export function register(username, password) {
     });
   };
 }
+
 export const LOGOUT = 'LOGOUT';
 
 export function logout() {

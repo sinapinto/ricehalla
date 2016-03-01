@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Resource from 'koa-resource-router';
 import { User } from '../db';
 

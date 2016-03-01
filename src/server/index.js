@@ -7,12 +7,13 @@ import logger from 'koa-logger';
 import helmet from 'koa-helmet';
 import responseTime from 'koa-response-time';
 import serve from 'koa-static';
+import cors from 'koa-cors';
 import mount from 'koa-mount';
 import _debug from 'debug';
 import jwt from 'koa-jwt';
 import sequelize from './db/sequelize';
 import resources from './resources';
-import router from './routes';
+import auth from './auth';
 import render from './render';
 import config from '../config';
 
@@ -76,7 +77,7 @@ app.use(bodyparser());
 
 // verify jwt token and set `this.state.user`
 app.use(jwt({
-  secret: config.jwt.secret,
+  secret: config.jwt.secretOrKey,
   cookie: 'token',
   key: 'user',
   passthrough: true,
@@ -88,12 +89,12 @@ app.use(function *(next) {
   yield next;
 });
 
-// '/auth'
-app.use(router.routes());
-// '/api/v1'
+app.on('error', err => debug(`error: ${err.message}`));
+
+app.use(mount('/auth', auth.routes()));
+app.use(mount('/api/v1', cors()));
 app.use(mount('/api/v1', resources));
-// '/'
-app.use(render());
+app.use(mount('/', render));
 
 // sync models to the DB and start the server
 // -------------------------------------------

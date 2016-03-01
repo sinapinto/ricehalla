@@ -11,65 +11,61 @@ import configureStore from '../utils/configureStore';
  * Fetch data needed by components in the current route.
  * Depends on components containing a prefetchData static method.
  */
-function prefetchData(components, args) {
+function prefetchData(components, obj) {
   const promises = (Array.isArray(components) ? components : [components])
     .filter(comp =>
       comp && comp.prefetchData && typeof comp.prefetchData === 'function'
     )
     .map(comp =>
-      comp.prefetchData(args)
+      comp.prefetchData.call(this, obj)
     );
   return Promise.all(promises);
 }
 
-function render() {
-  return function *() {
-    const initialState = {
-      auth: {
-        token: this.cookies.get('token'),
-        isAuthenticated: !!this.state.user
-      }
-    };
-    const store = configureStore(initialState);
-    const location = createLocation(this.url);
-    const routes = createRouter(createMemoryHistory(), store);
+export default function *() {
+  const initialState = {
+    auth: {
+      token: this.cookies.get('token'),
+      isAuthenticated: !!this.state.user
+    }
+  };
+  const store = configureStore(initialState);
+  const location = createLocation(this.url);
+  const routes = createRouter(createMemoryHistory(), store);
 
-    const { error, redirectLocation, renderProps } = yield new Promise((resolve) => {
-      match({ routes, location }, (_error, _redirectLocation, _renderProps) => {
-        resolve({
-          error: _error,
-          redirectLocation: _redirectLocation,
-          renderProps: _renderProps
-        });
+  const { error, redirectLocation, renderProps } = yield new Promise((resolve) => {
+    match({ routes, location }, (_error, _redirectLocation, _renderProps) => {
+      resolve({
+        error: _error,
+        redirectLocation: _redirectLocation,
+        renderProps: _renderProps
       });
     });
+  });
 
-    if (error) {
-      this.throw(400);
-      return;
-    } else if (redirectLocation) {
-      this.redirect(redirectLocation.pathname + redirectLocation.search);
-      return;
-    } else if (!renderProps) {
-      this.throw(400, 'no render props\n');
-      return;
-    }
+  if (error) {
+    this.throw(400);
+  }
 
-    yield prefetchData(renderProps.components, {
-      dispatch: store.dispatch,
-      path: renderProps.location.pathname,
-      query: renderProps.location.query,
-      params: renderProps.params,
-    });
+  if (redirectLocation) {
+    this.redirect(redirectLocation.pathname + redirectLocation.search);
+    return;
+  }
 
-    const component = (
-      <Provider store={store}>
-        { <RouterContext {...renderProps} /> }
-      </Provider>
-    );
-    const html = <Html component={component} state={store.getState()} />;
-    this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
-  };
+  this.assert(renderProps, 400);
+
+  yield prefetchData(renderProps.components, {
+    dispatch: store.dispatch,
+    path: renderProps.location.pathname,
+    query: renderProps.location.query,
+    params: renderProps.params,
+  });
+
+  const component = (
+    <Provider store={store}>
+      { <RouterContext {...renderProps} /> }
+    </Provider>
+  );
+  const html = <Html component={component} state={store.getState()} />;
+  this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
 }
-
-export default render;
