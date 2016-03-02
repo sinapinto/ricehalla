@@ -1,13 +1,6 @@
-import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
-import postcss from './postcss.js';
-
-const __DEV__ = process.env.NODE_ENV !== 'production';
-const __HOST__ = process.env.HOST || 'localhost';
-const __PORT__ = parseInt(process.env.PORT, 10) || 3000;
-const rootPath = path.resolve(__dirname, '..');
-const assetsPath = path.resolve(rootPath, './static/dist');
+import * as shared from './shared';
 
 const nodeModules = fs
   .readdirSync('node_modules')
@@ -15,11 +8,11 @@ const nodeModules = fs
   .map(mod => ({ [mod]: `commonjs ${mod}` }));
 
 export default {
-  context: rootPath,
+  context: shared.ROOT_PATH,
   entry: ['babel-polyfill', './src/server/'],
   devtool: 'eval',
   output: {
-    path: assetsPath,
+    path: shared.ASSETS_PATH,
     filename: 'server.js'
   },
   externals: nodeModules,
@@ -29,14 +22,7 @@ export default {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: __DEV__ ? JSON.stringify('development') : JSON.stringify('production')
-      },
-      __DEV__,
-      __HOST__: JSON.stringify(__HOST__),
-      __PORT__,
-    }),
+    ...shared.PLUGINS
   ],
   module: {
     loaders: [
@@ -47,17 +33,12 @@ export default {
         query: { presets: ['es2015', 'react', 'stage-1'] }
       }, {
         test: /\.css$/,
-        loader: __DEV__
+        loader: shared.DEV
           ? 'css/locals?modules&localIdentName=[name]_[local]_[hash:base64:3]!postcss'
           : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'
-      }, {
-        test: /\.(jpe?g|png|gif)$/i,
-        loader: 'url',
-        query: {
-          limit: 8192,
-        },
-      }
+      },
+      ...shared.LOADERS
     ]
   },
-  postcss
+  postcss: shared.POSTCSS
 };

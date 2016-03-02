@@ -91,6 +91,7 @@ app.use(function *(next) {
 
 app.on('error', err => debug(`error: ${err.message}`));
 
+app.use(mount('/auth', cors()));
 app.use(mount('/auth', auth.routes()));
 app.use(mount('/api/v1', cors()));
 app.use(mount('/api/v1', resources));
