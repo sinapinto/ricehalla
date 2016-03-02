@@ -2,9 +2,10 @@ import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
+  API_BASE,
   LOGIN_SUCCESS,
   LOGIN_REQUEST,
-  LOGOUT,
+  LOGOUT_REQUEST,
   login,
   logout
 } from '../../src/actions/auth.js';
@@ -17,19 +18,19 @@ describe('auth actions', () => {
     nock.cleanAll();
   });
 
-  it('creates LOGOUT when logging out', (done) => {
-    nock(`http://localhost:${__PORT__}`)
+  it('creates LOGOUT_REQUEST when logging out', (done) => {
+    nock(`http:${API_BASE}`)
       .post('/auth/logout')
       .reply(204);
     const expectedActions = [
-      { type: LOGOUT },
+      { type: LOGOUT_REQUEST },
     ];
     const store = mockStore({}, expectedActions, done);
     store.dispatch(logout());
   });
 
   it('creates LOGIN_SUCCESS when logging in has been done', (done) => {
-    nock(`http://localhost:${__PORT__}`)
+    nock(`http:${API_BASE}`)
       .post('/auth/login')
       .reply(201, { token: 'token' });
     const expectedActions = [
@@ -41,6 +42,6 @@ describe('auth actions', () => {
       },
     ];
     const store = mockStore({}, expectedActions, done);
-    store.dispatch(login('aa', 'bb'));
+    store.dispatch(login({ username: 'aa', password: 'bb' }));
   });
 });

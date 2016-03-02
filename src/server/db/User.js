@@ -1,17 +1,22 @@
-/* eslint-disable new-cap */
 import Sequelize from 'sequelize';
 import sequelize from './sequelize';
 
 const User = sequelize.define('user', {
+  uuid: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
+  },
   username: {
     allowNull: false,
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING,
   },
   email: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING,
   },
   passwordHash: {
-    type: Sequelize.STRING(75),
+    allowNull: false,
+    type: Sequelize.STRING,
     field: 'password_hash',
   },
   about: {

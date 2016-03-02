@@ -1,13 +1,13 @@
-/* eslint-disable new-cap */
 import Sequelize from 'sequelize';
 import sequelize from './sequelize';
+import User from './User';
 
 const Rice = sequelize.define('rice', {
   title: {
-    allowNull: false,
     type: Sequelize.TEXT,
   },
 });
 
-export default Rice;
+Rice.belongsTo(User);
 
+export default Rice;

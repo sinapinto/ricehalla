@@ -63,6 +63,8 @@ class App extends Component {
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>ricehalla</Link>
             { isAuthenticated &&
+                <NavLink to="/submit">Submit</NavLink> }
+            { isAuthenticated &&
                 <NavLink to={`/user/${username}`} className={styles.welcome}>
                   {username}
                 </NavLink> }

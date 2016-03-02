@@ -33,31 +33,8 @@
   color: rgb(220, 40, 40);
 }
 
-/* input */
 .inputWrapper {
   position: relative;
   width: 100%;
   margin: 0 auto;
-}
-
-.input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(0,0,0,0.15);
-}
-
-.input:hover {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.3);
-}
-
-.input:focus,
-.input:active {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
-  border: 1px solid rgb(33, 133, 208);
-  outline: none;
-}
-
-.invalid, .invalid:focus, .invalid:hover, .invalid:active {
-  border: 1px solid rgb(245, 0, 0);
 }

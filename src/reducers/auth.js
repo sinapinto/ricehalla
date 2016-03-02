@@ -46,12 +46,13 @@ export default function (state = initialState, action) {
       return {
         ...initializedState,
         isFetching: true,
+        registerError: '',
       };
     case ActionTypes.REGISTER_SUCCESS:
       return {
         ...initializedState,
         isFetching: false,
-        loginError: '',
+        registerError: '',
       };
     case ActionTypes.REGISTER_FAILURE:
       return {
@@ -59,11 +60,18 @@ export default function (state = initialState, action) {
         isFetching: false,
         registerError: action.error,
       };
-    case ActionTypes.LOGOUT:
+    case ActionTypes.LOGOUT_REQUEST:
       return {
         ...initializedState,
         isAuthenticated: false,
         token: null,
+      };
+    case ActionTypes.LOGOUT_FAILURE:
+      return {
+        ...initializedState,
+        isAuthenticated: false,
+        token: null,
+        logoutError: action.error
       };
     default:
       return initializedState;

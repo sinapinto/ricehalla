@@ -6,18 +6,18 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.USER_REQUEST:
+    case ActionTypes.LOAD_USER_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ActionTypes.USER_SUCCESS:
+    case ActionTypes.LOAD_USER_SUCCESS:
       return {
         ...state,
         isFetching: false,
         ...action.user,
       };
-    case ActionTypes.USER_FAILURE:
+    case ActionTypes.LOAD_USER_FAILURE:
       return {
         ...state,
         isFetching: false,

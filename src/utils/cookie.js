@@ -1,26 +1,62 @@
 export default {
-  set({ key, value = '', path = '/', domain = '', expires = '' }) {
-    if (typeof window === 'undefined' || !window.document) {
-      return false;
+
+  set(key, value = '', options = {}) {
+    this._checkWindow();
+    this._checkKey(key);
+
+    const defaultOptions = {
+      path: '/',
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      domain: null,
+      secure: false
+    };
+
+    const opt = {
+      ...options,
+      ...defaultOptions
+    };
+
+    if (opt.expires instanceof Date) {
+      opt.expires = opt.expires.toUTCString();
     }
 
-    if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
-      return false;
+    let cookie = `${key}=${encodeURIComponent(value)}; path=${opt.path}; expires=${opt.expires}`;
+
+    if (opt.domain) {
+      cookie += `; domain=${opt.domain}`;
     }
 
-    let end = expires;
-    if (expires instanceof Date) {
-      end = end.toUTCString();
+    if (opt.secure) {
+      cookie += '; secure';
     }
 
-    document.cookie = `${encodeURIComponent(key)}=${value}` +
-      `; path=${path}` +
-      `; domain=${domain}` +
-      `; expires=${end}`;
-    return true;
+    document.cookie = cookie;
+  },
+
+  get(key) {
+    this._checkWindow();
+    this._checkKey(key);
+
+    const re = new RegExp(`(?:(?:^|.*;\\s*)${key}\\s*\\=\\s*([^;]*).*$)|^.*$`);
+
+    const val = document.cookie.replace(re, '$1');
+
+    return val ? decodeURIComponent(val) : undefined;
   },
 
   remove(key) {
-    return this.set({ key, expires: 'Thu, 01 Jan 1970 00:00:00 GMT' });
+    this.set(key, '', { expires: new Date(0) });
+  },
+
+  _checkWindow() {
+    if (typeof window.document !== 'object') {
+      throw new Error('no window.document object');
+    }
+  },
+
+  _checkKey(key) {
+    if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
+      throw new TypeError('argument key is invalid');
+    }
   },
 };

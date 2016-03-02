@@ -5,6 +5,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
+import Submit from './Submit';
 import NotFound from './NotFound';
 
 export default function createRouter(history, store) {
@@ -27,7 +28,7 @@ export default function createRouter(history, store) {
         <Route path="/register" component={Register} />
         <Route path="/user/:username" component={Profile} />
         <Route onEnter={requireAuth}>
-          <Route path="/x" component={Profile} />
+          <Route path="/submit" component={Submit} />
         </Route>
         <Route path="*" component={NotFound} />
       </Route>

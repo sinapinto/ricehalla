@@ -13,8 +13,16 @@ export default {
     config: {
       dialect: 'sqlite',
       storage: './db.development.sqlite',
+      pool: {
+        max: 20,
+        min: 0,
+        idle: 5000,
+      },
       define: {
-        freezeTableName: true
+        timestamps: true,
+        freezeTableName: true,
+        underscored: true,
+        paranoid: true,
       },
       logging: false
     }

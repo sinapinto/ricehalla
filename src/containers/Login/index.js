@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
+import Input from '../../components/Input';
 import styles from './Login.css';
 import { login } from '../../actions/auth';
 
@@ -51,7 +52,7 @@ class Login extends Component {
       usernameValid: true,
       passwordValid: true,
       error: ''
-    }, () => this.props.login(username, password));
+    }, () => this.props.login({ username, password }));
 
     return undefined;
   }
@@ -83,21 +84,19 @@ class Login extends Component {
             </span>
           </div>
           <div className={styles.inputWrapper}>
-            <input
+            <Input
               autoFocus="true"
               type="text"
               onChange={this.handleChange}
               placeholder="Username"
-              className={styles.input}
               required
             />
           </div>
           <div className={styles.inputWrapper}>
-            <input
+            <Input
               type="password"
               placeholder="Password"
               onChange={this.handleChange}
-              className={styles.input}
               required
             />
           </div>

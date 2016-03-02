@@ -10,7 +10,7 @@
     "pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
     "pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
-    "test": "mocha --require test/setup.js --compilers js:babel-core/register,css:test/compiler.js test/**/*.js",
+    "test": "mocha -r test/setup.js -r babel-polyfill --compilers js:babel-core/register,css:test/compiler.js test/**/*.spec.js",
     "lint": "eslint src webpack test api"
   },
   "repository": {
@@ -116,7 +116,8 @@
     },
     "rules": {
       "comma-dangle": 0,
-      "func-names": 0
+      "func-names": 0,
+      "new-cap": 0
     }
   }
 }

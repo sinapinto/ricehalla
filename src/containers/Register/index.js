@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
+import Input from '../../components/Input';
 import styles from './Register.css';
 import { register } from '../../actions/auth';
 
@@ -84,7 +85,7 @@ class Register extends Component {
           ...this.state.password,
           valid: true,
         },
-      }, () => this.props.register(username, password));
+      }, () => this.props.register({ username, password }));
     }
   }
 
@@ -117,7 +118,7 @@ class Register extends Component {
   }
 
   render() {
-    const { invalidUsername, invalidPassword, isFetching } = this.state;
+    const { isFetching } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -130,21 +131,19 @@ class Register extends Component {
             </span>
           </div>
           <div className={styles.inputWrapper}>
-            <input
+            <Input
               autoFocus="true"
               type="text"
               onChange={this.handleChange}
               placeholder="Username"
-              className={`${styles.input} ${invalidUsername && styles.invalid}`}
               required
             />
           </div>
           <div className={styles.inputWrapper}>
-            <input
+            <Input
               type="password"
               placeholder="Password"
               onChange={this.handleChange}
-              className={`${styles.input} ${invalidPassword && styles.invalid}`}
               required
             />
           </div>

@@ -6,18 +6,17 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.RICE_REQUEST:
+    case ActionTypes.LOAD_RICE_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ActionTypes.RICE_SUCCESS:
+    case ActionTypes.LOAD_RICE_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        ...action.rice,
       };
-    case ActionTypes.RICE_FAILURE:
+    case ActionTypes.LOAD_RICE_FAILURE:
       return {
         ...state,
         isFetching: false,

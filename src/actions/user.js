@@ -1,55 +1,44 @@
 import fetch from 'isomorphic-fetch';
+import cookie from '../utils/cookie';
 
 const API_BASE = `//${__HOST__}:${__PORT__}`;
 
-export const USER_REQUEST = 'USER_REQUEST';
-export const USER_SUCCESS = 'USER_SUCCESS';
-export const USER_FAILURE = 'USER_FAILURE';
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
-function userRequest() {
-  return {
-    type: USER_REQUEST,
-  };
+async function get(username, token) {
+  return fetch(`${API_BASE}/api/v1/user/${username}`, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    }
+  })
+  .then(res => {
+    if (res.status >= 200 && res.status < 300) {
+      return res;
+    }
+    throw new Error('an error occured');
+  })
+  .then(res => res.json());
 }
 
-function userFailure() {
-  return {
-    type: USER_FAILURE,
-  };
-}
 
 export function loadUser(username) {
-  return (dispatch, getState) => {
-    const { auth: { token } } = getState();
-    dispatch(userRequest());
-
-    if (!username || typeof username !== 'string') {
-      dispatch(userFailure());
-      return undefined;
-    }
-
-    return fetch(`${API_BASE}/api/v1/user/${username}`, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: token ? `Bearer ${token}` : undefined,
-      },
-    })
-    .then(res => {
-      if (res.status >= 200 && res.status < 300) {
-        return res;
+  return async dispatch => {
+    try {
+      dispatch({ type: LOAD_USER_REQUEST });
+      const token = cookie.get('token');
+      if (!username || typeof username !== 'string') {
+        throw new Error('Invalid username');
       }
-      throw new Error('An error occured');
-    })
-    .then(res => res.json())
-    .then(res => {
+      const res = await get(username, token);
       dispatch({
-        type: USER_SUCCESS,
+        type: LOAD_USER_SUCCESS,
         user: res,
       });
-    })
-    .catch(() => {
-      dispatch(userFailure());
-    });
+    } catch (err) {
+      dispatch({ type: LOAD_USER_FAILURE, error: err.message });
+    }
   };
 }
