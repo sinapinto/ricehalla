@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { loadRice } from '../../actions/rice';
 import Card from '../../components/Card';
-import styles from './Home.css';
+import styles from './styles.css';
 
 class Home extends Component {
   render() {

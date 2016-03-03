@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './NavLink.css';
+import styles from './styles.css';
 import Button from '../Button';
 
 const propTypes = {

@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react';
-import styles from './Button.css';
+import styles from './styles.css';
 
 const propTypes = {
-  theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
+  theme: PropTypes.oneOf(['normal', 'grey', 'primary', 'success', 'error']),
   children: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
 };
 
 const themes = {
   normal: styles.btnNormal,
+  grey: styles.btnGrey,
   primary: styles.btnPrimary,
   success: styles.btnSuccess,
   error: styles.btnError,

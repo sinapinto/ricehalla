@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
 import { logout } from '../../actions/auth';
 import NavLink from '../../components/NavLink';
-import styles from './App.css';
+import styles from './styles.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
@@ -63,7 +63,7 @@ class App extends Component {
           <div className={styles.navWrapper}>
             <Link to="/" className={styles.navLogo}>ricehalla</Link>
             { isAuthenticated &&
-                <NavLink to="/submit">Submit</NavLink> }
+                <NavLink to="/submit" theme="success">Submit</NavLink> }
             { isAuthenticated &&
                 <NavLink to={`/user/${username}`} className={styles.welcome}>
                   {username}

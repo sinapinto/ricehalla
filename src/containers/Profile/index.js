@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Card from '../../components/Card';
 import { loadUser } from '../../actions/user';
-import styles from './Profile.css';
+import styles from './styles.css';
 
 const propTypes = {
   user: PropTypes.shape({

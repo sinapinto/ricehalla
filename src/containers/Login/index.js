@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import styles from './Login.css';
+import styles from './styles.css';
 import { login } from '../../actions/auth';
 
 const propTypes = {

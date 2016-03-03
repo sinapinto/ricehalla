@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './Input.css';
+import styles from './styles.css';
 
 const propTypes = {
   children: PropTypes.oneOfType([

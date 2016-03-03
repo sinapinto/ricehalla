@@ -50,7 +50,7 @@ export default {
 
   _checkWindow() {
     if (typeof window.document !== 'object') {
-      throw new Error('no window.document object');
+      throw new ReferenceError('no window.document object');
     }
   },
 
