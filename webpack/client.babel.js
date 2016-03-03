@@ -2,6 +2,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import AssetsPlugin from 'assets-webpack-plugin';
 import * as shared from './shared';
 
 export default {
@@ -14,7 +15,7 @@ export default {
     './src/client.js'
   ],
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
     path: shared.ASSETS_PATH,
     publicPath: shared.DEV ? `http://localhost:${shared.PORT}/dist/` : '/dist/'
   },
@@ -22,15 +23,17 @@ export default {
   plugins: shared.DEV ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new AssetsPlugin(),
     ...shared.PLUGINS
   ] : [ // prod
     new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[contenthash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
       }
     }),
+    new AssetsPlugin(),
     ...shared.PLUGINS
   ],
   module: {

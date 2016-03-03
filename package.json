@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node static/dist/server.js",
-    "dev": "npm run clean && npm run dev:server && npm run dev:client",
+    "dev": "npm run clean && npm run dev:client && npm run dev:server",
     "dev:client": "webpack --config webpack/client.babel.js",
     "dev:server": "webpack --config webpack/server.babel.js",
-    "pro": "npm run clean && npm run pro:server && npm run pro:client",
+    "pro": "npm run clean && npm run pro:client && npm run pro:server",
     "pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
     "pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
     "clean": "rm -rf static/dist",
@@ -19,6 +19,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "assets-webpack-plugin": "^3.3.0",
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.5.2",
     "babel-eslint": "^5.0.0",
@@ -42,6 +43,7 @@
     "font-awesome": "^4.5.0",
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^8.0.4",
+    "json-loader": "^0.5.4",
     "jsonwebtoken": "^5.7.0",
     "jwt-decode": "^1.5.1",
     "koa": "^1.1.2",
