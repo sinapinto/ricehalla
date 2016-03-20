@@ -2,9 +2,11 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 
 const propTypes = {
-  theme: PropTypes.oneOf(['normal', 'grey', 'primary', 'success', 'error']),
   children: PropTypes.string.isRequired,
+  theme: PropTypes.oneOf(['normal', 'grey', 'primary', 'success', 'error']),
   handleClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  width: PropTypes.string,
 };
 
 const themes = {
@@ -15,12 +17,16 @@ const themes = {
   error: styles.btnError,
 };
 
-function Button({ handleClick, theme = 'normal', children, ...other }) {
+const noop = () => {};
+
+function Button({ handleClick, theme = 'normal', width, disabled, children }) {
   return (
-    <button {...other}
+    <button
       type="submit"
       className={themes[theme]}
-      onClick={handleClick}
+      style={width ? { width } : null }
+      disabled={!!disabled}
+      onClick={handleClick || noop}
     >
       {children}
     </button>

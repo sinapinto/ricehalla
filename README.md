@@ -30,13 +30,6 @@ database.
 
 ## Getting started
 
-- Checkout the source from github
-
-  ```
-  $ git clone git://github.com/sinapinto/ricehalla.git
-  $ cd ricehalla
-  ```
-
 - Set up an SQL database and update the connection details in `src/config.js`.
 
 - Install the node dependencies (requires node >= 4.0, check your version with
@@ -55,7 +48,7 @@ database.
 
   to build production bundles instead run `HOST=domain.com PORT=80 npm run pro`
 
-- Finally, start the development server (your db is assumed to be running)
+- Start the development server
 
   ```sh
   $ npm start
@@ -136,13 +129,6 @@ Inline styles written in javascript are a popular alternative to css modules.
 Some issues with inline styles include bloating the server-rendered markup
 string (maybe not a huge issue once compressed) and making things like css
 animations and media queries difficult.
-
-### Third-party styles
-
-Webpack should leave identifiers of third-party styles such as Bootstrap intact
-while generating hashed identifiers for local styles. This is accomplished by
-using a separate `loaders` entry to the webpack config that tests for files
-ending with `.global.css` and treating them accordingly.
 
 ## License
 

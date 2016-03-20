@@ -30,7 +30,7 @@ export default function *() {
     }
   };
   const store = configureStore(initialState);
-  const location = createLocation(this.url);
+  const location = createLocation(this.originalUrl);
   const routes = createRouter(createMemoryHistory(), store);
 
   const { error, redirectLocation, renderProps } = yield new Promise((resolve) => {

@@ -89,7 +89,7 @@ app.use(function *(next) {
   yield next;
 });
 
-app.on('error', err => debug(`error: ${err.message}`));
+// app.on('error', err => debug(`error: ${err.message}`));
 
 app.use(mount('/auth', cors()));
 app.use(mount('/auth', auth.routes()));

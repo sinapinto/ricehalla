@@ -1,0 +1,38 @@
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: none;
+  transition: all 0.3s;
+}
+
+.input:hover {
+  border: 1px solid rgba(0,0,0,0.3);
+}
+
+.input:focus,
+.input:active {
+  box-shadow: 0 0 0 2px rgba(0, 170, 220, 0.35);
+  border: 1px solid rgb(0, 170, 220);
+  outline: none;
+}
+
+.invalid,
+.invalid:hover {
+  border: 1px solid rgb(245, 0, 0);
+}
+.invalid:focus,
+.invalid:active {
+  box-shadow: 0 0 0 2px rgba(245, 0, 0, 0.35);
+  border: 1px solid rgb(245, 0, 0);
+}
+
+.valid,
+.valid:hover {
+  border: 1px solid rgb(0, 245, 0);
+}
+.valid:focus,
+.valid:active {
+  box-shadow: 0 0 0 2px rgba(0, 245, 0, 0.35);
+  border: 1px solid rgb(0, 245, 0);
+}

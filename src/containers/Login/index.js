@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
+import TextInput from '../../components/TextInput';
 import styles from './styles.css';
 import { login } from '../../actions/auth';
 
@@ -84,8 +84,8 @@ class Login extends Component {
             </span>
           </div>
           <div className={styles.inputWrapper}>
-            <Input
-              autoFocus="true"
+            <TextInput
+              autoFocus
               type="text"
               onChange={this.handleChange}
               placeholder="Username"
@@ -93,7 +93,7 @@ class Login extends Component {
             />
           </div>
           <div className={styles.inputWrapper}>
-            <Input
+            <TextInput
               type="password"
               placeholder="Password"
               onChange={this.handleChange}
@@ -105,7 +105,7 @@ class Login extends Component {
             disabled={isFetching}
             theme="primary"
             handleClick={this.handleSubmit}
-            style={{ width: '100%' }}
+            width={'100%'}
           >
             Sign In
           </Button>
