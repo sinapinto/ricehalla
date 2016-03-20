@@ -1,5 +1,9 @@
+@import "../../styles/variables.css";
+
 .label {
+  --font-color: var(--font-color);
+  color: color(var(--font-color) tint(5%));
   font-weight: 700;
-  color: rgb(46, 68, 83);
+  font-size: 0.9em;
   cursor: pointer;
 }

@@ -1,6 +1,9 @@
 import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
+import customProps from 'postcss-custom-props';
+import atImport from 'postcss-import';
+import colorFunction from 'postcss-color-function';
 
 export const DEV = process.env.NODE_ENV !== 'production';
 export const HOST = process.env.HOST || 'localhost';
@@ -40,6 +43,9 @@ export const LOADERS = [
 
 export function POSTCSS() {
   return [
-    autoprefixer({ browsers: ['last 2 versions', 'IE > 8'] })
+    atImport({ addDependencyTo: webpack }),
+    customProps(),
+    colorFunction(),
+    autoprefixer({ browsers: ['last 2 versions'] })
   ];
 }

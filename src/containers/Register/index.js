@@ -49,23 +49,20 @@ class Register extends Component {
   }
 
   submit() {
-    const { username, password } = this.state;
+    const { username, password, email } = this.state;
 
     if (this.props.isFetching) {
       return undefined;
     }
 
-    if (username > 14) {
+    if (username.length < 1 || username.length > 14) {
       this.setState({
-        username: this.state,
         usernameValid: false,
         error: 'Username must be no more than 14 characters'
       });
-    } else if (password > 32) {
+    } else if (password.length > 32) {
       this.setState({
-        username: this.state.username,
         usernameValid: true,
-        password: this.state.password,
         passwordValid: false,
         error: 'Password must be between 8 and 32 characters long'
       });
@@ -73,7 +70,7 @@ class Register extends Component {
       this.setState({
         usernameValid: true,
         passwordValid: true,
-      }, () => this.props.register({ username, password }));
+      }, () => this.props.register({ username, password, email }));
     }
     return undefined;
   }

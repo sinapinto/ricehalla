@@ -5,8 +5,8 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   type: PropTypes.oneOf(['text', 'password', 'email']),
   value: PropTypes.string,
-  placeholder: PropTypes.string,
   id: PropTypes.string,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
   autoFocus: PropTypes.bool,
@@ -19,15 +19,15 @@ class TextInput extends Component {
   }
 
   changeValue(e) {
-    this.props.onChange(this.props.id, e.target.value);
+    const name = this.props.id || this.props.name;
+    const value = e.target.value || '';
+    this.props.onChange(name, value);
   }
 
   render() {
     const {
       type = 'text',
-      placeholder,
       value,
-      id,
       disabled,
       required,
       autoFocus,
@@ -39,10 +39,8 @@ class TextInput extends Component {
         {...rest}
         className={styles.input}
         type={type}
-        placeholder={placeholder}
         value={value}
         onChange={this.changeValue}
-        id={id}
         disabled={!!disabled}
         required={!!required}
         autoFocus={!!autoFocus}

@@ -5,11 +5,15 @@ import config from '../config';
 const router = require('koa-router')();
 
 router.post('/signup', function *() {
-  const { username, password } = this.request.body;
+  const { username, password, email } = this.request.body;
 
   // throw if username is taken
-  const exists = yield User.findOne({ where: { username } });
-  if (exists) {
+  if (yield User.findOne({ where: { username } })) {
+    this.throw(400);
+  }
+
+  // throw if email is taken
+  if (yield User.findOne({ where: { email } })) {
     this.throw(400);
   }
 
@@ -17,7 +21,7 @@ router.post('/signup', function *() {
   const hash = yield bcrypt.hash(password, salt);
   this.body = yield User.create({
     username,
-    email: '',
+    email,
     passwordHash: hash,
     about: '',
   });

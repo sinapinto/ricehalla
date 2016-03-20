@@ -1,9 +1,12 @@
+@import "../../styles/variables.css";
+
 .error {
   color: rgb(220, 40, 40);
 }
 
 .header {
-  color: rgb(46, 68, 83);
+  --font-color: var(--font-color);
+  color: var(--font-color);
   font-weight: 300;
   font-size: 1.5em;
 }

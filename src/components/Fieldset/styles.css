@@ -1,5 +1,4 @@
 .fieldset {
-  composes: card from '../Card/styles.css';
   font-size: 0.9em;
-  padding: 30px;
+  width: 85%;
 }

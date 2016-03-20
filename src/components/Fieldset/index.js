@@ -3,10 +3,9 @@ import styles from './styles.css';
 
 const propTypes = {
   children: PropTypes.node,
-  legend: PropTypes.node,
 };
 
-function Fieldset({ children, legend }) {
+function Fieldset({ children }) {
   return (
     <div className={styles.fieldset}>
       <div className={styles.fields}>
