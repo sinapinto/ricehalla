@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  // merge the (incomplete) initial state from server
+  // merge the partial initial state from server
   let initializedState = { ...state };
   if (!state.hydrated) {
     initializedState = {
@@ -52,6 +52,8 @@ export default function (state = initialState, action) {
       return {
         ...initializedState,
         isFetching: false,
+        isAuthenticated: true,
+        token: action.token,
         registerError: '',
       };
     case ActionTypes.REGISTER_FAILURE:

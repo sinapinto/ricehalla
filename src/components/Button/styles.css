@@ -9,7 +9,7 @@
   padding: 0.8em 1em;
   border: none;
   border-radius: 4px;
-  transition: all 0.3s;
+  transition: background 0.3s;
 }
 
 .btn:disabled,
@@ -22,7 +22,7 @@ button[disabled]:hover {
 /* default */
 .btnNormal {
   composes: btn;
-  background-color: rgb(253, 253, 253);
+  background-color: rgb(255, 255, 255);
   color: rgba(0,0,0,.7);
   box-shadow: 0px 1px 1px rgba(0,0,0,0.11);
   border: 1px solid rgb(220,220,220);

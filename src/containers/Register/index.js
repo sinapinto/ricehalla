@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
+import FormContainer from '../../components/FormContainer';
 import TextInput from '../../components/TextInput';
 import Fieldset from '../../components/Fieldset';
 import Field from '../../components/Field';
@@ -19,6 +20,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       email: '',
@@ -35,10 +37,19 @@ class Register extends Component {
     this.setState({ [field]: value });
   }
 
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.submit();
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
+    this.submit();
+  }
+
+  submit() {
+    const { username, password } = this.state;
 
     if (this.props.isFetching) {
       return undefined;
@@ -84,8 +95,8 @@ class Register extends Component {
     const { email, username, password } = this.state;
 
     return (
-      <div className={styles.wrapper}>
-        <Helmet title="Register" />
+      <FormContainer>
+        <Helmet title="Register | ricehalla" />
         <h2 className={styles.header}>Create an account.</h2>
         <Fieldset>
           <Field
@@ -94,6 +105,7 @@ class Register extends Component {
               type="email"
               value={email}
               onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
               id="email"
               autoFocus
               disabled={isFetching}
@@ -104,6 +116,7 @@ class Register extends Component {
             label={<Label text="Choose a username" htmlFor="username" />}
             input={<TextInput
               onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
               value={username}
               id="username"
               disabled={isFetching}
@@ -115,6 +128,7 @@ class Register extends Component {
             input={<TextInput
               type="password"
               onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
               value={password}
               id="password"
               disabled={isFetching}
@@ -131,7 +145,7 @@ class Register extends Component {
             Sign Up
           </Button>
         </Fieldset>
-      </div>
+      </FormContainer>
     );
   }
 }

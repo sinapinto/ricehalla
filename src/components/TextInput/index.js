@@ -30,11 +30,13 @@ class TextInput extends Component {
       id,
       disabled,
       required,
-      autoFocus
+      autoFocus,
+      ...rest
     } = this.props;
 
     return (
       <input
+        {...rest}
         className={styles.input}
         type={type}
         placeholder={placeholder}

@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
+import FormContainer from '../../components/FormContainer';
+import Fieldset from '../../components/Fieldset';
+import Field from '../../components/Field';
+import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
 import styles from './styles.css';
 import { login } from '../../actions/auth';
@@ -16,6 +20,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       username: '',
@@ -26,21 +31,23 @@ class Login extends Component {
     };
   }
 
-  handleChange(e) {
-    if (e.target.type === 'password') {
-      this.setState({
-        password: e.target.value
-      });
-    } else {
-      this.setState({
-        username: e.target.value
-      });
+  handleChange(field, value) {
+    this.setState({ [field]: value });
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.submit();
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     e.target.blur();
+    this.submit();
+  }
+
+  submit() {
     const { username, password } = this.state;
     const { isFetching } = this.props;
 
@@ -74,43 +81,42 @@ class Login extends Component {
     const { isFetching } = this.props;
 
     return (
-      <div className={`${styles.wrapper} ${isFetching && styles.opaque}`}>
+      <FormContainer>
         <Helmet title="Login | ricehalla" />
-        <form className={styles.form}>
-          <div style={{ marginBottom: '20px' }}>
-            <span className="fa-stack fa-4x">
-              <i className="fa fa-circle fa-stack-2x" style={{ color: 'rgb(225,225,225)' }} />
-              <i className="fa fa-user fa-stack-1x" style={{ color: 'rgb(189,189,189)' }} />
-            </span>
-          </div>
-          <div className={styles.inputWrapper}>
-            <TextInput
+        <h2 className={styles.header}>Sign in.</h2>
+        <Fieldset>
+          <Field
+            label={<Label text="Username" htmlFor="username" />}
+            input={<TextInput
               autoFocus
               type="text"
               onChange={this.handleChange}
-              placeholder="Username"
+              onKeyDown={this.handleKeyDown}
+              id="username"
               required
-            />
-          </div>
-          <div className={styles.inputWrapper}>
-            <TextInput
+            />}
+          />
+          <Field
+            label={<Label text="Password" htmlFor="password" />}
+            input={<TextInput
               type="password"
-              placeholder="Password"
+              id="password"
               onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
               required
-            />
-          </div>
+            />}
+          />
           {this.renderErrorMessage()}
           <Button
-            disabled={isFetching}
             theme="primary"
+            disabled={isFetching}
             handleClick={this.handleSubmit}
             width={'100%'}
           >
             Sign In
           </Button>
-        </form>
-      </div>
+        </Fieldset>
+      </FormContainer>
     );
   }
 }

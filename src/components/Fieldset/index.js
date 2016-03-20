@@ -9,7 +9,6 @@ const propTypes = {
 function Fieldset({ children, legend }) {
   return (
     <div className={styles.fieldset}>
-      <div className={styles.legend}>{legend}</div>
       <div className={styles.fields}>
         {children}
       </div>

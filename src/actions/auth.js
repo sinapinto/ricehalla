@@ -52,6 +52,7 @@ export function register(body) {
     try {
       dispatch({ type: REGISTER_REQUEST });
       const res = await auth('/auth/signup', body);
+      cookie.set('token', res.token);
       setTimeout(() => {
         dispatch({
           type: REGISTER_SUCCESS,

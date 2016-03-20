@@ -23,6 +23,9 @@ router.post('/signup', function *() {
   });
 
   this.status = 201;
+  const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
+  this.type = 'json';
+  this.body = { token };
 });
 
 
