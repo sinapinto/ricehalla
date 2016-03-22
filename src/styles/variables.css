@@ -1,9 +1,8 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
   --font-color: rgb(46, 68, 83);
   --color-primary: rgb(0, 170, 220);
   --color-green: rgb(33, 186, 69);
   --color-red: rgb(219 ,40, 40);
   --body-width: 800px;
-  --transition-duration: 0.3s;
+  --transition-duration: 0.1s;
 }

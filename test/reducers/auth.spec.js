@@ -10,7 +10,7 @@ describe('auth reducer', () => {
       isFetching: false,
       isAuthenticated: false,
       token: null,
-      loginError: '',
+      loginInvalid: false,
       registerError: '',
       hydrated: true
     });
@@ -25,7 +25,7 @@ describe('auth reducer', () => {
       isFetching: true,
       isAuthenticated: false,
       token: null,
-      loginError: '',
+      loginInvalid: false,
       registerError: '',
       hydrated: true
     });
@@ -35,13 +35,12 @@ describe('auth reducer', () => {
     expect(
       reducer([], {
         type: ActionTypes.LOGIN_FAILURE,
-        error: 'error!'
       })
     ).toEqual({
       isFetching: false,
       isAuthenticated: false,
       token: null,
-      loginError: 'error!',
+      loginInvalid: true,
       registerError: '',
       hydrated: true
     });
@@ -57,7 +56,7 @@ describe('auth reducer', () => {
       isFetching: false,
       isAuthenticated: true,
       token: 'token',
-      loginError: '',
+      loginInvalid: false,
       registerError: '',
       hydrated: true
     });

@@ -1,12 +1,20 @@
 @import "../../styles/variables.css";
 
-.error {
-  color: rgb(220, 40, 40);
+.root {
+  composes: root from "../Login/styles.css";
+  /* width: 100%; */
+  /* font-size: 0.9em; */
+  /* max-width: 380px; */
+  /* margin: 0 auto; */
+  /* display: flex; */
+  /* flex-flow: column nowrap; */
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
 .header {
-  --font-color: var(--font-color);
-  color: var(--font-color);
-  font-weight: 300;
-  font-size: 1.5em;
+  composes: header from "../Login/styles.css";
+  /* color: var(--font-color); */
+  /* font-weight: 300; */
+  /* font-size: 1.5em; */
 }

@@ -4,6 +4,7 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -24,6 +25,11 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
 }
 
 :global(#root) {

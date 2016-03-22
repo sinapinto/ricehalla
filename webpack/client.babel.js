@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -15,7 +14,7 @@ export default {
     './src/client.js'
   ],
   output: {
-    filename: 'bundle.[hash].js',
+    filename: shared.DEV ? 'bundle.js' : 'bundle.[hash].js',
     path: shared.ASSETS_PATH,
     publicPath: shared.DEV ? `http://localhost:${shared.PORT}/dist/` : '/dist/'
   },
@@ -66,7 +65,7 @@ export default {
         include: /src\/(?!styles).+/,
         loader: shared.DEV
           ? 'style!css?modules&importLoaders=1&localIdentName=[local]_[hash:base64:3]!postcss'
-          : ExtractTextPlugin.extract('style', 'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
+          : ExtractTextPlugin.extract('style', 'css?minimize&modules&localIdentName=[hash:base64:4]!postcss') // eslint-disable-line max-len
       }, {
         test: /\.css$/,
         include: /src\/styles/,

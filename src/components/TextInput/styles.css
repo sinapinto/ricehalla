@@ -1,12 +1,13 @@
 @import "../../styles/variables.css";
 
 .input {
-  --duration: var(--transition-duration);
   width: 100%;
   padding: 10px;
   border: 1px solid rgba(0,0,0,0.15);
+  font-weight: 400;
   box-shadow: none;
-  transition: all var(--duration);
+  outline: none;
+  transition: all var(--transition-duration);
 }
 
 .input:hover {
@@ -15,32 +16,26 @@
 
 .input:focus,
 .input:active {
-  --color-primary: var(--color-primary);
   border: 1px solid var(--color-primary);
-  box-shadow: 0 0 0 2px color(var(--color-primary) tint(65%));
-  outline: none;
+  box-shadow: 0 0 0 2px color(var(--color-primary) tint(70%));
 }
 
 .invalid,
 .invalid:hover {
-  --color-red: var(--color-red);
   border: 1px solid var(--color-red);
 }
 .invalid:focus,
 .invalid:active {
-  --color-red: var(--color-red);
   border: 1px solid var(--color-red);
-  box-shadow: 0 0 0 2px color(var(--color-red) tint(65%));
+  box-shadow: 0 0 0 2px color(var(--color-red) tint(70%));
 }
 
 .valid,
 .valid:hover {
-  --color-green: var(--color-green);
   border: 1px solid var(--color-green);
 }
 .valid:focus,
 .valid:active {
-  --color-green: var(--color-green);
   border: 1px solid var(--color-green);
-  box-shadow: 0 0 0 2px color(var(--color-green) tint(65%));
+  box-shadow: 0 0 0 2px color(var(--color-green) tint(70%));
 }

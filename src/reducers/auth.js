@@ -4,7 +4,7 @@ const initialState = {
   isFetching: false,
   isAuthenticated: false,
   token: null,
-  loginError: '',
+  loginInvalid: false,
   registerError: '',
 };
 
@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...initializedState,
         isFetching: true,
-        loginError: '',
+        loginInvalid: false,
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
         isFetching: false,
         isAuthenticated: true,
         token: action.token,
-        loginError: '',
+        loginInvalid: false,
       };
     case ActionTypes.LOGIN_FAILURE:
       return {
@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
         isFetching: false,
         isAuthenticated: false,
         token: null,
-        loginError: action.error,
+        loginInvalid: true,
       };
     case ActionTypes.REGISTER_REQUEST:
       return {

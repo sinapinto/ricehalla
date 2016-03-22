@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import debounce from '../../utils/debounce';
+import { validateEmail, validateUsername, validatePassword } from '../../utils/validation';
 import Button from '../../components/Button';
-import FormContainer from '../../components/FormContainer';
+import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 import Fieldset from '../../components/Fieldset';
-import Field from '../../components/Field';
 import Label from '../../components/Label';
 import styles from './styles.css';
 import { register } from '../../actions/auth';
@@ -17,132 +18,202 @@ const propTypes = {
 };
 
 class Register extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.validateDebounced = debounce(this.validate.bind(this), 1500);
     this.state = {
-      email: '',
-      username: '',
-      password: '',
-      emailValid: false,
-      usernameValid: false,
-      passwordValid: false,
-      error: '',
+      email: {
+        value: '',
+        valid: false,
+        isValidating: false,
+        error: null,
+      },
+      username: {
+        value: '',
+        valid: false,
+        isValidating: false,
+        error: null,
+      },
+      password: {
+        value: '',
+        valid: false,
+        isValidating: false,
+        error: null,
+      },
     };
   }
 
-  handleChange(field, value) {
-    this.setState({ [field]: value });
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: {
+        value,
+        valid: false,
+        isValidating: true,
+        error: null,
+
+      }
+    });
+    this.validateDebounced();
   }
 
-  handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.submit();
-    }
+  handleBlur() {
+    this.validate();
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.submit();
-  }
-
-  submit() {
-    const { username, password, email } = this.state;
-
     if (this.props.isFetching) {
       return undefined;
     }
+    this.setState({
+      email: { ...this.state.email, isValidating: true },
+      username: { ...this.state.username, isValidating: true },
+      password: { ...this.state.password, isValidating: true },
+    }, () => this.validate());
 
-    if (username.length < 1 || username.length > 14) {
-      this.setState({
-        usernameValid: false,
-        error: 'Username must be no more than 14 characters'
+    if (Object.keys(this.state).every(field => this.state[field].valid)) {
+      this.props.register({
+        email: this.state.email.value.replace(/\s\+/g, ''),
+        username: this.state.username.value,
+        password: this.state.password.value,
       });
-    } else if (password.length > 32) {
-      this.setState({
-        usernameValid: true,
-        passwordValid: false,
-        error: 'Password must be between 8 and 32 characters long'
-      });
-    } else {
-      this.setState({
-        usernameValid: true,
-        passwordValid: true,
-      }, () => this.props.register({ username, password, email }));
     }
-    return undefined;
   }
 
-  renderErrorMessage() {
-    const { registerError } = this.props;
-    const { usernameValid, passwordValid, emailValid, error } = this.state;
-    if (!usernameValid || !passwordValid || !emailValid) {
-      return <div className={styles.error}>{error}</div>;
+  validate() {
+    const { email, username, password } = this.state;
+    if (email.isValidating && this.isValidEmail(email.value)) {
+      this.setState({
+        email: {
+          value: email.value,
+          valid: true,
+          isValidating: true,
+          error: null,
+        }
+      });
     }
-    if (registerError) {
-      return <div className={styles.error}>{registerError}</div>;
+    if (username.isValidating && this.isValidUsername(username.value)) {
+      this.setState({
+        username: {
+          value: username.value,
+          valid: true,
+          isValidating: true,
+          error: null,
+        }
+      });
     }
-    return null;
+    if (password.isValidating && this.isValidPassword(password.value)) {
+      this.setState({
+        password: {
+          value: password.value,
+          valid: true,
+          isValidating: true,
+          error: null,
+        }
+      });
+    }
+  }
+
+  isValidEmail(email) {
+    const error = validateEmail(email);
+    if (error) {
+      this.setState({
+        email: {
+          value: email,
+          valid: false,
+          isValidating: true,
+          error,
+        }
+      });
+    }
+    return !error;
+  }
+
+  isValidUsername(username) {
+    const error = validateUsername(username);
+    if (error) {
+      this.setState({
+        username: {
+          value: username,
+          valid: false,
+          isValidating: true,
+          error,
+        }
+      });
+    }
+    return !error;
+  }
+
+  isValidPassword(password) {
+    const error = validatePassword(password);
+    if (error) {
+      this.setState({
+        password: {
+          value: password,
+          valid: false,
+          isValidating: true,
+          error,
+        }
+      });
+    }
+    return !error;
   }
 
   render() {
-    const { isFetching } = this.props;
-    const { email, username, password } = this.state;
-
     return (
-      <FormContainer>
+      <div className={styles.root}>
         <Helmet title="Register | ricehalla" />
         <h2 className={styles.header}>Create an account.</h2>
-        <Fieldset>
-          <Field
-            label={<Label text="Your email address" htmlFor="email" />}
-            input={<TextInput
-              type="email"
-              value={email}
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
+        <Form onSubmit={this.handleSubmit} noValidate>
+          <Fieldset errorMessage={this.state.email.error}>
+            <Label htmlFor="email">Your email address</Label>
+            <TextInput
               id="email"
+              type="email"
+              name="email"
+              value={this.state.email.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              invalid={!!this.state.email.error}
+              valid={this.state.email.valid}
+              disabled={this.props.isFetching}
               autoFocus
-              disabled={isFetching}
-              required
-            />}
-          />
-          <Field
-            label={<Label text="Choose a username" htmlFor="username" />}
-            input={<TextInput
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              value={username}
+            />
+          </Fieldset>
+          <Fieldset errorMessage={this.state.username.error}>
+            <Label htmlFor="username">Choose a username</Label>
+            <TextInput
               id="username"
-              disabled={isFetching}
-              required
-            />}
-          />
-          <Field
-            label={<Label text="Choose a password" htmlFor="password" />}
-            input={<TextInput
-              type="password"
+              name="username"
+              value={this.state.username.value}
               onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              value={password}
+              onBlur={this.handleBlur}
+              invalid={!!this.state.username.error}
+              valid={this.state.username.valid}
+              disabled={this.props.isFetching}
+            />
+          </Fieldset>
+          <Fieldset errorMessage={this.state.password.error}>
+            <Label htmlFor="password">Choose a password</Label>
+            <TextInput
               id="password"
-              disabled={isFetching}
-              required
-            />}
-          />
-          {this.renderErrorMessage()}
-          <Button
-            theme="primary"
-            disabled={isFetching}
-            handleClick={this.handleSubmit}
-            width={'100%'}
-          >
-            Sign Up
-          </Button>
-        </Fieldset>
-      </FormContainer>
+              name="password"
+              type="password"
+              value={this.state.password.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              invalid={!!this.state.password.error}
+              valid={this.state.password.valid}
+              disabled={this.props.isFetching}
+            />
+          </Fieldset>
+          <Button theme="primary" disabled={this.props.isFetching} width={'100%'}>Sign Up</Button>
+        </Form>
+      </div>
     );
   }
 }

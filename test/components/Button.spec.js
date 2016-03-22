@@ -7,7 +7,6 @@ function setup() {
   const renderer = TestUtils.createRenderer();
   const props = {
     item: expect.createSpy(),
-    handleClick: expect.createSpy()
   };
   renderer.render(
     <Button {...props}>
@@ -24,11 +23,9 @@ function setup() {
 
 describe('Button', () => {
   it('should render', () => {
-    const { output, props } = setup();
+    const { output } = setup();
     expect(output.type).toBe('button');
     expect(output.props.type).toBe('submit');
     expect(output.props.children).toBe('woo');
-    output.props.onClick('an event!');
-    expect(props.handleClick).toHaveBeenCalledWith('an event!');
   });
 });

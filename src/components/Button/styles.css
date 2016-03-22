@@ -1,116 +1,81 @@
 @import "../../styles/variables.css";
 
 .btn {
-  --duration: var(--transition-duration);
+  color: rgb(255,255,255);
   cursor: pointer;
   font-size: 0.9em;
   font-weight: 700;
   text-decoration: none;
   text-align: center;
   line-height: 1em;
-  outline: none;
   padding: 0.8em 1em;
-  border: none;
+  border: 0;
   border-radius: 4px;
-  transition: background var(--duration);
+  transition: background var(--transition-duration);
 }
 
 .btn:disabled,
-button[disabled],
-button[disabled]:hover {
-  cursor: default;
-  background: rgb(200,200,200);
+.btn[disabled],
+.btn[disabled]:hover {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
-/* default */
+/* default (white) */
 .btnNormal {
   composes: btn;
   background-color: rgb(255, 255, 255);
-  color: rgba(0,0,0,.7);
+  color: color(var(--font-color) tint(10%));
   box-shadow: 0px 1px 1px rgba(0,0,0,0.11);
   border: 1px solid rgb(220,220,220);
 }
 .btnNormal:hover {
   background-color: rgb(252, 252, 252);
-  color: rgba(0,0,0,.8);
+  color: color(var(--font-color) tint(0%));
   border: 1px solid rgb(200,200,200);
 }
 .btnNormal:focus,
 .btnNormal:active {
   background-color: rgb(252, 252, 252);
-  color: rgba(0,0,0,.8);
+  color: color(var(--font-color) tint(0%));
   border: 1px solid rgb(200,200,200);
-}
-
-/* grey */
-.btnGrey {
-  composes: btn;
-  background-color: rgb(217, 218, 219);
-  color: rgba(0,0,0,.6);
-}
-.btnGrey:hover {
-  background-color: rgb(202, 203, 205);
-  color: rgba(0,0,0,.8);
-}
-.btnGrey:focus,
-.btnGrey:active {
-  background-color: rgb(193, 194, 195);
-  color: rgba(0,0,0,.8);
 }
 
 /* primary */
 .btnPrimary {
   composes: btn;
-  --color-primary: var(--color-primary);
   background-color: var(--color-primary);
-  color: rgb(255,255,255);
 }
 .btnPrimary:hover {
-  --color-primary: var(--color-primary);
   background-color: color(var(--color-primary) shade(10%));
-  color: rgb(255,255,255);
 }
 .btnPrimary:focus, 
 .btnPrimary:active {
-  --color-primary: var(--color-primary);
   background-color: color(var(--color-primary) shade(15%));
-  color: rgb(255,255,255);
 }
 
 /* success */
 .btnSuccess {
   composes: btn;
-  --color-green: var(--color-green);
   background-color: var(--color-green);
-  color: rgb(255,255,255);
 }
 .btnSuccess:hover {
-  --color-green: var(--color-green);
   background-color: color(var(--color-green) shade(10%));
-  color: rgb(255,255,255);
 }
 .btnSuccess:focus,
 .btnSuccess:active {
-  --color-green: var(--color-green);
   background-color: color(var(--color-green) shade(15%));
-  color: rgb(255,255,255);
 }
 
 /* error */
 .btnError {
   composes: btn;
-  --color-red: var(--color-red);
   background-color: var(--color-red);
-  color: rgb(255,255,255);
 }
 .btnError:hover {
-  --color-red: var(--color-red);
   background-color: color(var(--color-red) shade(10%));
-  color: rgb(255,255,255);
 }
 .btnError:focus, 
 .btnError:active {
-  --color-red: var(--color-red);
   background-color: color(var(--color-red) shade(15%));
-  color: rgb(255,255,255);
 }

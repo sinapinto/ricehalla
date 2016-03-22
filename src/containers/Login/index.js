@@ -2,121 +2,94 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Button from '../../components/Button';
-import FormContainer from '../../components/FormContainer';
+import Form from '../../components/Form';
 import Fieldset from '../../components/Fieldset';
-import Field from '../../components/Field';
 import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
 import styles from './styles.css';
 import { login } from '../../actions/auth';
 
 const propTypes = {
-  loginError: PropTypes.string.isRequired,
+  loginInvalid: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
 };
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       username: '',
       password: '',
-      usernameValid: false,
-      passwordValid: false,
-      error: '',
+      error: null,
     };
   }
 
-  handleChange(field, value) {
-    this.setState({ [field]: value });
-  }
-
-  handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.submit();
-    }
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    e.target.blur();
-    this.submit();
-  }
-
-  submit() {
     const { username, password } = this.state;
-    const { isFetching } = this.props;
 
-    if (isFetching) {
+    if (this.props.isFetching) {
       return undefined;
     }
-
-    this.setState({
-      usernameValid: true,
-      passwordValid: true,
-      error: ''
-    }, () => this.props.login({ username, password }));
-
-    return undefined;
+    if (username === '') {
+      this.setState({ error: 'Username field is empty.' });
+      return undefined;
+    }
+    if (password === '') {
+      this.setState({ error: 'Password field is empty.' });
+      return undefined;
+    }
+    this.setState({ error: null });
+    this.props.login({ username, password });
   }
 
   renderErrorMessage() {
-    const { loginError } = this.props;
-    const { usernameValid, passwordValid, error } = this.state;
-
-    if (!usernameValid || !passwordValid) {
-      return <div className={styles.error}>{error}</div>;
-    }
-    if (loginError) {
-      return <div className={styles.error}>{loginError}</div>;
-    }
-    return null;
+    return this.props.loginInvalid ?
+      <div className={styles.error}>
+        <i className="fa fa-exclamation-circle"></i>
+        {this.state.error || 'Invalid username or password.'}
+      </div> :
+      null;
   }
 
   render() {
     const { isFetching } = this.props;
-
     return (
-      <FormContainer>
+      <div className={styles.root}>
         <Helmet title="Login | ricehalla" />
-        <h2 className={styles.header}>Sign in.</h2>
-        <Fieldset>
-          <Field
-            label={<Label text="Username" htmlFor="username" />}
-            input={<TextInput
+        {this.renderErrorMessage()}
+        <Form onSubmit={this.handleSubmit} noValidate>
+          <Fieldset>
+            <Label htmlFor="username">Username or email</Label>
+            <TextInput
               autoFocus
-              type="text"
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
               id="username"
-              required
-            />}
-          />
-          <Field
-            label={<Label text="Password" htmlFor="password" />}
-            input={<TextInput
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+          </Fieldset>
+          <Fieldset>
+            <Label htmlFor="password">Password</Label>
+            <TextInput
               type="password"
               id="password"
+              name="password"
+              value={this.state.password}
               onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              required
-            />}
-          />
-          {this.renderErrorMessage()}
-          <Button
-            theme="primary"
-            disabled={isFetching}
-            handleClick={this.handleSubmit}
-            width={'100%'}
-          >
-            Sign In
-          </Button>
-        </Fieldset>
-      </FormContainer>
+            />
+          </Fieldset>
+          <Button theme="primary" disabled={isFetching} width={'100%'}>Sign In</Button>
+        </Form>
+      </div>
     );
   }
 }
@@ -125,7 +98,7 @@ Login.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    loginError: state.auth.loginError,
+    loginInvalid: state.auth.loginInvalid,
     isFetching: state.auth.isFetching,
   };
 }

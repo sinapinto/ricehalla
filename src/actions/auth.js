@@ -42,7 +42,7 @@ export function login(body) {
         token: res.token
       });
     } catch (err) {
-      dispatch({ type: LOGIN_FAILURE, error: err.message });
+      dispatch({ type: LOGIN_FAILURE });
     }
   };
 }
