@@ -34,13 +34,17 @@ router.post('/signup', function *() {
 
 
 router.post('/login', function *() {
-  const { username, password } = this.request.body;
+  const { username, password, rememberme } = this.request.body;
   const user = yield User.findOne({ where: { username } });
   this.assert(user, 401);
 
   // check password
   const valid = yield bcrypt.compare(password, user.dataValues.passwordHash);
   this.assert(valid, 401);
+
+  if (rememberme) {
+    config.jwt.options.expiresIn = '30d';
+  }
 
   const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
   this.type = 'json';

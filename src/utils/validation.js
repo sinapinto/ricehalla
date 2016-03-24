@@ -15,7 +15,7 @@ export function validateUsername(username) {
 }
 
 export function validatePassword(password) {
-  if (password.length < 6) {
+  if (password.length < 8) {
     return 'Password is too short.';
   }
   return null;

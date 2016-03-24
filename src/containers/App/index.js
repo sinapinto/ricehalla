@@ -67,7 +67,7 @@ class App extends Component {
             { !isAuthenticated &&
                 <NavLink to="/register">Register</NavLink> }
             { !isAuthenticated &&
-                <NavLink to="/login" theme="primary">Log&nbsp;In</NavLink> }
+                <NavLink to="/login" theme="primary">Log In</NavLink> }
           </div>
         </div>
         {this.props.children}

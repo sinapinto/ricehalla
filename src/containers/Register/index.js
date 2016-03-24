@@ -46,6 +46,10 @@ class Register extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.validateDebounced.cancel();
+  }
+
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({

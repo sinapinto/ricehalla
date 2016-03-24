@@ -6,6 +6,7 @@ import Form from '../../components/Form';
 import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
+import Checkbox from '../../components/Checkbox';
 import styles from './styles.css';
 import { login } from '../../actions/auth';
 
@@ -20,9 +21,11 @@ class Login extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleRemember = this.toggleRemember.bind(this);
     this.state = {
       username: '',
       password: '',
+      remember: true,
       error: null,
     };
   }
@@ -34,7 +37,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { username, password } = this.state;
+    const { username, password, remember } = this.state;
 
     if (this.props.isFetching) {
       return undefined;
@@ -48,16 +51,25 @@ class Login extends Component {
       return undefined;
     }
     this.setState({ error: null });
-    this.props.login({ username, password });
+    this.props.login({ username, password, remember });
+  }
+
+  toggleRemember() {
+    this.setState((prevState) =>
+      ({ remember: !prevState.remember })
+    );
   }
 
   renderErrorMessage() {
-    return this.props.loginInvalid ?
-      <div className={styles.error}>
-        <i className="fa fa-exclamation-circle"></i>
-        {this.state.error || 'Invalid username or password.'}
-      </div> :
-      null;
+    if (this.props.loginInvalid || this.state.error) {
+      return (
+        <div className={styles.error}>
+          <i className="fa fa-exclamation-circle"></i>
+          {this.state.error || 'Invalid username or password.'}
+        </div>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -87,6 +99,13 @@ class Login extends Component {
               onChange={this.handleChange}
             />
           </Fieldset>
+          <Checkbox
+            id="rememberme"
+            onClick={this.toggleRemember}
+            defaultChecked
+          >
+            Keep me signed in
+          </Checkbox>
           <Button theme="primary" disabled={isFetching} width={'100%'}>Sign In</Button>
         </Form>
       </div>
@@ -100,6 +119,7 @@ function mapStateToProps(state) {
   return {
     loginInvalid: state.auth.loginInvalid,
     isFetching: state.auth.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 }
 

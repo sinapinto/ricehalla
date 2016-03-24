@@ -20,12 +20,25 @@ export default function createRouter(history, store) {
     cb();
   }
 
+  function requireUnauth(nextState, replace, cb) {
+    const { auth: { isAuthenticated } } = store.getState();
+    if (isAuthenticated) {
+      replace({
+        pathname: '/',
+        state: { nextPathname: nextState.location.pathname },
+      });
+    }
+    cb();
+  }
+
   return (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <Route onEnter={requireUnauth}>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Route>
         <Route path="/user/:username" component={Profile} />
         <Route onEnter={requireAuth}>
           <Route path="/submit" component={Submit} />

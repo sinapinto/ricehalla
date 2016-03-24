@@ -1,0 +1,19 @@
+@import "../../styles/variables.css";
+
+.root {
+  padding-bottom: 20px;
+}
+
+.checkbox {
+  vertical-align: middle;
+  margin: 0;
+  cursor: pointer;
+}
+
+.label {
+  vertical-align: middle;
+  color: var(--font-color);
+  font-size: 0.9em;
+  padding-left: 5px;
+  cursor: pointer;
+}

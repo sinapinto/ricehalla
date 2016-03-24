@@ -8,17 +8,17 @@ const propTypes = {
 };
 
 function TextInput({ type = 'text', valid, invalid, ...other }) {
-  let classes = `${styles.input} `;
+  const classes = [styles.input];
   if (valid) {
-    classes += `${styles.valid} `;
+    classes.push(styles.valid);
   } else if (invalid) {
-    classes += `${styles.invalid} `;
+    classes.push(styles.invalid);
   }
 
   return (
     <input
       {...other}
-      className={classes}
+      className={classes.join(' ')}
       type={type}
     />
   );

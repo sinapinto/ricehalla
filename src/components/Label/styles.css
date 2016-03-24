@@ -1,7 +1,7 @@
 @import "../../styles/variables.css";
 
 .label {
-  color: color(var(--font-color) tint(5%));
+  color: var(--font-color);
   font-weight: 700;
   font-size: 0.9em;
   display: inline-block;
