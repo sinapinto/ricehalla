@@ -11,11 +11,11 @@ import cors from 'koa-cors';
 import mount from 'koa-mount';
 import _debug from 'debug';
 import jwt from 'koa-jwt';
-import sequelize from './db/sequelize';
-import resources from './resources';
+import db from './db';
+import api from './api';
 import auth from './auth';
 import render from './render';
-import config from '../config';
+import config from '../../config/index.json';
 
 const app = koa();
 
@@ -26,7 +26,7 @@ const debug = _debug('app');
 // in memory and add hot reloading
 // ------------------------------------
 if (__DEV__) {
-  const webpackConfig = require('../../webpack/client.babel.js').default;
+  const webpackConfig = require('../../config/webpack/client.babel.js').default;
   const opts = {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath,
@@ -94,13 +94,16 @@ app.use(function *(next) {
 app.use(mount('/auth', cors()));
 app.use(mount('/auth', auth.routes()));
 app.use(mount('/api/v1', cors()));
-app.use(mount('/api/v1', resources));
+app.use(mount('/api/v1', api.v1));
 app.use(mount('/', render));
 
 // sync models to the DB and start the server
 // -------------------------------------------
-sequelize.sync()
+db.sequelize.sync()
 .then(() => {
   app.listen(__PORT__);
   debug(`${process.env.NODE_ENV} server listening at http://${__HOST__}:${__PORT__}`);
-});
+})
+.catch(e => console.error(e)); // eslint-disable-line no-console
+
+export default app;

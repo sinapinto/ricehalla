@@ -1,0 +1,47 @@
+{
+  "development": {
+    "storage": "storage/db.development.sqlite",
+    "dialect": "sqlite",
+    "pool": {
+      "max": 20,
+      "min": 0,
+      "idle": 5000
+    },
+    "omitNull": true,
+    "define": {
+      "timestamps": true,
+      "freezeTableName": true,
+      "paranoid": true,
+      "underscored" : true
+    }
+  },
+  "test": {
+    "storage": "storage/db.test.sqlite",
+    "dialect": "sqlite",
+    "omitNull": true,
+    "define": {
+      "timestamps": true,
+      "freezeTableName": true,
+      "paranoid": true,
+      "underscored" : true
+    },
+    "logging": false
+  },
+  "production": {
+    "storage": "storage/db.production.sqlite",
+    "dialect": "sqlite",
+    "pool": {
+      "max": 20,
+      "min": 0,
+      "idle": 5000
+    },
+    "omitNull": true,
+    "define": {
+      "timestamps": true,
+      "freezeTableName": true,
+      "paranoid": true,
+      "underscored" : true
+    },
+    "logging": false
+  }
+}

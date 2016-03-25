@@ -30,7 +30,7 @@ database.
 
 ## Getting started
 
-- Set up an SQL database and update the connection details in `src/config.js`.
+- Set up an SQL database and update the connection details in `config/index.json`.
 
 - Install the node dependencies (requires node >= 4.0, check your version with
   `node --version`).

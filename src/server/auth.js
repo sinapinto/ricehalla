@@ -1,21 +1,11 @@
 import bcrypt from 'co-bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from './db';
-import config from '../config';
+import config from '../../config/index.json';
 const router = require('koa-router')();
 
-router.post('/signup', function *() {
+router.post('/signup', function *signup() {
   const { username, password, email } = this.request.body;
-
-  // throw if username is taken
-  if (yield User.findOne({ where: { username } })) {
-    this.throw(400);
-  }
-
-  // throw if email is taken
-  if (yield User.findOne({ where: { email } })) {
-    this.throw(400);
-  }
 
   const salt = yield bcrypt.genSalt(10);
   const hash = yield bcrypt.hash(password, salt);
@@ -33,9 +23,16 @@ router.post('/signup', function *() {
 });
 
 
-router.post('/login', function *() {
+router.post('/login', function *login() {
   const { username, password, rememberme } = this.request.body;
-  const user = yield User.findOne({ where: { username } });
+  const user = yield User.findOne({
+    where: {
+      $or: [
+        { username },
+        { email: username }
+      ]
+    },
+  });
   this.assert(user, 401);
 
   // check password
@@ -52,7 +49,7 @@ router.post('/login', function *() {
 });
 
 
-router.get('/logout', function *() {
+router.get('/logout', function *logout() {
   this.cookies.set('token', '', { expires: new Date(0) });
   this.status = 200;
 });

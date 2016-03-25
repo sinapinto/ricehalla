@@ -7,7 +7,7 @@ const propTypes = {
 
 function Form({ children, ...other }) {
   return (
-    <form className={styles.form} {...other}>
+    <form method="post" className={styles.form} {...other}>
       {children}
     </form>
   );

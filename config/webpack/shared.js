@@ -8,7 +8,7 @@ import colorFunction from 'postcss-color-function';
 export const DEV = process.env.NODE_ENV !== 'production';
 export const HOST = process.env.HOST || 'localhost';
 export const PORT = parseInt(process.env.PORT, 10) || 3000;
-export const ROOT_PATH = path.resolve(__dirname, '..');
+export const ROOT_PATH = path.resolve(__dirname, '..', '..');
 export const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
 
 export const PLUGINS = [

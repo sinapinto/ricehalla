@@ -25,4 +25,3 @@ function Checkbox({ id, children, ...other }) {
 Checkbox.propTypes = propTypes;
 
 export default Checkbox;
-

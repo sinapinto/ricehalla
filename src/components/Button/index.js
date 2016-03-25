@@ -8,14 +8,14 @@ const propTypes = {
   width: PropTypes.string,
 };
 
-const themes = {
-  normal: styles.btnNormal,
-  primary: styles.btnPrimary,
-  success: styles.btnSuccess,
-  error: styles.btnError,
-};
-
 function Button({ theme = 'normal', width, disabled, children, ...other }) {
+  const themes = {
+    normal: styles.btnNormal,
+    primary: styles.btnPrimary,
+    success: styles.btnSuccess,
+    error: styles.btnError,
+  };
+
   return (
     <button
       {...other}

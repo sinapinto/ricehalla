@@ -4,14 +4,14 @@
   "scripts": {
     "start": "node static/dist/server.js",
     "dev": "npm run clean && npm run dev:client && npm run dev:server",
-    "dev:client": "webpack --config webpack/client.babel.js",
-    "dev:server": "webpack --config webpack/server.babel.js",
+    "dev:client": "webpack --config config/webpack/client.babel.js",
+    "dev:server": "webpack --config config/webpack/server.babel.js",
     "pro": "npm run clean && npm run pro:client && npm run pro:server",
-    "pro:client": "NODE_ENV=production webpack --config webpack/client.babel.js",
-    "pro:server": "NODE_ENV=production webpack --config webpack/server.babel.js",
+    "pro:client": "NODE_ENV=production webpack --config config/webpack/client.babel.js",
+    "pro:server": "NODE_ENV=production webpack --config config/webpack/server.babel.js",
     "clean": "rm -rf static/dist",
-    "test": "mocha -r test/setup.js -r babel-polyfill --compilers js:babel-core/register,css:test/compiler.js test/**/*.spec.js",
-    "lint": "eslint src webpack test api"
+    "test": "NODE_ENV=test mocha -r test/setup.js -r babel-polyfill --compilers js:babel-core/register,css:test/compiler.js test/**/*.spec.js",
+    "lint": "eslint src webpack api"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "assets-webpack-plugin": "^3.3.0",
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.5.2",
-    "babel-eslint": "^5.0.0",
+    "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.3",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-polyfill": "^6.5.0",
@@ -45,7 +45,7 @@
     "jsdom": "^8.0.4",
     "json-loader": "^0.5.4",
     "jsonwebtoken": "^5.7.0",
-    "jwt-decode": "^1.5.1",
+    "jwt-decode": "^2.0.1",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
     "koa-cash": "^2.0.0",
@@ -71,6 +71,7 @@
     "lru-cache": "^4.0.0",
     "mocha": "^2.4.5",
     "nock": "^7.2.2",
+    "parameter": "^2.0.0",
     "pg": "^4.4.6",
     "pg-hstore": "^2.3.2",
     "postcss-color-function": "^2.0.1",
@@ -80,7 +81,7 @@
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.3",
-    "react-helmet": "^2.3.1",
+    "react-helmet": "^3.0.0",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "react-transform-catch-errors": "^1.0.2",
@@ -91,10 +92,11 @@
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.4",
     "redux-mock-store": "0.0.6",
-    "redux-thunk": "^1.0.3",
+    "redux-thunk": "^2.0.1",
     "sequelize": "^3.19.3",
     "sqlite3": "^3.1.1",
     "style-loader": "^0.13.0",
+    "supertest": "^1.2.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13",
     "webpack-dev-middleware": "^1.4.0",
@@ -124,7 +126,8 @@
       "func-names": 0,
       "new-cap": 0,
       "consistent-return": 0,
-      "newline-per-chained-call": 0
+      "newline-per-chained-call": 0,
+      "react/prefer-stateless-function": 0
     }
   }
 }
