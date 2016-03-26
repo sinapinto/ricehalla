@@ -4,4 +4,3 @@ dist/
 *.sqlite
 webpack-assets.json
 storage/
-db/

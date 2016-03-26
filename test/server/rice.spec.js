@@ -35,7 +35,7 @@ describe('POST /api/v1/rice', function () {
       .post('/api/v1/rice')
       .set('Content-Type', 'application/json')
       .send({ title: 'yo' })
-      .expect(201, { id: 3, title: "yo" }, done);
+      .expect(201, done);
     })
   });
 
