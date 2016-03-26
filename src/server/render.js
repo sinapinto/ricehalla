@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import createRouter from '../containers/Routes';
 import Html from './Html';
 import configureStore from '../utils/configureStore';
-let stats;
-try { stats = require('../../webpack-assets.json'); } catch (_) { stats = {}; }
+let assets;
+try { assets = require('../../webpack-assets.json'); } catch (_) { assets = {}; }
 
 /**
  * Fetch data needed by components in the current route.
@@ -68,6 +68,6 @@ export default function *() {
       { <RouterContext {...renderProps} /> }
     </Provider>
   );
-  const html = <Html component={component} state={store.getState()} stats={stats} />;
+  const html = <Html component={component} state={store.getState()} assets={assets} />;
   this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
 }

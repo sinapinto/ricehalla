@@ -5,12 +5,12 @@ import Helmet from 'react-helmet';
 const propTypes = {
   component: PropTypes.element,
   state: PropTypes.object,
-  stats: PropTypes.object
+  assets: PropTypes.object
 };
 
 class Page extends Component {
   render() {
-    const { component, state = '', stats } = this.props;
+    const { component, state = '', assets } = this.props;
     const markup = component ? renderToString(component) : '';
     const head = Helmet.rewind();
 
@@ -19,8 +19,8 @@ class Page extends Component {
         <head>
           {head.title.toComponent()}
           {head.meta.toComponent()}
-          {stats &&
-            <link href={stats.main.css} rel="stylesheet" type="text/css" charSet="UTF-8" />}
+          {assets &&
+            <link href={assets.main.css} rel="stylesheet" type="text/css" charSet="UTF-8" />}
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: markup }} />
@@ -28,7 +28,7 @@ class Page extends Component {
             __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
           }}
           />
-          {stats && <script src={stats.main.js} charSet="UTF-8" />}
+          {assets && <script src={assets.main.js} charSet="UTF-8" />}
         </body>
       </html>
     );
