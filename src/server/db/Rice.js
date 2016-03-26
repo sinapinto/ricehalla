@@ -19,7 +19,16 @@ module.exports = function (sequelize, Sequelize) {
     classMethods: {
       associate(models) {
         Rice.belongsTo(models.User);
-      }
+      },
+    },
+    instanceMethods: {
+      toJSON() {
+        const values = this.get();
+        delete values.created_at;
+        delete values.updated_at;
+        delete values.deleted_at;
+        return values;
+      },
     },
   });
 

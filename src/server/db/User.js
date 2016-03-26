@@ -33,6 +33,16 @@ module.exports = function (sequelize, Sequelize) {
         User.hasMany(models.Rice);
       }
     },
+    instanceMethods: {
+      toJSON() {
+        const values = this.get();
+        delete values.uuid;
+        delete values.created_at;
+        delete values.updated_at;
+        delete values.deleted_at;
+        return values;
+      },
+    },
   });
 
   return User;

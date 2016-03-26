@@ -3,4 +3,3 @@ npm-debug.log
 dist/
 *.sqlite
 webpack-assets.json
-storage/
