@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import _debug from 'debug';
 import debounce from '../../utils/debounce';
 import { validateEmail, validateUsername, validatePassword } from '../../utils/validation';
 import Button from '../../components/Button';
@@ -10,6 +11,8 @@ import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
 import styles from './styles.css';
 import { register } from '../../actions/auth';
+
+const debug = _debug('app:register');
 
 const propTypes = {
   registerError: PropTypes.string,
@@ -58,7 +61,6 @@ class Register extends Component {
         valid: false,
         isValidating: true,
         error: null,
-
       }
     });
     this.validateDebounced();
@@ -77,94 +79,63 @@ class Register extends Component {
       email: { ...this.state.email, isValidating: true },
       username: { ...this.state.username, isValidating: true },
       password: { ...this.state.password, isValidating: true },
-    }, () => this.validate());
-
-    if (Object.keys(this.state).every(field => this.state[field].valid)) {
-      this.props.register({
-        email: this.state.email.value.replace(/\s\+/g, ''),
-        username: this.state.username.value,
-        password: this.state.password.value,
-      });
-    }
+    }, () => this.validate(() => {
+      if (this.canSubmit()) {
+        this.props.register({
+          email: this.state.email.value.replace(/\s\+/g, ''),
+          username: this.state.username.value,
+          password: this.state.password.value,
+        });
+      }
+    }));
   }
 
-  validate() {
+  canSubmit() {
     const { email, username, password } = this.state;
-    if (email.isValidating && this.isValidEmail(email.value)) {
-      this.setState({
-        email: {
-          value: email.value,
-          valid: true,
-          isValidating: true,
-          error: null,
-        }
-      });
+    const { isFetching } = this.props;
+    if (email.valid && username.valid && password.valid && !isFetching) {
+      return true;
     }
-    if (username.isValidating && this.isValidUsername(username.value)) {
-      this.setState({
-        username: {
-          value: username.value,
-          valid: true,
-          isValidating: true,
-          error: null,
-        }
-      });
-    }
-    if (password.isValidating && this.isValidPassword(password.value)) {
-      this.setState({
-        password: {
-          value: password.value,
-          valid: true,
-          isValidating: true,
-          error: null,
-        }
-      });
-    }
+    return false;
   }
 
-  isValidEmail(email) {
-    const error = validateEmail(email);
-    if (error) {
-      this.setState({
-        email: {
-          value: email,
-          valid: false,
-          isValidating: true,
-          error,
-        }
-      });
-    }
-    return !error;
-  }
+  validate(cb) {
+    const { email, username, password } = this.state;
+    const newState = {};
 
-  isValidUsername(username) {
-    const error = validateUsername(username);
-    if (error) {
-      this.setState({
-        username: {
-          value: username,
-          valid: false,
-          isValidating: true,
-          error,
-        }
-      });
+    if (email.isValidating) {
+      const error = validateEmail(email.value);
+      newState.email = {
+        value: email.value,
+        valid: !error,
+        isValidating: true,
+        error,
+      };
     }
-    return !error;
-  }
+    if (username.isValidating) {
+      const error = validateUsername(username.value);
+      newState.username = {
+        value: username.value,
+        valid: !error,
+        isValidating: true,
+        error,
+      };
+    }
+    if (password.isValidating) {
+      const error = validatePassword(password.value);
+      newState.password = {
+        value: password.value,
+        valid: !error,
+        isValidating: true,
+        error,
+      };
+    }
 
-  isValidPassword(password) {
-    const error = validatePassword(password);
-    if (error) {
-      this.setState({
-        password: {
-          value: password,
-          valid: false,
-          isValidating: true,
-          error,
-        }
-      });
+    debug(newState);
+
+    if (Object.keys(newState).length > 0) {
+      this.setState(newState, cb);
     }
-    return !error;
   }
 
   render() {
