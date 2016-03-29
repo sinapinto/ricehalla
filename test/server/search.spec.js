@@ -6,6 +6,10 @@ before(function () {
   return db.sequelize.sync({ force: true });
 });
 
+after(function () {
+  db.sequelize.close();
+});
+
 describe('GET /api/v1/search', function () {
 
   it('sends 200 for no match', function (done) {
@@ -17,12 +21,14 @@ describe('GET /api/v1/search', function () {
   });
 
   it('finds a match', function (done) {
-    db.Rice.create({ title: 'wow' }).then(function () {
-      request
-      .get('/api/v1/search')
-      .query({ q: 'w' })
-      .expect(200, done);
-    })
+    db.Rice.sync({ force: true }).then(function () {
+      db.Rice.create({ title: 'wow' }).then(function () {
+        request
+        .get('/api/v1/search')
+        .query({ q: 'w' })
+        .expect(200, done);
+      })
+    });
   });
 
 });

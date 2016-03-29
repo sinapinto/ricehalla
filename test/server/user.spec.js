@@ -6,6 +6,10 @@ before(function () {
   return db.sequelize.sync({ force: true });
 });
 
+after(function () {
+  db.sequelize.close();
+});
+
 describe('GET /api/v1/user', function () {
 
   it('respond with json', function (done){
@@ -21,11 +25,13 @@ describe('GET /api/v1/user', function () {
 describe('GET /api/v1/user/:user', function () {
 
   it('returns found user', function (done) {
-    db.User.create({ username: 'aa', passwordHash: 'sdf' }).then(function () {
-      request
-      .get('/api/v1/user/aa')
-      .expect(200, done);
-    })
+    db.User.sync({ force: true }).then(function () {
+      db.User.create({ username: 'aa', passwordHash: 'sdf' }).then(function () {
+        request
+        .get('/api/v1/user/aa')
+        .expect(200, done);
+      })
+    });
   });
 
   it('404 when user doesnt exist', function (done) {

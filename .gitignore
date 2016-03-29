@@ -1,5 +1,10 @@
 node_modules/
 npm-debug.log
+.eslintcache
+
 dist/
-*.sqlite
+
 webpack-assets.json
+
+*.sqlite
+storage/

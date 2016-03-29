@@ -3,13 +3,12 @@
     "secretOrKey": "SECRET (HMAC) OR PRIVATE KEY (RSA and ECDSA)",
     "options": {
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "3h"
     }
   },
   "db": {
-    "database": "ricehalla",
-    "username": "sina",
-    "password": null
-  },
-  "pageSize": 20
+    "database": "",
+    "username": "",
+    "password": ""
+  }
 }

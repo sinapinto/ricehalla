@@ -1,18 +1,6 @@
 {
   "name": "ricehalla",
   "version": "0.0.0",
-  "scripts": {
-    "start": "node static/dist/server.js",
-    "dev": "npm run clean && npm run dev:client && npm run dev:server",
-    "dev:client": "webpack --config config/webpack/client.babel.js",
-    "dev:server": "webpack --config config/webpack/server.babel.js",
-    "pro": "npm run clean && npm run pro:client && npm run pro:server",
-    "pro:client": "NODE_ENV=production webpack --config config/webpack/client.babel.js",
-    "pro:server": "NODE_ENV=production webpack --config config/webpack/server.babel.js",
-    "clean": "rm -rf static/dist",
-    "test": "NODE_ENV=test mocha -r test/setup.js -r babel-polyfill --compilers js:babel-core/register,css:test/compiler.js test/**/*.spec.js",
-    "lint": "eslint src webpack api"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sinapinto/ricehalla"
@@ -31,7 +19,9 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.5.2",
     "chai": "^3.5.0",
+    "chokidar": "^1.4.3",
     "co-bcrypt": "^1.0.0",
+    "co-body": "^4.0.0",
     "css-loader": "^0.23.1",
     "debug": "^2.2.0",
     "eslint": "^2.2.0",
@@ -47,6 +37,7 @@
     "jsonwebtoken": "^5.7.0",
     "jwt-decode": "^2.0.1",
     "koa": "^1.1.2",
+    "koa-body": "^1.4.0",
     "koa-bodyparser": "^2.0.1",
     "koa-cash": "^2.0.0",
     "koa-compose": "^2.3.0",

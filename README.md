@@ -30,32 +30,14 @@ database.
 
 ## Getting started
 
-- Set up an SQL database and update the connection details in `config/index.json`.
-
-- Install the node dependencies (requires node >= 4.0, check your version with
-  `node --version`).
-
   ```sh
-  $ npm install
+  $ make start
   ```
 
-- Build the two development bundles: the client-side js app and the node.js
-  server (they get output to `static/dist/`).
+  *run `make` to see all options.*
 
-  ```sh
-  $ npm run dev
-  ```
-
-  to build production bundles instead run `HOST=domain.com PORT=80 npm run pro`
-
-- Start the development server
-
-  ```sh
-  $ npm start
-  ```
-
-  You can now open `http://localhost:3000` in your browser and use the website.
-  Use `ctrl-h` to toggle redux devtools.
+  open `http://localhost:3000`. Use `ctrl-h` to toggle redux devtools. type `rs`
+  to restart the server manually.
 
 ## Directory layout
 

@@ -72,9 +72,6 @@ if (!__DEV__) {
 app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
 app.use(serve(path.join(__dirname, '../../static')));
 
-// store parsed body in `this.request.body`
-app.use(bodyparser());
-
 // verify jwt token and set `this.state.user`
 app.use(jwt({
   secret: config.jwt.secretOrKey,
@@ -83,18 +80,14 @@ app.use(jwt({
   passthrough: true,
 }));
 
-app.use(function *(next) {
-  // debug(`cookie: ${this.cookies.get('token')}`);
-  // debug(`verified: ${!!this.state.user}`);
-  yield next;
-});
+app.use(mount('/api/v1', cors()));
+app.use(mount('/api/v1', api.v1));
 
-// app.on('error', err => debug(`error: ${err.message}`));
+// store parsed body in `this.request.body`
+app.use(bodyparser());
 
 app.use(mount('/auth', cors()));
 app.use(mount('/auth', auth.routes()));
-app.use(mount('/api/v1', cors()));
-app.use(mount('/api/v1', api.v1));
 app.use(mount('/', render));
 
 // sync models to the DB and start the server

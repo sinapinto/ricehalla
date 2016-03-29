@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Pre-push hook to prevent push of commits where the log message starts
+# with "squash".
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+
+remote="$1"
+url="$2"
+
+# Redirect output to stderr.
+exec 1>&2
+
+$P="[git-hook]"
+
+z40=0000000000000000000000000000000000000000
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    if ! [ "$local_sha" = $z40 ]
+    then
+        if [ "$remote_sha" = $z40 ]
+        then
+            # New branch, examine all commits
+            range="$local_sha"
+        else
+            # Update to existing branch, examine new commits
+            range="$remote_sha..$local_sha"
+        fi
+
+        #
+        # Check for "squash" in commit messages
+        #
+
+        commit=$(git rev-list -n 1 --grep '^squash' "$range")
+
+        if [ -n "$commit" ]
+        then
+            prompt="found \"squash\" commit in $local_ref. continue anyways?"
+
+            read -p "$prompt" -r < /dev/tty
+            echo
+
+            if ! echo $REPLY | grep -E '^[Yy]$' > /dev/null
+            then
+                echo -e "\033[31m$P aborting push.\033[0m"
+                exit 1
+            fi
+        fi
+
+    fi
+done
+
+exit 0
