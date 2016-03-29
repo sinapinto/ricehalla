@@ -6,7 +6,7 @@ endif
 
 # env
 NODE_ENV ?= development
-DEBUG ?= app:*
+DEBUG ?= app,app:*
 
 # executables
 BIN := $(shell npm bin)
@@ -48,27 +48,33 @@ help:
 	@echo -e "  \033[36mlint\033[0m - lint source code"
 	@echo
 
-start: setup build
-	@echo -e " $(P) starting development server"
+start: setup build-watch
+
+build: clean setup build-client build-server
+
+build-client:
+	@echo -e " $(P) building $(NODE_ENV) client bundle"
+	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) --config config/webpack/client.babel.js
+
+build-server:
+	@echo -e " $(P) building $(NODE_ENV) server bundle"
+	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) --config config/webpack/server.babel.js
+
+run: setup
+	@echo -e " $(P) running server"
+	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) node static/dist/server.js
+
+build-watch:
+	@echo -e " $(P) building $(NODE_ENV) bundles and starting server"
 	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) ./bin/serve
 
-build: setup clean
-	@echo -e " $(P) building $(NODE_ENV) bundles"
-	@NODE_ENV=$(NODE_ENV) $(WEBPACK) $(WEBPACK_FLAGS)
-
-run: setup build
-	@echo -e " $(P) running development server"
-	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) ./bin/serve
+start-pro: build-pro run-pro
 
 build-pro: NODE_ENV=production
 build-pro: build
 
-start-pro: NODE_ENV=production
-start-pro: start
-
-run-pro:
-	@echo -e " $(P) running production server"
-	@NODE_ENV=production node ./static/dist/server.js
+run-pro: NODE_ENV=production
+run-pro: run
 
 test: storage
 	@echo -e " $(P) running tests"
@@ -83,7 +89,7 @@ clean:
 		rm -rf static/dist; \
 	fi
 
-setup: node_modules githooks storage
+setup: node_modules storage githooks
 
 node_modules:
 	@if [ ! -d node_modules ]; then \
@@ -107,4 +113,5 @@ githooks:
 		ln -s ../../bin/pre-commit .git/hooks/pre-commit; \
 	fi
 
-.PHONY: help setup run build build-pro test lint clean node_module storage githooks
+.PHONY: help setup start run build start-pro build-pro run-pro
+.PHONY: test lint clean node_module storage githooks

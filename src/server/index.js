@@ -19,7 +19,6 @@ import config from '../../config/index.json';
 
 const app = koa();
 
-_debug.enable('app');
 const debug = _debug('app');
 
 // webpack middleware to serve bundles
@@ -41,7 +40,9 @@ if (__DEV__) {
 app.use(responseTime());
 
 // console.log HTTP traffic
-app.use(logger());
+if (debug.enabled) {
+  app.use(logger());
+}
 
 // set various security headers
 app.use(helmet());

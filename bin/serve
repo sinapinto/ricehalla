@@ -23,8 +23,8 @@ var outputOptions = {
 // node server child process
 var server;
 
-// build the server app
-var compiler = webpack(config);
+// build the client and server apps
+var compiler = webpack(require('../config/webpack/index.js'));
 rebuild();
 
 /**

@@ -21,7 +21,7 @@ url="$2"
 # Redirect output to stderr.
 exec 1>&2
 
-$P="[git-hook]"
+P="[git-hook]"
 
 z40=0000000000000000000000000000000000000000
 
@@ -46,7 +46,7 @@ do
 
         if [ -n "$commit" ]
         then
-            prompt="found \"squash\" commit in $local_ref. continue anyways?"
+            prompt="$P found \"squash\" commit in $local_ref. continue anyways?"
 
             read -p "$prompt" -r < /dev/tty
             echo
