@@ -15,6 +15,9 @@ module.exports = function (sequelize, Sequelize) {
         isUrl: true
       },
     },
+    file: {
+      type: Sequelize.TEXT,
+    },
   }, {
     classMethods: {
       associate(models) {

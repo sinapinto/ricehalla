@@ -2,13 +2,18 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 
 const propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   theme: PropTypes.oneOf(['normal', 'primary', 'success', 'error']),
   disabled: PropTypes.bool,
-  width: PropTypes.string,
 };
 
-function Button({ theme = 'normal', width, disabled, children, ...other }) {
+const defaultProps = {
+  theme: 'normal',
+  disabled: false,
+};
+
+function Button({ theme, disabled, className, children, ...other }) {
   const themes = {
     normal: styles.btnNormal,
     primary: styles.btnPrimary,
@@ -20,8 +25,7 @@ function Button({ theme = 'normal', width, disabled, children, ...other }) {
     <button
       {...other}
       type="submit"
-      className={themes[theme]}
-      style={width ? { width } : null }
+      className={[themes[theme], className].join(' ')}
       disabled={!!disabled}
     >
       {children}
@@ -30,5 +34,6 @@ function Button({ theme = 'normal', width, disabled, children, ...other }) {
 }
 
 Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
 export default Button;

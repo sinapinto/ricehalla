@@ -17,11 +17,10 @@
   font-size: 1.5em;
 }
 
-.error {
-  color: var(--color-red);
-  padding: 1em;
+.icon {
+  fill: var(--color-red);
 }
 
-.error i {
-  margin-right: 0.6em;
+.wide {
+  width: 100%;
 }

@@ -18,3 +18,7 @@
   /* font-weight: 300; */
   /* font-size: 1.5em; */
 }
+
+.wide {
+  composes: wide from "../Login/styles.css";
+}

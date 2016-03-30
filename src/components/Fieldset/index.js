@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Icon from '../Icon/index.js';
 import styles from './styles.css';
 
 const propTypes = {
@@ -10,16 +11,17 @@ class Fieldset extends Component {
   renderErrorMessage() {
     return this.props.errorMessage ?
       <div className={styles.errorMessage}>
-        <i className="fa fa-exclamation-circle"></i>
+        <Icon icon="alert-circle" className={styles.icon} />
         {this.props.errorMessage}
       </div> :
       null;
   }
 
   render() {
+    const { children, ...other } = this.props;
     return (
-      <fieldset className={styles.fieldset}>
-        {this.props.children}
+      <fieldset {...other} className={styles.fieldset}>
+        {children}
         {this.renderErrorMessage()}
       </fieldset>
     );

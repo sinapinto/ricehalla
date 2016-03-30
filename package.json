@@ -1,6 +1,6 @@
 {
   "name": "ricehalla",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/sinapinto/ricehalla"
@@ -118,7 +118,8 @@
       "new-cap": 0,
       "consistent-return": 0,
       "newline-per-chained-call": 0,
-      "react/prefer-stateless-function": 0
+      "react/prefer-stateless-function": 0,
+      "react/jsx-space-before-closing": 0
     }
   }
 }

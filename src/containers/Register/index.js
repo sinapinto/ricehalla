@@ -82,7 +82,7 @@ class Register extends Component {
     }, () => this.validate(() => {
       if (this.canSubmit()) {
         this.props.register({
-          email: this.state.email.value.replace(/\s\+/g, ''),
+          email: this.state.email.value.replace(/\s+/g, ''),
           username: this.state.username.value,
           password: this.state.password.value,
         });
@@ -186,7 +186,13 @@ class Register extends Component {
               disabled={this.props.isFetching}
             />
           </Fieldset>
-          <Button theme="primary" disabled={this.props.isFetching} width={'100%'}>Sign Up</Button>
+          <Button
+            theme="primary"
+            disabled={this.props.isFetching}
+            className={styles.wide}
+          >
+            Sign Up
+          </Button>
         </Form>
       </div>
     );

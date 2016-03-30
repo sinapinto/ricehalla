@@ -8,9 +8,8 @@
 
 .errorMessage {
   color: var(--color-red);
-  padding-top: 10px;
 }
 
-.errorMessage i {
-  margin-right: 0.6em;
+.icon {
+  fill: var(--color-red);
 }

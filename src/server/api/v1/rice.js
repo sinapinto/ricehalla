@@ -1,5 +1,6 @@
 import Resource from 'koa-resource-router';
 import Parameter from 'parameter';
+import parse from 'co-body';
 import { Rice } from '../../db';
 import _debug from 'debug';
 const debug = _debug('app:rice');
@@ -38,7 +39,7 @@ export default new Resource('rice', {
 
   // POST /rice
   create: [requireAuth, function *create() {
-    const body = this.request.body;
+    const body = yield parse(this);
     debug(body);
     const rule = {
       title: { type: 'string' },
@@ -60,15 +61,15 @@ export default new Resource('rice', {
         type: 'url'
       }
     };
-    const errors = parameter.validate(rule, this.request.body);
+    const errors = parameter.validate(rule, body);
     if (errors) {
       debug(errors);
       this.throw(400, errors);
     }
 
     try {
-      // yield this.request.body.tags.map(name => Tag.upsert({ name }));
-      const rice = yield Rice.create(this.request.body, {
+      // yield body.tags.map(name => Tag.upsert({ name }));
+      const rice = yield Rice.create(body, {
         fields: ['title', 'description', 'url']
       });
       this.type = 'json';

@@ -7,6 +7,7 @@ import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
 import Checkbox from '../../components/Checkbox';
+import Icon from '../../components/Icon';
 import styles from './styles.css';
 import { login } from '../../actions/auth';
 
@@ -64,7 +65,7 @@ class Login extends Component {
     if (this.props.loginInvalid || this.state.error) {
       return (
         <div className={styles.error}>
-          <i className="fa fa-exclamation-circle"></i>
+          <Icon icon="alert-circle" className={styles.icon} />
           {this.state.error || 'Invalid username or password.'}
         </div>
       );
@@ -106,7 +107,13 @@ class Login extends Component {
           >
             Keep me signed in
           </Checkbox>
-          <Button theme="primary" disabled={isFetching} width={'100%'}>Sign In</Button>
+          <Button
+            theme="primary"
+            disabled={isFetching}
+            className={styles.wide}
+          >
+            Sign In
+          </Button>
         </Form>
       </div>
     );
