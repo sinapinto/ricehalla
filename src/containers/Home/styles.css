@@ -8,3 +8,39 @@
   font-weight: normal;
   color: rgba(0,0,0,0.9);
 }
+
+.table {
+  width: 100%
+}
+
+.author {
+  text-align: center;
+}
+
+.taglist {
+  text-align: right;
+  width: 20%;
+  max-width: 20%;
+}
+
+.tag {
+  margin: 0 3px;
+  line-height: 1.5;
+}
+
+.rank {
+  width: 3em;
+}
+
+td.img {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.date {
+  text-align: right;
+}
+
+th {
+  vertical-align: top !important;
+}
