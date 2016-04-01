@@ -28,7 +28,8 @@ class Page extends Component {
             __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`
           }}
           />
-          {assets && <script src={assets.main.js} charSet="UTF-8" />}
+          {assets ? <script src={assets.main.js} charSet="UTF-8" />
+          : <script src={`http://localhost:${__PORT__}/dist/bundle.js`} charSet="UTF-8" />}
         </body>
       </html>
     );

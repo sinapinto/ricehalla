@@ -7,7 +7,9 @@ import createRouter from '../containers/Routes';
 import Html from './Html';
 import configureStore from '../utils/configureStore';
 let assets;
-try { assets = require('../../webpack-assets.json'); } catch (_) { assets = {}; }
+try {
+  assets = require('../../webpack-assets.json');
+} catch (_) {}
 
 /**
  * Fetch data needed by components in the current route.

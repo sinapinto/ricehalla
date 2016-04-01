@@ -17,6 +17,10 @@ var outputOptions = {
   colors: true,
   cached: false,
   modules: false,
+  chunks: false,
+  children: false,
+  hash: false,
+  version: false,
   exclude: ['node_modules'],
 };
 
@@ -58,7 +62,7 @@ function rebuild() {
       var configPath = path.join(config.output.path, config.output.filename);
       var args = [configPath];
       if (process.argv.length > 2) {
-        args.concat(process.argv.slice(2));
+        args.push(process.argv.slice(2));
       }
 
       var opts = {
