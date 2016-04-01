@@ -31,9 +31,11 @@ export default function createRouter(history, store) {
     cb();
   }
 
+  const noNav = ['/login', '/register'];
+
   return (
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={App} noNav={noNav}>
         <IndexRoute component={Home} />
         <Route onEnter={requireUnauth}>
           <Route path="/login" component={Login} />

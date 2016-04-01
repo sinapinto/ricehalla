@@ -9,6 +9,8 @@ import styles from './styles.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  route: PropTypes.object,
   username: PropTypes.string,
   isAuthenticated: PropTypes.bool,
   logout: PropTypes.func.isRequired,
@@ -34,43 +36,73 @@ class App extends Component {
     }
   }
 
+  getMeta() {
+    return [
+      { name: 'description', content: 'sharing dotfiles' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { charset: 'utf-8' },
+      { property: 'og:site_name', content: 'ricehalla' },
+      { property: 'og:locale', content: 'en_US' },
+      { property: 'og:title', content: 'ricehalla' },
+      { property: 'og:description', content: 'sharing dotfiles' },
+    ];
+  }
+
   handleLogout(e) {
     e.preventDefault();
     this.props.logout();
   }
 
+  noNav() {
+    const { route, location } = this.props;
+    return ~route.noNav.indexOf(location.pathname);
+  }
+
+  loggedInNav() {
+    return (
+      <div className={styles.nav}>
+        <div className={styles.navWrapper}>
+          <Link to="/" className={styles.navLogo}>ricehalla</Link>
+          <NavLink to="/submit" theme="success">Submit</NavLink>
+          <NavLink to={`/user/${this.props.username}`} className={styles.welcome}>
+            {this.props.username}
+          </NavLink>
+          <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink>
+        </div>
+      </div>
+    );
+  }
+
+  loggedOutNav() {
+    return (
+      <div className={styles.nav}>
+        <div className={styles.navWrapper}>
+          <Link to="/" className={styles.navLogo}>ricehalla</Link>
+          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/login" theme="primary">Log In</NavLink>
+        </div>
+      </div>
+    );
+  }
+
+  renderNav() {
+    if (this.noNav()) {
+      return null;
+    }
+    if (this.props.isAuthenticated) {
+      return this.loggedInNav();
+    }
+    return this.loggedOutNav();
+  }
+
   render() {
-    const { username, isAuthenticated } = this.props;
     return (
       <div className={styles.root}>
-        <Helmet title="ricehalla" meta={[
-          { name: 'description', content: 'sharing dotfiles' },
-          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          { charset: 'utf-8' },
-          { property: 'og:site_name', content: 'ricehalla' },
-          { property: 'og:locale', content: 'en_US' },
-          { property: 'og:title', content: 'ricehalla' },
-          { property: 'og:description', content: 'sharing dotfiles' }
-        ]}
-        />
-        <div className={styles.nav}>
-          <div className={styles.navWrapper}>
-            <Link to="/" className={styles.navLogo}>ricehalla</Link>
-            { isAuthenticated &&
-                <NavLink to="/submit" theme="success">Submit</NavLink> }
-            { isAuthenticated &&
-                <NavLink to={`/user/${username}`} className={styles.welcome}>
-                  {username}
-                </NavLink> }
-            { isAuthenticated &&
-                <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink> }
-            { !isAuthenticated &&
-                <NavLink to="/register">Register</NavLink> }
-            { !isAuthenticated &&
-                <NavLink to="/login" theme="primary">Log In</NavLink> }
-          </div>
+        <Helmet title="ricehalla" meta={this.getMeta()} />
+        {this.renderNav()}
+        <div className={styles.childWrapper}>
+          {this.props.children}
         </div>
-        {this.props.children}
       </div>
     );
   }
