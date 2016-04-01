@@ -3,12 +3,17 @@ import styles from './styles.css';
 
 const propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   htmlFor: PropTypes.string,
 };
 
-function Label({ children, htmlFor }) {
+function Label({ children, className, htmlFor }) {
+  const classes = [styles.label];
+  if (className) {
+    classes.push(className);
+  }
   return (
-    <label htmlFor={htmlFor} className={styles.label}>
+    <label htmlFor={htmlFor} className={classes.join(' ')}>
       {children}
     </label>
   );

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Fieldset from '../../components/Fieldset';
@@ -73,13 +74,29 @@ class Login extends Component {
     return null;
   }
 
+  renderFooter() {
+    return (
+      <div className={styles.footer}>
+        Don't have an account?
+        <Link to="/register">
+          Sign up
+        </Link>
+      </div>
+    );
+  }
+
   render() {
     const { isFetching } = this.props;
     return (
       <div className={styles.root}>
         <Helmet title="Login | ricehalla" />
         {this.renderErrorMessage()}
-        <Form onSubmit={this.handleSubmit} noValidate>
+        <h2 className={styles.header}>Sign in.</h2>
+        <Form
+          onSubmit={this.handleSubmit}
+          noValidate
+          className={this.state.error ? styles.shakeIt : null}
+        >
           <Fieldset>
             <Label htmlFor="username">Username or email</Label>
             <TextInput
@@ -105,15 +122,16 @@ class Login extends Component {
             onClick={this.toggleRemember}
             defaultChecked
           >
-            Keep me signed in
+            Remember me
           </Checkbox>
           <Button
             theme="primary"
             disabled={isFetching}
             className={styles.wide}
           >
-            Sign In
+            Log In
           </Button>
+          {this.renderFooter()}
         </Form>
       </div>
     );

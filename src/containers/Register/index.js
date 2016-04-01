@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router';
 import _debug from 'debug';
 import debounce from '../../utils/debounce';
 import { validateEmail, validateUsername, validatePassword } from '../../utils/validation';
@@ -138,6 +139,17 @@ class Register extends Component {
     }
   }
 
+  renderFooter() {
+    return (
+      <div className={styles.footer}>
+        Already have an account?
+        <Link to="/login">
+          Log in
+        </Link>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className={styles.root}>
@@ -156,7 +168,6 @@ class Register extends Component {
               invalid={!!this.state.email.error}
               valid={this.state.email.valid}
               disabled={this.props.isFetching}
-              autoFocus
             />
           </Fieldset>
           <Fieldset errorMessage={this.state.username.error}>
@@ -193,6 +204,7 @@ class Register extends Component {
           >
             Sign Up
           </Button>
+          {this.renderFooter()}
         </Form>
       </div>
     );

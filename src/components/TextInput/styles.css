@@ -2,12 +2,11 @@
 
 .input {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid rgba(0,0,0,0.15);
   font-weight: 400;
   box-shadow: none;
   outline: none;
-  transition: all var(--transition-duration);
 }
 
 .input:hover {
@@ -17,7 +16,6 @@
 .input:focus,
 .input:active {
   border: 1px solid var(--color-primary);
-  box-shadow: 0 0 0 2px color(var(--color-primary) tint(70%));
 }
 
 .invalid,
@@ -27,7 +25,6 @@
 .invalid:focus,
 .invalid:active {
   border: 1px solid var(--color-red);
-  box-shadow: 0 0 0 2px color(var(--color-red) tint(70%));
 }
 
 .valid,
@@ -37,5 +34,4 @@
 .valid:focus,
 .valid:active {
   border: 1px solid var(--color-green);
-  box-shadow: 0 0 0 2px color(var(--color-green) tint(70%));
 }

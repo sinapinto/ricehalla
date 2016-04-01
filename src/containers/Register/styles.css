@@ -1,24 +1,15 @@
-@import "../../styles/variables.css";
-
 .root {
   composes: root from "../Login/styles.css";
-  /* width: 100%; */
-  /* font-size: 0.9em; */
-  /* max-width: 380px; */
-  /* margin: 0 auto; */
-  /* display: flex; */
-  /* flex-flow: column nowrap; */
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 
 .header {
   composes: header from "../Login/styles.css";
-  /* color: var(--font-color); */
-  /* font-weight: 300; */
-  /* font-size: 1.5em; */
 }
 
 .wide {
   composes: wide from "../Login/styles.css";
+}
+
+.footer {
+  composes: footer from "../Login/styles.css";
 }

@@ -1,6 +1,6 @@
 @import "../../styles/base.css";
 @import "../../styles/variables.css";
-@import "https://fonts.googleapis.com/css?family=Fira+Sans:500";
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700";
 
 .root {
   max-width: var(--body-width);
@@ -15,9 +15,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 3.5em;
-  border-bottom: 1px solid rgba(0,0,0,0.01);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  height: var(--nav-height);
+  /* border-bottom: 1px solid rgba(0,0,0,0.01); */
+  /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15); */
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -39,16 +39,24 @@
   display: flex;
   align-items: center;
   margin-right:auto;
-  font-family: 'Fira Sans';
   font-size: 1.2em;
-  font-weight: 500;
+  font-weight: 600;
   user-select: none;
   text-decoration: none;
-  color: rgb(0, 155, 195);
+  color: color(var(--color-primary) shade(10%));
   padding: 1em 0.5em;
+}
+.navLogo:hover {
+  color: color(var(--color-primary) shade(20%));
 }
 
 .welcome {
   font-size: 0.8em;
   margin-right: 1em;
+}
+
+.childWrapper {
+  display: flex;
+  width: 100%;
+  padding-top: var(--nav-height);
 }

@@ -3,15 +3,13 @@
 .btn {
   color: rgb(255,255,255);
   cursor: pointer;
-  font-size: 0.9em;
-  font-weight: 700;
+  font-weight: 400;
   text-decoration: none;
   text-align: center;
   line-height: 1em;
   padding: 0.8em 1em;
   border: 0;
-  border-radius: 4px;
-  transition: background var(--transition-duration);
+  border-radius: 99em;
 }
 
 .btn:disabled,
@@ -26,7 +24,6 @@
   composes: btn;
   background-color: rgb(255, 255, 255);
   color: color(var(--font-color) tint(10%));
-  box-shadow: 0px 1px 1px rgba(0,0,0,0.11);
   border: 1px solid rgb(220,220,220);
 }
 .btnNormal:hover {
@@ -42,14 +39,14 @@
 /* primary */
 .btnPrimary {
   composes: btn;
-  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  background-color: rgb(255,255,255);
+  color: var(--color-primary);
 }
 .btnPrimary:hover {
-  background-color: color(var(--color-primary) shade(10%));
 }
 .btnPrimary:focus, 
 .btnPrimary:active {
-  background-color: color(var(--color-primary) shade(15%));
 }
 
 /* success */

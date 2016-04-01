@@ -15,8 +15,9 @@ export function validateUsername(username) {
 }
 
 export function validatePassword(password) {
-  if (password.length < 8) {
-    return 'Password is too short.';
+  const min = 8;
+  if (password.length < min) {
+    return `Password should be at least ${min} characters.`;
   }
   return null;
 }
