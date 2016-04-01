@@ -1,21 +1,50 @@
 .root {
   margin: 1em 0;
   width: 100%;
-}
-
-.header {
-  font-size: 28px;
-  font-weight: normal;
-  color: rgba(0,0,0,0.9);
+  font-size: 14px;
 }
 
 .table {
-  width: 100%
+  width: 100%;
+  table-layout: fixed;
+  white-space: nowrap;
 }
 
-.author {
-  text-align: center;
+.root th,
+.root td {
+  padding: 15px 5px;
 }
+
+.root th {
+  vertical-align: top;
+  font-weight: 400;
+}
+
+.root td {
+  white-space: nowrap;
+}
+
+.tagSearch {
+  margin: 5px;
+}
+
+.rowRank {
+  width: 10%;
+}
+
+.rowImage {
+  width: 30%;
+}
+
+.rowDate {
+  width: 30%;
+}
+
+.rowTag {
+  width: 30%;
+}
+
+/* TagList.js */
 
 .taglist {
   text-align: right;
@@ -26,21 +55,11 @@
 .tag {
   margin: 0 3px;
   line-height: 1.5;
-}
-
-.rank {
-  width: 3em;
+  padding: 0 3px;
+  background-color: #eee;
 }
 
 td.img {
   text-align: center;
   vertical-align: middle;
-}
-
-.date {
-  text-align: right;
-}
-
-th {
-  vertical-align: top !important;
 }
