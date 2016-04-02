@@ -16,10 +16,6 @@
   padding: 10px;
 }
 
-.root label {
-  font-size: 0.9em;
-}
-
 .root fieldset > label {
   color: rgba(0,0,0, .7);
 }
@@ -27,7 +23,6 @@
 .header {
   color: var(--font-color);
   font-weight: 300;
-  font-size: 1.5em;
   margin: 1em 0;
 }
 
@@ -56,7 +51,7 @@
 }
 
 .shake {
-  animation: shake 0.2s both;
+  animation: shake 0.3s both;
 }
 
 @keyframes shake {
@@ -64,7 +59,10 @@
     transform: translateX(0);
   }
   25%, 75% {
-    transform: translateX(10px);
+    transform: translateX(15px);
+  }
+  50% {
+    transform: translateX(-15px);
   }
   100% {
     transform: translateX(0);

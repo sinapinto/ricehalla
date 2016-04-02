@@ -142,10 +142,7 @@ class Register extends Component {
   renderFooter() {
     return (
       <div className={styles.footer}>
-        Already have an account?
-        <Link to="/login">
-          Log in
-        </Link>
+        Already have an account?<Link to="/login">Log in</Link>
       </div>
     );
   }

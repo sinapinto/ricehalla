@@ -32,6 +32,12 @@ class Login extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loginInvalid) {
+      this.setState({ username: '', password: '', error: null });
+    }
+  }
+
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -52,7 +58,7 @@ class Login extends Component {
       this.setState({ error: 'Password field is empty.' });
       return undefined;
     }
-    this.setState({ error: null });
+    // this.setState({ error: null });
     this.props.login({ username, password, remember });
   }
 
@@ -77,10 +83,7 @@ class Login extends Component {
   renderFooter() {
     return (
       <div className={styles.footer}>
-        Don't have an account?
-        <Link to="/register">
-          Sign up
-        </Link>
+        Don't have an account?<Link to="/register">Sign up</Link>
       </div>
     );
   }
@@ -94,8 +97,8 @@ class Login extends Component {
         <h2 className={styles.header}>Sign in.</h2>
         <Form
           onSubmit={this.handleSubmit}
+          className={this.props.loginInvalid ? styles.shake : null}
           noValidate
-          className={this.state.error ? styles.shakeIt : null}
         >
           <Fieldset>
             <Label htmlFor="username">Username or email</Label>

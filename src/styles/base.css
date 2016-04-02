@@ -14,6 +14,7 @@ body {
 
 html {
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 *, *::before, *::after {
@@ -26,6 +27,10 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+}
+
+button::-moz-focus-inner {
+  border: 0;
 }
 
 button:active,
