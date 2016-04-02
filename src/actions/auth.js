@@ -53,13 +53,11 @@ export function register(body) {
       dispatch({ type: REGISTER_REQUEST });
       const res = await auth('/auth/signup', body);
       cookie.set('token', res.token);
-      setTimeout(() => {
-        dispatch({
-          type: REGISTER_SUCCESS,
-          username: body.username,
-          token: res.token
-        });
-      }, 1000);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        username: body.username,
+        token: res.token
+      });
     } catch (err) {
       dispatch({ type: REGISTER_FAILURE, error: err.message });
     }

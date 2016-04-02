@@ -31,7 +31,7 @@ TEST_FILES := $(shell \
     -path './static' \) \
 )
 
-LINT_DIRS = src webpack
+LINT_DIRS = src
 SERVER_PATH = ./static/dist/server.js
 
 P = "\\033[36m[+]\\033[0m"
@@ -43,7 +43,7 @@ help:
 	@echo -e "  \033[36mstart\033[0m - build development bundles and run the server in watch mode"
 	@echo -e "  \033[36mbuild\033[0m - build development bundles"
 	@echo -e "  \033[36mrun\033[0m - run the development server"
-	@echo -e "  \033[36mstart-pro\033[0m - build productino bundles and run the server"
+	@echo -e "  \033[36mstart-pro\033[0m - build production bundles and run the server"
 	@echo -e "  \033[36mbuild-pro\033[0m - build production bundles"
 	@echo -e "  \033[36mrun-pro\033[0m - run the production server"
 	@echo -e "  \033[36mtest\033[0m - run unit tests"

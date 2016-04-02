@@ -3,7 +3,7 @@
     "secretOrKey": "SECRET (HMAC) OR PRIVATE KEY (RSA and ECDSA)",
     "options": {
       "algorithm": "HS256",
-      "expiresIn": "3h"
+      "expiresIn": "7h"
     }
   },
   "db": {
