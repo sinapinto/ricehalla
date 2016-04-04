@@ -1,0 +1,32 @@
+@import "../../styles/variables.css";
+
+.container {
+  position: absolute;
+  top: 0;
+}
+
+.popover {
+  width: 200px;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0, .25),
+              0 0px 1px rgba(0,0,0, .35);
+  border-radius: 4px;
+  padding: 15px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(70px);
+}
+
+.item {
+  padding: 3px 15px;
+}
+
+.item a {
+  color: color(var(--font-color) tint(20%));
+}
+
+.item a:hover {
+  color: color(var(--font-color) shade(20%));
+}

@@ -1,15 +1,16 @@
 @import "../../styles/variables.css";
 
 .btn {
-  color: rgb(255,255,255);
   cursor: pointer;
   font-weight: 400;
   text-decoration: none;
   text-align: center;
   line-height: 1em;
   padding: 0.8em 1em;
-  border: 0;
   border-radius: 99em;
+  background-color: #fff;
+  color: color(var(--font-color) tint(30%));
+  transition: border var(--transition-duration), color var(--transition-duration);
 }
 
 .btn:disabled,
@@ -22,55 +23,58 @@
 /* default (white) */
 .btnNormal {
   composes: btn;
-  background-color: rgb(255, 255, 255);
-  color: color(var(--font-color) tint(10%));
-  border: 1px solid rgb(220,220,220);
+  border: 1px solid rgb(190,190,190);
 }
 .btnNormal:hover {
   color: color(var(--font-color) tint(0%));
-  border: 1px solid rgb(200,200,200);
+  border: 1px solid rgb(130,130,130);
 }
 .btnNormal:focus,
 .btnNormal:active {
   color: color(var(--font-color) tint(0%));
-  border: 1px solid rgb(200,200,200);
+  border: 1px solid rgb(120,120,120);
 }
 
 /* primary */
 .btnPrimary {
   composes: btn;
   border: 1px solid var(--color-primary);
-  background-color: rgb(255,255,255);
   color: var(--color-primary);
 }
 .btnPrimary:hover {
 }
-.btnPrimary:focus, 
+.btnPrimary:focus,
 .btnPrimary:active {
 }
 
 /* success */
 .btnSuccess {
   composes: btn;
-  background-color: var(--color-green);
+  color: var(--color-green);
+  border: 1px solid var(--color-green);
 }
 .btnSuccess:hover {
-  background-color: color(var(--color-green) shade(10%));
+  color: var(--color-green);
+  border: 1px solid color(var(--color-green) shade(10%));
 }
 .btnSuccess:focus,
 .btnSuccess:active {
-  background-color: color(var(--color-green) shade(15%));
+  color: var(--color-green);
+  border: 1px solid color(var(--color-green) shade(15%));
 }
 
 /* error */
 .btnError {
   composes: btn;
-  background-color: var(--color-red);
+  border: 1px solid var(--color-red);
+  color: var(--color-red);
 }
 .btnError:hover {
-  background-color: color(var(--color-red) shade(10%));
+  border: 1px solid color(var(--color-red) shade(10%));
+  color: var(--color-red);
 }
-.btnError:focus, 
+.btnError:focus,
 .btnError:active {
-  background-color: color(var(--color-red) shade(15%));
+  border: 1px solid color(var(--color-red) shade(15%));
+  color: var(--color-red);
 }

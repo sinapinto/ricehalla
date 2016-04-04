@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
 import { logout } from '../../actions/auth';
+import Popover from '../../components/Popover';
+import Button from '../../components/Button';
 import NavLink from '../../components/NavLink';
 import styles from './styles.css';
 
@@ -24,6 +26,11 @@ class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.handleLogout = this.handleLogout.bind(this);
+    this.openPopover = this.openPopover.bind(this);
+    this.closePopover = this.closePopover.bind(this);
+    this.state = {
+      isOpen: false,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,6 +41,18 @@ class App extends Component {
       // logout
       this.context.router.push('/');
     }
+  }
+
+  closePopover() {
+    this.setState({ isOpen: false });
+  }
+
+  openPopover() {
+    this.setState((prev) => {
+      if (!prev.isOpen) {
+        return { isOpen: true };
+      }
+    })
   }
 
   getMeta() {
@@ -55,7 +74,7 @@ class App extends Component {
 
   noNav() {
     const { route, location } = this.props;
-    return ~route.noNav.indexOf(location.pathname);
+    return !!~route.noNav.indexOf(location.pathname);
   }
 
   loggedInNav() {
@@ -64,10 +83,13 @@ class App extends Component {
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
           <NavLink to="/submit" theme="success">Submit</NavLink>
-          <NavLink to={`/user/${this.props.username}`} className={styles.welcome}>
+          <Button onClick={this.openPopover}>
             {this.props.username}
-          </NavLink>
-          <NavLink to="#" onClick={this.handleLogout}>Logout</NavLink>
+          </Button>
+          <Popover onClose={this.closePopover} isOpen={this.state.isOpen}>
+            <Link to={`/user/${this.props.username}`}>Profile</Link>
+            <Link to="#" onClick={this.handleLogout}>Logout</Link>
+          </Popover>
         </div>
       </div>
     );
