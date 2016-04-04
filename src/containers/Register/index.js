@@ -195,7 +195,7 @@ class Register extends Component {
             />
           </Fieldset>
           <Button
-            theme="primary"
+            primary
             disabled={this.props.isFetching}
             className={styles.wide}
           >

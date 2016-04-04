@@ -43,18 +43,6 @@ class App extends Component {
     }
   }
 
-  closePopover() {
-    this.setState({ isOpen: false });
-  }
-
-  openPopover() {
-    this.setState((prev) => {
-      if (!prev.isOpen) {
-        return { isOpen: true };
-      }
-    })
-  }
-
   getMeta() {
     return [
       { name: 'description', content: 'sharing dotfiles' },
@@ -65,6 +53,18 @@ class App extends Component {
       { property: 'og:title', content: 'ricehalla' },
       { property: 'og:description', content: 'sharing dotfiles' },
     ];
+  }
+
+  openPopover() {
+    this.setState((prev) => {
+      if (!prev.isOpen) {
+        return { isOpen: true };
+      }
+    });
+  }
+
+  closePopover() {
+    this.setState({ isOpen: false });
   }
 
   handleLogout(e) {
@@ -82,8 +82,8 @@ class App extends Component {
       <div className={styles.nav}>
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
-          <NavLink to="/submit" theme="success">Submit</NavLink>
-          <Button onClick={this.openPopover}>
+          <NavLink to="/submit" success>Submit</NavLink>
+          <Button onClick={this.openPopover} outline>
             {this.props.username}
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isOpen}>
@@ -100,8 +100,8 @@ class App extends Component {
       <div className={styles.nav}>
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
-          <NavLink to="/register">Register</NavLink>
-          <NavLink to="/login" theme="primary">Log In</NavLink>
+          <NavLink to="/register" outline>Register</NavLink>
+          <NavLink to="/login" primary outline>Log In</NavLink>
         </div>
       </div>
     );

@@ -46,8 +46,13 @@
   color: color(var(--color-primary) shade(10%));
   padding: 1em 0.5em;
 }
+
 .navLogo:hover {
   color: color(var(--color-primary) shade(20%));
+}
+
+.icon {
+  fill: var(--color-primary);
 }
 
 .childWrapper {

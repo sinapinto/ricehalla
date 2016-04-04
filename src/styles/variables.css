@@ -2,7 +2,8 @@
   --font-color: rgb(46, 68, 83);
   --link-color: rgb(0, 135, 190);
   --color-primary: rgb(0, 170, 220);
-  --color-green: rgb(33, 186, 69);
+  /* --color-green: rgb(33, 186, 69); */
+  --color-green: rgb(29, 185, 92);
   --color-red: rgb(219, 40, 40);
 
   --body-width: 840px;

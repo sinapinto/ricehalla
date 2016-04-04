@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import styles from './styles.css';
 
 const propTypes = {
@@ -47,16 +46,16 @@ class Popover extends Component {
   }
 
   render() {
-    const { isOpen, children, onClose } = this.props;
+    const { isOpen, children } = this.props;
     return (
       <div className={styles.container}>
         { isOpen &&
           <div className={styles.popover} ref="popover">
-            { children.map((item, i) => {
-              return <div className={styles.item} key={i}>
+            { children.map((item, i) => (
+              <div className={styles.item} key={i}>
                 <span onClick={this._close}>{item}</span>
-              </div>;
-            }) }
+              </div>
+            )) }
           </div>
         }
       </div>

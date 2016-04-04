@@ -4,15 +4,14 @@ import styles from './styles.css';
 import Button from '../Button';
 
 const propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
-  theme: PropTypes.string,
 };
 
-function NavLink({ children, to, theme, ...other }) {
+function NavLink({ children, to, ...other }) {
   return (
-    <Link {...other} to={to} className={styles.navLink} tabIndex={-1}>
-      <Button theme={theme}>
+    <Link to={to} className={styles.navLink} tabIndex={-1}>
+      <Button {...other} >
         {children}
       </Button>
     </Link>

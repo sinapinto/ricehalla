@@ -56,7 +56,7 @@ class Submit extends Component {
             onChange={this.handleChange}
           />
 
-        <Button theme="primary">
+        <Button primary>
           Submit
         </Button>
 

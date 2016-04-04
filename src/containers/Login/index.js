@@ -128,7 +128,7 @@ class Login extends Component {
             Remember me
           </Checkbox>
           <Button
-            theme="primary"
+            primary
             disabled={isFetching}
             className={styles.wide}
           >
