@@ -34,7 +34,7 @@ export default {
       }, {
         test: /\.css$/,
         loader: shared.DEV
-          ? `css/locals?modules&localIdentName=[path]--[local]&context=${shared.ROOT_PATH}/src!postcss`
+          ? 'css/locals?modules&localIdentName=[hash:3]_[local]!postcss'
           : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'
       },
       ...shared.LOADERS

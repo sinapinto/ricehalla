@@ -1,6 +1,4 @@
-@import "../../styles/base.css";
 @import "../../styles/variables.css";
-@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700";
 
 .root {
   max-width: var(--body-width);

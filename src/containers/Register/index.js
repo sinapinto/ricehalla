@@ -139,14 +139,6 @@ class Register extends Component {
     }
   }
 
-  renderFooter() {
-    return (
-      <div className={styles.footer}>
-        Already have an account?<Link to="/login">Log in</Link>
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className={styles.root}>
@@ -157,7 +149,6 @@ class Register extends Component {
             <Label htmlFor="email">Your email address</Label>
             <TextInput
               id="email"
-              type="email"
               name="email"
               value={this.state.email.value}
               onChange={this.handleChange}
@@ -197,11 +188,13 @@ class Register extends Component {
           <Button
             primary
             disabled={this.props.isFetching}
-            className={styles.wide}
+            className={styles.submitBtn}
           >
             Sign Up
           </Button>
-          {this.renderFooter()}
+          <div className={styles.footer}>
+            Already have an account? <Link to="/login">Log in</Link>
+          </div>
         </Form>
       </div>
     );

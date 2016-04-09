@@ -72,20 +72,12 @@ class Login extends Component {
     if (this.props.loginInvalid || this.state.error) {
       return (
         <div className={styles.error}>
-          <Icon icon="alert-circle" className={styles.icon} />
+          <Icon name="alert-circle" className={styles.icon} />
           {this.state.error || 'Invalid username or password.'}
         </div>
       );
     }
     return null;
-  }
-
-  renderFooter() {
-    return (
-      <div className={styles.footer}>
-        Don't have an account?<Link to="/register">Sign up</Link>
-      </div>
-    );
   }
 
   render() {
@@ -130,11 +122,13 @@ class Login extends Component {
           <Button
             primary
             disabled={isFetching}
-            className={styles.wide}
+            className={styles.submitBtn}
           >
             Log In
           </Button>
-          {this.renderFooter()}
+          <div className={styles.footer}>
+            Don&apos;t have an account? <Link to="/register">Sign up</Link>
+          </div>
         </Form>
       </div>
     );

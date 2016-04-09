@@ -82,7 +82,7 @@ class App extends Component {
       <div className={styles.nav}>
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
-          <NavLink to="/submit" success>Submit</NavLink>
+          <NavLink to="/submit">Submit</NavLink>
           <Button onClick={this.openPopover} outline>
             {this.props.username}
           </Button>

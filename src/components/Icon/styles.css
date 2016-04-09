@@ -1,4 +1,3 @@
-.lower {
-  transform: translateY(6px);
-  margin-right: 6px;
+.icon {
+  fill: currentColor;
 }

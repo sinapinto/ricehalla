@@ -11,10 +11,10 @@ class Fieldset extends Component {
   renderErrorMessage() {
     return this.props.errorMessage ?
       <div className={styles.errorMessage}>
-        <Icon icon="alert-circle" className={styles.icon} />
+        <Icon name="alert-circle" className={styles.icon} />
         {this.props.errorMessage}
-      </div> :
-      null;
+      </div>
+      : null;
   }
 
   render() {

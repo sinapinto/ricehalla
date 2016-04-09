@@ -64,8 +64,9 @@ export default {
         test: /\.css$/,
         include: /src\/(?!styles).+/,
         loader: shared.DEV
-          ? `style!css?modules&importLoaders=1&localIdentName=[path]--[local]&context=${shared.ROOT_PATH}/src!postcss`
-          : ExtractTextPlugin.extract('style', 'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
+          ? 'style!css?modules&importLoaders=1&localIdentName=[hash:3]_[local]!postcss'
+          : ExtractTextPlugin.extract('style',
+            'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
       }, {
         test: /\.css$/,
         include: /src\/styles/,

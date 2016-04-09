@@ -1,22 +1,16 @@
 @import "./variables.css";
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700";
 
 body {
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 html {
   box-sizing: border-box;
-  font-size: 14px;
 }
 
+/* allow overriding box-sizing */
 *, *::before, *::after {
   box-sizing: inherit;
 }
@@ -29,18 +23,9 @@ textarea {
   color: inherit;
 }
 
-button::-moz-focus-inner {
-  border: 0;
-}
-
 button:active,
 button:focus {
   outline: 0;
-}
-
-fieldset {
-  border: 0;
-  padding: 0;
 }
 
 :global(#root) {

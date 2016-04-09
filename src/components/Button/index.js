@@ -12,9 +12,20 @@ const propTypes = {
 
   outline: PropTypes.bool,
   disabled: PropTypes.bool,
+  bold: PropTypes.bool,
 };
 
-function Button({ children, className, primary, success, danger, outline, disabled, ...other }) {
+function Button({
+  children,
+  className,
+  primary,
+  success,
+  danger,
+  outline,
+  disabled,
+  bold,
+  ...other
+}) {
   const classes = [styles.btn];
   if (primary) {
     classes.push(styles.primary);
@@ -28,6 +39,9 @@ function Button({ children, className, primary, success, danger, outline, disabl
   }
   if (className) {
     classes.push(className);
+  }
+  if (bold) {
+    classes.push(styles.bold);
   }
   return (
     <button

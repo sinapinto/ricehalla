@@ -6,8 +6,8 @@
   composes: header from "../Login/styles.css";
 }
 
-.wide {
-  composes: wide from "../Login/styles.css";
+.submitBtn {
+  composes: submitBtn from "../Login/styles.css";
 }
 
 .footer {

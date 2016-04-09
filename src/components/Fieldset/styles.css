@@ -11,5 +11,6 @@
 }
 
 .icon {
-  fill: var(--color-red);
+  transform: translateY(6px);
+  margin-right: 6px;
 }
