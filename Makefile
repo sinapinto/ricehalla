@@ -34,13 +34,13 @@ TEST_FILES := $(shell \
 LINT_DIRS = src
 SERVER_PATH = ./static/dist/server.js
 
-P = "\\033[36m[+]\\033[0m"
+P = "\\n\\033[36m[+]\\033[0m"
 
 help:
 	@echo
 	@echo -e "  \033[1;30mricehalla $(VERSION)\033[0m"
 	@echo
-	@echo -e "  \033[36mstart\033[0m - build development bundles and run the server in watch mode"
+	@echo -e "  \033[36mstart\033[0m - build development bundles and run the server"
 	@echo -e "  \033[36mbuild\033[0m - build development bundles"
 	@echo -e "  \033[36mrun\033[0m - run the development server"
 	@echo -e "  \033[36mstart-pro\033[0m - build production bundles and run the server"
@@ -50,24 +50,20 @@ help:
 	@echo -e "  \033[36mlint\033[0m - lint source code"
 	@echo
 
-start: clean setup build-watch
-
-build-watch:
-	@echo -e " $(P) building $(NODE_ENV) bundles and starting server"
-	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) ./bin/serve
+start: build run
 
 build: clean setup build-client build-server
 
 build-client:
-	@echo -e " $(P) building $(NODE_ENV) client bundle"
+	@echo -e "$(P) building $(NODE_ENV) client bundle\n"
 	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_CLIENT)
 
 build-server:
-	@echo -e " $(P) building $(NODE_ENV) server bundle"
+	@echo -e "$(P) building $(NODE_ENV) server bundle\n"
 	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_SERVER)
 
 run: setup
-	@echo -e " $(P) running server"
+	@echo -e "$(P) starting server\n"
 	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) node $(SERVER_PATH)
 
 start-pro: build-pro run-pro
@@ -79,11 +75,11 @@ run-pro: NODE_ENV=production
 run-pro: run
 
 test: storage
-	@echo -e " $(P) running tests"
+	@echo -e "$(P) running tests\n"
 	@NODE_ENV=test $(MOCHA) $(MOCHA_FLAGS) $(TEST_FILES)
 
 lint:
-	@echo -e " $(P) linting directories: $(LINT_DIRS)"
+	@echo -e "$(P) linting directories: $(LINT_DIRS)\n"
 	@$(ESLINT) $(ESLINT_FLAGS) $(LINT_DIRS)
 
 clean:
@@ -95,23 +91,20 @@ setup: node_modules storage githooks
 
 node_modules:
 	@if [ ! -d node_modules ]; then \
-		echo -e " $(P) installing node dependencies"; \
+		echo -e "$(P) installing node dependencies\n"; \
 		npm install; \
 	fi
 
 storage:
-	@if [ ! -d storage ]; then \
-		echo -e " $(P) making storage dir"; \
-		mkdir storage; \
-	fi
+	@mkdir -p storage uploads
 
 githooks:
 	@if [ ! -e .git/hooks/pre-push ]; then \
-		echo -e " $(P) installing pre-push git hook"; \
+		echo -e "$(P) installing pre-push git hook\n"; \
 		ln -s ../../bin/pre-push .git/hooks/pre-push; \
 	fi
 	@if [ ! -e .git/hooks/pre-commit ]; then \
-		echo -e " $(P) installing pre-commit git hook"; \
+		echo -e "$(P) installing pre-commit git hook\n"; \
 		ln -s ../../bin/pre-commit .git/hooks/pre-commit; \
 	fi
 

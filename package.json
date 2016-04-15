@@ -22,7 +22,6 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.5.2",
     "chai": "^3.5.0",
-    "chokidar": "^1.4.3",
     "co-bcrypt": "^1.0.0",
     "co-body": "^4.0.0",
     "css-loader": "^0.23.1",
