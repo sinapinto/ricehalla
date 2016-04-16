@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
-import { logout } from '../../actions/auth';
 import Popover from '../../components/Popover';
 import Button from '../../components/Button';
 import NavLink from '../../components/NavLink';
@@ -15,7 +14,6 @@ const propTypes = {
   route: PropTypes.object,
   username: PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  logout: PropTypes.func.isRequired,
 };
 
 const contextTypes = {
@@ -25,7 +23,6 @@ const contextTypes = {
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    this.handleLogout = this.handleLogout.bind(this);
     this.openPopover = this.openPopover.bind(this);
     this.closePopover = this.closePopover.bind(this);
     this.state = {
@@ -39,7 +36,7 @@ class App extends Component {
       this.context.router.push('/');
     } else if (this.props.isAuthenticated && !nextProps.isAuthenticated) {
       // logout
-      this.context.router.push('/');
+      // this.context.router.push('/');
     }
   }
 
@@ -67,11 +64,6 @@ class App extends Component {
     this.setState({ isOpen: false });
   }
 
-  handleLogout(e) {
-    e.preventDefault();
-    this.props.logout();
-  }
-
   noNav() {
     const { route, location } = this.props;
     return ~route.noNav.indexOf(location.pathname);
@@ -88,7 +80,7 @@ class App extends Component {
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isOpen}>
             <Link to={`/user/${this.props.username}`}>Profile</Link>
-            <Link to="#" onClick={this.handleLogout}>Logout</Link>
+            <Link to="/logout">Logout</Link>
           </Popover>
         </div>
       </div>
@@ -142,4 +134,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logout })(App);
+export default connect(mapStateToProps)(App);

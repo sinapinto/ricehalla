@@ -48,6 +48,14 @@ export default {
     this.set(key, '', { expires: new Date(0) });
   },
 
+  removeAll() {
+    document
+      .cookie
+      .replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '')
+      .split(/\s*(?:\=[^;]*)?;\s*/)
+      .forEach(key => { this.remove(key); });
+  },
+
   _checkWindow() {
     if (typeof window.document !== 'object') {
       throw new ReferenceError('no window.document object');
