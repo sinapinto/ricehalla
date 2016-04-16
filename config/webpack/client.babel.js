@@ -72,8 +72,8 @@ export default {
         include: /src\/styles/,
         // css in `src/styles` will have their classnames left unchanged
         loader: shared.DEV
-          ? 'style!css!less'
-          : ExtractTextPlugin.extract('style', 'css?minimize!less')
+          ? 'style!css!postcss'
+          : ExtractTextPlugin.extract('style', 'css?minimize!postcss')
       },
       ...shared.LOADERS
     ]

@@ -72,6 +72,7 @@ if (!__DEV__) {
 // serve static assets
 app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
 app.use(serve(path.join(__dirname, '../../static')));
+app.use(mount('/uploads', serve(path.join(__dirname, '../../uploads'))));
 
 // verify jwt token and set `this.state.user`
 app.use(jwt({

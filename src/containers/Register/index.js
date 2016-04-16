@@ -156,6 +156,7 @@ class Register extends Component {
               invalid={!!this.state.email.error}
               valid={this.state.email.valid}
               disabled={this.props.isFetching}
+              autoFocus
             />
           </Fieldset>
           <Fieldset errorMessage={this.state.username.error}>

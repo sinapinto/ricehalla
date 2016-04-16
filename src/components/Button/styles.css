@@ -3,12 +3,13 @@
 .btn {
   cursor: pointer;
   user-select: none;
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 13px;
   text-decoration: none;
   text-align: center;
   line-height: 1em;
   padding: 0.8em 1em;
-  border-radius: 99em;
+  border-radius: 4px;
   border-width: 0;
   background-color: #eee;
   color: color(var(--font-color) tint(40%));
@@ -76,27 +77,27 @@
   border-color: color(#000 alpha(-75%));
 }
 .primary.outline {
-  color: var(--color-primary);
-  border-color: color(var(--color-primary) alpha(-75%));
+  color: color(var(--color-primary) tint(20%));
+  border-color: color(var(--color-primary) alpha(-65%));
 }
 .primary.outline:hover,
 .primary.outline:focus,
 .primary.outline:active {
   color: var(--color-primary);
-  border-color: color(var(--color-primary) alpha(-60%));
+  border-color: color(var(--color-primary) alpha(-50%));
 }
 .success.outline {
-  color: var(--color-green);
-  border-color: color(var(--color-green) alpha(-75%));
+  color: color(var(--color-green) tint(20%));
+  border-color: color(var(--color-green) alpha(-65%));
 }
 .success.outline:hover,
 .success.outline:focus,
 .success.outline:active {
   color: var(--color-green);
-  border-color: color(var(--color-green) alpha(-60%));
+  border-color: color(var(--color-green) alpha(-50%));
 }
 .danger.outline {
-  color: var(--color-red);
+  color: color(var(--color-red) tint(25%));
   border-color: color(var(--color-red) alpha(-75%));
 }
 .danger.outline:hover,

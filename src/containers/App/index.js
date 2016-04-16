@@ -74,7 +74,7 @@ class App extends Component {
 
   noNav() {
     const { route, location } = this.props;
-    return !!~route.noNav.indexOf(location.pathname);
+    return ~route.noNav.indexOf(location.pathname);
   }
 
   loggedInNav() {
@@ -82,7 +82,7 @@ class App extends Component {
       <div className={styles.nav}>
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
-          <NavLink to="/submit">Submit</NavLink>
+          <NavLink to="/submit" success>Submit</NavLink>
           <Button onClick={this.openPopover} outline>
             {this.props.username}
           </Button>
@@ -100,8 +100,8 @@ class App extends Component {
       <div className={styles.nav}>
         <div className={styles.navWrapper}>
           <Link to="/" className={styles.navLogo}>ricehalla</Link>
-          <NavLink to="/register" outline>Register</NavLink>
-          <NavLink to="/login" primary outline>Log In</NavLink>
+          <NavLink to="/register" outline style={{ border: 0 }}>Register</NavLink>
+          <NavLink to="/login" outline>Log In</NavLink>
         </div>
       </div>
     );

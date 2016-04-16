@@ -1,13 +1,24 @@
-@import '../../styles/variables.css';
-
 .root {
   margin: 1em 0;
   width: 100%;
 }
 
-.upload {
-  border: 2px dashed var(--color-primary);
-  width: 100%;
-  height: 200px;
-  margin: 50px auto;
+.header {
+  font-size: 32px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.add {
+  margin: 20px;
+}
+
+.submitBtn {
+  width: 200px;
+  height: 40px;
+}
+
+.error {
+  color: var(--color-red);
+  padding: 1em;
 }

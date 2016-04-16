@@ -1,29 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import _debug from 'debug';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
+import AddFile from './AddFile';
+import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
 import { submitRice } from '../../actions/rice';
+import { upload } from '../../actions/upload';
 import styles from './styles.css';
-
-const debug = _debug('app:submit');
 
 const propTypes = {
   submitRice: PropTypes.func.isRequired,
+  upload: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
+  response: PropTypes.object,
+  error: PropTypes.string,
 };
 
 class Submit extends Component {
   constructor() {
     super();
-    this.handleDrop = this.handleDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       title: '',
-      cateogry: '',
     };
   }
 
@@ -36,8 +38,16 @@ class Submit extends Component {
     this.setState({ [name]: value });
   }
 
-  handleDrop(file) {
-    debug(file);
+  renderErrorMessage() {
+    if (this.props.error) {
+      return (
+        <div className={styles.error}>
+          <Icon name="alert-circle" className={styles.icon} />
+          {this.props.error || 'Upload error. Please try again.'}
+        </div>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -45,9 +55,7 @@ class Submit extends Component {
       <div className={styles.root}>
         <Helmet title="Submit" />
         <h2 className={styles.header}>Post your rice.</h2>
-
-        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '500px' }} noValidate>
-
+        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '400px' }}>
           <Label htmlFor="title">Title</Label>
           <TextInput
             id="title"
@@ -55,13 +63,17 @@ class Submit extends Component {
             value={this.state.title}
             onChange={this.handleChange}
           />
-
-        <Button primary>
-          Submit
-        </Button>
-
-      </Form>
-    </div>
+          {this.renderErrorMessage()}
+          <AddFile upload={this.props.upload} />
+          {this.props.response &&
+            <div>
+              {this.props.response.name}
+              {' '}
+              <img src={`uploads/${this.props.response.name}`} />
+            </div>}
+          <Button className={styles.submitBtn} primary>Submit</Button>
+        </Form>
+      </div>
     );
   }
 }
@@ -69,7 +81,7 @@ class Submit extends Component {
 Submit.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return state;
+  return state.upload;
 }
 
-export default connect(mapStateToProps, { submitRice })(Submit);
+export default connect(mapStateToProps, { submitRice, upload })(Submit);

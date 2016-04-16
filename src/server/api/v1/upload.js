@@ -1,19 +1,33 @@
 import Resource from 'koa-resource-router';
-import body from 'koa-body';
+import multer from 'koa-multer';
 import _debug from 'debug';
 const debug = _debug('app:upload');
 
-const koaBody = body({
-  multipart: true,
-  formidable: {
-    uploadDir: './uploads',
+const MulterMiddleware = multer({
+  dest: './uploads',
+  limits: {
+    files: 1,
+    fileSize: 2 * 1024 * 1024,
   },
+  rename: (fieldname, filename) => `${filename}-${Date.now()}`,
+  onFileUploadStart: (file) => {
+    const mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    return ~mimeTypes.indexOf(file.mimetype);
+  }
 });
 
 export default new Resource('upload', {
   // POST /upload
-  create: [koaBody, function *upload() {
+  create: [MulterMiddleware, function *() {
     debug(this.req.files);
-    this.body = 'upload';
+    const filename = Object.keys(this.req.files)[0];
+    if (filename) {
+      const { name, extension } = this.req.files[filename];
+      this.status = 200;
+      this.body = { response: { name, extension } };
+    } else {
+      this.status = 400;
+      this.body = { errors: 'upload error' };
+    }
   }]
 });
