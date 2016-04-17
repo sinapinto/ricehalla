@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 function Icon({ name, size, height, width, className }) {
-  const classes = [styles.icon];
+  const classes = [style.icon];
   if (className) {
     classes.push(className);
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Card from '../../components/Card';
 import { loadUser } from '../../actions/user';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   user: PropTypes.shape({
@@ -38,11 +38,11 @@ class Profile extends Component {
     } = this.props.user;
 
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title={`${username} | ricehalla`} />
         <Card>
           <h2>{username}</h2>
-          <ul className={styles.list}>
+          <ul className={style.list}>
             <li><b>uuid:</b> {uuid}</li>
             <li><b>username:</b> {username}</li>
             <li><b>email:</b> {email}</li>

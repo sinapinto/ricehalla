@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import createRouter from './containers/Routes';
 import configureStore from './utils/configureStore';
 import DevTools from './containers/DevTools';
-import './styles';
+import './style';
 
 const store = configureStore(window.__INITIAL_STATE__);
 const rootElem = document.getElementById('root');

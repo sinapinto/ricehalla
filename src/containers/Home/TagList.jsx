@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
@@ -50,8 +50,8 @@ class TagList extends Component {
     }
 
     return (
-      <td className={styles.taglist}>
-        {taglist.map((tag, i) => <span className={styles.tag} key={i}>{tag}</span>)}
+      <td className={style.taglist}>
+        {taglist.map((tag, i) => <span className={style.tag} key={i}>{tag}</span>)}
         {more}
       </td>
     );

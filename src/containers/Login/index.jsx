@@ -9,7 +9,7 @@ import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
 import Checkbox from '../../components/Checkbox';
 import Icon from '../../components/Icon';
-import styles from './styles.css';
+import style from './style.css';
 import { login } from '../../actions/auth';
 
 const propTypes = {
@@ -71,8 +71,8 @@ class Login extends Component {
   renderErrorMessage() {
     if (this.props.loginInvalid || this.state.error) {
       return (
-        <div className={styles.error}>
-          <Icon name="alert-circle" className={styles.icon} />
+        <div className={style.error}>
+          <Icon name="alert-circle" className={style.icon} />
           {this.state.error || 'Invalid username or password.'}
         </div>
       );
@@ -83,13 +83,13 @@ class Login extends Component {
   render() {
     const { isFetching } = this.props;
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title="Login | ricehalla" />
         {this.renderErrorMessage()}
-        <h2 className={styles.header}>Sign in.</h2>
+        <h2 className={style.header}>Sign in.</h2>
         <Form
           onSubmit={this.handleSubmit}
-          className={this.props.loginInvalid ? styles.shake : null}
+          className={this.props.loginInvalid ? style.shake : null}
           noValidate
         >
           <Fieldset>
@@ -122,11 +122,11 @@ class Login extends Component {
           <Button
             primary
             disabled={isFetching}
-            className={styles.submitBtn}
+            className={style.submitBtn}
           >
             Log In
           </Button>
-          <div className={styles.footer}>
+          <div className={style.footer}>
             Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </div>
         </Form>

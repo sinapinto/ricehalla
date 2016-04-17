@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -26,22 +26,22 @@ function Button({
   bold,
   ...other
 }) {
-  const classes = [styles.btn];
+  const classes = [style.btn];
   if (primary) {
-    classes.push(styles.primary);
+    classes.push(style.primary);
   } else if (success) {
-    classes.push(styles.success);
+    classes.push(style.success);
   } else if (danger) {
-    classes.push(styles.danger);
+    classes.push(style.danger);
   }
   if (outline && !disabled) {
-    classes.push(styles.outline);
+    classes.push(style.outline);
   }
   if (className) {
     classes.push(className);
   }
   if (bold) {
-    classes.push(styles.bold);
+    classes.push(style.bold);
   }
   return (
     <button

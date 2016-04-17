@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   children: PropTypes.node,
@@ -8,7 +8,7 @@ const propTypes = {
 };
 
 function Label({ children, className, htmlFor }) {
-  const classes = [styles.label];
+  const classes = [style.label];
   if (className) {
     classes.push(className);
   }

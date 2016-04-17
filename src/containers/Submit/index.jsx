@@ -9,7 +9,7 @@ import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
 import { submitRice } from '../../actions/rice';
 import { upload } from '../../actions/upload';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   submitRice: PropTypes.func.isRequired,
@@ -42,8 +42,8 @@ class Submit extends Component {
   renderErrorMessage() {
     if (this.props.error) {
       return (
-        <div className={styles.error}>
-          <Icon name="alert-circle" className={styles.icon} />
+        <div className={style.error}>
+          <Icon name="alert-circle" className={style.icon} />
           {this.props.error || 'Upload error. Please try again.'}
         </div>
       );
@@ -53,9 +53,9 @@ class Submit extends Component {
 
   render() {
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title="Submit" />
-        <h2 className={styles.header}>Post your rice.</h2>
+        <h2 className={style.header}>Post your rice.</h2>
         <Form onSubmit={this.handleSubmit} style={{ maxWidth: '500px' }}>
           <Label htmlFor="title">Title</Label>
           <TextInput
@@ -86,7 +86,7 @@ class Submit extends Component {
             value={this.state.description}
             onChange={this.handleChange}
           />
-          <Button className={styles.submitBtn} primary>Submit</Button>
+          <Button className={style.submitBtn} primary>Submit</Button>
         </Form>
       </div>
     );

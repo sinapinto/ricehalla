@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   className: PropTypes.string,
@@ -14,11 +14,11 @@ const propTypes = {
 };
 
 function TextInput({ type = 'text', valid, invalid, className, multiline, height, ...other }) {
-  const classes = [styles.input];
+  const classes = [style.input];
   if (valid) {
-    classes.push(styles.valid);
+    classes.push(style.valid);
   } else if (invalid) {
-    classes.push(styles.invalid);
+    classes.push(style.invalid);
   }
 
   if (className) {

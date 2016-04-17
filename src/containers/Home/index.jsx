@@ -5,7 +5,7 @@ import { loadRice } from '../../actions/rice';
 import TagList from './TagList';
 import TextInput from '../../components/TextInput';
 import Card from '../../components/Card';
-import styles from './styles.css';
+import style from './style.css';
 import riceData from './data.js';
 
 class Home extends Component {
@@ -69,27 +69,27 @@ class Home extends Component {
       );
 
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title="ricehalla" />
         <Card>
-          <table styles={{ width: '100%' }}>
+          <table style={{ width: '100%' }}>
             <thead>
               <tr>
-                <th className={styles.rowRank}>
+                <th className={style.rowRank}>
                   <a href="#" onClick={this.handleHeaderClick}>Rank</a>
                 </th>
-                <th className={styles.rowImage}></th>
-                <th className={styles.rowAuthor}>
+                <th className={style.rowImage}></th>
+                <th className={style.rowAuthor}>
                   <a href="#" onClick={this.handleHeaderClick}>Author</a>
                 </th>
-                <th className={styles.rowDate}>
+                <th className={style.rowDate}>
                   <a href="#" onClick={this.handleHeaderClick}>Date</a>
                 </th>
-                <th className={styles.rowTag}>
+                <th className={style.rowTag}>
                   <div><a href="#" onClick={this.handleFilterHeaderClick}>Tags</a></div>
                   { this.state.showTagFilter &&
                     <TextInput
-                      className={styles.tagSearch}
+                      className={style.tagSearch}
                       value={this.state.filterText}
                       onChange={this.filterChange}
                     /> }

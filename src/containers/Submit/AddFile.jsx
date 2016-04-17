@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Label from '../../components/Label';
 import Button from '../../components/Button';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   upload: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ class AddFile extends Component {
 
   render() {
     return (
-      <div className={styles.add}>
+      <div className={style.add}>
         <Label htmlFor="file">Files</Label>
         <br />
         <Button outline onClick={this.handleAddFileClick}>Add File</Button>

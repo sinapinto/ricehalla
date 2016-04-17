@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 function Form({ children, className, ...other }) {
-  const classes = [styles.form];
+  const classes = [style.form];
   if (className) {
     classes.push(className);
   }

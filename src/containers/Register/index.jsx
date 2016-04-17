@@ -10,7 +10,7 @@ import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
-import styles from './styles.css';
+import style from './style.css';
 import { register } from '../../actions/auth';
 
 const debug = _debug('app:register');
@@ -141,9 +141,9 @@ class Register extends Component {
 
   render() {
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title="Register | ricehalla" />
-        <h2 className={styles.header}>Create an account.</h2>
+        <h2 className={style.header}>Create an account.</h2>
         <Form onSubmit={this.handleSubmit} noValidate>
           <Fieldset errorMessage={this.state.email.error}>
             <Label htmlFor="email">Your email address</Label>
@@ -189,11 +189,11 @@ class Register extends Component {
           <Button
             primary
             disabled={this.props.isFetching}
-            className={styles.submitBtn}
+            className={style.submitBtn}
           >
             Sign Up
           </Button>
-          <div className={styles.footer}>
+          <div className={style.footer}>
             Already have an account? <Link to="/login">Log in</Link>
           </div>
         </Form>

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import cookie from '../../utils/cookie';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   logout: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <div className={styles.logout}>
+      <div className={style.logout}>
         You&apos;ve logged out. Time to go home..
       </div>
     );

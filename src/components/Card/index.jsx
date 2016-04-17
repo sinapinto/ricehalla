@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   children: PropTypes.oneOfType([
@@ -10,7 +10,7 @@ const propTypes = {
 
 function Card({ children, ...other }) {
   return (
-    <div {...other} className={styles.card}>
+    <div {...other} className={style.card}>
       {children}
     </div>
   );

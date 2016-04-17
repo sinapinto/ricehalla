@@ -1,0 +1,15 @@
+.root {
+  composes: root from "../Login/style.css";
+}
+
+.header {
+  composes: header from "../Login/style.css";
+}
+
+.submitBtn {
+  composes: submitBtn from "../Login/style.css";
+}
+
+.footer {
+  composes: footer from "../Login/style.css";
+}

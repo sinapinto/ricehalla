@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   id: PropTypes.string.isRequired,
@@ -8,14 +8,14 @@ const propTypes = {
 
 function Checkbox({ id, children, ...other }) {
   return (
-    <div className={styles.root}>
+    <div className={style.root}>
       <input
         {...other}
-        className={styles.checkbox}
+        className={style.checkbox}
         id={id}
         type="checkbox"
       />
-      <label className={styles.label} htmlFor={id}>
+      <label className={style.label} htmlFor={id}>
         {children}
       </label>
     </div>

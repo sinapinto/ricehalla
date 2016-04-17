@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -48,11 +48,11 @@ class Popover extends Component {
   render() {
     const { isOpen, children } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={style.container}>
         { isOpen &&
-          <div className={styles.popover} ref="popover">
+          <div className={style.popover} ref="popover">
             { children.map((item, i) => (
-              <div className={styles.item} key={i}>
+              <div className={style.item} key={i}>
                 <span onClick={this._close}>{item}</span>
               </div>
             )) }

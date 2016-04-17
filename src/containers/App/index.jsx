@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 import Popover from '../../components/Popover';
 import Button from '../../components/Button';
 import NavLink from '../../components/NavLink';
-import styles from './styles.css';
+import style from './style.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
@@ -71,9 +71,9 @@ class App extends Component {
 
   loggedInNav() {
     return (
-      <div className={styles.nav}>
-        <div className={styles.navWrapper}>
-          <Link to="/" className={styles.navLogo}>ricehalla</Link>
+      <div className={style.nav}>
+        <div className={style.navWrapper}>
+          <Link to="/" className={style.navLogo}>ricehalla</Link>
           <NavLink to="/submit" success>Submit</NavLink>
           <Button onClick={this.openPopover} outline>
             {this.props.username}
@@ -89,9 +89,9 @@ class App extends Component {
 
   loggedOutNav() {
     return (
-      <div className={styles.nav}>
-        <div className={styles.navWrapper}>
-          <Link to="/" className={styles.navLogo}>ricehalla</Link>
+      <div className={style.nav}>
+        <div className={style.navWrapper}>
+          <Link to="/" className={style.navLogo}>ricehalla</Link>
           <NavLink to="/register" outline style={{ border: 0 }}>Register</NavLink>
           <NavLink to="/login" outline>Log In</NavLink>
         </div>
@@ -111,10 +111,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         <Helmet title="ricehalla" meta={this.getMeta()} />
         {this.renderNav()}
-        <div className={styles.childWrapper}>
+        <div className={style.childWrapper}>
           {this.props.children}
         </div>
       </div>
