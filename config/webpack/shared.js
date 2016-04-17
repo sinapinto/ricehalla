@@ -4,6 +4,8 @@ import autoprefixer from 'autoprefixer';
 import customProps from 'postcss-custom-props';
 import atImport from 'postcss-import';
 import colorFunction from 'postcss-color-function';
+import nesting from 'postcss-nesting';
+import customSelectors from 'postcss-custom-selectors';
 
 export const DEV = process.env.NODE_ENV !== 'production';
 export const HOST = process.env.HOST || 'localhost';
@@ -45,6 +47,8 @@ export function POSTCSS() {
   return [
     atImport({ addDependencyTo: webpack }),
     customProps(),
+    nesting(),
+    customSelectors(),
     colorFunction(),
     autoprefixer({ browsers: ['last 2 versions'] })
   ];

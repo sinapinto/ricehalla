@@ -7,7 +7,7 @@ export default createDevTools(
   <DockMonitor
     toggleVisibilityKey="ctrl-h"
     changePositionKey="ctrl-q"
-    defaultPosition="left"
+    defaultPosition="right"
     defaultIsVisible={false}
   >
     <LogMonitor expandActionRoot expandStateRoot />

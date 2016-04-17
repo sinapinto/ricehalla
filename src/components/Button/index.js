@@ -34,7 +34,7 @@ function Button({
   } else if (danger) {
     classes.push(styles.danger);
   }
-  if (outline) {
+  if (outline && !disabled) {
     classes.push(styles.outline);
   }
   if (className) {

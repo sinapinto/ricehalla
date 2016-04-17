@@ -13,7 +13,7 @@ const contextTypes = {
 };
 
 class Logout extends Component {
-  componentWillMount() {
+  componentDidMount() {
     cookie.removeAll();
     this.props.logout();
     this.timeoutId = setTimeout(() => {

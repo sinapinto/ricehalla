@@ -62,18 +62,11 @@ export default {
         }
       }, {
         test: /\.css$/,
-        include: /src\/(?!styles).+/,
+        include: /src\//,
         loader: shared.DEV
           ? 'style!css?modules&importLoaders=1&localIdentName=[hash:3]_[local]!postcss'
           : ExtractTextPlugin.extract('style',
             'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
-      }, {
-        test: /\.css$/,
-        include: /src\/styles/,
-        // css in `src/styles` will have their classnames left unchanged
-        loader: shared.DEV
-          ? 'style!css!postcss'
-          : ExtractTextPlugin.extract('style', 'css?minimize!postcss')
       },
       ...shared.LOADERS
     ]

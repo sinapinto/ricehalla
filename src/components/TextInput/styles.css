@@ -7,31 +7,33 @@
   font-weight: 400;
   box-shadow: none;
   outline: none;
+
+  &:hover {
+    border: 1px solid rgba(0,0,0,0.3);
+  }
+
+  &:focus,
+  &:active {
+    border: 1px solid var(--color-primary);
+  }
 }
 
-.input:hover {
-  border: 1px solid rgba(0,0,0,0.3);
+.invalid {
+  &, &:hover {
+    border: 1px solid var(--color-red);
+  }
+  &:focus,
+  &:active {
+    border: 1px solid var(--color-red);
+  }
 }
 
-.input:focus,
-.input:active {
-  border: 1px solid var(--color-primary);
-}
-
-.invalid,
-.invalid:hover {
-  border: 1px solid var(--color-red);
-}
-.invalid:focus,
-.invalid:active {
-  border: 1px solid var(--color-red);
-}
-
-.valid,
-.valid:hover {
-  border: 1px solid var(--color-green);
-}
-.valid:focus,
-.valid:active {
-  border: 1px solid var(--color-green);
+.valid {
+  &, &:hover {
+    border: 1px solid var(--color-green);
+  }
+  &:focus,
+  &:active {
+    border: 1px solid var(--color-green);
+  }
 }

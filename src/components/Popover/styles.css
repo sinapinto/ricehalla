@@ -22,12 +22,12 @@
 
 .item {
   padding: 3px 15px;
-}
 
-.item a {
-  color: color(var(--font-color) tint(20%));
-}
+  & a {
+    color: color(var(--font-color) tint(20%));
+  }
 
-.item a:hover {
-  color: color(var(--font-color) shade(20%));
+  & a:hover {
+    color: color(var(--font-color) shade(20%));
+  }
 }

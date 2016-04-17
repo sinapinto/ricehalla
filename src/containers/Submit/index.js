@@ -26,6 +26,7 @@ class Submit extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       title: '',
+      description: '',
     };
   }
 
@@ -55,7 +56,7 @@ class Submit extends Component {
       <div className={styles.root}>
         <Helmet title="Submit" />
         <h2 className={styles.header}>Post your rice.</h2>
-        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '400px' }}>
+        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '500px' }}>
           <Label htmlFor="title">Title</Label>
           <TextInput
             id="title"
@@ -63,14 +64,28 @@ class Submit extends Component {
             value={this.state.title}
             onChange={this.handleChange}
           />
-          {this.renderErrorMessage()}
           <AddFile upload={this.props.upload} />
+          {this.renderErrorMessage()}
           {this.props.response &&
             <div>
               {this.props.response.name}
               {' '}
-              <img src={`uploads/${this.props.response.name}`} />
+              <img
+                src={`uploads/${this.props.response.name}`}
+                width={100}
+                height={100}
+                alt="upload"
+              />
             </div>}
+          <Label htmlFor="description">Description</Label>
+          <TextInput
+            multiline
+            height={130}
+            id="description"
+            name="description"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
           <Button className={styles.submitBtn} primary>Submit</Button>
         </Form>
       </div>

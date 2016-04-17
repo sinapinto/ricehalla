@@ -1,10 +1,15 @@
+/* note that custom props cannot be changed at runtime */
 :root {
   --font-color: rgb(46, 68, 83);
   --link-color: rgb(0, 135, 190);
   --color-primary: rgb(0, 170, 220);
   --color-green: rgb(40, 210, 110);
   --color-red: rgb(240, 60, 50);
+  --color-default: #eee;
   --body-width: 840px;
   --nav-height: 80px;
   --transition-duration: 0.2s;
+  --btn-disabled-color: hsl(0, 0%, 50%);
+  --btn-disabled-bg: hsl(0, 0%, 93%);
+  --btn-disabled-border: hsl(0, 0%, 70%);
 }

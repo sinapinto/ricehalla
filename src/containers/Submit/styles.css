@@ -1,3 +1,5 @@
+@import "../../styles/variables.css";
+
 .root {
   margin: 1em 0;
   width: 100%;
@@ -10,15 +12,15 @@
 }
 
 .add {
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .submitBtn {
+  margin-top: 10px;
   width: 200px;
   height: 40px;
 }
 
 .error {
   color: var(--color-red);
-  padding: 1em;
 }

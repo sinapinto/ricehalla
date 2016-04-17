@@ -6,9 +6,14 @@ const propTypes = {
   type: PropTypes.string,
   valid: PropTypes.bool,
   invalid: PropTypes.bool,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  multiline: PropTypes.bool,
 };
 
-function TextInput({ type = 'text', valid, invalid, className, ...other }) {
+function TextInput({ type = 'text', valid, invalid, className, multiline, height, ...other }) {
   const classes = [styles.input];
   if (valid) {
     classes.push(styles.valid);
@@ -20,10 +25,21 @@ function TextInput({ type = 'text', valid, invalid, className, ...other }) {
     classes.push(className);
   }
 
+  if (multiline) {
+    return (
+      <textarea
+        {...other}
+        className={classes.join(' ')}
+        style={{ height: height || 80 }}
+      />
+    );
+  }
+
   return (
     <input
       {...other}
       className={classes.join(' ')}
+      style={{ height: height || 40 }}
       type={type}
     />
   );

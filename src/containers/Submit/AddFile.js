@@ -29,6 +29,7 @@ class AddFile extends Component {
     return (
       <div className={styles.add}>
         <Label htmlFor="file">Files</Label>
+        <br />
         <Button outline onClick={this.handleAddFileClick}>Add File</Button>
         <input
           type="file"

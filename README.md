@@ -34,34 +34,9 @@ database.
   $ make start
   ```
 
-  *run `make` to see all options.*
+  run `make` to see all options.
 
-  open `http://localhost:3000`. Use `ctrl-h` to toggle redux devtools. type `rs`
-  to restart the server manually.
-
-## Directory layout
-
-```
-.
-├── static/
-│   └── dist/                  # compiled output (e.g. server.js client.js)
-├── src/
-│   ├── actions/               # redux action creators that trigger state updates
-│   ├── components/            # React "dumb" components (unconnected to store)
-│   ├── containers/            # React container components
-│   ├── reducers/              # redux reducers (take in action output new state)
-│   ├── server/                # backend
-│   ├── styles/                # global css
-│   ├── utils/                 # misc helpers
-│   ├── client.js              # entry-point for the client
-│   └── config.js              # various config settings
-├── test/
-├── webpack/
-│   ├── client.babel.js        # client webpack configuration
-│   ├── postcss.js             # postcss plugin configs for webpack
-│   └── server.babel.js        # server webpack configuration
-└── package.json               # node dependencies, scripts, and configurations
-```
+  open `http://localhost:3000`. Use `ctrl-h` to toggle redux devtools.
 
 ## Implementation decisions
 
