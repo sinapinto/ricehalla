@@ -26,8 +26,6 @@ database.
 * [koa](http://koajs.com/)
 * [sequelize](http://docs.sequelizejs.com/en/latest/)
 
-*This project is young and in flux—new tools may be quickly added or dropped.*
-
 ## Getting started
 
   ```sh

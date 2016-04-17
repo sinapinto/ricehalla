@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { loadRice } from '../../actions/rice';
-import TagList from './TagList.js';
+import TagList from './TagList';
 import TextInput from '../../components/TextInput';
 import Card from '../../components/Card';
 import styles from './styles.css';

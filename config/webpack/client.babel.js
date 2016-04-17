@@ -9,14 +9,17 @@ export default {
   devtool: shared.DEV ? 'cheap-module-eval-source-map' : 'source-map',
   entry: shared.DEV ? [
     `webpack-hot-middleware/client?path=http://localhost:${shared.PORT}/__webpack_hmr`,
-    './src/client.js'
+    './src/client.jsx'
   ] : [
-    './src/client.js'
+    './src/client.jsx'
   ],
   output: {
     filename: shared.DEV ? 'bundle.js' : 'bundle.[hash].js',
     path: shared.ASSETS_PATH,
     publicPath: shared.DEV ? `http://localhost:${shared.PORT}/dist/` : '/dist/'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json'],
   },
   target: 'web',
   plugins: shared.DEV ? [
@@ -38,7 +41,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.resolve(shared.ROOT_PATH, './src'),
         loader: 'babel',
         query: {
@@ -62,7 +65,6 @@ export default {
         }
       }, {
         test: /\.css$/,
-        include: /src\//,
         loader: shared.DEV
           ? 'style!css?modules&importLoaders=1&localIdentName=[hash:3]_[local]!postcss'
           : ExtractTextPlugin.extract('style',

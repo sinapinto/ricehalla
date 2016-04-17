@@ -16,6 +16,9 @@ export default {
     filename: 'server.js'
   },
   externals: nodeModules,
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json'],
+  },
   target: 'node',
   node: {
     __dirname: true,
@@ -27,7 +30,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel',
         query: { presets: ['es2015', 'react', 'stage-1'] }

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import styles from './styles.css';
 
 const propTypes = {
