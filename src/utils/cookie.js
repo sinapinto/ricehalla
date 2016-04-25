@@ -1,8 +1,8 @@
 export default {
 
   set(key, value = '', options = {}) {
-    this._checkWindow();
-    this._checkKey(key);
+    this.checkWindow();
+    this.checkKey(key);
 
     const defaultOptions = {
       path: '/',
@@ -34,8 +34,8 @@ export default {
   },
 
   get(key) {
-    this._checkWindow();
-    this._checkKey(key);
+    this.checkWindow();
+    this.checkKey(key);
 
     const re = new RegExp(`(?:(?:^|.*;\\s*)${key}\\s*\\=\\s*([^;]*).*$)|^.*$`);
 
@@ -51,18 +51,18 @@ export default {
   removeAll() {
     document
       .cookie
-      .replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '')
-      .split(/\s*(?:\=[^;]*)?;\s*/)
+      .replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '')
+      .split(/\s*(?:=[^;]*)?;\s*/)
       .forEach(key => this.remove(key));
   },
 
-  _checkWindow() {
+  checkWindow() {
     if (typeof window.document !== 'object') {
       throw new ReferenceError('no window.document object');
     }
   },
 
-  _checkKey(key) {
+  checkKey(key) {
     if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
       throw new TypeError('argument key is invalid');
     }

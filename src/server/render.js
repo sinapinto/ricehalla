@@ -9,7 +9,7 @@ import configureStore from '../utils/configureStore';
 let assets;
 try {
   assets = require('../../webpack-assets.json');
-} catch (_) {/* ignore exception */}
+} catch (_) { /* ignore exception */ }
 
 /**
  * Fetch data needed by components in the current route.
@@ -61,7 +61,7 @@ export default function *() {
 
   const component = (
     <Provider store={store}>
-      { <RouterContext {...renderProps} /> }
+      {<RouterContext {...renderProps} />}
     </Provider>
   );
   const html = <Html component={component} state={store.getState()} assets={assets} />;

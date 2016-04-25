@@ -39,11 +39,9 @@ export function xhrUpload({
     xhr.withCredentials = true;
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-    for (const name in headers) {
-      if (headers.hasOwnProperty(name)) {
-        xhr.setRequestHeader(name, headers[name]);
-      }
-    }
+    Object.keys(headers).forEach(name => {
+      xhr.setRequestHeader(name, headers[name]);
+    });
 
     const data = new FormData();
     data.append(file.name, file);

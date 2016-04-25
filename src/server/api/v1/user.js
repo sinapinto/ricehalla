@@ -10,8 +10,8 @@ export default new Resource('user', {
   },
 
   // POST /user
-  *create() {
-  },
+  // *create() {
+  // },
 
   // GET /user/:user
   *show() {
@@ -27,10 +27,10 @@ export default new Resource('user', {
   },
 
   // PUT /user/:user
-  *update() {
-  },
+  // *update() {
+  // },
 
   // DELETE /user/:user
-  *destroy() {
-  }
+  // *destroy() {
+  // }
 });

@@ -2,23 +2,23 @@ import Resource from 'koa-resource-router';
 
 export default new Resource('tag', {
   // GET /tag
-  *index() {
-  },
+  // *index() {
+  // },
 
   // POST /tag
-  *create() {
-  },
+  // *create() {
+  // },
 
   // GET /tag/:tag
-  *show() {
-  },
+  // *show() {
+  // },
 
   // PUT /tag/:tag
-  *update() {
-  },
+  // *update() {
+  // },
 
   // DELETE /tag/:tag
-  *destroy() {
-  }
+  // *destroy() {
+  // }
 });
 
