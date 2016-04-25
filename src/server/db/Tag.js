@@ -1,4 +1,4 @@
-module.exports = function (sequelize, Sequelize) {
+module.exports = function tag(sequelize, Sequelize) {
   const Tag = sequelize.define('Tag', {
     name: {
       type: Sequelize.STRING,

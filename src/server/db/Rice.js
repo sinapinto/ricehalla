@@ -1,4 +1,4 @@
-module.exports = function (sequelize, Sequelize) {
+module.exports = function rice(sequelize, Sequelize) {
   const Rice = sequelize.define('Rice', {
     title: {
       type: Sequelize.STRING,

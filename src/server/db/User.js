@@ -1,4 +1,4 @@
-module.exports = function (sequelize, Sequelize) {
+module.exports = function user(sequelize, Sequelize) {
   const User = sequelize.define('User', {
     uuid: {
       type: Sequelize.UUID,

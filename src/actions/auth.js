@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
-
-export const API_BASE = `//${__HOST__}:${__PORT__}`;
+import API_BASE from '../utils/APIBase';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

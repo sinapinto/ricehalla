@@ -10,8 +10,8 @@ const propTypes = {
 
 function NavLink({ children, to, ...other }) {
   return (
-    <Link to={to} className={style.navLink} tabIndex={-1} onClick={e => { e.target.blur(); }}>
-      <Button {...other} >
+    <Link to={to} className={style.navLink} tabIndex={-1} onClick={e => e.target.blur()}>
+      <Button {...other}>
         {children}
       </Button>
     </Link>

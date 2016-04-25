@@ -5,20 +5,31 @@
   width: 100%;
 }
 
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .header {
+  color: #666;
   font-size: 32px;
   font-weight: 300;
   text-align: center;
-}
-
-.add {
-  margin: 20px 0;
 }
 
 .submitBtn {
   margin-top: 10px;
   width: 200px;
   height: 40px;
+}
+
+.dzIcon {
+  fill: color(var(--color-primary) tint(20%));
+}
+
+.dzHeader {
+  font-size: 12px;
+  color: gray(50%);
 }
 
 .error {

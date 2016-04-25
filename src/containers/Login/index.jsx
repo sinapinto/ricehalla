@@ -48,15 +48,15 @@ class Login extends Component {
     const { username, password, remember } = this.state;
 
     if (this.props.isFetching) {
-      return undefined;
+      return;
     }
     if (username === '') {
       this.setState({ error: 'Username field is empty.' });
-      return undefined;
+      return;
     }
     if (password === '') {
       this.setState({ error: 'Password field is empty.' });
-      return undefined;
+      return;
     }
     // this.setState({ error: null });
     this.props.login({ username, password, remember });

@@ -53,7 +53,7 @@ export default {
       .cookie
       .replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '')
       .split(/\s*(?:\=[^;]*)?;\s*/)
-      .forEach(key => { this.remove(key); });
+      .forEach(key => this.remove(key));
   },
 
   _checkWindow() {

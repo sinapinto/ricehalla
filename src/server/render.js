@@ -9,7 +9,7 @@ import configureStore from '../utils/configureStore';
 let assets;
 try {
   assets = require('../../webpack-assets.json');
-} catch (_) {}
+} catch (_) {/* ignore exception */}
 
 /**
  * Fetch data needed by components in the current route.
@@ -37,14 +37,8 @@ export default function *() {
   const location = createLocation(this.originalUrl);
   const routes = createRouter(createMemoryHistory(), store);
 
-  const { error, redirectLocation, renderProps } = yield new Promise((resolve) => {
-    match({ routes, location }, (_error, _redirectLocation, _renderProps) => {
-      resolve({
-        error: _error,
-        redirectLocation: _redirectLocation,
-        renderProps: _renderProps
-      });
-    });
+  const [error, redirectLocation, renderProps] = yield new Promise((resolve) => {
+    match({ routes, location }, (...args) => resolve(args));
   });
 
   if (error) {

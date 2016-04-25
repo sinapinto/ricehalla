@@ -11,14 +11,24 @@ const MulterMiddleware = multer({
   },
   rename: (fieldname, filename) => `${filename}-${Date.now()}`,
   onFileUploadStart: (file) => {
-    const mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    return ~mimeTypes.indexOf(file.mimetype);
+    const mimeTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'text/plain',
+    ];
+    const valid = ~mimeTypes.indexOf(file.mimetype);
+    if (!valid) {
+      debug('invalid mimetype', file.mimetype);
+    }
+    // return valid;
+    return true;
   }
 });
 
 export default new Resource('upload', {
   // POST /upload
-  create: [MulterMiddleware, function *() {
+  create: [MulterMiddleware, function *create() {
     debug(this.req.files);
     const filename = Object.keys(this.req.files)[0];
     if (filename) {

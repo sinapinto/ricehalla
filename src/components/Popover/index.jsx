@@ -51,11 +51,11 @@ class Popover extends Component {
       <div className={style.container}>
         { isOpen &&
           <div className={style.popover} ref="popover">
-            { children.map((item, i) => (
+            {children.map((item, i) => (
               <div className={style.item} key={i}>
                 <span onClick={this._close}>{item}</span>
               </div>
-            )) }
+            ))}
           </div>
         }
       </div>

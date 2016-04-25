@@ -9,7 +9,7 @@
   --body-width: 840px;
   --nav-height: 80px;
   --transition-duration: 0.2s;
-  --btn-disabled-color: hsl(0, 0%, 50%);
-  --btn-disabled-bg: hsl(0, 0%, 93%);
-  --btn-disabled-border: hsl(0, 0%, 70%);
+  --btn-disabled-color: hsl(0, 0%, 80%);
+  --btn-disabled-bg: hsl(0, 0%, 97%);
+  --btn-disabled-border: hsl(0, 0%, 90%);
 }

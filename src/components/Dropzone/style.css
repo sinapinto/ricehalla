@@ -1,0 +1,47 @@
+@import "../../style/variables.css";
+
+.dropzone {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: dashed ;
+  border-color: color(var(--color-primary) tint(70%));
+  border-radius: 5px;
+  min-height: 200px;
+  margin: 40px 0;
+  transition: border-color .2s;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.dzPreview {
+  display: flex;
+  width: 200px;
+  height: 100px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid gray(90%);
+  border-radius: 5px;
+  color: gray(40%);
+  transition: color .2s, border-color .2s;
+
+  &:hover {
+    border-color: gray(80%);
+    color: gray(25%);
+  }
+
+  & .dzInfo {
+    padding-left: 10px;
+    font-size: 9px;
+    width: 100%;
+  }
+}
+
+.dzThumbnail {
+  border-radius: 5px;
+}

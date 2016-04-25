@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
-
-const API_BASE = `//${__HOST__}:${__PORT__}`;
+import jwtDecode from 'jwt-decode';
+import cookie from '../utils/cookie';
+import API_BASE from '../utils/APIBase';
 
 export const LOAD_RICE_REQUEST = 'LOAD_RICE_REQUEST';
 export const LOAD_RICE_SUCCESS = 'LOAD_RICE_SUCCESS';
@@ -34,7 +35,7 @@ function submit(body, token) {
     if (res.status >= 200 && res.status < 300) {
       return res;
     }
-    throw new Error('an error occured');
+    throw new Error('failed to submit post');
   })
   .then(res => res.json());
 }
@@ -44,23 +45,23 @@ export function loadRice() {
     try {
       dispatch({ type: LOAD_RICE_REQUEST });
       await get();
-      dispatch({
-        type: LOAD_RICE_SUCCESS,
-      });
+      dispatch({ type: LOAD_RICE_SUCCESS });
     } catch (err) {
       dispatch({ type: LOAD_RICE_FAILURE, error: err.message });
     }
   };
 }
 
-export function submitRice() {
+export function submitRice(body) {
   return async dispatch => {
     try {
       dispatch({ type: POST_RICE_REQUEST });
-      await submit();
-      dispatch({
-        type: POST_RICE_SUCCESS,
-      });
+      const token = cookie.get('token');
+      if (!jwtDecode(token).username) {
+        throw new Error('invalid token');
+      }
+      await submit(body, token);
+      dispatch({ type: POST_RICE_SUCCESS });
     } catch (err) {
       dispatch({ type: POST_RICE_FAILURE, error: err.message });
     }

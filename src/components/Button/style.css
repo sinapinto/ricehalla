@@ -10,14 +10,12 @@
   text-align: center;
   line-height: 1em;
   padding: 0.8em 1em;
-  border-radius: 5px;
+  border-radius: 3px;
   border-width: 1px;
   border-color: rgba(0,0,0,0);
   background-color: var(--color-default);
   color: color(var(--font-color) tint(40%));
-  transition: border var(--transition-duration),
-              color var(--transition-duration),
-              background-color .1s;
+  transition: all var(--transition-duration);
 
   &:--enter {
     color: color(var(--font-color) shade(5%));
@@ -131,15 +129,10 @@
     &:hover,
     &:focus,
     &:active {
-      opacity: 0.3;
       cursor: not-allowed;
       color: var(--btn-disabled-color);
-      background: var(--btn-disabled-bg);
+      background-color: var(--btn-disabled-bg);
       border: 1px solid var(--btn-disabled-border);
     }
   }
-}
-
-.bold {
-  font-weight: 600;
 }

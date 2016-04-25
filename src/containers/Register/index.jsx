@@ -74,7 +74,7 @@ class Register extends Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.props.isFetching) {
-      return undefined;
+      return;
     }
     this.setState({
       email: { ...this.state.email, isValidating: true },

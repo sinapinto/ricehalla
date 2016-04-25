@@ -12,7 +12,6 @@ const propTypes = {
 
   outline: PropTypes.bool,
   disabled: PropTypes.bool,
-  bold: PropTypes.bool,
 };
 
 function Button({
@@ -23,7 +22,6 @@ function Button({
   danger,
   outline,
   disabled,
-  bold,
   ...other
 }) {
   const classes = [style.btn];
@@ -39,9 +37,6 @@ function Button({
   }
   if (className) {
     classes.push(className);
-  }
-  if (bold) {
-    classes.push(style.bold);
   }
   return (
     <button

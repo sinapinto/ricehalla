@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import customProps from 'postcss-custom-props';
 import atImport from 'postcss-import';
+import colorGray from 'postcss-color-gray';
 import colorFunction from 'postcss-color-function';
 import nesting from 'postcss-nesting';
 import customSelectors from 'postcss-custom-selectors';
@@ -49,6 +50,7 @@ export function POSTCSS() {
     customProps(),
     nesting(),
     customSelectors(),
+    colorGray(),
     colorFunction(),
     autoprefixer({ browsers: ['last 2 versions'] })
   ];
