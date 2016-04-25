@@ -30,11 +30,12 @@ TEST_FILES := $(shell \
     -path './node_modules' -o \
     -path './static' \) \
 )
-
 LINT_DIRS = src
 SERVER_PATH = ./static/dist/server.js
 
 P = "\\n\\033[36m[+]\\033[0m"
+
+.DEFAULT_GOAL := start
 
 help:
 	@echo
@@ -87,7 +88,7 @@ clean:
 		rm -rf static/dist; \
 	fi
 
-setup: node_modules storage githooks
+setup: node_modules storage
 
 node_modules:
 	@if [ ! -d node_modules ]; then \
@@ -98,15 +99,5 @@ node_modules:
 storage:
 	@mkdir -p storage uploads
 
-githooks:
-	@if [ ! -e .git/hooks/pre-push ]; then \
-		echo -e "$(P) installing pre-push git hook\n"; \
-		ln -s ../../bin/pre-push .git/hooks/pre-push; \
-	fi
-	@if [ ! -e .git/hooks/pre-commit ]; then \
-		echo -e "$(P) installing pre-commit git hook\n"; \
-		ln -s ../../bin/pre-commit .git/hooks/pre-commit; \
-	fi
-
 .PHONY: help setup start run build start-pro build-pro run-pro
-.PHONY: test lint clean node_module storage githooks
+.PHONY: test lint clean node_modules storage
