@@ -59,7 +59,7 @@ export default new Resource('rice', {
       url: {
         required: false,
         type: 'url'
-      }
+      },
     };
     const errors = parameter.validate(rule, body);
     if (errors) {
@@ -68,14 +68,14 @@ export default new Resource('rice', {
     }
 
     try {
-      // yield body.tags.map(name => Tag.upsert({ name }));
       const rice = yield Rice.create(body, {
-        fields: ['title', 'description', 'url']
+        fields: ['uid', 'title', 'description', 'likes', 'url', 'file']
       });
       this.type = 'json';
       this.status = 201;
       this.body = rice;
     } catch (err) {
+      delete err.name;
       this.type = 'json';
       this.status = 403;
       this.body = err;
@@ -83,7 +83,7 @@ export default new Resource('rice', {
   }],
 
   // GET /rice/:rice
-  show: function* show() {
+  show: function *show() {
     const rice = yield Rice.findOne({
       where: { id: this.params.rice }
     });
@@ -96,9 +96,8 @@ export default new Resource('rice', {
   },
 
   // PUT /rice/:rice
-  *update() {
-    this.body = 'update';
-  },
+  // *update() {
+  // },
 
   // DELETE /rice/:rice
   destroy: [requireAuth, function *destroy() {

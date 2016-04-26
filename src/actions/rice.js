@@ -10,8 +10,8 @@ export const POST_RICE_REQUEST = 'POST_RICE_REQUEST';
 export const POST_RICE_SUCCESS = 'POST_RICE_SUCCESS';
 export const POST_RICE_FAILURE = 'POST_RICE_FAILURE';
 
-function get() {
-  return fetch(`${API_BASE}/api/v1/rice`)
+function get(id) {
+  return fetch(`${API_BASE}/api/v1/rice/${id}`)
   .then(res => {
     if (res.status >= 200 && res.status < 300) {
       return res;
@@ -21,7 +21,7 @@ function get() {
   .then(res => res.json());
 }
 
-function submit(body, token) {
+function post(body, token) {
   return fetch(`${API_BASE}/api/v1/rice`, {
     method: 'post',
     headers: {
@@ -35,24 +35,24 @@ function submit(body, token) {
     if (res.status >= 200 && res.status < 300) {
       return res;
     }
-    throw new Error('failed to submit post');
+    throw new Error('an error occured');
   })
   .then(res => res.json());
 }
 
-export function loadRice() {
+export function load(id) {
   return async dispatch => {
     try {
       dispatch({ type: LOAD_RICE_REQUEST });
-      await get();
-      dispatch({ type: LOAD_RICE_SUCCESS });
+      const loadedRice = await get(id);
+      dispatch({ type: LOAD_RICE_SUCCESS, loadedRice });
     } catch (err) {
       dispatch({ type: LOAD_RICE_FAILURE, error: err.message });
     }
   };
 }
 
-export function submitRice(body) {
+export function submit(body) {
   return async dispatch => {
     try {
       dispatch({ type: POST_RICE_REQUEST });
@@ -60,10 +60,10 @@ export function submitRice(body) {
       if (!jwtDecode(token).username) {
         throw new Error('invalid token');
       }
-      await submit(body, token);
-      dispatch({ type: POST_RICE_SUCCESS });
+      const submittedRice = await post(body, token);
+      dispatch({ type: POST_RICE_SUCCESS, submittedRice });
     } catch (err) {
-      dispatch({ type: POST_RICE_FAILURE, error: err.message });
+      dispatch({ type: POST_RICE_FAILURE, error: err.message || err });
     }
   };
 }

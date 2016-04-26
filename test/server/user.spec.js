@@ -3,7 +3,7 @@ import db from '../../src/server/db/';
 const request = require('supertest').agent(app.listen());
 
 before(function () {
-  return db.sequelize.sync({ force: true });
+  return db.sequelize.sync();
 });
 
 after(function () {
@@ -25,7 +25,7 @@ describe('GET /api/v1/user', function () {
 describe('GET /api/v1/user/:user', function () {
 
   it('returns found user', function (done) {
-    db.User.sync({ force: true }).then(function () {
+    db.User.sync().then(function () {
       db.User.create({ username: 'aa', passwordHash: 'sdf' }).then(function () {
         request
         .get('/api/v1/user/aa')

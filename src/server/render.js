@@ -54,8 +54,8 @@ export default function *() {
 
   yield prefetchData(renderProps.components, {
     dispatch: store.dispatch,
-    path: renderProps.location.pathname,
-    query: renderProps.location.query,
+    // path: renderProps.location.pathname,
+    // query: renderProps.location.query,
     params: renderProps.params,
   });
 

@@ -15,13 +15,11 @@ const propTypes = {
 };
 
 const defaultProps = {
+  fileURLs: {},
+  errors: {},
+  percentages: {},
   multiple: true,
 };
-
-const genUID = (() => {
-  let uid = +new Date;
-  return () => uid++;
-})();
 
 class Dropzone extends Component {
   constructor() {
@@ -56,7 +54,7 @@ class Dropzone extends Component {
   }
 
   uploadFile(file) {
-    const uid = genUID();
+    const uid = `${+new Date}-${file.name}`;
     file.uid = uid;
     this.props.action(file);
     const reader = new FileReader();
@@ -101,7 +99,8 @@ class Dropzone extends Component {
           hidden
         />
         {this.renderPreviews()}
-        {!this.state.uploads.length && this.props.children}
+        {!this.state.uploads.length &&
+          (<div className={style.blankslate}>{this.props.children}</div>)}
       </div>
     );
   }

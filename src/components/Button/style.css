@@ -15,7 +15,7 @@
   border-color: rgba(0,0,0,0);
   background-color: var(--color-default);
   color: color(var(--font-color) tint(40%));
-  transition: all var(--transition-duration);
+  transition: all .2s;
 
   &:--enter {
     color: color(var(--font-color) shade(5%));

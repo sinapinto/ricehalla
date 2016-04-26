@@ -1,5 +1,14 @@
 module.exports = function rice(sequelize, Sequelize) {
   const Rice = sequelize.define('Rice', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.BIGINT,
+    },
+    uid: {
+      type: Sequelize.UUID,
+    },
     title: {
       type: Sequelize.STRING,
     },
@@ -21,7 +30,10 @@ module.exports = function rice(sequelize, Sequelize) {
   }, {
     classMethods: {
       associate(models) {
-        Rice.belongsTo(models.User);
+        Rice.belongsTo(models.User, {
+          foreignKey: 'uid',
+          allowNull: false,
+        });
       },
     },
     instanceMethods: {

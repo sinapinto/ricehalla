@@ -38,7 +38,7 @@
   align-items: center;
   margin-right:auto;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   user-select: none;
   text-decoration: none;
   color: color(var(--color-primary) shade(10%));

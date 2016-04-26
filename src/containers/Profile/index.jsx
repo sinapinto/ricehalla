@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Card from '../../components/Card';
 import { loadUser } from '../../actions/user';
 import style from './style.css';
 
 const propTypes = {
   user: PropTypes.shape({
-    uuid: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,
     about: PropTypes.string,
@@ -30,25 +28,16 @@ class Profile extends Component {
   }
 
   render() {
-    const {
-      uuid,
-      username,
-      email,
-      about,
-    } = this.props.user;
-
+    const { username, email, about } = this.props.user;
     return (
       <div className={style.root}>
         <Helmet title={`${username} | ricehalla`} />
-        <Card>
-          <h2>{username}</h2>
-          <ul className={style.list}>
-            <li><b>uuid:</b> {uuid}</li>
-            <li><b>username:</b> {username}</li>
-            <li><b>email:</b> {email}</li>
-            <li><b>about:</b> {about}</li>
-          </ul>
-        </Card>
+        <h2>{username}</h2>
+        <ul className={style.list}>
+          <li><b>username:</b> {username}</li>
+          <li><b>email:</b> {email}</li>
+          <li><b>about:</b> {about}</li>
+        </ul>
       </div>
     );
   }

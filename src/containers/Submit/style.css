@@ -19,8 +19,7 @@
 
 .submitBtn {
   margin-top: 10px;
-  width: 200px;
-  height: 40px;
+  float: right;
 }
 
 .dzIcon {

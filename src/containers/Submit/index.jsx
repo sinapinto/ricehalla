@@ -7,17 +7,26 @@ import TextInput from '../../components/TextInput';
 import Dropzone from '../../components/Dropzone';
 import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
-import { submitRice } from '../../actions/rice';
+import { submit as submitRice } from '../../actions/rice';
 import { uploadFile } from '../../actions/upload';
 import style from './style.css';
 
 const propTypes = {
-  submitRice: PropTypes.func.isRequired,
-  uploadFile: PropTypes.func.isRequired,
+  // upload
   fileNames: PropTypes.object.isRequired,
   percentages: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  response: PropTypes.object,
+  uploadErrors: PropTypes.object.isRequired,
+  // rice
+  isFetching: PropTypes.bool.isRequired,
+  riceId: PropTypes.number,
+  submissionError: PropTypes.string,
+  // actions
+  submitRice: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func.isRequired,
+};
+
+const contextTypes = {
+  router: PropTypes.object
 };
 
 class Submit extends Component {
@@ -25,7 +34,7 @@ class Submit extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTextInputChange = this.handleTextInputChange.bind(this);
-    this._uploadFile = this._uploadFile.bind(this);
+    this.upload = this.upload.bind(this);
     this.state = {
       title: '',
       description: '',
@@ -33,7 +42,20 @@ class Submit extends Component {
     };
   }
 
-  _uploadFile(file) {
+  componentDidUpdate() {
+    const { riceId } = this.props;
+    if (typeof riceId !== undefined && riceId !== null) {
+      this.timeout = setTimeout(() => {
+        this.context.router.push(`/rice/${riceId}`);
+      }, 1000);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
+  upload(file) {
     this.setState({ fileName: file.name });
     this.props.uploadFile(file);
   }
@@ -63,24 +85,14 @@ class Submit extends Component {
             onChange={this.handleTextInputChange}
           />
           <Dropzone
-            action={this._uploadFile}
+            action={this.upload}
             percentages={this.props.percentages}
             fileURLs={this.props.fileNames}
-            errors={this.props.errors}
+            errors={this.props.uploadErrors}
           >
             <Icon name="upload" size={64} className={style.dzIcon} />
             <p className={style.dzHeader}>drop files here or click to upload</p>
           </Dropzone>
-          {this.props.response &&
-            <div>
-              {this.state.fileName}
-              <img
-                src={`uploads/${this.props.response.name}`}
-                width={100}
-                height={100}
-                alt="upload"
-              />
-            </div>}
           <Label htmlFor="description">Description</Label>
           <TextInput
             multiline
@@ -90,7 +102,13 @@ class Submit extends Component {
             value={this.state.description}
             onChange={this.handleTextInputChange}
           />
-          <Button className={style.submitBtn} primary style={{ float: 'right' }}>Submit</Button>
+          <Button
+            className={style.submitBtn}
+            primary
+            disabled={this.props.isFetching}
+          >
+            Submit
+          </Button>
         </Form>
       </div>
     );
@@ -98,9 +116,18 @@ class Submit extends Component {
 }
 
 Submit.propTypes = propTypes;
+Submit.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
-  return state.upload;
+  const { errors, ...otherUpload } = state.upload;
+  const { error, isFetching, id } = state.rice;
+  return {
+    ...otherUpload,
+    uploadErrors: errors,
+    submissionError: error,
+    isFetching,
+    riceId: id,
+  };
 }
 
 export default connect(mapStateToProps, { submitRice, uploadFile })(Submit);

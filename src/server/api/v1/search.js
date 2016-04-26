@@ -33,12 +33,8 @@ export default new Resource('search', {
         // }],
         where: {
           $or: [
-            {
-              title: { $like: `%${q}%` }
-            },
-            {
-              description: { $like: `%${q}%` }
-            }
+            { title: { $like: `%${q}%` } },
+            { description: { $like: `%${q}%` } }
           ]
         },
         raw: true,

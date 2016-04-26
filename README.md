@@ -32,7 +32,7 @@ database.
   $ make start
   ```
 
-  run `make` to see all options.
+  run `make help` to see a list of options.
 
   open `http://localhost:3000`. Use `ctrl-h` to toggle redux devtools.
 

@@ -30,13 +30,16 @@ module.exports = function user(sequelize, Sequelize) {
   }, {
     classMethods: {
       associate(models) {
-        User.hasMany(models.Rice);
+        User.hasMany(models.Rice, {
+          foreignKey: 'uid',
+        });
       }
     },
     instanceMethods: {
       toJSON() {
         const values = this.get();
         delete values.uuid;
+        delete values.passwordHash;
         delete values.created_at;
         delete values.updated_at;
         delete values.deleted_at;

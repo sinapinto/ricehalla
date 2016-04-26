@@ -12,10 +12,6 @@ export function uploadFile(file) {
   return async dispatch => {
     try {
       const uid = file.uid;
-      // TODO: probably remove this
-      if (!uid) {
-        throw new Error('missing uid');
-      }
       dispatch({ type: UPLOAD_START, uid });
       const token = cookie.get('token');
       if (!jwtDecode(token).username) {

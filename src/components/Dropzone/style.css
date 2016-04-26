@@ -7,7 +7,7 @@
   justify-content: center;
   cursor: pointer;
   border-width: 1px;
-  border-style: dashed ;
+  border-style: dashed;
   border-color: color(var(--color-primary) tint(70%));
   border-radius: 5px;
   min-height: 200px;
@@ -34,14 +34,20 @@
     border-color: gray(80%);
     color: gray(25%);
   }
+}
 
-  & .dzInfo {
-    padding-left: 10px;
-    font-size: 9px;
-    width: 100%;
-  }
+.dzInfo {
+  padding-left: 10px;
+  font-size: 9px;
+  width: 100%;
 }
 
 .dzThumbnail {
   border-radius: 5px;
+}
+
+.blankslate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

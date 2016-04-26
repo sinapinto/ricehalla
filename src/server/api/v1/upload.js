@@ -9,20 +9,20 @@ const MulterMiddleware = multer({
     files: 1,
     fileSize: 2 * 1024 * 1024,
   },
-  rename: (fieldname, filename) => `${filename}-${Date.now()}`,
+  rename: (fieldname, filename) => filename,
   onFileUploadStart: (file) => {
     const mimeTypes = [
       'image/jpeg',
       'image/png',
       'image/gif',
       'text/plain',
+      'application/octet-stream',
     ];
     const valid = ~mimeTypes.indexOf(file.mimetype);
     if (!valid) {
       debug('invalid mimetype', file.mimetype);
     }
-    // return valid;
-    return true;
+    return valid;
   }
 });
 
