@@ -28,10 +28,6 @@ const propTypes = {
   uploadFile: PropTypes.func.isRequired,
 };
 
-const contextTypes = {
-  router: PropTypes.object
-};
-
 class Submit extends Component {
   constructor() {
     super();
@@ -43,13 +39,6 @@ class Submit extends Component {
       description: '',
       fileName: '',
     };
-  }
-
-  componentDidUpdate() {
-    const { id } = this.props.rice.submitted;
-    if (typeof id !== 'undefined' && id !== null) {
-      this.context.router.push(`/rice/${id}`);
-    }
   }
 
   upload(file) {
@@ -119,7 +108,6 @@ class Submit extends Component {
 }
 
 Submit.propTypes = propTypes;
-Submit.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
   const { auth: { token } } = state;

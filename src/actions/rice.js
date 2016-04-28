@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
+import { browserHistory } from 'react-router';
 import cookie from '../utils/cookie';
 import handleErrors from '../utils/fetchErrorHandler';
 import API_BASE from '../utils/APIBase';
@@ -32,6 +33,7 @@ export function submit(body) {
       dispatch({ type: POST_RICE_REQUEST });
       const submitted = await post(body);
       dispatch({ type: POST_RICE_SUCCESS, submitted });
+      browserHistory.push(`/rice/${submitted.id}`);
     } catch (err) {
       dispatch({ type: POST_RICE_FAILURE, errors: err });
     }

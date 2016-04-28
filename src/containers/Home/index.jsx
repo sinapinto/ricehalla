@@ -40,9 +40,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    if (this.props.list.length === 0) {
-      this.props.fetchList();
-    }
+    this.props.fetchList();
   }
 
   handleHeaderClick(e) {
