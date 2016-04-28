@@ -1,27 +1,18 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import cookie from '../utils/cookie';
+import handleErrors from '../utils/fetchErrorHandler';
 import API_BASE from '../utils/APIBase';
 
-export const LOAD_RICE_REQUEST = 'LOAD_RICE_REQUEST';
-export const LOAD_RICE_SUCCESS = 'LOAD_RICE_SUCCESS';
-export const LOAD_RICE_FAILURE = 'LOAD_RICE_FAILURE';
 export const POST_RICE_REQUEST = 'POST_RICE_REQUEST';
 export const POST_RICE_SUCCESS = 'POST_RICE_SUCCESS';
 export const POST_RICE_FAILURE = 'POST_RICE_FAILURE';
 
-function get(id) {
-  return fetch(`${API_BASE}/api/v1/rice/${id}`)
-  .then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res;
-    }
-    throw new Error('an error occured');
-  })
-  .then(res => res.json());
-}
-
-function post(body, token) {
+async function post(body) {
+  const token = cookie.get('token');
+  if (!jwtDecode(token).username) {
+    throw new Error('invalid token');
+  }
   return fetch(`${API_BASE}/api/v1/rice`, {
     method: 'post',
     headers: {
@@ -31,39 +22,62 @@ function post(body, token) {
     },
     body: JSON.stringify(body)
   })
-  .then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res;
-    }
-    throw new Error('an error occured');
-  })
+  .then(handleErrors)
   .then(res => res.json());
-}
-
-export function load(id) {
-  return async dispatch => {
-    try {
-      dispatch({ type: LOAD_RICE_REQUEST });
-      const loadedRice = await get(id);
-      dispatch({ type: LOAD_RICE_SUCCESS, loadedRice });
-    } catch (err) {
-      dispatch({ type: LOAD_RICE_FAILURE, error: err.message });
-    }
-  };
 }
 
 export function submit(body) {
   return async dispatch => {
     try {
       dispatch({ type: POST_RICE_REQUEST });
-      const token = cookie.get('token');
-      if (!jwtDecode(token).username) {
-        throw new Error('invalid token');
-      }
-      const submittedRice = await post(body, token);
-      dispatch({ type: POST_RICE_SUCCESS, submittedRice });
+      const submitted = await post(body);
+      dispatch({ type: POST_RICE_SUCCESS, submitted });
     } catch (err) {
-      dispatch({ type: POST_RICE_FAILURE, error: err.message || err });
+      dispatch({ type: POST_RICE_FAILURE, errors: err });
+    }
+  };
+}
+
+export const SHOW_RICE_REQUEST = 'SHOW_RICE_REQUEST';
+export const SHOW_RICE_SUCCESS = 'SHOW_RICE_SUCCESS';
+export const SHOW_RICE_FAILURE = 'SHOW_RICE_FAILURE';
+
+function get(id) {
+  return fetch(`${API_BASE}/api/v1/rice/${id}`)
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+export function show(id) {
+  return async dispatch => {
+    try {
+      dispatch({ type: SHOW_RICE_REQUEST });
+      const detail = await get(id);
+      dispatch({ type: SHOW_RICE_SUCCESS, detail });
+    } catch (err) {
+      dispatch({ type: SHOW_RICE_FAILURE, errors: err });
+    }
+  };
+}
+
+export const LIST_RICE_REQUEST = 'LIST_RICE_REQUEST';
+export const LIST_RICE_SUCCESS = 'LIST_RICE_SUCCESS';
+export const LIST_RICE_FAILURE = 'LIST_RICE_FAILURE';
+
+function list() {
+  return fetch(`${API_BASE}/api/v1/rice`)
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+export function fetchList() {
+  return async dispatch => {
+    try {
+      dispatch({ type: LIST_RICE_REQUEST });
+      const riceList = await list();
+      dispatch({ type: LIST_RICE_SUCCESS, list: riceList });
+    } catch (err) {
+      dispatch({ type: LIST_RICE_FAILURE, errors: err });
     }
   };
 }

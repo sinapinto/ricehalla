@@ -21,12 +21,8 @@ export default new Resource('rice', {
     try {
       const rice = yield Rice.findAll({
         order: [['created_at', 'DESC']],
-        attributes: ['title', 'description', 'likes', 'url'],
         raw: true,
       });
-      if (!rice) {
-        this.throw(404);
-      }
       this.type = 'json';
       this.status = 200;
       this.body = rice;
@@ -42,50 +38,35 @@ export default new Resource('rice', {
     const body = yield parse(this);
     debug(body);
     const rule = {
-      title: { type: 'string' },
-      description: {
-        required: false,
-        type: 'string',
-      },
-      tags: {
-        required: false,
-        type: 'array',
-        itemType: 'string',
-        rule: {
-          type: 'string',
-          allowEmpty: true
-        }
-      },
-      url: {
-        required: false,
-        type: 'url'
-      },
+      userId: { type: 'number', required: true },
+      title: { type: 'string', required: true },
+      description: { type: 'string', required: false },
+      files: { type: 'array', itemType: 'string', required: true },
+      tags: { type: 'array', itemType: 'string', required: false },
     };
     const errors = parameter.validate(rule, body);
+    body.files = JSON.stringify(body.files);
     if (errors) {
       debug(errors);
-      this.throw(400, errors);
+      this.type = 'json';
+      this.status = 400;
+      this.body = { errors };
+      return;
     }
-
     try {
-      const rice = yield Rice.create(body, {
-        fields: ['uid', 'title', 'description', 'likes', 'url', 'file']
-      });
+      const rice = yield Rice.create(body);
       this.type = 'json';
       this.status = 201;
       this.body = rice;
     } catch (err) {
-      delete err.name;
-      this.type = 'json';
-      this.status = 403;
-      this.body = err;
+      this.throw = (403, 'error creating rice');
     }
   }],
 
   // GET /rice/:rice
   show: function *show() {
     const rice = yield Rice.findOne({
-      where: { id: this.params.rice }
+      where: { id: this.params.rice },
     });
     if (!rice) {
       this.throw(404);

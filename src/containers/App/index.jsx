@@ -45,9 +45,9 @@ class App extends Component {
       { name: 'description', content: 'sharing dotfiles' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { charset: 'utf-8' },
-      { property: 'og:site_name', content: 'ricehalla' },
+      { property: 'og:site_name', content: 'Ricehalla' },
       { property: 'og:locale', content: 'en_US' },
-      { property: 'og:title', content: 'ricehalla' },
+      { property: 'og:title', content: 'Ricehalla' },
       { property: 'og:description', content: 'sharing dotfiles' },
     ];
   }
@@ -73,7 +73,7 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.navLogo}>ricehalla</Link>
+          <Link to="/" className={style.logo}>Ricehalla</Link>
           <NavLink to="/submit" success>Submit</NavLink>
           <Button onClick={this.openPopover} outline>
             {this.props.username}
@@ -91,7 +91,7 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.navLogo}>ricehalla</Link>
+          <Link to="/" className={style.logo}>Ricehalla</Link>
           <NavLink to="/register" outline style={{ border: 0 }}>Register</NavLink>
           <NavLink to="/login" outline>Log In</NavLink>
         </div>
@@ -112,7 +112,7 @@ class App extends Component {
   render() {
     return (
       <div className={style.root}>
-        <Helmet title="ricehalla" meta={this.getMeta()} />
+        <Helmet title="Ricehalla" meta={this.getMeta()} />
         {this.renderNav()}
         <div className={style.childWrapper}>
           {this.props.children}

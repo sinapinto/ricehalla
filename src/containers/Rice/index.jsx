@@ -1,32 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { load as loadRice } from '../../actions/rice';
+import { show as showRice } from '../../actions/rice';
 import style from './style.css';
 
 const propTypes = {
   params: PropTypes.shape({
-    id: PropTypes.string
+    id: PropTypes.string.isRequired,
   }).isRequired,
-  loadRice: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
+  detail: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+  showRice: PropTypes.func.isRequired,
 };
 
 class Rice extends Component {
-  // static prefetchData({ dispatch, params }) {
-  //   return dispatch(loadRice(params.id));
-  // }
+  componentDidMount() {
+    // populate this.props.detail
+    this.props.showRice(this.props.params.id);
+  }
 
   render() {
-    const { params, title, description } = this.props;
+    const { title = '', description, id } = this.props.detail;
     return (
       <div className={style.root}>
-        <Helmet title={`${title} | ricehalla`} />
-        <h2>{title}</h2>
-        <span>{params.id}</span>
-        <p>{description}</p>
+        <Helmet title={`${title} | Ricehalla`} />
+        <div>{description}</div>
+        <div>{id}</div>
       </div>
     );
   }
@@ -36,8 +38,8 @@ Rice.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    ...state.rice,
+    detail: state.rice.detail,
   };
 }
 
-export default connect(mapStateToProps, { loadRice })(Rice);
+export default connect(mapStateToProps, { showRice })(Rice);

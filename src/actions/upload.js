@@ -3,7 +3,6 @@ import cookie from '../utils/cookie';
 import { xhrUpload } from '../utils/XHR';
 import API_BASE from '../utils/APIBase';
 
-export const UPLOAD_START = 'UPLOAD_START';
 export const UPLOAD_PROGRESS = 'UPLOAD_PROGRESS';
 export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS';
 export const UPLOAD_FAILURE = 'UPLOAD_FAILURE';
@@ -12,7 +11,6 @@ export function uploadFile(file) {
   return async dispatch => {
     try {
       const uid = file.uid;
-      dispatch({ type: UPLOAD_START, uid });
       const token = cookie.get('token');
       if (!jwtDecode(token).username) {
         throw new Error('invalid token');

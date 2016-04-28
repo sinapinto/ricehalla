@@ -6,8 +6,6 @@
 
 .table {
   width: 100%;
-  table-layout: fixed;
-  white-space: nowrap;
 }
 
 .root th,
@@ -18,10 +16,6 @@
 .root th {
   vertical-align: top;
   font-weight: 400;
-}
-
-.root td {
-  white-space: nowrap;
 }
 
 .tagSearch {
@@ -44,7 +38,7 @@
   width: 30%;
 }
 
-/* TagList.js */
+/* TagList */
 
 .taglist {
   text-align: right;
@@ -53,6 +47,7 @@
 }
 
 .tag {
+  display: inline-block;
   margin: 0 3px;
   line-height: 1.5;
   padding: 0 3px;

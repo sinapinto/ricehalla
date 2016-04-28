@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
+import jwtDecode from 'jwt-decode';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Label from '../../components/Label';
@@ -12,15 +13,17 @@ import { uploadFile } from '../../actions/upload';
 import style from './style.css';
 
 const propTypes = {
-  // upload
-  fileNames: PropTypes.object.isRequired,
-  percentages: PropTypes.object.isRequired,
-  uploadErrors: PropTypes.object.isRequired,
-  // rice
-  isFetching: PropTypes.bool.isRequired,
-  riceId: PropTypes.number,
-  submissionError: PropTypes.string,
-  // actions
+  upload: PropTypes.shape({
+    fileNames: PropTypes.object.isRequired,
+    percentages: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+  }).isRequired,
+  rice: PropTypes.shape({
+    isFetching: PropTypes.bool.isRequired,
+    submitted: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+  }).isRequired,
+  userId: PropTypes.number.isRequired,
   submitRice: PropTypes.func.isRequired,
   uploadFile: PropTypes.func.isRequired,
 };
@@ -43,16 +46,10 @@ class Submit extends Component {
   }
 
   componentDidUpdate() {
-    const { riceId } = this.props;
-    if (typeof riceId !== undefined && riceId !== null) {
-      this.timeout = setTimeout(() => {
-        this.context.router.push(`/rice/${riceId}`);
-      }, 1000);
+    const { id } = this.props.rice.submitted;
+    if (typeof id !== 'undefined' && id !== null) {
+      this.context.router.push(`/rice/${id}`);
     }
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout);
   }
 
   upload(file) {
@@ -62,8 +59,14 @@ class Submit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { title, description, fileName } = this.state;
-    this.props.submitRice({ title, description, fileName });
+    const { fileNames } = this.props.upload;
+    const files = Object.keys(fileNames).map(uid => this.props.upload.fileNames[uid]);
+    this.props.submitRice({
+      userId: this.props.userId,
+      title: this.state.title,
+      description: this.state.description,
+      files,
+    });
   }
 
   handleTextInputChange(e) {
@@ -86,9 +89,9 @@ class Submit extends Component {
           />
           <Dropzone
             action={this.upload}
-            percentages={this.props.percentages}
-            fileURLs={this.props.fileNames}
-            errors={this.props.uploadErrors}
+            percentages={this.props.upload.percentages}
+            fileURLs={this.props.upload.fileNames}
+            errors={this.props.upload.errors}
           >
             <Icon name="upload" size={64} className={style.dzIcon} />
             <p className={style.dzHeader}>drop files here or click to upload</p>
@@ -105,7 +108,7 @@ class Submit extends Component {
           <Button
             className={style.submitBtn}
             primary
-            disabled={this.props.isFetching}
+            disabled={this.props.rice.isFetching}
           >
             Submit
           </Button>
@@ -119,14 +122,12 @@ Submit.propTypes = propTypes;
 Submit.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
-  const { errors, ...otherUpload } = state.upload;
-  const { error, isFetching, id } = state.rice;
+  const { auth: { token } } = state;
+  const userId = token ? jwtDecode(token).id : null;
   return {
-    ...otherUpload,
-    uploadErrors: errors,
-    submissionError: error,
-    isFetching,
-    riceId: id,
+    upload: state.upload,
+    rice: state.rice,
+    userId,
   };
 }
 

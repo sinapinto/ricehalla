@@ -32,14 +32,9 @@ class DzPreview extends Component {
       return `${size} B`;
     }
     if (size <= mb) {
-      return `${this.truncate(size / kb, 1)} K`;
+      return `${(size / kb).toFixed(1)} K`;
     }
-    return `${this.truncate(size / mb, 1)} M`;
-  }
-
-  truncate(num, decimals = 0) {
-    const v = num * 10 ** decimals;
-    return Math.floor(v) / 10 ** decimals;
+    return `${(size / mb).toFixed(1)} M`;
   }
 
   render() {

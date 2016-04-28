@@ -6,20 +6,23 @@ const router = require('koa-router')();
 
 router.post('/signup', function *signup() {
   const { username, password, email } = this.request.body;
-
   const salt = yield bcrypt.genSalt(10);
   const hash = yield bcrypt.hash(password, salt);
-  this.body = yield User.create({
+  const user = yield User.create({
     username,
     email,
     passwordHash: hash,
     about: '',
   });
-
   this.status = 201;
-  const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
+  const payload = {
+    id: user.id,
+    username,
+    email,
+  };
+  const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
   this.type = 'json';
-  this.body = { token };
+  this.body = { token, id: user.id };
 });
 
 
@@ -45,7 +48,7 @@ router.post('/login', function *login() {
 
   const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
   this.type = 'json';
-  this.body = { token };
+  this.body = { token, id: user.id };
 });
 
 

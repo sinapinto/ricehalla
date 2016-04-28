@@ -142,7 +142,7 @@ class Register extends Component {
   render() {
     return (
       <div className={style.root}>
-        <Helmet title="Register | ricehalla" />
+        <Helmet title="Register | Ricehalla" />
         <h2 className={style.header}>Create an account.</h2>
         <Form onSubmit={this.handleSubmit} noValidate>
           <Fieldset errorMessage={this.state.email.error}>

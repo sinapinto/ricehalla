@@ -1,4 +1,13 @@
-import * as ActionTypes from '../actions/auth';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_FAILURE,
+} from '../actions/auth';
 
 const initialState = {
   isFetching: false,
@@ -20,35 +29,35 @@ export default function (state = initialState, action) {
   }
 
   switch (action.type) {
-    case ActionTypes.LOGIN_REQUEST:
+    case LOGIN_REQUEST:
       return {
         ...initializedState,
         isFetching: true,
         loginInvalid: false,
+        token: null,
       };
-    case ActionTypes.LOGIN_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...initializedState,
         isFetching: false,
         isAuthenticated: true,
-        token: action.token,
+        token: action.response.token,
         loginInvalid: false,
       };
-    case ActionTypes.LOGIN_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...initializedState,
         isFetching: false,
         isAuthenticated: false,
-        token: null,
         loginInvalid: true,
       };
-    case ActionTypes.REGISTER_REQUEST:
+    case REGISTER_REQUEST:
       return {
         ...initializedState,
         isFetching: true,
         registerError: '',
       };
-    case ActionTypes.REGISTER_SUCCESS:
+    case REGISTER_SUCCESS:
       return {
         ...initializedState,
         isFetching: false,
@@ -56,23 +65,21 @@ export default function (state = initialState, action) {
         token: action.token,
         registerError: '',
       };
-    case ActionTypes.REGISTER_FAILURE:
+    case REGISTER_FAILURE:
       return {
         ...initializedState,
         isFetching: false,
         registerError: action.error,
       };
-    case ActionTypes.LOGOUT_REQUEST:
+    case LOGOUT_REQUEST:
       return {
         ...initializedState,
         isAuthenticated: false,
         token: null,
       };
-    case ActionTypes.LOGOUT_FAILURE:
+    case LOGOUT_FAILURE:
       return {
         ...initializedState,
-        isAuthenticated: false,
-        token: null,
         logoutError: action.error
       };
     default:

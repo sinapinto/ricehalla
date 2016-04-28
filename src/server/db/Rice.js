@@ -6,8 +6,8 @@ module.exports = function rice(sequelize, Sequelize) {
       primaryKey: true,
       type: Sequelize.BIGINT,
     },
-    uid: {
-      type: Sequelize.UUID,
+    userId: {
+      type: Sequelize.BIGINT,
     },
     title: {
       type: Sequelize.STRING,
@@ -18,20 +18,14 @@ module.exports = function rice(sequelize, Sequelize) {
     likes: {
       type: Sequelize.INTEGER,
     },
-    url: {
-      type: Sequelize.STRING,
-      validate: {
-        isUrl: true
-      },
-    },
-    file: {
+    files: {
       type: Sequelize.TEXT,
     },
   }, {
     classMethods: {
       associate(models) {
         Rice.belongsTo(models.User, {
-          foreignKey: 'uid',
+          foreignKey: 'userId',
           allowNull: false,
         });
       },

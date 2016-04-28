@@ -1,15 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
+import handleErrors from '../utils/fetchErrorHandler';
 import API_BASE from '../utils/APIBase';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILURE = 'REGISTER_FAILURE';
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 function auth(endpoint, body) {
   return fetch(`${API_BASE}${endpoint}`, {
@@ -20,12 +16,7 @@ function auth(endpoint, body) {
     },
     body: JSON.stringify(body),
   })
-  .then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res;
-    }
-    throw new Error('Invalid username or password');
-  })
+  .then(handleErrors)
   .then(res => res.json());
 }
 
@@ -33,18 +24,18 @@ export function login(body) {
   return async dispatch => {
     dispatch({ type: LOGIN_REQUEST });
     try {
-      const res = await auth('/auth/login', body);
-      cookie.set('token', res.token);
-      dispatch({
-        type: LOGIN_SUCCESS,
-        username: body.username,
-        token: res.token
-      });
+      const response = await auth('/auth/login', body);
+      cookie.set('token', response.token);
+      dispatch({ type: LOGIN_SUCCESS, response });
     } catch (err) {
       dispatch({ type: LOGIN_FAILURE });
     }
   };
 }
+
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 export function register(body) {
   return async dispatch => {
@@ -62,6 +53,9 @@ export function register(body) {
     }
   };
 }
+
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 export function logout() {
   return async dispatch => {

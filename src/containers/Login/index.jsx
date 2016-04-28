@@ -84,7 +84,7 @@ class Login extends Component {
     const { isFetching } = this.props;
     return (
       <div className={style.root}>
-        <Helmet title="Login | ricehalla" />
+        <Helmet title="Login | Ricehalla" />
         {this.renderErrorMessage()}
         <h2 className={style.header}>Sign in.</h2>
         <Form

@@ -39,7 +39,7 @@ P = "\\n\\033[36m[+]\\033[0m"
 
 help:
 	@echo
-	@echo -e "  \033[1;30mricehalla $(VERSION)\033[0m"
+	@echo -e "  \033[1;30mRicehalla $(VERSION)\033[0m"
 	@echo
 	@echo -e "  \033[36mstart\033[0m - build development bundles and run the server"
 	@echo -e "  \033[36mbuild\033[0m - build development bundles"

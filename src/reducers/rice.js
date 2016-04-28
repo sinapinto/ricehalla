@@ -1,48 +1,67 @@
-import * as ActionTypes from '../actions/rice';
+import {
+  POST_RICE_REQUEST,
+  POST_RICE_SUCCESS,
+  POST_RICE_FAILURE,
+  SHOW_RICE_REQUEST,
+  SHOW_RICE_SUCCESS,
+  SHOW_RICE_FAILURE,
+  LIST_RICE_REQUEST,
+  LIST_RICE_SUCCESS,
+  LIST_RICE_FAILURE,
+} from '../actions/rice';
 
 const initialState = {
   isFetching: false,
-  id: null,
-  title: null,
-  description: null,
-  loaded: {},
+  errors: {},
+  submitted: {},
+  detail: {},
+  list: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.POST_RICE_REQUEST:
+    case POST_RICE_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        submitted: {},
+      };
+    case POST_RICE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        submitted: action.submitted,
+      };
+    case SHOW_RICE_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ActionTypes.POST_RICE_SUCCESS:
+    case SHOW_RICE_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        ...action.submittedRice,
+        detail: action.detail,
       };
-    case ActionTypes.POST_RICE_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-      };
-    case ActionTypes.LOAD_RICE_REQUEST:
+    case LIST_RICE_REQUEST:
       return {
         ...state,
         isFetching: true,
+        list: [],
       };
-    case ActionTypes.LOAD_RICE_SUCCESS:
+    case LIST_RICE_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        loaded: {
-          ...action.loadedRice,
-        },
+        list: action.list,
       };
-    case ActionTypes.LOAD_RICE_FAILURE:
+    case POST_RICE_FAILURE:
+    case SHOW_RICE_FAILURE:
+    case LIST_RICE_FAILURE:
       return {
         ...state,
         isFetching: false,
+        errors: action.errors,
       };
     default:
       return state;

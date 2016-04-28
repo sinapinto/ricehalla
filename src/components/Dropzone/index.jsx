@@ -48,13 +48,11 @@ class Dropzone extends Component {
 
   handleFiles(fileList) {
     const files = Array.prototype.slice.call(fileList);
-    for (let i = 0; i < files.length; i++) {
-      this.uploadFile(files[i]);
-    }
+    files.map(file => this.uploadFile(file));
   }
 
   uploadFile(file) {
-    const uid = `${+new Date}-${file.name}`;
+    const uid = `upload-${Math.random().toString(16).slice(10)}`;
     file.uid = uid;
     this.props.action(file);
     const reader = new FileReader();

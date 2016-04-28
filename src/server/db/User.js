@@ -1,9 +1,10 @@
 module.exports = function user(sequelize, Sequelize) {
   const User = sequelize.define('User', {
-    uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
+      type: Sequelize.BIGINT,
     },
     username: {
       allowNull: false,
@@ -31,14 +32,14 @@ module.exports = function user(sequelize, Sequelize) {
     classMethods: {
       associate(models) {
         User.hasMany(models.Rice, {
-          foreignKey: 'uid',
+          foreignKey: 'userId',
         });
       }
     },
     instanceMethods: {
       toJSON() {
         const values = this.get();
-        delete values.uuid;
+        delete values.id;
         delete values.passwordHash;
         delete values.created_at;
         delete values.updated_at;

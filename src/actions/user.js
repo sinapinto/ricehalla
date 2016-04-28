@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
+import handleErrors from '../utils/fetchErrorHandler';
 import API_BASE from '../utils/APIBase';
 
 export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
@@ -13,12 +14,7 @@ async function get(username, token) {
       Authorization: `Bearer ${token}`,
     }
   })
-  .then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res;
-    }
-    throw new Error('an error occured');
-  })
+  .then(handleErrors)
   .then(res => res.json());
 }
 

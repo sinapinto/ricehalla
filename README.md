@@ -1,4 +1,4 @@
-# ricehalla
+# Ricehalla
 
 [![Build Status](https://travis-ci.org/sinapinto/ricehalla.svg?branch=master)](https://travis-ci.org/sinapinto/ricehalla)
 [![Dependency Status](https://david-dm.org/sinapinto/ricehalla.svg)](https://david-dm.org/sinapinto/ricehalla)

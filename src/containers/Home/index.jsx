@@ -1,12 +1,29 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { loadRice } from '../../actions/rice';
-import TagList from './TagList';
+import { fetchList } from '../../actions/rice';
+import DesktopRow from './DesktopRow';
 import TextInput from '../../components/TextInput';
-import Card from '../../components/Card';
 import style from './style.css';
-import riceData from './data.js';
+const debug = require('debug')('app:home');
+
+const propTypes = {
+  fetchList: PropTypes.func.isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      likes: PropTypes.number,
+      file: PropTypes.number,
+      url: PropTypes.string,
+      created_at: PropTypes.string,
+      updated_at: PropTypes.string,
+    })
+  ).isRequired,
+  errors: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
 
 class Home extends Component {
   constructor() {
@@ -18,8 +35,14 @@ class Home extends Component {
       sortKey: 'rank',
       reverseSort: false,
       showTagFilter: true,
-      filterText: ''
+      filterText: '',
     };
+  }
+
+  componentDidMount() {
+    if (this.props.list.length === 0) {
+      this.props.fetchList();
+    }
   }
 
   handleHeaderClick(e) {
@@ -42,92 +65,75 @@ class Home extends Component {
     this.setState({ filterText: e.target.value });
   }
 
-  render() {
-    const dtops = riceData
-      .filter(dtop =>
-        this.state.filterText
-          .split(/\s|,/)
-          .every(filter =>
-            dtop.tags.some(tag =>
-              tag.indexOf(filter) > -1
-              // filter.substr(0,1) === '!'
-              // ? tag.indexOf(filter.substr(1, filter.length - 1)) === -1
-              // : tag.indexOf(filter) > -1
-            )))
-      .sort((a, b) =>
-        // FIXME: this is garbage
-        a[this.state.sortKey] - b[this.state.sortKey] * (this.state.reverseSort ? -1 : 1))
-      .map(d =>
-        <DesktopRow
-          key={d.id}
-          rank={d.rank}
-          imageURL={d.url}
-          author={d.author}
-          date={d.date}
-          tags={d.tags}
-        />
-      );
+  renderRice() {
+    // TODO: will implement tags soon..
+    // return this.props.list.length > 0 && this.props.list
+    //   .filter(dtop =>
+    //     this.state.filterText
+    //       .split(/\s|,/)
+    //       .every(filter =>
+    //         dtop.tags.some(tag =>
+    //           tag.indexOf(filter) > -1
+    //           // filter.substr(0,1) === '!'
+    //           // ? tag.indexOf(filter.substr(1, filter.length - 1)) === -1
+    //           // : tag.indexOf(filter) > -1
+    //         )))
+    //   .sort((a, b) =>
+    //     // FIXME: this is garbage
+    //     a[this.state.sortKey] - b[this.state.sortKey] * (this.state.reverseSort ? -1 : 1))
+    //   .map(d =>
+    //     <DesktopRow
+    //       key={d.id}
+    //       rank={d.rank}
+    //       imageURL={d.url}
+    //       author={d.author}
+    //       date={d.date}
+    //       tags={d.tags}
+    //     />
+    //   );
+    return this.props.list.length > 0 && this.props.list
+      .map((r, i) => <DesktopRow key={i} {...r} />);
+  }
 
+  render() {
     return (
       <div className={style.root}>
-        <Helmet title="ricehalla" />
-        <Card>
-          <table style={{ width: '100%' }}>
-            <thead>
-              <tr>
-                <th className={style.rowRank}>
-                  <a href="#" onClick={this.handleHeaderClick}>Rank</a>
-                </th>
-                <th className={style.rowImage}></th>
-                <th className={style.rowAuthor}>
-                  <a href="#" onClick={this.handleHeaderClick}>Author</a>
-                </th>
-                <th className={style.rowDate}>
-                  <a href="#" onClick={this.handleHeaderClick}>Date</a>
-                </th>
-                <th className={style.rowTag}>
-                  <div><a href="#" onClick={this.handleFilterHeaderClick}>Tags</a></div>
-                  { this.state.showTagFilter &&
-                    <TextInput
-                      className={style.tagSearch}
-                      value={this.state.filterText}
-                      onChange={this.filterChange}
-                    /> }
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {dtops}
-            </tbody>
-          </table>
-        </Card>
+        <Helmet title="Ricehalla" />
+        <table className={style.table}>
+          <thead>
+            <tr>
+              <th className={style.rowRank}><a href="#" onClick={this.handleHeaderClick}>Rank</a></th>
+              <th className={style.rowImage}></th>
+              <th className={style.rowAuthor}><a href="#" onClick={this.handleHeaderClick}>Author</a></th>
+              <th className={style.rowDate}><a href="#" onClick={this.handleHeaderClick}>Date</a></th>
+              <th className={style.rowTag}>
+                <div><a href="#" onClick={this.handleFilterHeaderClick}>Tags</a></div>
+                {this.state.showTagFilter &&
+                  <TextInput
+                    className={style.tagSearch}
+                    value={this.state.filterText}
+                    onChange={this.filterChange}
+                  />}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderRice()}
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 
-function DesktopRow({ rank, imageURL, author, date, tags }) {
-  return (
-    <tr>
-      <td>{rank}</td>
-      <td>{imageURL}</td>
-      <td>{author}</td>
-      <td>{date}</td>
-      <TagList tags={tags} max={5} />
-    </tr>
-  );
-}
-
-DesktopRow.propTypes = {
-  rank: PropTypes.string,
-  imageURL: PropTypes.string,
-  author: PropTypes.string,
-  date: PropTypes.string,
-  tags: PropTypes.array,
-};
+Home.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    list: state.rice.list,
+    errors: state.rice.errors,
+    isFetching: state.rice.isFetching,
+  };
 }
 
-export default connect(mapStateToProps, { loadRice })(Home);
+export default connect(mapStateToProps, { fetchList })(Home);

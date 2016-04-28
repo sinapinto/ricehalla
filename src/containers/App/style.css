@@ -33,21 +33,22 @@
   align-items: center;
 }
 
-.navLogo {
+.logo {
   display: flex;
   align-items: center;
   margin-right:auto;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   user-select: none;
   text-decoration: none;
   color: color(var(--color-primary) shade(10%));
   padding: 1em 0.5em;
+
+  &:hover {
+    color: color(var(--color-primary) shade(20%));
+  }
 }
 
-.navLogo:hover {
-  color: color(var(--color-primary) shade(20%));
-}
 
 .icon {
   fill: var(--color-primary);

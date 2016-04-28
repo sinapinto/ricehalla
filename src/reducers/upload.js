@@ -1,4 +1,8 @@
-import * as ActionTypes from '../actions/upload';
+import {
+  UPLOAD_PROGRESS,
+  UPLOAD_SUCCESS,
+  UPLOAD_FAILURE,
+} from '../actions/upload';
 
 const initialState = {
   fileNames: {},
@@ -8,9 +12,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.UPLOAD_START:
-      return state;
-    case ActionTypes.UPLOAD_PROGRESS:
+    case UPLOAD_PROGRESS:
       return {
         ...state,
         percentages: {
@@ -18,7 +20,7 @@ export default function (state = initialState, action) {
           [action.uid]: action.percentage,
         },
       };
-    case ActionTypes.UPLOAD_SUCCESS:
+    case UPLOAD_SUCCESS:
       return {
         ...state,
         fileNames: {
@@ -26,7 +28,7 @@ export default function (state = initialState, action) {
           [action.uid]: action.response.name,
         },
       };
-    case ActionTypes.UPLOAD_FAILURE:
+    case UPLOAD_FAILURE:
       return {
         ...state,
         errors: {

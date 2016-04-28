@@ -20,7 +20,6 @@ export default new Resource('search', {
           'title',
           'description',
           'likes',
-          'url',
         ],
         // include: [{
         //   model: User,

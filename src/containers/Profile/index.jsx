@@ -31,7 +31,7 @@ class Profile extends Component {
     const { username, email, about } = this.props.user;
     return (
       <div className={style.root}>
-        <Helmet title={`${username} | ricehalla`} />
+        <Helmet title={`${username} | Ricehalla`} />
         <h2>{username}</h2>
         <ul className={style.list}>
           <li><b>username:</b> {username}</li>
