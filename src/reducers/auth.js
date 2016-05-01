@@ -41,7 +41,7 @@ export default function (state = initialState, action) {
         ...initializedState,
         isFetching: false,
         isAuthenticated: true,
-        token: action.response.token,
+        token: action.token,
         loginInvalid: false,
       };
     case LOGIN_FAILURE:

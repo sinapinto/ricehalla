@@ -1,24 +1,12 @@
 import Resource from 'koa-resource-router';
+import { Tag } from '../../db';
 
 export default new Resource('tag', {
   // GET /tag
-  // *index() {
-  // },
-
-  // POST /tag
-  // *create() {
-  // },
-
-  // GET /tag/:tag
-  // *show() {
-  // },
-
-  // PUT /tag/:tag
-  // *update() {
-  // },
-
-  // DELETE /tag/:tag
-  // *destroy() {
-  // }
+  *index() {
+    this.body = yield Tag.findAll({
+      attributes: ['name', 'count'],
+    });
+  },
 });
 

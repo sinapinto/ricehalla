@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import webpack from 'webpack';
 import * as shared from './shared';
 
@@ -34,8 +35,16 @@ export default {
         exclude: /node_modules/,
         loader: 'babel',
         query: { presets: ['es2015', 'react', 'stage-1'] }
-      }, {
+      },
+      {
         test: /\.css$/,
+        include: path.resolve(shared.ROOT_PATH, './node_modules/react-select'),
+        loader: 'css'
+      },
+
+      {
+        test: /\.css$/,
+        exclude: path.resolve(shared.ROOT_PATH, './node_modules/react-select'),
         loader: shared.DEV
           ? 'css/locals?modules&localIdentName=[hash:3]_[local]!postcss'
           : 'css/locals?minimize&modules&localIdentName=[hash:base64:4]!postcss'

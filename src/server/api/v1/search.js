@@ -11,12 +11,12 @@ export default new Resource('search', {
     debug(this.query);
     try {
       const rice = yield Rice.findAll({
-        order: [['updated_at', 'DESC']],
+        order: [['updatedAt', 'DESC']],
         attributes: [
           'id',
           'title',
-          'created_at',
-          'updated_at',
+          'createdAt',
+          'updatedAt',
           'title',
           'description',
           'likes',

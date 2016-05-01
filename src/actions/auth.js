@@ -26,7 +26,7 @@ export function login(body) {
     try {
       const response = await auth('/auth/login', body);
       cookie.set('token', response.token);
-      dispatch({ type: LOGIN_SUCCESS, response });
+      dispatch({ type: LOGIN_SUCCESS, ...response });
     } catch (err) {
       dispatch({ type: LOGIN_FAILURE });
     }

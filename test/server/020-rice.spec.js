@@ -1,5 +1,5 @@
 import app from '../../src/server';
-import db from '../../src/server/db/';
+import db from '../../src/server/db';
 import { expect } from 'chai';
 const request = require('co-supertest').agent(app.listen());
 
@@ -11,7 +11,7 @@ after(function () {
   db.sequelize.close();
 });
 
-describe('rice API', function () {
+xdescribe('rice API', function () {
   describe('GET /api/v1/rice', function () {
     it('respond with json', function (done){
       request
@@ -39,7 +39,7 @@ describe('rice API', function () {
         .post('/api/v1/rice')
         .set('Content-Type', 'application/json')
         .send({ title: 'yo' })
-        .expect(201, { id: 3, title: "yo" }, done);
+        .expect(201, { id: 3, title: 'yo' }, done);
     });
   });
 
@@ -68,49 +68,63 @@ describe('rice API', function () {
 describe('rice DB', function () {
   const user = {
     username: 'trump',
-    password: 'america123',
-    passwordHash: '892N938CUNU298UFFFFEWAIJF',
     email: 'donald@trump.com',
+    passwordHash: '892N938CUNU298UFFFFEWAIJF',
   };
 
   const rice = {
-    uid: '86198aa7-5e28-4182-9ac3-ce2de327a040',
+    userId: 1,
     title: 'make america great again',
+    description: 'build a wall and make mexico pay for it',
+    files: '["file.jpg"]',
   };
 
   describe('create', function () {
-    it('create new user', function *() {
+    it('user', function *() {
       yield db.User.sync();
-      const u = db.User.create(user);
+      const u = yield db.User.create(user);
       expect(u.email).equal(user.email);
+      expect(u.id).equal(rice.userId);
     });
 
-    it('create an item', function *() {
+    it('item', function *() {
       yield db.Rice.sync();
-      const r = db.Rice.create(rice);
+      const r = yield db.Rice.create(rice);
       expect(r.title).equal(rice.title);
     });
   });
 
   describe('read', function () {
-    it('read an item', function *() {
-      const p = yield db.Rice.load(hid);
-      expect(p.title).equal(rice.title);
-    })
+    it('item', function *() {
+      const r = yield db.Rice.findOne({
+        where: { userId: 1 },
+        include: [
+          {
+            model: db.User,
+            attributes: ['username'],
+          }
+        ],
+        // raw: true
+      });
+      expect(r.title).equal(rice.title);
+      expect(r.User.username).equal(user.username);
+    });
   });
 
   describe('update', function () {
-    it('update an item', function *() {
-      const newTitle = { 'title': 'new title' };
-      const p = yield db.Rice.update(rice.uid, newTitle);
-      expect(p.title).equal(newTitle.title);
-    })
+    it('item', function *() {
+      const newTitle = { 'description': 'new description' };
+      const a = yield db.Rice.findOne({ where: { userId: 1 } });
+      const r = yield a.update(newTitle);
+      expect(r.description).equal(newTitle.description);
+    });
   });
 
-  describe('delete', function () {
-    it('delete an item', function *() {
-      const p = yield db.Rice.destroy(rice.uid);
-      expect(p.title).equal(rice.title);
-    })
+  xdescribe('delete', function () {
+    it('item', function *() {
+      const a = yield db.Rice.findOne({ where: { userId: 1 } });
+      const r = yield a.destroy();
+      expect(r.title).equal(rice.title);
+    });
   });
 });

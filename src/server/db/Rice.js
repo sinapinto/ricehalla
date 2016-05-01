@@ -1,41 +1,58 @@
-module.exports = function rice(sequelize, Sequelize) {
+module.exports = function rice(sequelize, DataTypes) {
   const Rice = sequelize.define('Rice', {
     id: {
+      type: DataTypes.BIGINT,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT,
     },
     userId: {
-      type: Sequelize.BIGINT,
+      type: DataTypes.INTEGER,
     },
     title: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      }
     },
     description: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
     },
     likes: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
     files: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
     },
   }, {
     classMethods: {
       associate(models) {
         Rice.belongsTo(models.User, {
-          foreignKey: 'userId',
-          allowNull: false,
+          foreignKey: {
+            name: 'userId',
+            allowNull: false,
+          },
+        });
+        Rice.belongsToMany(models.Tag, {
+          through: {
+            model: models.RiceTag,
+            unique: false,
+          },
+          foreignKey: {
+            name: 'riceId',
+            allowNull: true,
+          },
+          constraints: false,
         });
       },
     },
     instanceMethods: {
       toJSON() {
         const values = this.get();
-        delete values.created_at;
-        delete values.updated_at;
-        delete values.deleted_at;
+        // delete values.createdAt;
+        // delete values.updatedAt;
+        delete values.deletedAt;
         return values;
       },
     },

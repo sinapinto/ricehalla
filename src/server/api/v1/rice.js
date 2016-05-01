@@ -1,10 +1,12 @@
 import Resource from 'koa-resource-router';
-import Parameter from 'parameter';
 import parse from 'co-body';
-import { Rice } from '../../db';
+import Parameter from 'parameter';
 import _debug from 'debug';
+import { Rice, User, Tag } from '../../db';
 const debug = _debug('app:rice');
 const parameter = new Parameter({});
+
+const MAX_TAGS = 15;
 
 function *requireAuth(next) {
   if (this.state.user) {
@@ -20,12 +22,24 @@ export default new Resource('rice', {
   index: function *index() {
     try {
       const rice = yield Rice.findAll({
-        order: [['created_at', 'DESC']],
-        raw: true,
+        order: [['createdAt', 'DESC']],
+        // attributes: { exclude: ['deletedAt'] },
+        include: [
+          {
+            model: User,
+            attributes: ['username'],
+            required: true,
+          },
+          {
+            model: Tag,
+            attributes: ['name', 'count'],
+            required: true,
+          },
+        ],
       });
       this.type = 'json';
       this.status = 200;
-      this.body = rice;
+      this.body = JSON.stringify(rice);
     } catch (err) {
       this.type = 'json';
       this.status = 403;
@@ -40,26 +54,48 @@ export default new Resource('rice', {
     const rule = {
       userId: { type: 'number', required: true },
       title: { type: 'string', required: true },
-      description: { type: 'string', required: false },
-      files: { type: 'array', itemType: 'string', required: true },
-      tags: { type: 'array', itemType: 'string', required: false },
+      description: { type: 'string', allowEmpty: true, required: false },
+      files: { type: 'array', itemType: 'string', required: false },
+      tags: { type: 'string', allowEmpty: true, required: false },
     };
     const errors = parameter.validate(rule, body);
-    body.files = JSON.stringify(body.files);
+    if (body.tags) {
+      body.tags = body.tags.split(',', MAX_TAGS);
+    }
     if (errors) {
-      debug(errors);
       this.type = 'json';
-      this.status = 400;
+      this.status = 200;
       this.body = { errors };
       return;
     }
+    const fields = [
+      'userId',
+      'title',
+      'description',
+      'files',
+    ];
     try {
-      const rice = yield Rice.create(body);
+      body.files = JSON.stringify(body.files);
+      const rice = yield Rice.create(body, { fields });
+
+      // create tag or increment its count
+      for (let i = 0; i < body.tags.length; i++) {
+        const found = yield Tag.findOne({
+          where: { name: body.tags[i].toLowerCase() },
+        });
+        if (found) {
+          found.increment('count');
+        } else {
+          const newTag = yield Tag.create({ name: body.tags[i] });
+          yield rice.addTag(newTag);
+        }
+      }
       this.type = 'json';
       this.status = 201;
       this.body = rice;
     } catch (err) {
-      this.throw = (403, 'error creating rice');
+      debug(err);
+      this.throw(403, 'error creating rice');
     }
   }],
 

@@ -10,7 +10,7 @@ after(function () {
   db.sequelize.close();
 });
 
-describe('GET /api/v1/search', function () {
+xdescribe('GET /api/v1/search', function () {
 
   it('sends 200 for no match', function (done) {
     request

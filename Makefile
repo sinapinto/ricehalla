@@ -15,20 +15,21 @@ ESLINT = $(BIN)/eslint
 MOCHA = $(BIN)/mocha
 
 # flags
-WEBPACK_CLIENT ?= --config config/webpack/client.babel.js
-WEBPACK_SERVER ?= --config config/webpack/server.babel.js
-ESLINT_FLAGS ?=
-MOCHA_FLAGS ?= -r test/setup.js \
+WEBPACK_CLIENT_FLAGS += --config config/webpack/client.babel.js
+WEBPACK_SERVER_FLAGS += --config config/webpack/server.babel.js
+ESLINT_FLAGS +=
+MOCHA_FLAGS += -r co-mocha \
+               -r test/setup.js \
                -r babel-polyfill \
                --compilers js:babel-core/register,css:test/compiler.js \
 
 # paths
 TEST_FILES := $(shell \
   find . \
-    -type f -name '*.spec.js' \
-    ! \( -path './.git' -o \
-    -path './node_modules' -o \
-    -path './static' \) \
+    -type f \
+    -name '*.spec.js' \
+    -path './test*' \
+    | sort \
 )
 LINT_DIRS = src
 SERVER_PATH = ./static/dist/server.js
@@ -57,11 +58,11 @@ build: clean setup build-client build-server
 
 build-client:
 	@echo -e "$(P) building $(NODE_ENV) client bundle\n"
-	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_CLIENT)
+	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_CLIENT_FLAGS)
 
 build-server:
-	@echo -e "$(P) building $(NODE_ENV) server bundle\n"
-	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_SERVER)
+	@echo -e "$(P) building $(NODE_ENV) server\n"
+	@NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) $(WEBPACK) $(WEBPACK_SERVER_FLAGS)
 
 run: setup
 	@echo -e "$(P) starting server\n"

@@ -32,7 +32,11 @@ export function submit(body) {
     try {
       dispatch({ type: POST_RICE_REQUEST });
       const submitted = await post(body);
-      dispatch({ type: POST_RICE_SUCCESS, submitted });
+      if (submitted.errors) {
+        dispatch({ type: POST_RICE_FAILURE, errors: submitted.errors });
+      } else {
+        dispatch({ type: POST_RICE_SUCCESS, submitted });
+      }
       browserHistory.push(`/rice/${submitted.id}`);
     } catch (err) {
       dispatch({ type: POST_RICE_FAILURE, errors: err });

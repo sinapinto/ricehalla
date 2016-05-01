@@ -19,7 +19,9 @@ const propTypes = {
 class Rice extends Component {
   componentDidMount() {
     // populate this.props.detail
-    this.props.showRice(this.props.params.id);
+    if (this.props.params.id) {
+      this.props.showRice(this.props.params.id);
+    }
   }
 
   render() {

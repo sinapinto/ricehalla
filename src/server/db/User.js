@@ -1,20 +1,20 @@
-module.exports = function user(sequelize, Sequelize) {
+module.exports = function user(sequelize, DataTypes) {
   const User = sequelize.define('User', {
     id: {
+      type: DataTypes.BIGINT,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT,
     },
     username: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       validate: {
         min: 2
       },
     },
     email: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       unique: true,
       validate: {
         isEmail: true
@@ -22,11 +22,10 @@ module.exports = function user(sequelize, Sequelize) {
     },
     passwordHash: {
       allowNull: false,
-      type: Sequelize.STRING,
-      field: 'password_hash',
+      type: DataTypes.STRING,
     },
     about: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
     },
   }, {
     classMethods: {
@@ -41,9 +40,9 @@ module.exports = function user(sequelize, Sequelize) {
         const values = this.get();
         delete values.id;
         delete values.passwordHash;
-        delete values.created_at;
-        delete values.updated_at;
-        delete values.deleted_at;
+        delete values.createdAt;
+        delete values.updatedAt;
+        delete values.deletedAt;
         return values;
       },
     },

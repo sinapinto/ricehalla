@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
+import Select from 'react-select';
+import fetch from 'isomorphic-fetch';
+import API_BASE from '../../utils/APIBase';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Label from '../../components/Label';
@@ -11,6 +14,7 @@ import { connect } from 'react-redux';
 import { submit as submitRice } from '../../actions/rice';
 import { uploadFile } from '../../actions/upload';
 import style from './style.css';
+import "react-select/dist/react-select.css";
 
 const propTypes = {
   upload: PropTypes.shape({
@@ -33,11 +37,14 @@ class Submit extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTextInputChange = this.handleTextInputChange.bind(this);
+    this.handleTags = this.handleTags.bind(this);
     this.upload = this.upload.bind(this);
+    this.fetchTags = this.fetchTags.bind(this);
     this.state = {
       title: '',
       description: '',
       fileName: '',
+      tags: '',
     };
   }
 
@@ -54,6 +61,7 @@ class Submit extends Component {
       userId: this.props.userId,
       title: this.state.title,
       description: this.state.description,
+      tags: this.state.tags,
       files,
     });
   }
@@ -61,6 +69,24 @@ class Submit extends Component {
   handleTextInputChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  fetchTags(input) {
+    return fetch(`${API_BASE}/api/v1/tag`)
+      .then(res => res.json())
+      .then(res => {
+        const options = res.map(tag => {
+          return {
+            value: tag.name,
+            label: tag.name,
+          };
+        });
+        return { options, complete: true };
+      });
+  }
+
+  handleTags(tags) {
+    this.setState({ tags });
   }
 
   render() {
@@ -85,6 +111,15 @@ class Submit extends Component {
             <Icon name="upload" size={64} className={style.dzIcon} />
             <p className={style.dzHeader}>drop files here or click to upload</p>
           </Dropzone>
+          <Select
+            multi
+            joinValues
+            allowCreate
+            name="tags"
+            value={this.state.tags}
+            onChange={this.handleTags}
+            asyncOptions={this.fetchTags}
+          />
           <Label htmlFor="description">Description</Label>
           <TextInput
             multiline

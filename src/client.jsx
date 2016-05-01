@@ -18,7 +18,9 @@ render(
   rootElem
 );
 
-// re-render with redux devtools in development
+// re-render with redux devtools in development.
+// Note that this can cause network requests to be repeated
+// on the initial page load in development.
 if (__DEV__) {
   render(
     <Provider store={store}>

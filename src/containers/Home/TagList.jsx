@@ -2,7 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import style from './style.css';
 
 const propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.string),
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
   max: PropTypes.number,
 };
 
@@ -30,6 +35,7 @@ class TagList extends Component {
     const { max, tags } = this.props;
     let taglist = tags;
     let more = null;
+    if (!tags) return null;
 
     if (!showingMore) {
       taglist = taglist.slice(0, max);
@@ -51,7 +57,7 @@ class TagList extends Component {
 
     return (
       <td className={style.taglist}>
-        {taglist.map((tag, i) => <span className={style.tag} key={i}>{tag}</span>)}
+        {taglist.map((tag, i) => <span className={style.tag} key={i}>{tag.name}</span>)}
         {more}
       </td>
     );

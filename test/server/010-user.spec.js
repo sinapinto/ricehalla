@@ -22,7 +22,7 @@ describe('GET /api/v1/user', function () {
 
 });
 
-describe('GET /api/v1/user/:user', function () {
+xdescribe('GET /api/v1/user/:user', function () {
 
   it('returns found user', function (done) {
     db.User.sync().then(function () {
