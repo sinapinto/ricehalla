@@ -32,16 +32,33 @@ export const LOADERS = [
     query: {
       limit: 8192,
     },
-  }, {
+  },
+  {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-  }, {
+  },
+  {
     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
-  }, {
+  },
+  {
     test: /\.json$/,
     loader: 'json-loader'
+  },
+];
+
+export function CSS_TEST(absPath) {
+  if (/global\.css$/.test(absPath)) {
+    return false;
   }
+  if (absPath.indexOf('node_modules/react-select') > -1) {
+    return false;
+  }
+  return /\.css$/.test(absPath);
+}
+
+export const CSS_EXCLUDE = [
+  path.resolve(ROOT_PATH, './node_modules/react-select'),
 ];
 
 export function POSTCSS() {

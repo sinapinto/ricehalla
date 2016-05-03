@@ -10,15 +10,15 @@ module.exports = function user(sequelize, DataTypes) {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        min: 2
+        min: 2,
       },
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true,
+      },
     },
     passwordHash: {
       allowNull: false,
@@ -33,14 +33,14 @@ module.exports = function user(sequelize, DataTypes) {
         User.hasMany(models.Rice, {
           foreignKey: 'userId',
         });
-      }
+      },
     },
     instanceMethods: {
       toJSON() {
         const values = this.get();
         delete values.id;
         delete values.passwordHash;
-        delete values.createdAt;
+        // delete values.createdAt;
         delete values.updatedAt;
         delete values.deletedAt;
         return values;

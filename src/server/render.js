@@ -30,8 +30,8 @@ export default function *() {
   const initialState = {
     auth: {
       token: this.cookies.get('token'),
-      isAuthenticated: !!this.state.user
-    }
+      isAuthenticated: !!this.state.user,
+    },
   };
   const store = configureStore(initialState);
   const location = createLocation(this.originalUrl);

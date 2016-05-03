@@ -56,7 +56,7 @@ if (!__DEV__) {
   app.use(require('koa-etag')());
 
   const cache = require('lru-cache')({
-    maxAge: 30000 // global max age
+    maxAge: 30000, // global max age
   });
 
   app.use(require('koa-cash')({
@@ -65,7 +65,7 @@ if (!__DEV__) {
     },
     set(key, value) {
       cache.set(key, value);
-    }
+    },
   }));
 }
 

@@ -34,19 +34,24 @@ class RiceCard extends Component {
       // TODO: should rice without an image be valid?
       img = 'default.jpg';
     }
-    return <img src={`/uploads/${img}`} height={100} />;
+    return (
+      <img
+        className={style.thumbnailImage}
+        src={`/uploads/${img}`}
+        width={315}
+      />
+    );
   }
 
   render() {
     const { riceId, title, author, description, likes, tags, createdAt } = this.props;
     return (
-      <tr styles={style.row}>
-          <td>{likes}</td>
-          <td>{this.renderThumbnail()}</td>
-          <td><Link to={`/rice/${riceId}`}>{author}</Link></td>
-          <td>{title}</td>
-          <TagList tags={tags} />
-      </tr>
+      <Link
+        to={`/rice/${riceId}`}
+        className={style.thumbnailWrapper}
+      >
+        {this.renderThumbnail()}
+      </Link>
     );
   }
 }

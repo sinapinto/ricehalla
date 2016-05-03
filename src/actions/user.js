@@ -12,7 +12,7 @@ async function get(username, token) {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
-    }
+    },
   })
   .then(handleErrors)
   .then(res => res.json());

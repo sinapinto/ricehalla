@@ -13,7 +13,7 @@ module.exports = function rice(sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true,
-      }
+      },
     },
     description: {
       type: DataTypes.TEXT,

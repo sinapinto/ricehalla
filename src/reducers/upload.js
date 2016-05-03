@@ -2,6 +2,7 @@ import {
   UPLOAD_PROGRESS,
   UPLOAD_SUCCESS,
   UPLOAD_FAILURE,
+  CLEAR_UPLOADS,
 } from '../actions/upload';
 
 const initialState = {
@@ -36,6 +37,8 @@ export default function (state = initialState, action) {
           [action.uid]: action.error,
         },
       };
+    case CLEAR_UPLOADS:
+      return initialState;
     default:
       return state;
   }

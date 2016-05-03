@@ -9,14 +9,28 @@ const propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired,
   detail: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
+    User: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+    }).isRequired,
+    Tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        count: PropTypes.number.isRequired,
+      }).isRequired
+    ),
+    id: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    likes: PropTypes.number.isRequired,
+    files: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
   }).isRequired,
   showRice: PropTypes.func.isRequired,
 };
 
-class Rice extends Component {
+class RiceDetail extends Component {
   componentDidMount() {
     // populate this.props.detail
     if (this.props.params.id) {
@@ -36,7 +50,7 @@ class Rice extends Component {
   }
 }
 
-Rice.propTypes = propTypes;
+RiceDetail.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
@@ -44,4 +58,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { showRice })(Rice);
+export default connect(mapStateToProps, { showRice })(RiceDetail);

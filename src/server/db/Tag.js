@@ -26,7 +26,7 @@ module.exports = function tag(sequelize, DataTypes) {
           },
           foreignKey: 'tagId',
         });
-      }
+      },
     },
     instanceMethods: {
       toJSON() {

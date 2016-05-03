@@ -1,3 +1,4 @@
+import querystring from 'querystring';
 import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
@@ -20,10 +21,25 @@ function *requireAuth(next) {
 export default new Resource('rice', {
   // GET /rice
   index: function *index() {
+    const body = querystring.parse(this.request.query);
+    const rule = {
+      offset: { type: 'number', required: false },
+      limit: { type: 'number', required: false },
+      order: { type: 'string', required: false },
+    };
+    const errors = parameter.validate(rule, body);
+    if (errors) {
+      this.type = 'json';
+      this.status = 200;
+      this.body = { errors };
+      return;
+    }
+    const { offset = 0, limit = 20, order = 'createdAt' } = body;
     try {
       const rice = yield Rice.findAll({
-        order: [['createdAt', 'DESC']],
-        // attributes: { exclude: ['deletedAt'] },
+        order: [[order, 'DESC']],
+        offset,
+        limit,
         include: [
           {
             model: User,
@@ -33,13 +49,13 @@ export default new Resource('rice', {
           {
             model: Tag,
             attributes: ['name', 'count'],
-            required: true,
+            required: false,
           },
         ],
       });
       this.type = 'json';
       this.status = 200;
-      this.body = JSON.stringify(rice);
+      this.body = rice;
     } catch (err) {
       this.type = 'json';
       this.status = 403;
@@ -103,6 +119,18 @@ export default new Resource('rice', {
   show: function *show() {
     const rice = yield Rice.findOne({
       where: { id: this.params.rice },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+          required: true,
+        },
+        {
+          model: Tag,
+          attributes: ['name', 'count'],
+          required: false,
+        },
+      ],
     });
     if (!rice) {
       this.throw(404);
@@ -119,7 +147,7 @@ export default new Resource('rice', {
   // DELETE /rice/:rice
   destroy: [requireAuth, function *destroy() {
     const found = yield Rice.findOne({
-      where: { id: this.params.rice }
+      where: { id: this.params.rice },
     });
     if (!found) {
       this.throw(404);
@@ -128,5 +156,5 @@ export default new Resource('rice', {
     this.type = 'json';
     this.status = 200;
     this.body = rice;
-  }]
+  }],
 });

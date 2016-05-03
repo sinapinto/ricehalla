@@ -6,9 +6,10 @@ import {
 
 const initialState = {
   isFetching: false,
-  file: '',
-  title: '',
-  description: '',
+  username: '',
+  email: '',
+  about: '',
+  createdAt: '',
   error: null,
 };
 

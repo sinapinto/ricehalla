@@ -1,22 +1,28 @@
 import Resource from 'koa-resource-router';
-import { User } from '../../db';
+import { User, Rice, Tag } from '../../db';
 
 export default new Resource('user', {
   // GET /user
   *index() {
-    this.type = 'json';
-    this.status = 200;
-    this.body = {};
+    this.body = yield User.findAll();
   },
-
-  // POST /user
-  // *create() {
-  // },
 
   // GET /user/:user
   *show() {
     const user = yield User.findOne({
-      where: { username: this.params.user }
+      where: { username: this.params.user },
+      include: [
+        {
+          model: Rice,
+          attributes: ['title', 'description', 'createdAt'],
+          required: false,
+          include: [{
+            model: Tag,
+            attributes: ['name', 'count'],
+            required: false,
+          }],
+        },
+      ],
     });
     if (!user) {
       this.throw(404);
@@ -25,12 +31,4 @@ export default new Resource('user', {
     this.status = 200;
     this.body = user;
   },
-
-  // PUT /user/:user
-  // *update() {
-  // },
-
-  // DELETE /user/:user
-  // *destroy() {
-  // }
 });

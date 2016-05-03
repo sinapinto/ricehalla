@@ -56,22 +56,3 @@
     }
   }
 }
-
-.shake {
-  animation: shake 0.3s both;
-}
-
-@keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25%, 75% {
-    transform: translateX(15px);
-  }
-  50% {
-    transform: translateX(-15px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}

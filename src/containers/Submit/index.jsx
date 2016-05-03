@@ -12,7 +12,7 @@ import Dropzone from '../../components/Dropzone';
 import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
 import { submit as submitRice } from '../../actions/rice';
-import { uploadFile } from '../../actions/upload';
+import { uploadFile, clearUploads } from '../../actions/upload';
 import style from './style.css';
 import "react-select/dist/react-select.css";
 
@@ -46,6 +46,10 @@ class Submit extends Component {
       fileName: '',
       tags: '',
     };
+  }
+
+  componentDidMount() {
+    this.props.clearUploads();
   }
 
   upload(file) {
@@ -154,4 +158,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { submitRice, uploadFile })(Submit);
+export default connect(mapStateToProps, { submitRice, uploadFile, clearUploads })(Submit);

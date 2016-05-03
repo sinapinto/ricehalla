@@ -32,8 +32,8 @@ router.post('/login', function *login() {
     where: {
       $or: [
         { username },
-        { email: username }
-      ]
+        { email: username },
+      ],
     },
   });
   this.assert(user, 401);

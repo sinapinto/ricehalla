@@ -21,20 +21,11 @@ export default new Resource('search', {
           'description',
           'likes',
         ],
-        // include: [{
-        //   model: User,
-        //   attributes: ['username'],
-        //   required: true
-        // }, {
-        //   model: Tag,
-        //   attributes: ['name'],
-        //   required: false,
-        // }],
         where: {
           $or: [
             { title: { $like: `%${q}%` } },
-            { description: { $like: `%${q}%` } }
-          ]
+            { description: { $like: `%${q}%` } },
+          ],
         },
         raw: true,
       });

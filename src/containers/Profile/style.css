@@ -3,6 +3,12 @@
   width: 100%;
 }
 
+.userInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .list {
   list-style-type: none;
 }

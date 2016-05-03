@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
     initializedState = {
       ...initialState,
       ...state,
-      hydrated: true
+      hydrated: true,
     };
   }
 
@@ -80,7 +80,7 @@ export default function (state = initialState, action) {
     case LOGOUT_FAILURE:
       return {
         ...initializedState,
-        logoutError: action.error
+        logoutError: action.error,
       };
     default:
       return initializedState;

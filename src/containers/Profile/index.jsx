@@ -6,38 +6,42 @@ import style from './style.css';
 
 const propTypes = {
   user: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-    about: PropTypes.string,
+    Rice: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    about: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    error: PropTypes.object,
   }).isRequired,
   params: PropTypes.shape({
-    username: PropTypes.string,
+    username: PropTypes.string.isRequired,
   }).isRequired,
   loadUser: PropTypes.func.isRequired,
 };
 
 class Profile extends Component {
-  static prefetchData({ dispatch, params }) {
-    return dispatch(loadUser(params.username));
-  }
-
-  componentWillMount() {
-    if (!this.props.user.username) {
-      this.props.loadUser(this.props.params.username);
-    }
+  componentDidMount() {
+    this.props.loadUser(this.props.params.username || this.props.user.username);
   }
 
   render() {
-    const { username, email, about } = this.props.user;
+    const { username, about } = this.props.user;
     return (
       <div className={style.root}>
         <Helmet title={`${username} | Ricehalla`} />
-        <h2>{username}</h2>
-        <ul className={style.list}>
-          <li><b>username:</b> {username}</li>
-          <li><b>email:</b> {email}</li>
-          <li><b>about:</b> {about}</li>
-        </ul>
+        <div className={style.userInfo}>
+          <h2>{username}</h2>
+          <ul className={style.list}>
+            <li>{username}</li>
+            <li>{about}</li>
+          </ul>
+        </div>
       </div>
     );
   }

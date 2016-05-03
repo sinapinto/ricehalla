@@ -65,13 +65,17 @@ export default {
         }
       },
       {
+        test: /global\.css$/,
+        loader: 'style!css'
+      },
+      {
         test: /\.css$/,
         include: path.resolve(shared.ROOT_PATH, './node_modules/react-select'),
         loader: 'style!css'
       },
       {
-        test: /\.css$/,
-        exclude: path.resolve(shared.ROOT_PATH, './node_modules/react-select'),
+        test: shared.CSS_TEST,
+        exclude: shared.CSS_EXCLUDE,
         loader: shared.DEV
           ? 'style!css?modules&importLoaders=1&localIdentName=[hash:3]_[local]!postcss'
           : ExtractTextPlugin.extract('style',

@@ -23,7 +23,7 @@ const MulterMiddleware = multer({
       debug('invalid mimetype', file.mimetype);
     }
     return valid;
-  }
+  },
 });
 
 export default new Resource('upload', {
@@ -39,5 +39,5 @@ export default new Resource('upload', {
       this.status = 400;
       this.body = { errors: 'upload error' };
     }
-  }]
+  }],
 });

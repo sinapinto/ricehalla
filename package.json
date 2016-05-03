@@ -82,6 +82,7 @@
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.0",
     "react-helmet": "^3.0.0",
+    "react-masonry-component": "^4.0.3",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "react-select": "^0.9.1",
@@ -122,7 +123,7 @@
       "__HOST__": "localhost"
     },
     "rules": {
-      "comma-dangle": 0,
+      "arrow-body-style": 1,
       "global-require": 0
     }
   }

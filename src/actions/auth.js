@@ -46,7 +46,7 @@ export function register(body) {
       dispatch({
         type: REGISTER_SUCCESS,
         username: body.username,
-        token: res.token
+        token: res.token,
       });
     } catch (err) {
       dispatch({ type: REGISTER_FAILURE, error: err.message });

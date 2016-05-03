@@ -8,12 +8,12 @@ export default {
       path: '/',
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       domain: null,
-      secure: false
+      secure: false,
     };
 
     const opt = {
       ...options,
-      ...defaultOptions
+      ...defaultOptions,
     };
 
     if (opt.expires instanceof Date) {

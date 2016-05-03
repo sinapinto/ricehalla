@@ -19,9 +19,9 @@ async function post(body) {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   })
   .then(handleErrors)
   .then(res => res.json());
@@ -70,8 +70,8 @@ export const LIST_RICE_REQUEST = 'LIST_RICE_REQUEST';
 export const LIST_RICE_SUCCESS = 'LIST_RICE_SUCCESS';
 export const LIST_RICE_FAILURE = 'LIST_RICE_FAILURE';
 
-function list() {
-  return fetch(`${API_BASE}/api/v1/rice`)
+function list(queryParams = '') {
+  return fetch(`${API_BASE}/api/v1/rice/${queryParams}`)
     .then(handleErrors)
     .then(res => res.json());
 }
@@ -81,6 +81,18 @@ export function fetchList() {
     try {
       dispatch({ type: LIST_RICE_REQUEST });
       const riceList = await list();
+      dispatch({ type: LIST_RICE_SUCCESS, list: riceList });
+    } catch (err) {
+      dispatch({ type: LIST_RICE_FAILURE, errors: err });
+    }
+  };
+}
+
+export function fetchPopular() {
+  return async dispatch => {
+    try {
+      dispatch({ type: LIST_RICE_REQUEST });
+      const riceList = await list('?order=likes');
       dispatch({ type: LIST_RICE_SUCCESS, list: riceList });
     } catch (err) {
       dispatch({ type: LIST_RICE_FAILURE, errors: err });
