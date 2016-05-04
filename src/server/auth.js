@@ -1,28 +1,40 @@
 import bcrypt from 'co-bcrypt';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { User } from './db';
 import config from '../../config/index.json';
 const router = require('koa-router')();
 
 router.post('/signup', function *signup() {
-  const { username, password, email } = this.request.body;
+  const { username, password } = this.request.body;
+  const email = this.request.body.email.trim();
   const salt = yield bcrypt.genSalt(10);
-  const hash = yield bcrypt.hash(password, salt);
-  const user = yield User.create({
-    username,
-    email,
-    passwordHash: hash,
-    about: '',
-  });
-  this.status = 201;
-  const payload = {
-    id: user.id,
-    username,
-    email,
-  };
-  const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
-  this.type = 'json';
-  this.body = { token, id: user.id };
+  const passwordHash = yield bcrypt.hash(password, salt);
+
+  const md5 = crypto.createHash('md5');
+  md5.update(email.toLowerCase());
+  const emailHash = md5.digest('hex');
+
+  try {
+    const user = yield User.create({
+      username,
+      email,
+      emailHash,
+      passwordHash,
+      about: '',
+    });
+    this.status = 201;
+    const payload = {
+      id: user.id,
+      username,
+      email,
+    };
+    const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
+    this.type = 'json';
+    this.body = { token, id: user.id };
+  } catch (e) {
+    this.throw(403, 'an account with that username or email already exists');
+  }
 });
 
 

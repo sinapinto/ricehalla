@@ -48,7 +48,7 @@ export default new Resource('rice', {
           },
           {
             model: Tag,
-            attributes: ['name', 'count'],
+            attributes: ['name'],
             required: false,
           },
         ],
@@ -94,17 +94,10 @@ export default new Resource('rice', {
       body.files = JSON.stringify(body.files);
       const rice = yield Rice.create(body, { fields });
 
-      // create tag or increment its count
+      // create tags
       for (let i = 0; i < body.tags.length; i++) {
-        const found = yield Tag.findOne({
-          where: { name: body.tags[i].toLowerCase() },
-        });
-        if (found) {
-          found.increment('count');
-        } else {
-          const newTag = yield Tag.create({ name: body.tags[i] });
-          yield rice.addTag(newTag);
-        }
+        const newTag = yield Tag.create({ name: body.tags[i] });
+        yield rice.addTag(newTag);
       }
       this.type = 'json';
       this.status = 201;
@@ -122,12 +115,12 @@ export default new Resource('rice', {
       include: [
         {
           model: User,
-          attributes: ['username'],
+          attributes: ['username', 'emailHash'],
           required: true,
         },
         {
           model: Tag,
-          attributes: ['name', 'count'],
+          attributes: ['name'],
           required: false,
         },
       ],

@@ -2,28 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
-import _debug from 'debug';
 import debounce from '../../utils/debounce';
 import { validateEmail, validateUsername, validatePassword } from '../../utils/validation';
+import { register, clearAuthErrors } from '../../actions/auth';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
 import style from './style.css';
-import { register } from '../../actions/auth';
-
-const debug = _debug('app:register');
 
 const propTypes = {
   registerError: PropTypes.string,
   isFetching: PropTypes.bool,
   register: PropTypes.func.isRequired,
+  clearAuthErrors: PropTypes.func.isRequired,
 };
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -48,6 +46,10 @@ class Register extends Component {
         error: null,
       },
     };
+  }
+
+  componentWillMount() {
+    this.props.clearAuthErrors();
   }
 
   componentWillUnmount() {
@@ -94,10 +96,7 @@ class Register extends Component {
   canSubmit() {
     const { email, username, password } = this.state;
     const { isFetching } = this.props;
-    if (email.valid && username.valid && password.valid && !isFetching) {
-      return true;
-    }
-    return false;
+    return email.valid && username.valid && password.valid && !isFetching;
   }
 
   validate(cb) {
@@ -132,8 +131,6 @@ class Register extends Component {
       };
     }
 
-    debug(newState);
-
     if (Object.keys(newState).length > 0) {
       this.setState(newState, cb);
     }
@@ -153,7 +150,7 @@ class Register extends Component {
               value={this.state.email.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.email.error}
+              invalid={!!this.state.email.error || !!this.props.registerError}
               valid={this.state.email.valid}
               disabled={this.props.isFetching}
               autoFocus
@@ -167,7 +164,7 @@ class Register extends Component {
               value={this.state.username.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.username.error}
+              invalid={!!this.state.username.error || !!this.props.registerError}
               valid={this.state.username.valid}
               disabled={this.props.isFetching}
             />
@@ -181,7 +178,7 @@ class Register extends Component {
               value={this.state.password.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.password.error}
+              invalid={!!this.state.password.error || !!this.props.registerError}
               valid={this.state.password.valid}
               disabled={this.props.isFetching}
             />
@@ -211,4 +208,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, clearAuthErrors })(Register);

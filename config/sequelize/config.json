@@ -13,7 +13,8 @@
       "freezeTableName": true,
       "paranoid": true,
       "underscored" : false
-    }
+    },
+    "logging": false
   },
   "test": {
     "storage": "storage/db.test.sqlite",

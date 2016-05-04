@@ -68,3 +68,11 @@ export function logout() {
     }
   };
 }
+
+export const CLEAR_AUTH_ERRORS = 'CLEAR_AUTH_ERRORS';
+
+export function clearAuthErrors() {
+  return async dispatch => {
+    dispatch({ type: CLEAR_AUTH_ERRORS });
+  };
+}

@@ -39,6 +39,7 @@
   margin-right:auto;
   font-size: 20px;
   font-weight: 600;
+  letter-spacing: -.5px;
   user-select: none;
   text-decoration: none;
   color: color(var(--color-primary) shade(10%));

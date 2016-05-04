@@ -14,7 +14,6 @@ const propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
     }).isRequired
   ),
 };

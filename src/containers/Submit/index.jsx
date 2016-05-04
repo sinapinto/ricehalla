@@ -48,7 +48,7 @@ class Submit extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.clearUploads();
   }
 

@@ -5,7 +5,7 @@ export default new Resource('tag', {
   // GET /tag
   *index() {
     this.body = yield Tag.findAll({
-      attributes: ['name', 'count'],
+      attributes: ['name'],
     });
   },
 });

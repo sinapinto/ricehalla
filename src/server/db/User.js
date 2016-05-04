@@ -7,8 +7,9 @@ module.exports = function user(sequelize, DataTypes) {
       primaryKey: true,
     },
     username: {
-      allowNull: false,
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
       validate: {
         min: 2,
       },
@@ -20,9 +21,13 @@ module.exports = function user(sequelize, DataTypes) {
         isEmail: true,
       },
     },
-    passwordHash: {
-      allowNull: false,
+    emailHash: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    passwordHash: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     about: {
       type: DataTypes.TEXT,
@@ -40,7 +45,6 @@ module.exports = function user(sequelize, DataTypes) {
         const values = this.get();
         delete values.id;
         delete values.passwordHash;
-        // delete values.createdAt;
         delete values.updatedAt;
         delete values.deletedAt;
         return values;

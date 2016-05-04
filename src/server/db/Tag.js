@@ -12,10 +12,6 @@ module.exports = function tag(sequelize, DataTypes) {
         this.setDataValue('name', val.toLowerCase());
       },
     },
-    count: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
-    },
   }, {
     classMethods: {
       associate(models) {

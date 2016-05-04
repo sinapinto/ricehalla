@@ -11,14 +11,15 @@ export default new Resource('user', {
   *show() {
     const user = yield User.findOne({
       where: { username: this.params.user },
+      order: [[Rice, 'createdAt', 'DESC']],
       include: [
         {
           model: Rice,
-          attributes: ['title', 'description', 'createdAt'],
+          attributes: ['id', 'title', 'description', 'createdAt'],
           required: false,
           include: [{
             model: Tag,
-            attributes: ['name', 'count'],
+            attributes: ['name'],
             required: false,
           }],
         },

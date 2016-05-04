@@ -50,8 +50,6 @@ module.exports = function rice(sequelize, DataTypes) {
     instanceMethods: {
       toJSON() {
         const values = this.get();
-        // delete values.createdAt;
-        // delete values.updatedAt;
         delete values.deletedAt;
         return values;
       },

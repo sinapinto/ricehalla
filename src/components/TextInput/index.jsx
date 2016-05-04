@@ -15,10 +15,13 @@ const propTypes = {
 
 function TextInput({ type = 'text', valid, invalid, className, multiline, height, ...other }) {
   const classes = [style.input];
-  if (valid) {
-    classes.push(style.valid);
-  } else if (invalid) {
+  // if both `invalid` and `valid` props are true, it means the
+  // input was validiated locally but the server returned an error.
+  // for this case we want to check the invalid prop first.
+  if (invalid) {
     classes.push(style.invalid);
+  } else if (valid) {
+    classes.push(style.valid);
   }
 
   if (className) {

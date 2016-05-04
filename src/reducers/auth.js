@@ -7,6 +7,7 @@ import {
   REGISTER_FAILURE,
   LOGOUT_REQUEST,
   LOGOUT_FAILURE,
+  CLEAR_AUTH_ERRORS,
 } from '../actions/auth';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   isAuthenticated: false,
   token: null,
   loginInvalid: false,
+  logoutError: null,
   registerError: '',
 };
 
@@ -81,6 +83,13 @@ export default function (state = initialState, action) {
       return {
         ...initializedState,
         logoutError: action.error,
+      };
+    case CLEAR_AUTH_ERRORS:
+      return {
+        ...state,
+        logoutError: null,
+        registerError: '',
+        loginInvalid: false,
       };
     default:
       return initializedState;

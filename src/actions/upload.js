@@ -6,7 +6,6 @@ import API_BASE from '../utils/APIBase';
 export const UPLOAD_PROGRESS = 'UPLOAD_PROGRESS';
 export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS';
 export const UPLOAD_FAILURE = 'UPLOAD_FAILURE';
-export const CLEAR_UPLOADS = 'CLEAR_UPLOADS';
 
 export function uploadFile(file) {
   return async dispatch => {
@@ -48,6 +47,8 @@ export function uploadFile(file) {
     }
   };
 }
+
+export const CLEAR_UPLOADS = 'CLEAR_UPLOADS';
 
 export function clearUploads() {
   return async dispatch => {

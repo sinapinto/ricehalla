@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import moment from 'moment';
 import { show as showRice } from '../../actions/rice';
 import style from './style.css';
 
@@ -11,11 +12,11 @@ const propTypes = {
   detail: PropTypes.shape({
     User: PropTypes.shape({
       username: PropTypes.string.isRequired,
-    }).isRequired,
+      emailHash: PropTypes.string.isRequired,
+    }),
     Tags: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        count: PropTypes.number.isRequired,
       }).isRequired
     ),
     id: PropTypes.number.isRequired,
@@ -26,7 +27,7 @@ const propTypes = {
     files: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   showRice: PropTypes.func.isRequired,
 };
 
@@ -39,12 +40,31 @@ class RiceDetail extends Component {
   }
 
   render() {
-    const { title = '', description, id } = this.props.detail;
+    const { User, Tags, title, description, likes, userId, id } = this.props.detail;
+    const files = typeof this.props.detail.files !== 'undefined'
+      ? JSON.parse(this.props.detail.files)
+      : [];
+    const createdAt = moment(this.props.detail.createdAt).from();
+    const updatedAt = moment(this.props.detail.updatedAt).from();
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
-        <div>{description}</div>
-        <div>{id}</div>
+        <p>{title}</p>
+        <p>{description}</p>
+        {User ? <p>{User.username}</p> : null}
+        <p>{likes} likes</p>
+        <p>created {createdAt}</p>
+        <p>updated {updatedAt}</p>
+        {files ? files.map((file, i) =>
+          <div key={i}>
+            <p>{file}</p>
+          </div>)
+        : null}
+        {Tags ? Tags.map((tag, i) =>
+          <div key={i}>
+            <p>{tag.name}</p>
+          </div>)
+        : null}
       </div>
     );
   }

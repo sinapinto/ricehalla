@@ -19,7 +19,6 @@ const propTypes = {
       Tags: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
-          count: PropTypes.number.isRequired,
         }).isRequired
       ),
       id: PropTypes.number.isRequired,
@@ -31,7 +30,7 @@ const propTypes = {
       createdAt: PropTypes.string.isRequired,
       updatedAt: PropTypes.string.isRequired,
     }).isRequired,
-  ).isRequired,
+  ),
   errors: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
@@ -71,7 +70,7 @@ class Home extends Component {
           <div className={style.sortLinks}>
             <a href="javascript:;" onClick={this.fetchNew}>New</a>
             <a href="javascript:;" onClick={this.fetchPopular}>Popular</a>
-            {`${this.props.list.length} images`}
+            {this.props.list.length ? `${this.props.list.length} results` : ''}
           </div>
           <TextInput
             className={style.tagSearch}
@@ -86,7 +85,7 @@ class Home extends Component {
           options={{ transitionDuration: '0.4s', gutter: 10 }}
           elementType="div"
         >
-          {this.props.list.length && this.props.list.filter(rice =>
+          {(this.props.list.length && this.props.list[0].id !== null) ? this.props.list.filter(rice =>
             this.state.filterText.split(/\s|,/).every(filter =>
               filter === '' ? true :  rice.Tags.some(tag => tag.name.indexOf(filter) > -1)))
             .map(rice =>
@@ -100,7 +99,8 @@ class Home extends Component {
                 createdAt={rice.createdAt}
                 description={rice.description}
                 tags={rice.Tags}
-              />)}
+              />)
+              : null}
         </Masonry>
       </div>
     );
