@@ -34,9 +34,6 @@ const propTypes = {
   loadUser: PropTypes.func.isRequired,
 };
 
-const defaultProps = {
-}
-
 class Profile extends Component {
   componentDidMount() {
     this.props.loadUser(this.props.params.username);
@@ -47,34 +44,41 @@ class Profile extends Component {
     return (
       <div className={style.root}>
         <Helmet title={`${username} | Ricehalla`} />
-        <div className={style.bio}>
-          {emailHash ?
-            <img
-              src={`http://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
-              className={style.avatar}
-            />
-            : null}
-          <h1 className={style.username}>
-            <Link to={`/user/${this.props.params.username}`}>
-              {username}
-            </Link>
-          </h1>
-          <p className={style.created}>
-            Joined on {createdAt ? moment(createdAt).format('dddd, MMMM Do YYYY') : ''}
-          </p>
-        </div>
-        <div className={style.log}>
-          {Rice ? Rice.map(rice =>
-            <div key={rice.id}>
-              <Link to={`/rice/${rice.id}`}>{rice.title}</Link>
-              <div>{rice.description}</div>
-              {rice.Tags ? rice.Tags.map((tag, i) =>
-                <span key={i} className={style.tag}>
-                  {tag.name}
-                </span>)
+        <div className={style.bioWrapper}>
+          <div className={style.bio}>
+            {emailHash ?
+              <img
+                src={`http://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
+                className={style.avatar}
+              />
               : null}
-              <div>{moment(rice.createdAt).from()}</div>
-            </div>)
+            <div>
+              <h1 className={style.username}>
+                <Link to={`/user/${this.props.params.username}`}>
+                  {username}
+                </Link>
+              </h1>
+              <span className={style.joined}>
+                {createdAt ? `Joined on ${moment(createdAt).format('dddd, MMMM Do YYYY')}` : ''}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className={style.activity}>
+          <h2 className={style.header}>Recent</h2>
+          {Rice ? Rice.map(rice =>
+            <Link key={rice.id} to={`/rice/${rice.id}`}>
+              <div className={style.rWrapper}>
+                <h3 className={style.rTitle}>{rice.title}</h3>
+                <p className={style.rDescription}>{rice.description}</p>
+                {rice.Tags ? rice.Tags.map((tag, i) =>
+                  <span key={i} className={style.rTag}>
+                    {tag.name}
+                  </span>)
+                : null}
+                <div className={style.rAge}>{moment(rice.createdAt).from()}</div>
+              </div>
+            </Link>)
           : null}
         </div>
       </div>

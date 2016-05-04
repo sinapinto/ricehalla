@@ -137,6 +137,21 @@ class Register extends Component {
   }
 
   render() {
+    const emailInvalid = !!this.state.email.error || !!this.props.registerError;
+    let emailValid = this.state.email.valid;
+    if (emailInvalid) {
+      emailValid = false;
+    }
+    const usernameInvalid = !!this.state.username.error || !!this.props.registerError;
+    let usernameValid = this.state.username.valid;
+    if (usernameInvalid) {
+      usernameValid = false;
+    }
+    const passwordInvalid = !!this.state.password.error || !!this.props.registerError;
+    let passwordValid = this.state.password.valid;
+    if (passwordInvalid) {
+      passwordValid = false;
+    }
     return (
       <div className={style.root}>
         <Helmet title="Register | Ricehalla" />
@@ -150,8 +165,8 @@ class Register extends Component {
               value={this.state.email.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.email.error || !!this.props.registerError}
-              valid={this.state.email.valid}
+              invalid={emailInvalid}
+              valid={emailValid}
               disabled={this.props.isFetching}
               autoFocus
             />
@@ -164,8 +179,8 @@ class Register extends Component {
               value={this.state.username.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.username.error || !!this.props.registerError}
-              valid={this.state.username.valid}
+              invalid={usernameInvalid}
+              valid={usernameValid}
               disabled={this.props.isFetching}
             />
           </Fieldset>
@@ -178,11 +193,12 @@ class Register extends Component {
               value={this.state.password.value}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              invalid={!!this.state.password.error || !!this.props.registerError}
-              valid={this.state.password.valid}
+              invalid={passwordInvalid}
+              valid={passwordValid}
               disabled={this.props.isFetching}
             />
           </Fieldset>
+          <p>{this.props.registerError}</p>
           <Button
             primary
             disabled={this.props.isFetching}

@@ -23,7 +23,6 @@ router.post('/signup', function *signup() {
       passwordHash,
       about: '',
     });
-    this.status = 201;
     const payload = {
       id: user.id,
       username,
@@ -31,9 +30,12 @@ router.post('/signup', function *signup() {
     };
     const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
     this.type = 'json';
+    this.status = 201;
     this.body = { token, id: user.id };
   } catch (e) {
-    this.throw(403, 'an account with that username or email already exists');
+    this.type = 'json';
+    this.status = 403;
+    this.body = { message: 'an account with that username or email already exists' };
   }
 });
 

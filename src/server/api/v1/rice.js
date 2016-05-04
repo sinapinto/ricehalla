@@ -76,7 +76,7 @@ export default new Resource('rice', {
     };
     const errors = parameter.validate(rule, body);
     if (body.tags) {
-      body.tags = body.tags.split(',', MAX_TAGS);
+      body.tags = body.tags.split(',', MAX_TAGS).filter(tag => tag.length < 15);
     }
     if (errors) {
       this.type = 'json';

@@ -29,10 +29,6 @@ class RiceCard extends Component {
       ? JSON.parse(this.props.files)
       : [];
     let img = files.find(f => /\.(png|gif|jpe?g)(?:-large)?$/.test(f));
-    if (typeof img === 'undefined') {
-      // TODO: should rice without an image be valid?
-      img = 'default.jpg';
-    }
     return (
       <img
         className={style.thumbnailImage}
