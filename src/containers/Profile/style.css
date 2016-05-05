@@ -75,7 +75,6 @@
 
 }
 
-
 .rDescription {
   color: color(var(--font-color) tint(40%));
 }
@@ -86,7 +85,7 @@
   border-radius: 5px;
   padding: 0 8px;
   line-height: 22px;
-  margin: 1px;
+  margin: 2px;
   opacity: 0.85;
   font-size: 12px;
   transition: opacity .2s;

@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router';
 import moment from 'moment';
+import Icon from '../../components/Icon';
 import { show as showRice } from '../../actions/rice';
 import style from './style.css';
 
@@ -19,24 +21,50 @@ const propTypes = {
         name: PropTypes.string.isRequired,
       }).isRequired
     ),
-    id: PropTypes.number.isRequired,
-    userId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    likes: PropTypes.number.isRequired,
-    files: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    userId: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    likes: PropTypes.number,
+    files: PropTypes.string,
+    createdAt: PropTypes.string,
+    updatedAt: PropTypes.string,
   }),
   showRice: PropTypes.func.isRequired,
 };
 
 class RiceDetail extends Component {
+  constructor() {
+    super();
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.state = {
+      liked: false,
+    };
+  }
+
+  handleLikeClick() {
+    this.setState({ liked: !this.state.liked });
+  }
+
   componentDidMount() {
-    // populate this.props.detail
     if (this.props.params.id) {
       this.props.showRice(this.props.params.id);
     }
+  }
+
+  renderImage() {
+    const files = typeof this.props.detail.files !== 'undefined'
+      ? JSON.parse(this.props.detail.files)
+      : [];
+    let img = files.find(f => /\.(png|gif|jpe?g)(?:-large)?$/.test(f));
+    return img ?
+      <a target="_blank" href={`/uploads/${img}`}>
+        <img
+          className={style.image}
+          src={`/uploads/${img}`}
+        />
+      </a>
+      : null;
   }
 
   render() {
@@ -49,21 +77,58 @@ class RiceDetail extends Component {
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
-        <p>{title}</p>
-        <p>{description}</p>
-        {User ? <p>{User.username}</p> : null}
-        <p>{likes} likes</p>
-        <p>created {createdAt}</p>
-        <p>updated {updatedAt}</p>
+        {this.renderImage()}
         {files ? files.map((file, i) =>
-          <div key={i}>
-            <p>{file}</p>
+          <div key={i} className={style.fileLinkWrapper}>
+            <Link to={`uploads/${file}`} className={style.fileLink}>
+              <Icon name="link" size={20} />
+              <span className={style.fileName}>{file}</span>
+            </Link>
           </div>)
         : null}
-        {Tags ? Tags.map((tag, i) =>
-          <div key={i}>
-            <p>{tag.name}</p>
-          </div>)
+        {User ?
+          <div className={style.rWrapper}>
+            <Link to={`/user/${User.username}`} className={style.authorWrapper}>
+              <img
+                src={`http://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
+                className={style.avatar}
+                alt="avatar"
+              />
+              <span className={style.postInfoWrapper}>
+                <span className={style.author}>{User.username}</span>
+                <span> posted </span>
+                <span>{createdAt}</span>
+              </span>
+            </Link>
+            <h3 className={style.rTitle}>
+              {title}
+            </h3>
+            <p className={style.rDescription}>
+              {description}
+            </p>
+            {Tags ? Tags.map((tag, i) =>
+              <Link
+                to={`/?tag=${tag.name}`}
+                key={i}
+                className={style.rTag}
+              >
+                {tag.name}
+              </Link>)
+            : null}
+            <span
+              onClick={this.handleLikeClick}
+              className={style.likes}
+            >
+              <Icon
+                name={this.state.liked ? "heart" : "heart-outline"}
+                size={20}
+                className={style.heart}
+              />
+              {typeof likes !== 'undefined' ?
+                (this.state.liked ? likes + 1 : likes)
+                  : null}
+            </span>
+          </div>
         : null}
       </div>
     );

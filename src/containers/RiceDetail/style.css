@@ -1,4 +1,86 @@
+@import "../../style/variables.css";
+
 .root {
   margin: 1em 0;
   width: 100%;
+  overflow: hidden;
+}
+
+.image {
+  height: auto;
+  max-width: 100%;
+}
+
+.authorWrapper {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 1em;
+
+  & .postInfoWrapper {
+    color: var(--font-color-light);
+
+    &:hover {
+      color: var(--font-color);
+    }
+  }
+
+  & .author {
+    margin-left: 7px;
+  }
+}
+
+.fileLinkWrapper {
+  margin: 10px 0;
+}
+
+.fileLink {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  color: var(--link-color);
+  transition: color .2s;
+
+  & .fileName {
+    padding: 4px;
+  }
+
+  &:hover {
+    color: color(var(--link-color) shade(15%));
+  }
+}
+
+
+.likes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray(65%);
+  float: right;
+  margin-right: 8px;
+
+  & .heart {
+    fill: var(--color-red);
+    margin: 0 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.rWrapper {
+  composes: rWrapper from "../Profile/style.css";
+}
+
+.rTitle {
+  composes: rTitle from "../Profile/style.css";
+}
+
+.rDescription {
+  composes: rDescription from "../Profile/style.css";
+}
+
+.rTag {
+  composes: rTag from "../Profile/style.css";
 }
