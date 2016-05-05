@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import customProps from 'postcss-custom-props';
@@ -8,11 +9,22 @@ import colorFunction from 'postcss-color-function';
 import nesting from 'postcss-nesting';
 import customSelectors from 'postcss-custom-selectors';
 
-export const DEV = process.env.NODE_ENV !== 'production';
-export const HOST = process.env.HOST || 'localhost';
-export const PORT = parseInt(process.env.PORT, 10) || 3000;
 export const ROOT_PATH = path.resolve(__dirname, '..', '..');
 export const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
+
+export const DEV = process.env.NODE_ENV !== 'production';
+
+let config;
+try {
+  config = JSON.parse(fs.readFileSync(path.join(ROOT_PATH, 'config/index.json'), 'utf8'));
+} catch (e) {
+  console.error('unable to parse config/index.json');
+  process.exit(1);
+}
+
+export const HOST = config.host || 'localhost';
+export const PORT = config.port;
+export const APIport = config.APIport;
 
 export const PLUGINS = [
   new webpack.DefinePlugin({
@@ -21,7 +33,8 @@ export const PLUGINS = [
     },
     __DEV__: DEV,
     __HOST__: JSON.stringify(HOST),
-    __PORT__: PORT,
+    __PORT__: JSON.stringify(PORT),
+    __APIPORT__: JSON.stringify(APIport),
   }),
 ];
 

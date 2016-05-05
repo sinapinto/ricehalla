@@ -28,6 +28,28 @@ database.
 
 ## Getting started
 
+### Configure
+
+#### [config/index.json](./config/index.json)
+
+  change the host, port, and APIport. `port` is the port the server should
+  listen on. `APIport` is the port to make requests to. Leave APIport empty
+  to not include a port number in api requests.
+
+  set the db credentials if needed.
+
+  update `jwt.secretOrKey` with a secret, e.g. from
+  [here](https://www.grc.com/passwords.htm)
+
+#### [config/sequelize/config.json](./config/sequelize/config.json)
+
+  you may want to change the dialect option to e.g. postgres. if you do, you
+  must also  install the corresponding driver.  check
+  [here](http://docs.sequelizejs.com/en/latest/docs/getting-started/) for which
+  npm package to install.
+
+### Development build
+
   ```sh
   $ make start
   ```
@@ -35,6 +57,12 @@ database.
   run `make help` to see a list of options.
 
   open `http://localhost:3000`. Use `ctrl-h` to toggle redux devtools.
+
+### Production build
+
+  ```sh
+  $ make start-pro
+  ```
 
 ## Implementation decisions
 
