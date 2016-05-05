@@ -79,7 +79,7 @@ export default {
         loader: shared.DEV
           ? 'style!css?modules&importLoaders=1&localIdentName=[hash:3]_[local]!postcss'
           : ExtractTextPlugin.extract('style',
-            'css?minimize&modules&localIdentName=[hash:base64:4]!postcss')
+            'css?minimize&modules&importLoaders=1&localIdentName=[hash:base64:4]!postcss')
       },
       ...shared.LOADERS
     ]
