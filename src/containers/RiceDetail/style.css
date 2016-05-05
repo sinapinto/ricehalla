@@ -6,9 +6,13 @@
   overflow: hidden;
 }
 
-.image {
-  height: auto;
-  max-width: 100%;
+.imageWrapper {
+  text-align: center;
+
+  & .image {
+    height: auto;
+    max-width: 100%;
+  }
 }
 
 .authorWrapper {
@@ -26,6 +30,7 @@
   }
 
   & .author {
+    font-weight: 600;
     margin-left: 7px;
   }
 }

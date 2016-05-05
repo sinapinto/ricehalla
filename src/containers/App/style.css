@@ -39,14 +39,14 @@
   margin-right:auto;
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -.5px;
+  letter-spacing: -1px;
   user-select: none;
   text-decoration: none;
-  color: color(var(--color-primary) shade(10%));
+  color: color(var(--link-color) shade(0%));
   padding: 1em 0.5em;
 
   &:hover {
-    color: color(var(--color-primary) shade(20%));
+    color: color(var(--link-color) shade(10%));
   }
 }
 

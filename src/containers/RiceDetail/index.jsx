@@ -58,12 +58,15 @@ class RiceDetail extends Component {
       : [];
     let img = files.find(f => /\.(png|gif|jpe?g)(?:-large)?$/.test(f));
     return img ?
-      <a target="_blank" href={`/uploads/${img}`}>
-        <img
-          className={style.image}
-          src={`/uploads/${img}`}
-        />
-      </a>
+      <div className={style.imageWrapper}>
+        <a target="_blank" href={`/uploads/${img}`}>
+          <img
+            className={style.image}
+            src={`/uploads/${img}`}
+            alt={img}
+          />
+        </a>
+      </div>
       : null;
   }
 
@@ -80,10 +83,10 @@ class RiceDetail extends Component {
         {this.renderImage()}
         {files ? files.map((file, i) =>
           <div key={i} className={style.fileLinkWrapper}>
-            <Link to={`uploads/${file}`} className={style.fileLink}>
+            <a target="_blank" href={`/uploads/${file}`} className={style.fileLink}>
               <Icon name="link" size={20} />
               <span className={style.fileName}>{file}</span>
-            </Link>
+            </a>
           </div>)
         : null}
         {User ?
