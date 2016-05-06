@@ -9,7 +9,7 @@ const propTypes = {
   progress: PropTypes.number,
   file: PropTypes.shape({
     name: PropTypes.string,
-    mimetype: PropTypes.string
+    mimetype: PropTypes.string,
   }),
   error: PropTypes.string,
 };
