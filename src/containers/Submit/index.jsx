@@ -58,13 +58,18 @@ class Submit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (!title) {
+      return;
+    }
     if (Object.keys(this.props.upload.files).length === 0) {
+      console.error('no files in this.props.upload', this.props.upload);
       return;
     }
     const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
     const fileNames = filesArray.map(obj => obj.name);
     const scrot = filesArray.find(f => f.mimetype.indexOf('image/') === 0);
     if (!scrot) {
+      console.error('no scrot in filesArray', filesArray);
       return;
     }
     this.props.submitRice({

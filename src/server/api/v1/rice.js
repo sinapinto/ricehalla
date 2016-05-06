@@ -105,7 +105,9 @@ export default new Resource('rice', {
       this.status = 201;
 
       // emulate a "GET /rice" response to save an additional request
-      rice.Tags = body.tags.map(tag => { name: tag });
+      if (body.tags) {
+        rice.Tags = body.tags.map(tag => { name: tag });
+      }
       this.body = rice;
     } catch (err) {
       debug(err);

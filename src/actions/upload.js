@@ -19,6 +19,7 @@ export function uploadFile(file) {
         url: `${API_BASE}/api/v1/upload`,
         file,
         headers: {
+          'Content-Type': file.type,
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },

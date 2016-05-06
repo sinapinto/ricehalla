@@ -9,7 +9,7 @@ const MulterMiddleware = multer({
     files: 1,
     fileSize: 2 * 1024 * 1024,
   },
-  rename: (fieldname, filename) => `${filename}_${Date.now()}`,
+  rename: (fieldname, filename) => `${filename.replace(/^\.*/, '')}_${Date.now()}`,
   // onFileUploadStart: (file) => {
   //   const mimeTypes = [
   //     'image/jpeg',
