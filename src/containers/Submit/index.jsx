@@ -24,7 +24,6 @@ const propTypes = {
   }).isRequired,
   rice: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
-    submitted: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
   }).isRequired,
   userId: PropTypes.number.isRequired,

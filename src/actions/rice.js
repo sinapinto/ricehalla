@@ -36,8 +36,8 @@ export function submit(body) {
         dispatch({ type: POST_RICE_FAILURE, errors: submitted.errors });
       } else {
         dispatch({ type: POST_RICE_SUCCESS, submitted });
+        browserHistory.push(`/rice/${submitted.id}`);
       }
-      browserHistory.push(`/rice/${submitted.id}`);
     } catch (err) {
       dispatch({ type: POST_RICE_FAILURE, errors: err });
     }
@@ -77,7 +77,10 @@ function list(queryParams = '') {
 }
 
 export function fetchList() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    if (getState().rice.list.length > 0) {
+      return null;
+    }
     try {
       dispatch({ type: LIST_RICE_REQUEST });
       const riceList = await list();
@@ -91,6 +94,8 @@ export function fetchList() {
 export function fetchPopular() {
   return async dispatch => {
     try {
+      // TODO
+      return null;
       dispatch({ type: LIST_RICE_REQUEST });
       const riceList = await list('?order=likes');
       dispatch({ type: LIST_RICE_SUCCESS, list: riceList });

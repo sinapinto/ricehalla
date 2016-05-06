@@ -13,7 +13,6 @@ import {
 const initialState = {
   isFetching: false,
   errors: {},
-  submitted: {},
   detail: {},
   list: [],
 };
@@ -24,13 +23,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        submitted: {},
       };
     case POST_RICE_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        submitted: action.submitted,
+        list: state.concat(action.submitted),
       };
     case SHOW_RICE_REQUEST:
       return {
