@@ -3,29 +3,29 @@ import React, { Component, PropTypes } from 'react';
 const propTypes = {
   percent: PropTypes.number,
   width: PropTypes.number,
-  fail: PropTypes.bool,
+  hasError: PropTypes.bool,
 };
 
 const defaultProps = {
   percent: 0,
   width: 1,
-  fail: false,
+  hasError: false,
 };
 
 // css modules kinda sucks for this =/
 const colors = {
   fg: 'rgb(0, 170, 220)',
   bg: '#eee',
-  fail: 'rgb(240, 60, 50)',
+  hasError: 'rgb(240, 60, 50)',
   success: 'rgb(40, 210, 110)',
 };
 
-function ProgressBar({ percent, width, fail }) {
+function ProgressBar({ percent, width, hasError }) {
   const mid = width / 2;
   const d = `M ${mid}, ${mid} L ${100 - width / 2},${mid}`
   let fg;
-  if (fail) {
-    fg = colors.fail;
+  if (hasError) {
+    fg = colors.hasError;
   } else if (percent === 100) {
     fg = colors.success;
   } else {

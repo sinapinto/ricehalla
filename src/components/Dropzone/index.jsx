@@ -6,7 +6,10 @@ import style from './style.css';
 
 const propTypes = {
   action: PropTypes.func.isRequired,
-  fileURLs: PropTypes.object,
+  files: PropTypes.shape({
+    name: PropTypes.string,
+    mimetype: PropTypes.string,
+  }),
   errors: PropTypes.object,
   percentages: PropTypes.object,
   accept: PropTypes.string,
@@ -15,7 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  fileURLs: {},
+  files: {},
   errors: {},
   percentages: {},
   multiple: true,
@@ -48,7 +51,7 @@ class Dropzone extends Component {
 
   handleFiles(fileList) {
     const files = Array.prototype.slice.call(fileList);
-    files.map(file => this.uploadFile(file));
+    files.forEach(file => this.uploadFile(file));
   }
 
   uploadFile(file) {
@@ -75,7 +78,7 @@ class Dropzone extends Component {
         size={upload.file.size}
         thumbnail={upload.thumbnail}
         progress={this.props.percentages[upload.uid]}
-        url={this.props.fileURLs[upload.uid]}
+        file={this.props.files[upload.uid]}
         error={this.props.errors[upload.uid]}
         key={i}
       />

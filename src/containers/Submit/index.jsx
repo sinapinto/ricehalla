@@ -18,13 +18,13 @@ import "react-select/dist/react-select.css";
 
 const propTypes = {
   upload: PropTypes.shape({
-    fileNames: PropTypes.object.isRequired,
-    percentages: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
+    files: PropTypes.object.isRequired,       // { 'uid': { name: '', mimetype: '' }, ... }
+    percentages: PropTypes.object.isRequired, // { 'uid': 20, ... }
+    error: PropTypes.object,
   }).isRequired,
   rice: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
-    errors: PropTypes.object.isRequired,
+    errors: PropTypes.array,
   }).isRequired,
   userId: PropTypes.number.isRequired,
   submitRice: PropTypes.func.isRequired,
@@ -42,7 +42,7 @@ class Submit extends Component {
     this.state = {
       title: '',
       description: '',
-      fileName: '',
+      // files: [],
       tags: '',
     };
   }
@@ -52,20 +52,28 @@ class Submit extends Component {
   }
 
   upload(file) {
-    this.setState({ fileName: file.name });
+    // this.setState({ files: this.state.files.concat(file) });
     this.props.uploadFile(file);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { fileNames } = this.props.upload;
-    const files = Object.keys(fileNames).map(uid => this.props.upload.fileNames[uid]);
+    if (Object.keys(this.props.upload.files).length === 0) {
+      return;
+    }
+    const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
+    const fileNames = filesArray.map(obj => obj.name);
+    const scrot = filesArray.find(f => f.mimetype.indexOf('image/') === 0);
+    if (!scrot) {
+      return;
+    }
     this.props.submitRice({
       userId: this.props.userId,
       title: this.state.title,
       description: this.state.description,
       tags: this.state.tags,
-      files,
+      scrot: scrot.name,
+      files: fileNames,
     });
   }
 
@@ -108,7 +116,7 @@ class Submit extends Component {
           <Dropzone
             action={this.upload}
             percentages={this.props.upload.percentages}
-            fileURLs={this.props.upload.fileNames}
+            files={this.props.upload.files}
             errors={this.props.upload.errors}
           >
             <Icon name="upload" size={64} className={style.dzIcon} />

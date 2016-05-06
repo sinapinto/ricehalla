@@ -25,6 +25,9 @@ module.exports = function rice(sequelize, DataTypes) {
     files: {
       type: DataTypes.TEXT,
     },
+    scrot: {
+      type: DataTypes.STRING,
+    },
   }, {
     classMethods: {
       associate(models) {

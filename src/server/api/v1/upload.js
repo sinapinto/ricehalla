@@ -10,20 +10,20 @@ const MulterMiddleware = multer({
     fileSize: 2 * 1024 * 1024,
   },
   rename: (fieldname, filename) => `${filename}_${Date.now()}`,
-  onFileUploadStart: (file) => {
-    const mimeTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/gif',
-      'text/plain',
-      'application/octet-stream',
-    ];
-    const valid = ~mimeTypes.indexOf(file.mimetype);
-    if (!valid) {
-      debug('invalid mimetype', file.mimetype);
-    }
-    return valid;
-  },
+  // onFileUploadStart: (file) => {
+  //   const mimeTypes = [
+  //     'image/jpeg',
+  //     'image/png',
+  //     'image/gif',
+  //     'text/plain',
+  //     'application/octet-stream',
+  //   ];
+  //   const valid = ~mimeTypes.indexOf(file.mimetype);
+  //   if (!valid) {
+  //     debug('invalid mimetype', file.mimetype);
+  //   }
+  //   return valid;
+  // },
 });
 
 export default new Resource('upload', {
@@ -32,12 +32,12 @@ export default new Resource('upload', {
     debug(this.req.files);
     const filename = Object.keys(this.req.files)[0];
     if (filename) {
-      const { name, extension } = this.req.files[filename];
+      const { name, mimetype } = this.req.files[filename];
       this.status = 200;
-      this.body = { response: { name, extension } };
+      this.body = { response: { name, mimetype } };
     } else {
       this.status = 400;
-      this.body = { errors: 'upload error' };
+      this.body = { error: 'upload error' };
     }
   }],
 });

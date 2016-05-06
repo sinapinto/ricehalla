@@ -40,7 +40,8 @@ class Profile extends Component {
   }
 
   render() {
-    const { Rice, username, email, emailHash, about, createdAt } = this.props.user;
+    const { Rice, email, emailHash, about, createdAt } = this.props.user;
+    const { username } = this.props.params;
     return (
       <div className={style.root}>
         <Helmet title={`${username} | Ricehalla`} />
@@ -54,7 +55,7 @@ class Profile extends Component {
               : null}
             <div>
               <h1 className={style.username}>
-                <Link to={`/user/${this.props.params.username}`}>
+                <Link to={`/user/${username}`}>
                   {username}
                 </Link>
               </h1>

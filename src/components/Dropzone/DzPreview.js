@@ -7,7 +7,10 @@ const propTypes = {
   size: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
   progress: PropTypes.number,
-  url: PropTypes.string,
+  file: PropTypes.shape({
+    name: PropTypes.string,
+    mimetype: PropTypes.string
+  }),
   error: PropTypes.string,
 };
 
@@ -45,15 +48,17 @@ class DzPreview extends Component {
         <div className={style.dzInfo}>
           <p>{name}</p>
           <p>{this.humanizeBytes(size)}</p>
-          <ProgressBar percent={progress} width={5} fail={!!error} />
+          <ProgressBar percent={progress} width={5} hasError={!!error} />
         </div>
       </div>
     );
-    if (this.props.url) {
+    if (this.props.file) {
       return (
         <a
-          target="_blank" href={`/uploads/${this.props.url}`}
-          className={style.dzPreview} onClick={this.handleClick}
+          target="_blank"
+          href={`/uploads/${this.props.file.name}`}
+          className={style.dzPreview}
+          onClick={this.handleClick}
         >
           {inner}
         </a>

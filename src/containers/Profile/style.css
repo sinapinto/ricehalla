@@ -67,6 +67,7 @@
     font-size: 22px;
     font-weight: 600;
     margin: 0;
+    transition: color .2s;
   }
 
   &:hover .rTitle {

@@ -71,12 +71,13 @@ export default new Resource('rice', {
       userId: { type: 'number', required: true },
       title: { type: 'string', required: true },
       description: { type: 'string', allowEmpty: true, required: false },
+      scrot: { type: 'string', required: true },
       files: { type: 'array', itemType: 'string', required: false },
       tags: { type: 'string', allowEmpty: true, required: false },
     };
     const errors = parameter.validate(rule, body);
     if (body.tags) {
-      body.tags = body.tags.split(',', MAX_TAGS).filter(tag => tag.length < 15);
+      body.tags = body.tags.split(',', MAX_TAGS).map(tag => tag.substr(0, 15));
     }
     if (errors) {
       this.type = 'json';
@@ -88,6 +89,7 @@ export default new Resource('rice', {
       'userId',
       'title',
       'description',
+      'scrot',
       'files',
     ];
     try {
@@ -101,6 +103,9 @@ export default new Resource('rice', {
       }
       this.type = 'json';
       this.status = 201;
+
+      // emulate a "GET /rice" response to save an additional request
+      rice.Tags = body.tags.map(tag => { name: tag });
       this.body = rice;
     } catch (err) {
       debug(err);

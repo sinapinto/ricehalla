@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { fetchList, fetchPopular } from '../../actions/rice';
-import RiceCard from './RiceCard';
+import Thumbnail from './Thumbnail';
 import TextInput from '../../components/TextInput';
 import style from './style.css';
 import Masonry from 'react-masonry-component';
@@ -13,9 +13,6 @@ const propTypes = {
   fetchPopular: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      User: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-      }).isRequired,
       Tags: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
@@ -27,11 +24,12 @@ const propTypes = {
       description: PropTypes.string.isRequired,
       likes: PropTypes.number.isRequired,
       files: PropTypes.string.isRequired,
+      scrot: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
       updatedAt: PropTypes.string.isRequired,
     }).isRequired,
   ),
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
 
@@ -89,16 +87,10 @@ class Home extends Component {
             this.state.filterText.split(/\s|,/).every(filter =>
               filter === '' ? true :  rice.Tags.some(tag => tag.name.indexOf(filter) > -1)))
             .map(rice =>
-              <RiceCard
+              <Thumbnail
                 key={rice.id}
-                likes={rice.likes}
                 riceId={rice.id}
-                title={rice.title}
-                author={rice.User.username}
-                files={rice.files}
-                createdAt={rice.createdAt}
-                description={rice.description}
-                tags={rice.Tags}
+                scrot={rice.scrot}
               />)
               : null}
         </Masonry>

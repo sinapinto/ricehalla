@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  errors: {},
+  errors: [],
   detail: {},
   list: [],
 };
@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        list: state.concat(action.submitted),
+        list: state.list.concat(action.submitted),
       };
     case SHOW_RICE_REQUEST:
       return {

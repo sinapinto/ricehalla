@@ -6,8 +6,8 @@ import {
 } from '../actions/upload';
 
 const initialState = {
-  fileNames: {},
-  percentages: {},
+  files: {},   // { 'uid': { name: '', mimetype: '' }, ... }
+  percentages: {}, // { 'uid': 20, ... }
   errors: {},
 };
 
@@ -24,9 +24,12 @@ export default function (state = initialState, action) {
     case UPLOAD_SUCCESS:
       return {
         ...state,
-        fileNames: {
-          ...state.fileNames,
-          [action.uid]: action.response.name,
+        files: {
+          ...state.files,
+          [action.uid]: {
+            name: action.response.name,
+            mimetype: action.response.mimetype,
+          },
         },
       };
     case UPLOAD_FAILURE:

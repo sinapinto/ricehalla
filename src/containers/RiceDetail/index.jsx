@@ -27,6 +27,7 @@ const propTypes = {
     description: PropTypes.string,
     likes: PropTypes.number,
     files: PropTypes.string,
+    scrot: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string,
   }),
@@ -52,26 +53,8 @@ class RiceDetail extends Component {
     }
   }
 
-  renderImage() {
-    const files = typeof this.props.detail.files !== 'undefined'
-      ? JSON.parse(this.props.detail.files)
-      : [];
-    let img = files.find(f => /\.(png|gif|jpe?g)(?:-large)?$/.test(f));
-    return img ?
-      <div className={style.imageWrapper}>
-        <a target="_blank" href={`/uploads/${img}`}>
-          <img
-            className={style.image}
-            src={`/uploads/${img}`}
-            alt={img}
-          />
-        </a>
-      </div>
-      : null;
-  }
-
   render() {
-    const { User, Tags, title, description, likes, userId, id } = this.props.detail;
+    const { User, Tags, title, description, likes, scrot, userId, id } = this.props.detail;
     const files = typeof this.props.detail.files !== 'undefined'
       ? JSON.parse(this.props.detail.files)
       : [];
@@ -80,7 +63,15 @@ class RiceDetail extends Component {
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
-        {this.renderImage()}
+        <div className={style.imageWrapper}>
+          <a target="_blank" href={`/uploads/${scrot}`}>
+            <img
+              className={style.image}
+              src={`/uploads/${scrot}`}
+              alt={scrot}
+            />
+          </a>
+        </div>
         {files ? files.map((file, i) =>
           <div key={i} className={style.fileLinkWrapper}>
             <a target="_blank" href={`/uploads/${file}`} className={style.fileLink}>
