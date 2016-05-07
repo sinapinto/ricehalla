@@ -96,7 +96,6 @@
     "redux-devtools-log-monitor": "^1.0.4",
     "redux-thunk": "^2.0.1",
     "sequelize": "^3.19.3",
-    "sharp": "^0.14.1",
     "sqlite3": "^3.1.1",
     "style-loader": "^0.13.0",
     "supertest": "^1.2.0",
