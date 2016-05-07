@@ -67,7 +67,7 @@ class Submit extends Component {
     }
     const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
     const fileNames = filesArray.map(obj => obj.name);
-    const scrot = filesArray.find(f => f.mimetype.indexOf('image/') === 0);
+    const scrot = filesArray.find(f => /^(jpg|png|gif)$/.test(f.name.split('.').pop()));
     if (!scrot) {
       console.error('no scrot in filesArray', filesArray);
       return;
@@ -125,7 +125,7 @@ class Submit extends Component {
             errors={this.props.upload.errors}
           >
             <Icon name="upload" size={64} className={style.dzIcon} />
-            <p className={style.dzHeader}>drop files here or click to upload</p>
+            <p className={style.dzHeader}>drop files here or click to upload (max 3MB/file)</p>
           </Dropzone>
           <Select
             multi

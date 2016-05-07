@@ -66,7 +66,7 @@ class Profile extends Component {
           </div>
         </div>
         <div className={style.activity}>
-          <h2 className={style.header}>Recent</h2>
+        {Rice ? <h2 className={style.header}>Recent</h2> : null}
           {Rice ? Rice.map(rice =>
             <Link key={rice.id} to={`/rice/${rice.id}`}>
               <div className={style.rWrapper}>

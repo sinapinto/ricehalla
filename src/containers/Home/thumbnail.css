@@ -1,0 +1,23 @@
+.thumbnailWrapper {
+  display: inline-block;
+  margin-bottom: 5px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(black 0, black 25%, rgba(0,0,0,0) 100%);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  &:hover::after {
+    opacity: 0.1;
+  }
+}
+
+.thumbnailImage {
+}

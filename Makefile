@@ -98,7 +98,7 @@ node_modules:
 	fi
 
 storage:
-	@mkdir -p storage uploads
+	@mkdir -p storage
 
 .PHONY: help setup start run build start-pro build-pro run-pro
 .PHONY: test lint clean node_modules storage

@@ -56,7 +56,7 @@ class DzPreview extends Component {
       return (
         <a
           target="_blank"
-          href={`/uploads/${this.props.file.name}`}
+          href={`https://s3-us-west-2.amazonaws.com/ricehalla/${this.props.file.name}`}
           className={style.dzPreview}
           onClick={this.handleClick}
         >

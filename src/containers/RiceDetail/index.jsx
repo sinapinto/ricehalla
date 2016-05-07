@@ -54,7 +54,7 @@ class RiceDetail extends Component {
   }
 
   render() {
-    const { User, Tags, title, description, likes, scrot, userId, id } = this.props.detail;
+    const { User, Tags, title = '', description, likes, scrot, userId, id } = this.props.detail;
     const files = typeof this.props.detail.files !== 'undefined'
       ? JSON.parse(this.props.detail.files)
       : [];
@@ -63,18 +63,20 @@ class RiceDetail extends Component {
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
-        <div className={style.imageWrapper}>
-          <a target="_blank" href={`/uploads/${scrot}`}>
-            <img
-              className={style.image}
-              src={`/uploads/${scrot}`}
-              alt={scrot}
-            />
-          </a>
-        </div>
+        {scrot ? 
+          <div className={style.imageWrapper}>
+            <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}>
+              <img
+                className={style.image}
+                src={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}
+                alt={scrot}
+              />
+            </a>
+          </div>
+          : null}
         {files ? files.map((file, i) =>
           <div key={i} className={style.fileLinkWrapper}>
-            <a target="_blank" href={`/uploads/${file}`} className={style.fileLink}>
+            <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`} className={style.fileLink}>
               <Icon name="link" size={20} />
               <span className={style.fileName}>{file}</span>
             </a>
@@ -82,18 +84,20 @@ class RiceDetail extends Component {
         : null}
         {User ?
           <div className={style.rWrapper}>
-            <Link to={`/user/${User.username}`} className={style.authorWrapper}>
-              <img
-                src={`http://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
-                className={style.avatar}
-                alt="avatar"
-              />
-              <span className={style.postInfoWrapper}>
-                <span className={style.author}>{User.username}</span>
-                <span> posted </span>
-                <span>{createdAt}</span>
-              </span>
-            </Link>
+            <div style={{display: 'inline-block'}}>
+              <Link to={`/user/${User.username}`} className={style.authorWrapper}>
+                <img
+                  src={`http://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
+                  className={style.avatar}
+                  alt="avatar"
+                />
+                <span className={style.postInfoWrapper}>
+                  <span className={style.author}>{User.username}</span>
+                  <span> posted </span>
+                  <span>{createdAt}</span>
+                </span>
+              </Link>
+            </div>
             <h3 className={style.rTitle}>
               {title}
             </h3>

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import style from './style.css';
+import style from './thumbnail.css';
 
 const propTypes = {
   riceId: PropTypes.number.isRequired,
@@ -16,7 +16,7 @@ class Thumbnail extends Component {
       >
         <img
           className={style.thumbnailImage}
-          src={`/uploads/${this.props.scrot}`}
+          src={`https://s3-us-west-2.amazonaws.com/ricehallaresized/thumb-${this.props.scrot}`}
           width={315}
         />
       </Link>

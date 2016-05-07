@@ -17,7 +17,7 @@
 
 .authorWrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 12px;
   margin-bottom: 1em;
 
@@ -37,6 +37,7 @@
 
 .fileLinkWrapper {
   margin: 10px 0;
+  display: inline-block;
 }
 
 .fileLink {
