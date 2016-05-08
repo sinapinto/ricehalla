@@ -1,7 +1,7 @@
 module.exports = function tag(sequelize, DataTypes) {
   const Tag = sequelize.define('Tag', {
     id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,

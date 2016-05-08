@@ -1,7 +1,7 @@
 module.exports = function rice(sequelize, DataTypes) {
   const Rice = sequelize.define('Rice', {
     id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
