@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { User } from './db';
 import config from '../../config/index.json';
+const debug = require('debug')('app:server:auth');
 const router = require('koa-router')();
 
 router.post('/signup', function *signup() {
@@ -33,6 +34,7 @@ router.post('/signup', function *signup() {
     this.status = 201;
     this.body = { token, id: user.id };
   } catch (e) {
+    debug(e);
     this.type = 'json';
     this.status = 403;
     this.body = { message: 'an account with that username or email already exists' };

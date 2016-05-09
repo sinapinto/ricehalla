@@ -15,6 +15,7 @@ import { submit as submitRice } from '../../actions/rice';
 import { uploadFile, clearUploads } from '../../actions/upload';
 import style from './style.css';
 import "react-select/dist/react-select.css";
+const debug = require('debug')('app:submit');
 
 const propTypes = {
   upload: PropTypes.shape({
@@ -62,14 +63,14 @@ class Submit extends Component {
       return;
     }
     if (Object.keys(this.props.upload.files).length === 0) {
-      console.error('no files in this.props.upload', this.props.upload);
+      debug('no files in this.props.upload', this.props.upload);
       return;
     }
     const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
     const fileNames = filesArray.map(obj => obj.name);
     const scrot = filesArray.find(f => /^(jpg|png|gif)$/.test(f.name.split('.').pop()));
     if (!scrot) {
-      console.error('no scrot in filesArray', filesArray);
+      debug('no scrot in filesArray', filesArray);
       return;
     }
     this.props.submitRice({

@@ -27,8 +27,14 @@
   margin: 1em 0;
 }
 
+.error {
+  color: var(--color-red);
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+
 .icon {
-  transform: translateY(8px);
   margin-right: 6px;
 }
 
@@ -36,11 +42,6 @@
   width: 100%;
   height: 40px;
   font-weight: 600;
-}
-
-.error {
-  color: var(--color-red);
-  padding: 1em;
 }
 
 .footer {

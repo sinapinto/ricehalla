@@ -50,6 +50,8 @@ database.
 
 ### Development build
 
+  *beware hardcoded image urls*
+
   ```sh
   $ make start
   ```

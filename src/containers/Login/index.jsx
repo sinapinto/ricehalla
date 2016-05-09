@@ -89,7 +89,6 @@ class Login extends Component {
         <h2 className={style.header}>Sign in.</h2>
         <Form
           onSubmit={this.handleSubmit}
-          className={this.props.loginInvalid ? style.shake : null}
           noValidate
         >
           <Fieldset>

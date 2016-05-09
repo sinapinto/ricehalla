@@ -13,8 +13,8 @@ function *requireAuth(next) {
   if (this.state.user) {
     yield next;
   } else {
-    yield next;
-    // this.throw(401);
+    // yield next;
+    this.throw(401);
   }
 }
 
@@ -145,16 +145,16 @@ export default new Resource('rice', {
   // },
 
   // DELETE /rice/:rice
-  destroy: [requireAuth, function *destroy() {
-    const found = yield Rice.findOne({
-      where: { id: this.params.rice },
-    });
-    if (!found) {
-      this.throw(404);
-    }
-    const rice = yield found.destroy();
-    this.type = 'json';
-    this.status = 200;
-    this.body = rice;
-  }],
+  // destroy: [requireAuth, function *destroy() {
+  //   const found = yield Rice.findOne({
+  //     where: { id: this.params.rice },
+  //   });
+  //   if (!found) {
+  //     this.throw(404);
+  //   }
+  //   const rice = yield found.destroy();
+  //   this.type = 'json';
+  //   this.status = 200;
+  //   this.body = rice;
+  // }],
 });

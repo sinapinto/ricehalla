@@ -94,8 +94,6 @@ export function fetchList() {
 export function fetchPopular() {
   return async dispatch => {
     try {
-      // TODO
-      return null;
       dispatch({ type: LIST_RICE_REQUEST });
       const riceList = await list('?order=likes');
       dispatch({ type: LIST_RICE_SUCCESS, list: riceList });

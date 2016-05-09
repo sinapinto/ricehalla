@@ -6,6 +6,7 @@ import debounce from '../../utils/debounce';
 import { validateEmail, validateUsername, validatePassword } from '../../utils/validation';
 import { register, clearAuthErrors } from '../../actions/auth';
 import Button from '../../components/Button';
+import Icon from '../../components/Icon';
 import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 import Fieldset from '../../components/Fieldset';
@@ -136,6 +137,18 @@ class Register extends Component {
     }
   }
 
+  renderErrorMessage() {
+    if (this.props.registerError) {
+      return (
+        <div className={style.error}>
+          <Icon name="alert-circle" className={style.icon} />
+          {this.props.registerError}
+        </div>
+      );
+    }
+    return null;
+  }
+
   render() {
     const emailInvalid = !!this.state.email.error || !!this.props.registerError;
     let emailValid = this.state.email.valid;
@@ -155,6 +168,7 @@ class Register extends Component {
     return (
       <div className={style.root}>
         <Helmet title="Register | Ricehalla" />
+        {this.renderErrorMessage()}
         <h2 className={style.header}>Create an account.</h2>
         <Form onSubmit={this.handleSubmit} noValidate>
           <Fieldset errorMessage={this.state.email.error}>
@@ -198,7 +212,6 @@ class Register extends Component {
               disabled={this.props.isFetching}
             />
           </Fieldset>
-          <p>{this.props.registerError}</p>
           <Button
             primary
             disabled={this.props.isFetching}

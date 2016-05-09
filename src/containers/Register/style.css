@@ -1,3 +1,5 @@
+@import "../../style/variables.css";
+
 .root {
   composes: root from "../Login/style.css";
 }
@@ -12,4 +14,12 @@
 
 .footer {
   composes: footer from "../Login/style.css";
+}
+
+.error {
+  composes: error from "../Login/style.css";
+}
+
+.icon {
+  composes: icon from "../Login/style.css";
 }

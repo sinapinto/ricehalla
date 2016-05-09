@@ -1,9 +1,11 @@
 import React, { PropTypes, Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { fetchList, fetchPopular } from '../../actions/rice';
 import Thumbnail from './Thumbnail';
 import TextInput from '../../components/TextInput';
+import Icon from '../../components/Icon';
 import style from './style.css';
 import Masonry from 'react-masonry-component';
 const debug = require('debug')('app:home');
@@ -41,6 +43,8 @@ class Home extends Component {
     this.fetchPopular = this.fetchPopular.bind(this);
     this.state = {
       filterText: '',
+      activeTab: 1,
+      isSearchActive: false,
     };
   }
 
@@ -53,30 +57,45 @@ class Home extends Component {
   }
 
   fetchNew() {
+    this.setState({ activeTab: 1 });
     this.props.fetchList();
   }
 
   fetchPopular() {
+    this.setState({ activeTab: 2 });
     this.props.fetchPopular();
   }
 
   render() {
+    const { activeTab, isSearchActive } = this.state;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" />
-        <div className={style.spaceBetween}>
-          <div className={style.sortLinks}>
-            <a href="javascript:;" onClick={this.fetchNew}>New</a>
-            <a href="javascript:;" onClick={this.fetchPopular}>Popular</a>
-            {this.props.list.length ? `${this.props.list.length} results` : ''}
+        <div className={style.navWrapper}>
+          <div style={{ display: 'flex' }}>
+            <div className={activeTab === 1 ? style.tabActive : style.tab} onClick={this.fetchNew}>
+              New
+            </div>
+            <div className={activeTab === 2 ? style.tabActive : style.tab} onClick={this.fetchPopular}>
+              Popular
+            </div>
           </div>
-          <TextInput
-            className={style.tagSearch}
-            height={35}
-            value={this.state.filterText}
-            onChange={this.filterChange}
-            placeholder="Search tags.."
-          />
+          <div className={style.search}>
+            <Icon
+              name="search"
+              size={24}
+              className={isSearchActive ? style.iconActive : style.iconInactive}
+              onClick={() => findDOMNode(this.refs.searchInput).focus()}
+            />
+            <input
+              ref="searchInput"
+              className={style.searchInput}
+              value={this.state.filterText}
+              onChange={this.filterChange}
+              onFocus={() => this.setState({ isSearchActive: true })}
+              onBlur={() => this.setState({ isSearchActive: false })}
+            />
+          </div>
         </div>
         <Masonry
           style={{ margin: 'auto', textAlign: 'center'}}
