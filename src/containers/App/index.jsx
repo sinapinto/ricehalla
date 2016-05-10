@@ -73,7 +73,7 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.logo}>Ricehalla</Link>
+          <Link to="/" className={style.logo}>ricehalla</Link>
           <NavLink to="/submit" success>Submit</NavLink>
           <Button onClick={this.openPopover} outline>
             {this.props.username}
@@ -91,7 +91,7 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.logo}>Ricehalla</Link>
+          <Link to="/" className={style.logo}>ricehalla</Link>
           <NavLink to="/register" outline style={{ border: 0 }}>Register</NavLink>
           <NavLink to="/login" outline>Log In</NavLink>
         </div>
