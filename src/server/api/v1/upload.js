@@ -40,13 +40,14 @@ export default new Resource('upload', {
       this.body = { error: 'upload error' };
       return;
     }
-    const { name, mimetype, buffer } = this.req.files[filename];
+    const { name, extension, mimetype, buffer } = this.req.files[filename];
     const [error, data] = yield new Promise(resolve => {
       s3.putObject({
         ACL: 'public-read',
         Bucket: 'ricehalla',
         Key: name,
         Body: buffer,
+        ContentType: mimetype,
       }, (...args) => resolve(args));
     });
     if (error) {

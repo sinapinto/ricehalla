@@ -27,7 +27,7 @@ const propTypes = {
       userId: PropTypes.number.isRequired,
       likes: PropTypes.number.isRequired,
       scrot: PropTypes.string.isRequired,
-      createdAt: PropTypes.string.isRequired,
+      createdAt: PropTypes.string,
     }).isRequired,
   ),
   errors: PropTypes.array.isRequired,

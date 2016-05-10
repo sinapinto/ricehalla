@@ -75,7 +75,7 @@ class App extends Component {
         <div className={style.navWrapper}>
           <Link to="/" className={style.logo}>ricehalla</Link>
           <NavLink to="/submit" success>Submit</NavLink>
-          <Button onClick={this.openPopover} outline>
+          <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isOpen}>

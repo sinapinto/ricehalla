@@ -141,6 +141,7 @@ class Submit extends Component {
           <Label htmlFor="description">Description</Label>
           <TextInput
             multiline
+            spellCheck={false}
             height={130}
             id="description"
             name="description"

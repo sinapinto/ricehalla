@@ -13,7 +13,8 @@
 .header {
   color: #666;
   font-size: 32px;
-  font-weight: 300;
+  font-family: "Fira Sans", Arial;
+  font-weight: 700;
   text-align: center;
 }
 

@@ -46,9 +46,13 @@ class Popover extends Component {
   }
 
   render() {
-    const { isOpen, children } = this.props;
+    const { isOpen, className, children, ...other } = this.props;
+    const classes = [style.container];
+    if (className) {
+      classes.push(className);
+    }
     return (
-      <div className={style.container}>
+      <div className={classes.join(' ')} {...other}>
         { isOpen &&
           <div className={style.popover} ref="popover">
             {children.map((item, i) => (
