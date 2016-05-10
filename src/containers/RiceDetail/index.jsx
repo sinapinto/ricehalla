@@ -75,11 +75,13 @@ class RiceDetail extends Component {
           </div>
           : null}
         {files ? files.map((file, i) =>
-          <div key={i} className={style.fileLinkWrapper}>
-            <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`} className={style.fileLink}>
-              <Icon name="link" size={20} />
-              <span className={style.fileName}>{file}</span>
-            </a>
+          <div key={i}>
+            <div className={style.fileLinkWrapper}>
+              <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`} className={style.fileLink}>
+                <Icon name="link" size={20} />
+                <span className={style.fileName}>{file}</span>
+              </a>
+            </div>
           </div>)
         : null}
         {User ?

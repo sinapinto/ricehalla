@@ -37,7 +37,8 @@ export default new Resource('rice', {
     const { offset = 0, limit = 20, order = 'createdAt' } = body;
     try {
       const rice = yield Rice.findAll({
-        order: [[order, 'DESC']],
+        // broken, don't know why
+        // order: [[order, 'DESC']],
         offset,
         limit,
         attributes: ['likes', 'scrot', 'userId', 'id'],
@@ -60,7 +61,7 @@ export default new Resource('rice', {
     } catch (err) {
       this.type = 'json';
       this.status = 403;
-      this.body = err;
+      this.body = { message: 'failed to get rice' };
     }
   },
 

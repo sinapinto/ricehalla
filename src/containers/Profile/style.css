@@ -12,7 +12,7 @@
 
 .bio {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 5em 0;
 }
@@ -33,6 +33,7 @@
 
 .avatar {
   border-radius: 999em;
+  margin-right: 40px;
 }
 
 .activity {
