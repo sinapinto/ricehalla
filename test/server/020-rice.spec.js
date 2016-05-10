@@ -69,6 +69,7 @@ describe('rice DB', function () {
   const user = {
     username: 'trump',
     email: 'donald@trump.com',
+    emailHash: 'emailhashslfjdsldkfj',
     passwordHash: '892N938CUNU298UFFFFEWAIJF',
   };
 

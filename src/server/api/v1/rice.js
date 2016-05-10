@@ -40,6 +40,7 @@ export default new Resource('rice', {
         order: [[order, 'DESC']],
         offset,
         limit,
+        attributes: ['likes', 'scrot', 'userId', 'id'],
         include: [
           {
             model: User,
@@ -66,6 +67,7 @@ export default new Resource('rice', {
   // POST /rice
   create: [requireAuth, function *create() {
     const body = yield parse(this);
+    body.userId = +body.userId;
     debug(body);
     const rule = {
       userId: { type: 'number', required: true },

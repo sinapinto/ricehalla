@@ -79,7 +79,7 @@ function list(queryParams = '') {
 export function fetchList() {
   return async (dispatch, getState) => {
     if (getState().rice.list.length > 0) {
-      return null;
+      return;
     }
     try {
       dispatch({ type: LIST_RICE_REQUEST });

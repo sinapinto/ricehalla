@@ -103,8 +103,15 @@ class Home extends Component {
           elementType="div"
         >
           {(this.props.list.length && this.props.list[0].id !== null) ? this.props.list.filter(rice =>
-            this.state.filterText.split(/\s|,/).every(filter =>
-              filter === '' ? true :  rice.Tags.some(tag => tag.name.indexOf(filter) > -1)))
+            this.state.filterText.split(/\s|,/).every(filter => {
+              if (filter === '') {
+                return true;
+              }
+              if (!rice.Tags) {
+                return true;
+              }
+              return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);
+            }))
             .map(rice =>
               <Thumbnail
                 key={rice.id}

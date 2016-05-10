@@ -18,6 +18,7 @@ describe('tag DB', function () {
   const user = {
     username: 'user2',
     email: 'user@two.com',
+    emailHash: 'emailhashsldkfjasdlf',
     passwordHash: '23048',
   };
 

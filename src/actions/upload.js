@@ -51,7 +51,6 @@ export function uploadFile(file) {
 export const CLEAR_UPLOADS = 'CLEAR_UPLOADS';
 
 export function clearUploads() {
-  return async dispatch => {
-    return dispatch({ type: CLEAR_UPLOADS });
-  };
+  return async dispatch =>
+    dispatch({ type: CLEAR_UPLOADS });
 }
