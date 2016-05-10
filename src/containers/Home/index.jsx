@@ -13,6 +13,9 @@ const debug = require('debug')('app:home');
 const propTypes = {
   fetchList: PropTypes.func.isRequired,
   fetchPopular: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.object,
+  }).isRequired,
   list: PropTypes.arrayOf(
     PropTypes.shape({
       Tags: PropTypes.arrayOf(
@@ -22,13 +25,9 @@ const propTypes = {
       ),
       id: PropTypes.number.isRequired,
       userId: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
       likes: PropTypes.number.isRequired,
-      files: PropTypes.string.isRequired,
       scrot: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
-      updatedAt: PropTypes.string.isRequired,
     }).isRequired,
   ),
   errors: PropTypes.array.isRequired,
@@ -36,13 +35,17 @@ const propTypes = {
 };
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.filterChange = this.filterChange.bind(this);
     this.fetchNew = this.fetchNew.bind(this);
     this.fetchPopular = this.fetchPopular.bind(this);
+    let filterText = '';
+    if (this.props.location && this.props.location.query.tag) {
+      filterText = this.props.location.query.tag;
+    }
     this.state = {
-      filterText: '',
+      filterText,
       activeTab: 1,
       isSearchActive: false,
     };
