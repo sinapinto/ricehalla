@@ -82,10 +82,6 @@
   composes: rTitle from "../Profile/style.css";
 }
 
-.rDescription {
-  composes: rDescription from "../Profile/style.css";
-}
-
 .rTag {
   composes: rTag from "../Profile/style.css";
 }

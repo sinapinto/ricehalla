@@ -34,6 +34,7 @@ module.exports = function rice(sequelize, DataTypes) {
         Rice.belongsTo(models.User, {
           foreignKey: {
             name: 'userId',
+            type: DataTypes.INTEGER,
             allowNull: false,
           },
         });

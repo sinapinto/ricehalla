@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
 import moment from 'moment';
+import marked from 'marked';
 import Icon from '../../components/Icon';
 import { show as showRice } from '../../actions/rice';
 import style from './style.css';
@@ -34,6 +35,10 @@ const propTypes = {
   showRice: PropTypes.func.isRequired,
 };
 
+const defaultProps = {
+  detail: {},
+};
+
 class RiceDetail extends Component {
   constructor() {
     super();
@@ -53,8 +58,15 @@ class RiceDetail extends Component {
     }
   }
 
+  createMarkdown() {
+    if (this.props.detail.description) {
+      return {__html: marked(this.props.detail.description, { sanitize: true })};
+    }
+    return {__html: ''};
+  }
+
   render() {
-    const { User, Tags, title = '', description, likes, scrot, userId, id } = this.props.detail;
+    const { User, Tags, title = '', likes, scrot, userId, id } = this.props.detail;
     const files = typeof this.props.detail.files !== 'undefined'
       ? JSON.parse(this.props.detail.files)
       : [];
@@ -103,9 +115,7 @@ class RiceDetail extends Component {
             <h3 className={style.rTitle}>
               {title}
             </h3>
-            <p className={style.rDescription}>
-              {description}
-            </p>
+            <div dangerouslySetInnerHTML={this.createMarkdown()} />
             {Tags ? Tags.map((tag, i) =>
               <Link
                 to={`/?tag=${tag.name}`}
@@ -136,6 +146,7 @@ class RiceDetail extends Component {
 }
 
 RiceDetail.propTypes = propTypes;
+RiceDetail.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {

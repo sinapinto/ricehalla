@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import moment from 'moment';
+import marked from 'marked';
 import { loadUser } from '../../actions/user';
 import style from './style.css';
 
@@ -39,6 +40,13 @@ class Profile extends Component {
     this.props.loadUser(this.props.params.username);
   }
 
+  createMarkdown(text) {
+    if (text) {
+      return {__html: marked(text, { sanitize: true })};
+    }
+    return {__html: ''};
+  }
+
   render() {
     const { Rice, email, emailHash, about, createdAt } = this.props.user;
     const { username } = this.props.params;
@@ -71,7 +79,7 @@ class Profile extends Component {
             <Link key={rice.id} to={`/rice/${rice.id}`}>
               <div className={style.rWrapper}>
                 <h3 className={style.rTitle}>{rice.title}</h3>
-                <p className={style.rDescription}>{rice.description}</p>
+                <div dangerouslySetInnerHTML={this.createMarkdown(rice.description)} />
                 {rice.Tags ? rice.Tags.map((tag, i) =>
                   <span key={i} className={style.rTag}>
                     {tag.name}

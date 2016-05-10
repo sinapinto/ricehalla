@@ -128,6 +128,7 @@ class Submit extends Component {
             <Icon name="upload" size={64} className={style.dzIcon} />
             <p className={style.dzHeader}>drop files here or click to upload (max 3MB/file)</p>
           </Dropzone>
+          <Label>Tags</Label>
           <Select
             multi
             joinValues

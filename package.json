@@ -69,6 +69,7 @@
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
     "lru-cache": "^4.0.0",
+    "marked": "^0.3.5",
     "mocha": "^2.4.5",
     "moment": "^2.13.0",
     "parameter": "^2.0.0",

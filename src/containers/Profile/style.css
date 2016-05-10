@@ -78,10 +78,6 @@
 
 }
 
-.rDescription {
-  color: color(var(--font-color) tint(40%));
-}
-
 .rTag {
   background-color: gray(93%);
   color: var(--font-color-light);
