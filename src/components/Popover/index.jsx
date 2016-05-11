@@ -3,9 +3,13 @@ import style from './style.css';
 
 const propTypes = {
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node,
+};
+
+const defaultProps = {
+  isOpen: false,
 };
 
 class Popover extends Component {
@@ -68,5 +72,6 @@ class Popover extends Component {
 }
 
 Popover.propTypes = propTypes;
+Popover.defaultProps = defaultProps;
 
 export default Popover;

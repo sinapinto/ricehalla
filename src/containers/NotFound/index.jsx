@@ -6,8 +6,10 @@ class NotFound extends Component {
     return (
       <div>
         <Helmet title="Not Found" />
-        <h1>404</h1>
-        not found :-(
+        <div style={{ textAlign: 'center' }}>
+          <h1>404</h1>
+          <p>not found :-(</p>
+        </div>
       </div>
     );
   }

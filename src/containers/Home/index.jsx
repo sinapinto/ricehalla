@@ -11,6 +11,9 @@ import Masonry from 'react-masonry-component';
 const debug = require('debug')('app:home');
 
 const propTypes = {
+  userId: PropTypes.number,
+  username: PropTypes.string,
+  email: PropTypes.string,
   fetchList: PropTypes.func.isRequired,
   fetchPopular: PropTypes.func.isRequired,
   location: PropTypes.shape({
@@ -102,15 +105,12 @@ class Home extends Component {
         </div>
         <Masonry
           style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: '0.4s', gutter: 10 }}
+          options={{ transitionDuration: 0, gutter: 10 }}
           elementType="div"
         >
           {(this.props.list.length && this.props.list[0].id !== null) ? this.props.list.filter(rice =>
             this.state.filterText.split(/\s|,/).every(filter => {
-              if (filter === '') {
-                return true;
-              }
-              if (!rice.Tags) {
+              if (filter === '' || !rice.Tags) {
                 return true;
               }
               return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);

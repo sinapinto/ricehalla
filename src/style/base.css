@@ -24,7 +24,8 @@ textarea {
 }
 
 button:active,
-button:focus {
+button:focus,
+a:focus {
   outline: 0;
 }
 

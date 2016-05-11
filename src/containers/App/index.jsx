@@ -12,7 +12,9 @@ const propTypes = {
   children: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   route: PropTypes.object,
+  id: PropTypes.number,
   username: PropTypes.string,
+  email: PropTypes.string,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -26,7 +28,7 @@ class App extends Component {
     this.openPopover = this.openPopover.bind(this);
     this.closePopover = this.closePopover.bind(this);
     this.state = {
-      isOpen: false,
+      isPopoverOpen: false,
     };
   }
 
@@ -54,14 +56,14 @@ class App extends Component {
 
   openPopover() {
     this.setState((prev) => {
-      if (!prev.isOpen) {
-        return { isOpen: true };
+      if (!prev.isPopoverOpen) {
+        return { isPopoverOpen: true };
       }
     });
   }
 
   closePopover() {
-    this.setState({ isOpen: false });
+    this.setState({ isPopoverOpen: false });
   }
 
   noNav() {
@@ -78,7 +80,7 @@ class App extends Component {
           <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
           </Button>
-          <Popover onClose={this.closePopover} isOpen={this.state.isOpen}>
+          <Popover onClose={this.closePopover} isOpen={this.state.isPopoverOpen}>
             <Link to={`/user/${this.props.username}`}>Profile</Link>
             <Link to="/logout">Logout</Link>
           </Popover>
@@ -110,12 +112,14 @@ class App extends Component {
   }
 
   render() {
+    const { username, id, email } = this.props;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" meta={this.getMeta()} />
         {this.renderNav()}
         <div className={style.childWrapper}>
-          {this.props.children}
+          {/* assumes one child */}
+          {React.cloneElement(this.props.children, { username, userId: id, email })}
         </div>
       </div>
     );
@@ -127,10 +131,12 @@ App.contextTypes = contextTypes;
 
 function mapStateToProps(state) {
   const { auth: { isAuthenticated, token } } = state;
-  const username = (token && isAuthenticated) ? jwtDecode(token).username : null;
+  const decoded = (token && isAuthenticated) ? jwtDecode(token) : {};
   return {
     isAuthenticated,
-    username,
+    id: decoded.id && +decoded.id,
+    username: decoded.username,
+    email: decoded.email,
   };
 }
 

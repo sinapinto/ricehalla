@@ -18,6 +18,9 @@ import "react-select/dist/react-select.css";
 const debug = require('debug')('app:submit');
 
 const propTypes = {
+  userId: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   upload: PropTypes.shape({
     files: PropTypes.object.isRequired,       // { 'uid': { name: '', mimetype: '' }, ... }
     percentages: PropTypes.object.isRequired, // { 'uid': 20, ... }
@@ -27,7 +30,6 @@ const propTypes = {
     isFetching: PropTypes.bool.isRequired,
     errors: PropTypes.array,
   }).isRequired,
-  userId: PropTypes.number.isRequired,
   submitRice: PropTypes.func.isRequired,
   uploadFile: PropTypes.func.isRequired,
 };
@@ -68,7 +70,7 @@ class Submit extends Component {
     }
     const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
     const fileNames = filesArray.map(obj => obj.name);
-    const scrot = filesArray.find(f => /^(jpg|png|gif)$/.test(f.name.split('.').pop()));
+    const scrot = filesArray.find(f => /^(jpe?g|png|gif)$/.test(f.name.split('.').pop()));
     if (!scrot) {
       debug('no scrot in filesArray', filesArray);
       return;
@@ -164,12 +166,9 @@ class Submit extends Component {
 Submit.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  const { auth: { token } } = state;
-  const userId = token ? jwtDecode(token).id : null;
   return {
     upload: state.upload,
     rice: state.rice,
-    userId,
   };
 }
 

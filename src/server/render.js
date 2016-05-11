@@ -27,6 +27,10 @@ function prefetchData(components, obj) {
 }
 
 export default function *() {
+  const isCached = this.cashed ? yield this.cashed() : false;
+  if (isCached) {
+    return;
+  }
   const initialState = {
     auth: {
       token: this.cookies.get('token'),
