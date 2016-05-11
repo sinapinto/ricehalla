@@ -10,27 +10,27 @@ import style from './style.css';
 const propTypes = {
   userId: PropTypes.number,
   username: PropTypes.string,
-  user: PropTypes.shape({
-    Rice: PropTypes.arrayOf(
-      PropTypes.shape({
-        Tags: PropTypes.arrayOf(
-          PropTypes.shape({
-            name: PropTypes.string,
-          }).isRequired
-        ),
-        title: PropTypes.string,
-        description: PropTypes.string,
-        createdAt: PropTypes.string,
-        id: PropTypes.number,
-      })
-    ),
-    username: PropTypes.string,
-    email: PropTypes.string,
-    emailHash: PropTypes.string,
-    about: PropTypes.string,
-    createdAt: PropTypes.string,
-    error: PropTypes.object,
-  }),
+  users: PropTypes.object,
+    // username: PropTypes.string,
+    // email: PropTypes.string,
+    // emailHash: PropTypes.string,
+    // about: PropTypes.string,
+    // createdAt: PropTypes.string,
+    // Rice: PropTypes.arrayOf(
+    //   PropTypes.shape({
+    //     Tags: PropTypes.arrayOf(
+    //       PropTypes.shape({
+    //         name: PropTypes.string,
+    //       }).isRequired
+    //     ),
+    //     title: PropTypes.string,
+    //     description: PropTypes.string,
+    //     createdAt: PropTypes.string,
+    //     id: PropTypes.number,
+    //   })
+    // ),
+  error: PropTypes.object,
+  isFetching: PropTypes.bool,
   params: PropTypes.shape({
     username: PropTypes.string.isRequired,
   }).isRequired,
@@ -39,7 +39,10 @@ const propTypes = {
 
 class Profile extends Component {
   componentDidMount() {
-    this.props.loadUser(this.props.params.username);
+    const { users, params, loadUser } = this.props;
+    if (!users[params.username]) {
+      loadUser(params.username);
+    }
   }
 
   createMarkdown(text) {
@@ -50,8 +53,16 @@ class Profile extends Component {
   }
 
   render() {
-    const { Rice, email, emailHash, about, createdAt } = this.props.user;
     const { username } = this.props.params;
+    let Rice, email, emailHash, about, createdAt;
+
+    if (typeof this.props.users[username] !== 'undefined') {
+      Rice = this.props.users[username].Rice;
+      email = this.props.users[username].email;
+      emailHash = this.props.users[username].emailHash;
+      about = this.props.users[username].about;
+      createdAt = this.props.users[username].createdAt;
+    }
     return (
       <div className={style.root}>
         <Helmet title={`${username} | Ricehalla`} />
@@ -101,7 +112,9 @@ Profile.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    isFetching: state.user.isFetching,
+    error: state.user.error,
+    users: state.user.users,
   };
 }
 

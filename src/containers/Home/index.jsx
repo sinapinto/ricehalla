@@ -105,7 +105,7 @@ class Home extends Component {
         </div>
         <Masonry
           style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: 0, gutter: 10 }}
+          options={{ transitionDuration: '0.2s', gutter: 10 }}
           elementType="div"
         >
           {(this.props.list.length && this.props.list[0].id !== null) ? this.props.list.filter(rice =>

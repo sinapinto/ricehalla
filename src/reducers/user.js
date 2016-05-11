@@ -6,11 +6,8 @@ import {
 
 const initialState = {
   isFetching: false,
-  username: '',
-  email: '',
-  about: '',
-  createdAt: '',
   error: null,
+  users: {}, // username: { id: 1, username: '', ... }, ...
 };
 
 export default function (state = initialState, action) {
@@ -24,7 +21,10 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        ...action.user,
+        users: {
+          ...state.users,
+          [action.user.username]: action.user,
+        },
       };
     case LOAD_USER_FAILURE:
       return {

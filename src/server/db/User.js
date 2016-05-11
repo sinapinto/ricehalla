@@ -43,7 +43,6 @@ module.exports = function user(sequelize, DataTypes) {
     instanceMethods: {
       toJSON() {
         const values = this.get();
-        delete values.id;
         delete values.passwordHash;
         delete values.updatedAt;
         delete values.deletedAt;
