@@ -10,7 +10,6 @@ import style from './style.css';
 const propTypes = {
   userId: PropTypes.number,
   username: PropTypes.string,
-  email: PropTypes.string,
   user: PropTypes.shape({
     Rice: PropTypes.arrayOf(
       PropTypes.shape({

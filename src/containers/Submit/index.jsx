@@ -20,7 +20,6 @@ const debug = require('debug')('app:submit');
 const propTypes = {
   userId: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
   upload: PropTypes.shape({
     files: PropTypes.object.isRequired,       // { 'uid': { name: '', mimetype: '' }, ... }
     percentages: PropTypes.object.isRequired, // { 'uid': 20, ... }

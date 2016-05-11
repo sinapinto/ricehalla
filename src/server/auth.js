@@ -27,7 +27,6 @@ router.post('/signup', function *signup() {
     const payload = {
       id: user.id,
       username,
-      email,
     };
     const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
     this.type = 'json';
@@ -55,14 +54,17 @@ router.post('/login', function *login() {
   this.assert(user, 401);
 
   // check password
-  const valid = yield bcrypt.compare(password, user.dataValues.passwordHash);
+  const valid = yield bcrypt.compare(password, user.passwordHash);
   this.assert(valid, 401);
 
   if (rememberme) {
     config.jwt.options.expiresIn = '30d';
   }
-
-  const token = jwt.sign({ username }, config.jwt.secretOrKey, config.jwt.options);
+  const payload = {
+    id: user.id,
+    username,
+  };
+  const token = jwt.sign(payload, config.jwt.secretOrKey, config.jwt.options);
   this.type = 'json';
   this.body = { token, id: user.id };
 });

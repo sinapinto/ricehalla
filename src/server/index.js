@@ -40,9 +40,7 @@ if (__DEV__) {
 app.use(responseTime());
 
 // console.log HTTP traffic
-if (debug.enabled) {
-  app.use(logger());
-}
+app.use(logger());
 
 // set various security headers
 app.use(helmet());

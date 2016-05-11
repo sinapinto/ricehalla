@@ -11,7 +11,6 @@ import style from './style.css';
 const propTypes = {
   userId: PropTypes.number,
   username: PropTypes.string,
-  email: PropTypes.string,
   params: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,

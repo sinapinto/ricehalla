@@ -12,7 +12,7 @@ const propTypes = {
   children: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   route: PropTypes.object,
-  id: PropTypes.number,
+  userId: PropTypes.number,
   username: PropTypes.string,
   email: PropTypes.string,
   isAuthenticated: PropTypes.bool,
@@ -112,14 +112,14 @@ class App extends Component {
   }
 
   render() {
-    const { username, id, email } = this.props;
+    const { username, userId, email } = this.props;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" meta={this.getMeta()} />
         {this.renderNav()}
         <div className={style.childWrapper}>
-          {/* assumes one child */}
-          {React.cloneElement(this.props.children, { username, userId: id, email })}
+          {/* assumes single child */}
+          {React.cloneElement(this.props.children, { username, userId })}
         </div>
       </div>
     );
@@ -134,9 +134,8 @@ function mapStateToProps(state) {
   const decoded = (token && isAuthenticated) ? jwtDecode(token) : {};
   return {
     isAuthenticated,
-    id: decoded.id && +decoded.id,
+    userId: decoded.id && +decoded.id,
     username: decoded.username,
-    email: decoded.email,
   };
 }
 
