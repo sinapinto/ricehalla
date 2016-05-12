@@ -48,6 +48,7 @@ export default new Resource('upload', {
         Key: name,
         Body: buffer,
         ContentType: mimetype,
+        CacheControl: 'max-age=31536000',
       }, (...args) => resolve(args));
     });
     if (error) {
