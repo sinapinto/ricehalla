@@ -48,12 +48,12 @@
 
     &:--enter {
       color: #fff;
-      background-color: color(var(--color-primary) shade(5%));
+      background-color: color(var(--color-primary) shade(10%));
     }
 
     &:active {
       color: #fff;
-      background-color: color(var(--color-primary) shade(10%));
+      background-color: color(var(--color-primary) shade(20%));
     }
 
     &.outline {

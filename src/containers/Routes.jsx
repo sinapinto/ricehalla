@@ -34,7 +34,7 @@ export default function createRouter(history, store) {
   }
 
   return (
-    <Router history={history}>
+    <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Route path="/" component={App} noNav={['/login', '/logout', '/register']}>
         <IndexRoute component={Home} />
         <Route path="/user/:username" component={Profile} />
