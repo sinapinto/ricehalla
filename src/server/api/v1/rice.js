@@ -24,7 +24,6 @@ export default new Resource('rice', {
     const rule = {
       offset: { type: 'number', required: false },
       limit: { type: 'number', required: false },
-      order: { type: 'string', required: false },
     };
     const errors = parameter.validate(rule, body);
     if (errors) {
@@ -33,11 +32,9 @@ export default new Resource('rice', {
       this.body = { errors };
       return;
     }
-    const { offset = 0, limit = 20, order = 'createdAt' } = body;
+    const { offset = 0, limit = 20 } = body;
     try {
       const rice = yield Rice.findAll({
-        // broken, don't know why
-        // order: [[order, 'DESC']],
         offset,
         limit,
         attributes: ['likes', 'scrot', 'userId', 'id'],

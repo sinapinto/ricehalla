@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { fetchList, fetchPopular } from '../../actions/rice';
+import moment from 'moment';
+import { fetchList } from '../../actions/rice';
 import Thumbnail from './Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
@@ -15,7 +16,6 @@ const propTypes = {
   username: PropTypes.string,
   email: PropTypes.string,
   fetchList: PropTypes.func.isRequired,
-  fetchPopular: PropTypes.func.isRequired,
   location: PropTypes.shape({
     query: PropTypes.object,
   }).isRequired,
@@ -37,19 +37,22 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired,
 };
 
+const NEW = 0;
+const POPULAR = 1;
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.filterChange = this.filterChange.bind(this);
-    this.fetchNew = this.fetchNew.bind(this);
-    this.fetchPopular = this.fetchPopular.bind(this);
+    this.sortNew = this.sortNew.bind(this);
+    this.sortPopular = this.sortPopular.bind(this);
     let filterText = '';
     if (this.props.location && this.props.location.query.tag) {
       filterText = this.props.location.query.tag;
     }
     this.state = {
       filterText,
-      activeTab: 1,
+      activeTab: NEW,
       isSearchActive: false,
     };
   }
@@ -62,14 +65,12 @@ class Home extends Component {
     this.setState({ filterText: e.target.value });
   }
 
-  fetchNew() {
-    this.setState({ activeTab: 1 });
-    this.props.fetchList();
+  sortNew() {
+    this.setState({ activeTab: NEW });
   }
 
-  fetchPopular() {
-    this.setState({ activeTab: 2 });
-    this.props.fetchPopular();
+  sortPopular() {
+    this.setState({ activeTab: POPULAR });
   }
 
   render() {
@@ -79,10 +80,10 @@ class Home extends Component {
         <Helmet title="Ricehalla" />
         <div className={style.navWrapper}>
           <div style={{ display: 'flex' }}>
-            <div className={activeTab === 1 ? style.tabActive : style.tab} onClick={this.fetchNew}>
+            <div className={activeTab === NEW ? style.tabActive : style.tab} onClick={this.sortNew}>
               New
             </div>
-            <div className={activeTab === 2 ? style.tabActive : style.tab} onClick={this.fetchPopular}>
+            <div className={activeTab === POPULAR ? style.tabActive : style.tab} onClick={this.sortPopular}>
               Popular
             </div>
           </div>
@@ -115,7 +116,14 @@ class Home extends Component {
               }
               return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);
             }))
-            .map(rice =>
+            .sort((a, b) => {
+              if (this.state.activeTab === POPULAR) {
+                return b.likes - a.likes;
+              } else if (this.state.activeTab === NEW) {
+                return moment(b) - moment(a);
+              }
+            })
+            .map(rice => 
               <Thumbnail
                 key={rice.id}
                 riceId={rice.id}
@@ -138,4 +146,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchList, fetchPopular })(Home);
+export default connect(mapStateToProps, { fetchList })(Home);
