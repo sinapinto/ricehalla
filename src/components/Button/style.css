@@ -1,5 +1,4 @@
 @import "../../style/variables.css";
-@custom-selector :--enter :hover, :focus;
 
 .btn {
   cursor: pointer;
@@ -13,126 +12,146 @@
   border-radius: 3px;
   border-width: 1px;
   border-color: rgba(0,0,0,0);
-  background-color: var(--color-default);
   color: color(var(--font-color) tint(40%));
+  background-color: var(--color-default);
   transition: all .2s;
 
-  &:--enter {
+  &:hover {
     color: color(var(--font-color) shade(5%));
     background-color: color(var(--color-default) shade(5%));
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 1px white inset;
   }
 
   &:active {
     color: color(var(--font-color) shade(10%));
     background-color: color(var(--color-default) shade(10%));
   }
+}
+
+.btn.outline {
+  background-color: rgba(0,0,0,0);
+  border: 1px solid color(#000 alpha(-85%));
+
+  &:hover,
+  &:focus {
+    border-color: color(#000 alpha(-75%));
+    color: color(var(--font-color) tint(10%));
+  }
+
+  &:active {
+    border-color: color(#000 alpha(-65%));
+    color: color(var(--font-color) tint(0%));
+  }
+}
+
+.btn.primary {
+  color: #fff;
+  background-color: var(--color-primary);
+
+  &:hover {
+    color: #fff;
+    background-color: color(var(--color-primary) shade(10%));
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 1px white inset;
+  }
+
+  &:active {
+    color: #fff;
+    background-color: color(var(--color-primary) shade(20%));
+  }
 
   &.outline {
+    border-color: currentColor;
     background-color: rgba(0,0,0,0);
-    border: 1px solid color(#000 alpha(-85%));
+    color: var(--color-primary);
 
-    &:--enter {
-      border-color: color(#000 alpha(-75%));
-      color: color(var(--font-color) tint(10%));
-    }
-
-    &:active {
-      border-color: color(#000 alpha(-65%));
-      color: color(var(--font-color) tint(0%));
-    }
-  }
-
-  &.primary {
-    color: #fff;
-    background-color: var(--color-primary);
-
-    &:--enter {
-      color: #fff;
-      background-color: color(var(--color-primary) shade(10%));
-    }
-
-    &:active {
-      color: #fff;
-      background-color: color(var(--color-primary) shade(20%));
-    }
-
-    &.outline {
-      border-color: currentColor;
-      background-color: rgba(0,0,0,0);
-      color: var(--color-primary);
-
-      &:--enter {
-        border-color: var(--color-primary);
-        background-color: var(--color-primary);
-        color: #fff;
-      }
-    }
-  }
-
-  &.success {
-    color: #fff;
-    background-color: var(--color-green);
-
-    &:--enter {
-      color: #fff;
-      background-color: color(var(--color-green) shade(5%));
-    }
-
-    &:active {
-      color: #fff;
-      background-color: color(var(--color-green) shade(10%));
-    }
-
-    &.outline {
-      border-color: currentColor;
-      background-color: rgba(0,0,0,0);
-      color: var(--color-green);
-
-      &:--enter {
-        border-color: var(--color-green);
-        background-color: var(--color-green);
-        color: #fff;
-      }
-    }
-  }
-
-  &.danger {
-    color: #fff;
-    background-color: var(--color-red);
-
-    &:--enter {
-      color: #fff;
-      background-color: color(var(--color-red) shade(5%));
-    }
-
-    &:active {
-      color: #fff;
-      background-color: color(var(--color-red) shade(10%));
-    }
-
-    &.outline {
-      border-color: currentColor;
-      background-color: rgba(0,0,0,0);
-      color: var(--color-red);
-
-      &:--enter {
-        border-color: var(--color-red);
-        background-color: var(--color-red);
-        color: #fff;
-      }
-    }
-  }
-
-  &:disabled,
-  &[disabled] {
-    &,
     &:hover,
-    &:focus,
-    &:active {
-      cursor: not-allowed;
-      color: var(--btn-disabled-color);
-      background-color: var(--btn-disabled-bg);
-      border: 1px solid var(--btn-disabled-border);
+    &:focus {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
+      color: #fff;
     }
+  }
+}
+
+.btn.success {
+  color: #fff;
+  background-color: var(--color-green);
+
+  &:hover {
+    color: #fff;
+    background-color: color(var(--color-green) shade(5%));
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 1px white inset;
+  }
+
+  &:active {
+    color: #fff;
+    background-color: color(var(--color-green) shade(10%));
+  }
+
+  &.outline {
+    border-color: currentColor;
+    background-color: rgba(0,0,0,0);
+    color: var(--color-green);
+
+    &:hover,
+    &:focus {
+      border-color: var(--color-green);
+      background-color: var(--color-green);
+      color: #fff;
+    }
+  }
+}
+
+.btn.danger {
+  color: #fff;
+  background-color: var(--color-red);
+
+  &:hover {
+    color: #fff;
+    background-color: color(var(--color-red) shade(5%));
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 1px white inset;
+  }
+
+  &:active {
+    color: #fff;
+    background-color: color(var(--color-red) shade(10%));
+  }
+
+  &.outline {
+    border-color: currentColor;
+    background-color: rgba(0,0,0,0);
+    color: var(--color-red);
+
+    &:hover,
+    &:focus {
+      border-color: var(--color-red);
+      background-color: var(--color-red);
+      color: #fff;
+    }
+  }
+}
+
+.btn:disabled,
+.btn[disabled] {
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    cursor: not-allowed;
+    color: var(--btn-disabled-color);
+    background-color: var(--btn-disabled-bg);
+    border: 1px solid var(--btn-disabled-border);
   }
 }

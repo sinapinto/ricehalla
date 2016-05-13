@@ -8,9 +8,9 @@
   --color-green: rgb(40, 210, 110);
   --color-red: rgb(240, 60, 50);
   --color-default: #eee;
-  --body-width: 1000px;
-  --nav-height: 80px;
   --btn-disabled-color: hsl(0, 0%, 80%);
   --btn-disabled-bg: hsl(0, 0%, 97%);
   --btn-disabled-border: hsl(0, 0%, 90%);
+  --body-width: 1000px;
+  --nav-height: 80px;
 }
