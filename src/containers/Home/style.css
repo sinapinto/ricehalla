@@ -58,6 +58,8 @@
   border: 0;
   height: 35px;
   padding-left: 5px;
+  background-color: white;
+  color: var(--font-color);
 
   &:hover, &:focus {
     border: 0;
