@@ -38,6 +38,11 @@ module.exports = function user(sequelize, DataTypes) {
         User.hasMany(models.Rice, {
           foreignKey: 'userId',
         });
+        User.belongsToMany(models.Rice, {
+          as: 'LikedRice',
+          through: 'RiceLikedByUser',
+          foreignKey: 'userId',
+        });
       },
     },
     instanceMethods: {

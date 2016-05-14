@@ -25,7 +25,7 @@ MOCHA_FLAGS += -r co-mocha \
 
 # paths
 TEST_FILES := $(shell \
-  find . \
+  find ./test \
     -type f \
     -name '*.spec.js' \
     -path './test*' \

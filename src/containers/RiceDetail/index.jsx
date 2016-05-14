@@ -92,7 +92,7 @@ class RiceDetail extends Component {
           <div key={i}>
             <div className={style.fileLinkWrapper}>
               <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`} className={style.fileLink}>
-                <Icon name="link" size={20} />
+                <Icon name="link" size={24} />
                 <span className={style.fileName}>{file}</span>
               </a>
             </div>

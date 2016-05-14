@@ -6,9 +6,9 @@ module.exports = function rice(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-    },
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    // },
     title: {
       type: DataTypes.STRING,
       validate: {
@@ -45,9 +45,15 @@ module.exports = function rice(sequelize, DataTypes) {
           },
           foreignKey: {
             name: 'riceId',
+            type: DataTypes.INTEGER,
             allowNull: true,
           },
           constraints: false,
+        });
+        Rice.belongsToMany(models.User, {
+          as: 'Liker',
+          through: 'RiceLikedByUser',
+          foreignKey: 'riceId',
         });
       },
     },
