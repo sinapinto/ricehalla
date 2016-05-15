@@ -5,9 +5,9 @@ import {
 } from '../actions/user';
 
 const initialState = {
+  users: {}, // by username
   isFetching: false,
   error: null,
-  users: {}, // username: { id: 1, username: '', ... }, ...
 };
 
 export default function (state = initialState, action) {

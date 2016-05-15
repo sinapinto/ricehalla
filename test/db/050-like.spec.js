@@ -1,9 +1,9 @@
 import app from '../../src/server';
-import { User, Rice, RiceLikedByUser, sequelize } from '../../src/server/db';
+import { User, Rice, sequelize } from '../../src/server/db';
 import { expect } from 'chai';
 
-before(function () {
-  return sequelize.sync({ force: true });
+before(function *() {
+  yield sequelize.sync({ force: true });
 });
 
 after(function () {
@@ -21,8 +21,6 @@ describe('DB: like', function () {
   const rice = {
     userId: 1,
     title: 'ttt',
-    description: 'ddd',
-    files: 'fff',
   };
 
   // instances
@@ -56,6 +54,23 @@ describe('DB: like', function () {
         ],
       });
       expect(found.Liker[0].username).equal(user.username);
+    });
+
+    it('count all', function *() {
+      yield Rice.create({
+        userId: 1,
+        title: 'sdf',
+      });
+      const found = yield Rice.findAll({
+        attributes: [
+          [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'LikeCount']
+        ],
+        include: [{
+          model: User,
+          as: 'Liker',
+        }],
+      });
+      expect(found[0].get('LikeCount')).equal(1);
     });
   });
 

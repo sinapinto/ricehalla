@@ -32,14 +32,14 @@ export function submit(body) {
     try {
       dispatch({ type: POST_RICE_REQUEST });
       const submitted = await post(body);
-      if (submitted.errors) {
-        dispatch({ type: POST_RICE_FAILURE, errors: submitted.errors });
+      if (submitted.error) {
+        dispatch({ type: POST_RICE_FAILURE, error: submitted.error });
       } else {
         dispatch({ type: POST_RICE_SUCCESS, submitted });
         browserHistory.push(`/rice/${submitted.id}`);
       }
     } catch (err) {
-      dispatch({ type: POST_RICE_FAILURE, errors: err });
+      dispatch({ type: POST_RICE_FAILURE, error: err });
     }
   };
 }
@@ -54,14 +54,14 @@ function get(id) {
     .then(res => res.json());
 }
 
-export function show(id) {
+export function showRice(id) {
   return async dispatch => {
     try {
       dispatch({ type: SHOW_RICE_REQUEST });
       const detail = await get(id);
       dispatch({ type: SHOW_RICE_SUCCESS, detail });
     } catch (err) {
-      dispatch({ type: SHOW_RICE_FAILURE, errors: err });
+      dispatch({ type: SHOW_RICE_FAILURE, error: err });
     }
   };
 }
@@ -77,16 +77,119 @@ function list(queryParams = '') {
 }
 
 export function fetchList() {
-  return async (dispatch, getState) => {
-    if (getState().rice.list.length > 0) {
-      return;
-    }
+  return async dispatch => {
     try {
       dispatch({ type: LIST_RICE_REQUEST });
       const riceList = await list();
       dispatch({ type: LIST_RICE_SUCCESS, list: riceList });
     } catch (err) {
-      dispatch({ type: LIST_RICE_FAILURE, errors: err });
+      dispatch({ type: LIST_RICE_FAILURE, error: err });
+    }
+  };
+}
+
+export const LIKE_RICE_REQUEST = 'LIKE_RICE_REQUEST';
+export const LIKE_RICE_SUCCESS = 'LIKE_RICE_SUCCESS';
+export const LIKE_RICE_FAILURE = 'LIKE_RICE_FAILURE';
+
+async function putLike(username, riceId) {
+  return fetch(`${API_BASE}/api/v1/user/${username}`, {
+    method: 'PUT',
+    body: JSON.stringify({ riceId }),
+  })
+  .then(handleErrors);
+}
+
+export function likeRice(riceId) {
+  return async dispatch => {
+    if (!riceId) {
+      return;
+    }
+    let token = cookie.get('token');
+    if (!token) {
+      return;
+    }
+    let username = jwtDecode(token).username;
+    if (!username) {
+      return;
+    }
+    try {
+      dispatch({
+        type: LIKE_RICE_REQUEST,
+        username,
+        riceId,
+      });
+      const res = await putLike(username, riceId);
+      if (res.status === 204) {
+        dispatch({ type: LIKE_RICE_SUCCESS });
+      } else {
+        dispatch({
+          type: LIKE_RICE_FAILURE,
+          username,
+          riceId,
+          error: res.error,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: LIKE_RICE_FAILURE,
+        username,
+        riceId,
+        error: err,
+      });
+    }
+  };
+}
+
+export const UNLIKE_RICE_REQUEST = 'UNLIKE_RICE_REQUEST';
+export const UNLIKE_RICE_SUCCESS = 'UNLIKE_RICE_SUCCESS';
+export const UNLIKE_RICE_FAILURE = 'UNLIKE_RICE_FAILURE';
+
+async function deleteLike(username, riceId) {
+  return fetch(`${API_BASE}/api/v1/user/${username}`, {
+    method: 'DELETE',
+    body: JSON.stringify({ riceId }),
+  })
+  .then(handleErrors);
+}
+
+export function unlikeRice(riceId) {
+  return async dispatch => {
+    if (!riceId) {
+      return;
+    }
+    let token = cookie.get('token');
+    if (!token) {
+      return;
+    }
+    let username = jwtDecode(token).username;
+    if (!username) {
+      return;
+    }
+    try {
+      dispatch({
+        type: UNLIKE_RICE_REQUEST,
+        username,
+        riceId,
+      });
+      const res = await deleteLike(username, riceId);
+      if (res.status === 204) {
+        dispatch({ type: UNLIKE_RICE_SUCCESS });
+      } else {
+        dispatch({
+          type: UNLIKE_RICE_FAILURE,
+          username,
+          riceId,
+          error: res.error,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: UNLIKE_RICE_FAILURE,
+        username,
+        riceId,
+        error: err,
+      });
     }
   };
 }

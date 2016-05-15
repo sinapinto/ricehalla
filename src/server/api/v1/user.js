@@ -2,13 +2,15 @@ import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
 import { User, Rice, Tag } from '../../db';
+const debug = require('debug')('app:server:user');
 const parameter = new Parameter({});
 
 function *requireAuth(next) {
   if (this.state.user) {
     yield next;
   } else {
-    this.throw(401);
+    yield next;
+    // this.throw(401);
   }
 }
 
@@ -46,7 +48,7 @@ export default new Resource('user', {
 
   // PUT /user/:user
   update: [requireAuth, function *create() {
-    const body = yield parse(this);
+    const body = yield parse.json(this);
     const rule = {
       riceId: { type: 'number', required: true },
     };
@@ -54,30 +56,29 @@ export default new Resource('user', {
     if (errors) {
       this.type = 'json';
       this.status = 200;
-      this.body = { errors };
+      this.body = { error: errors[0] };
       return;
     }
     try {
-      const rice = yield Rice.findOne({ where: { id: body.riceId }});
+      const rice = yield Rice.findOne({ where: { id: body.riceId } });
       if (!rice) {
-        return this.throw(403);
+        this.throw(403);
       }
-      const user = yield User.findOne({ where: { username: this.params.user }});
+      const user = yield User.findOne({ where: { username: this.params.user } });
       if (!user) {
-        return this.throw(403);
+        this.throw(403);
       }
       yield user.setLikedRice(rice);
-      this.type = 'json';
-      this.status = 201;
-      this.body = { ok: true };
+      this.status = 204;
     } catch (err) {
+      debug(err);
       this.throw(403);
     }
   }],
 
   // DELETE /user/:user
   destroy: [requireAuth, function *destroy() {
-    const body = yield parse(this);
+    const body = yield parse.json(this);
     const rule = {
       riceId: { type: 'number', required: true },
     };
@@ -85,22 +86,20 @@ export default new Resource('user', {
     if (errors) {
       this.type = 'json';
       this.status = 200;
-      this.body = { errors };
+      this.body = { error: errors[0] };
       return;
     }
     try {
-      const rice = yield Rice.findOne({ where: { id: body.riceId }});
+      const rice = yield Rice.findOne({ where: { id: body.riceId } });
       if (!rice) {
-        return this.throw(403);
+        this.throw(403);
       }
-      const user = yield User.findOne({ where: { username: this.params.user }});
+      const user = yield User.findOne({ where: { username: this.params.user } });
       if (!user) {
-        return this.throw(403);
+        this.throw(403);
       }
       yield user.removeLikedRice(rice);
-      this.type = 'json';
-      this.status = 201;
-      this.body = { ok: true };
+      this.status = 204;
     } catch (err) {
       this.throw(403);
     }

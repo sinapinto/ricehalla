@@ -30,8 +30,8 @@ export function uploadFile(file) {
           });
         },
       });
-      if (res.errors) {
-        throw new Error(res.errors);
+      if (res.error) {
+        throw new Error(res.error);
       }
       dispatch({
         type: UPLOAD_SUCCESS,

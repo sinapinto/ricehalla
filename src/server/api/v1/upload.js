@@ -2,7 +2,7 @@ import Resource from 'koa-resource-router';
 import multer from 'koa-multer';
 import AWS from 'aws-sdk';
 import _debug from 'debug';
-const debug = _debug('app:upload');
+const debug = _debug('app:server:upload');
 
 const s3 = new AWS.S3();
 
@@ -58,7 +58,6 @@ export default new Resource('upload', {
       this.body = { error: 'upload error' };
       return;
     }
-    debug(data);
     this.status = 200;
     this.body = { response: { name, mimetype } };
   }],

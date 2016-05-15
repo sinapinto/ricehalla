@@ -1,10 +1,9 @@
-import querystring from 'querystring';
 import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
 import _debug from 'debug';
-import { Rice, User, Tag } from '../../db';
-const debug = _debug('app:rice');
+import { Rice, User, Tag, sequelize } from '../../db';
+const debug = _debug('app:server:rice');
 const parameter = new Parameter({});
 
 const MAX_TAGS = 15;
@@ -20,29 +19,23 @@ function *requireAuth(next) {
 export default new Resource('rice', {
   // GET /rice
   index: function *index() {
-    const body = querystring.parse(this.request.query);
-    const rule = {
-      offset: { type: 'number', required: false },
-      limit: { type: 'number', required: false },
-    };
-    const errors = parameter.validate(rule, body);
-    if (errors) {
-      this.type = 'json';
-      this.status = 200;
-      this.body = { errors };
-      return;
-    }
-    const { offset = 0, limit = 20 } = body;
     try {
       const rice = yield Rice.findAll({
-        offset,
-        limit,
-        attributes: ['likes', 'scrot', 'userId', 'id'],
+        attributes: [
+          'scrot',
+          'id',
+          // [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'likeCount'],
+        ],
         include: [
+          // {
+          //   model: User,
+          //   attributes: ['username'],
+          //   required: true,
+          // },
           {
             model: User,
+            as: 'Liker',
             attributes: ['username'],
-            required: true,
           },
           {
             model: Tag,
@@ -55,6 +48,7 @@ export default new Resource('rice', {
       this.status = 200;
       this.body = rice;
     } catch (err) {
+      debug(err);
       this.type = 'json';
       this.status = 403;
       this.body = { message: 'failed to get rice' };
@@ -81,7 +75,7 @@ export default new Resource('rice', {
     if (errors) {
       this.type = 'json';
       this.status = 200;
-      this.body = { errors };
+      this.body = { error: errors[0] };
       return;
     }
     const fields = [
@@ -118,11 +112,23 @@ export default new Resource('rice', {
   show: function *show() {
     const rice = yield Rice.findOne({
       where: { id: this.params.rice },
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'files',
+        'scrot',
+        // [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'likeCount'],
+      ],
       include: [
         {
           model: User,
           attributes: ['username', 'emailHash'],
           required: true,
+        },
+        {
+          model: User,
+          as: 'Liker',
         },
         {
           model: Tag,

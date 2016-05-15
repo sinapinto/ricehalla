@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import marked from 'marked';
 import Icon from '../../components/Icon';
-import { show as showRice } from '../../actions/rice';
+import { showRice, likeRice, unlikeRice } from '../../actions/rice';
 import style from './style.css';
 
 const propTypes = {
@@ -28,36 +28,37 @@ const propTypes = {
     userId: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
-    likes: PropTypes.number,
-    files: PropTypes.string,
+    files: PropTypes.arrayOf(PropTypes.string),
     scrot: PropTypes.string,
+    likers: PropTypes.array(PropTypes.string),
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string,
   }),
+  isFetchingLike: PropTypes.bool.isRequired,
   showRice: PropTypes.func.isRequired,
-};
-
-const defaultProps = {
-  detail: {},
+  likeRice: PropTypes.func.isRequired,
+  unlikeRice: PropTypes.func.isRequired,
 };
 
 class RiceDetail extends Component {
   constructor() {
     super();
     this.handleLikeClick = this.handleLikeClick.bind(this);
-    this.state = {
-      liked: false,
-    };
   }
 
   handleLikeClick() {
-    this.setState({ liked: !this.state.liked });
+    if (this.props.isFetchingLike) {
+      return;
+    }
+    if (~this.props.detail.likers.indexOf(this.props.username)) {
+      this.props.unlikeRice(this.props.detail.id);
+    } else {
+      this.props.likeRice(this.props.detail.id);
+    }
   }
 
   componentDidMount() {
-    if (this.props.params.id) {
-      this.props.showRice(this.props.params.id);
-    }
+    this.props.showRice(this.props.params.id);
   }
 
   createMarkdown() {
@@ -68,12 +69,15 @@ class RiceDetail extends Component {
   }
 
   render() {
-    const { User, Tags, title = '', likes, scrot, userId, id } = this.props.detail;
-    const files = typeof this.props.detail.files !== 'undefined'
-      ? JSON.parse(this.props.detail.files)
-      : [];
+    const { User, Tags, files, title = '', scrot, likers, userId, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
     const updatedAt = moment(this.props.detail.updatedAt).from();
+    let likeIcon;
+    if (likers && ~likers.indexOf(this.props.username)) {
+      likeIcon = 'heart';
+    } else {
+      likeIcon = 'heart-outline';
+    }
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
@@ -132,13 +136,11 @@ class RiceDetail extends Component {
               className={style.likes}
             >
               <Icon
-                name={this.state.liked ? "heart" : "heart-outline"}
-                size={20}
+                name={likeIcon}
+                size={24}
                 className={style.heart}
               />
-              {typeof likes !== 'undefined' ?
-                (this.state.liked ? likes + 1 : likes)
-                  : null}
+              {typeof likers !== 'undefined' ? likers.length : null}
             </span>
           </div>
         : null}
@@ -148,12 +150,18 @@ class RiceDetail extends Component {
 }
 
 RiceDetail.propTypes = propTypes;
-RiceDetail.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
+  const { posts, showing, isFetchingLike } = state.rice;
+  const detail = posts[showing] ? posts[showing] : {};
   return {
-    detail: state.rice.detail,
+    detail,
+    isFetchingLike,
   };
 }
 
-export default connect(mapStateToProps, { showRice })(RiceDetail);
+export default connect(mapStateToProps, {
+  showRice,
+  likeRice,
+  unlikeRice,
+})(RiceDetail);

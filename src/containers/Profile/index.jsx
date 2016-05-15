@@ -74,16 +74,18 @@ class Profile extends Component {
                 className={style.avatar}
               />
               : null}
-            <div>
-              <h1 className={style.username}>
-                <Link to={`/user/${username}`}>
-                  {username}
-                </Link>
-              </h1>
-              <span className={style.joined}>
-                {createdAt ? `Joined on ${moment(createdAt).format('dddd, MMMM Do YYYY')}` : ''}
-              </span>
-            </div>
+            {createdAt ?
+              <div>
+                <h1 className={style.username}>
+                  <Link to={`/user/${username}`}>
+                    {username}
+                  </Link>
+                </h1>
+                <span className={style.joined}>
+                  Joined on {moment(createdAt).format('dddd, MMMM Do YYYY')}
+                </span>
+              </div>
+              : null}
           </div>
         </div>
         <div className={style.activity}>

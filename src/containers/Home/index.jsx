@@ -15,11 +15,10 @@ const propTypes = {
   userId: PropTypes.number,
   username: PropTypes.string,
   email: PropTypes.string,
-  fetchList: PropTypes.func.isRequired,
   location: PropTypes.shape({
     query: PropTypes.object,
   }).isRequired,
-  list: PropTypes.arrayOf(
+  posts: PropTypes.arrayOf(
     PropTypes.shape({
       Tags: PropTypes.arrayOf(
         PropTypes.shape({
@@ -27,14 +26,13 @@ const propTypes = {
         }).isRequired
       ),
       id: PropTypes.number.isRequired,
-      userId: PropTypes.number.isRequired,
-      likes: PropTypes.number.isRequired,
       scrot: PropTypes.string.isRequired,
+      likers: PropTypes.arrayOf(PropTypes.string).isRequired,
       createdAt: PropTypes.string,
-    }).isRequired,
+    })
   ),
-  errors: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  hasFetchedList: PropTypes.bool.isRequired,
+  fetchList: PropTypes.func.isRequired,
 };
 
 const NEW = 0;
@@ -58,7 +56,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchList();
+    if (!this.props.hasFetchedList) {
+      this.props.fetchList();
+    }
   }
 
   filterChange(e) {
@@ -71,6 +71,29 @@ class Home extends Component {
 
   sortPopular() {
     this.setState({ activeTab: POPULAR });
+  }
+
+  renderGrid() {
+    return this.props.posts.filter(rice =>
+      this.state.filterText.split(/\s|,/).every(filter => {
+        if (filter === '' || !rice.Tags) {
+          return true;
+        }
+        return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);
+      }))
+      .sort((a, b) => {
+        if (this.state.activeTab === POPULAR) {
+          return b.likers.length - a.likers.length;
+        } else if (this.state.activeTab === NEW) {
+          return moment(b) - moment(a);
+        }
+      })
+      .map(rice => 
+        <Thumbnail
+          key={rice.id}
+          riceId={rice.id}
+          scrot={rice.scrot}
+        />);
   }
 
   render() {
@@ -109,27 +132,7 @@ class Home extends Component {
           options={{ transitionDuration: '0.2s', gutter: 10 }}
           elementType="div"
         >
-          {(this.props.list.length && this.props.list[0].id !== null) ? this.props.list.filter(rice =>
-            this.state.filterText.split(/\s|,/).every(filter => {
-              if (filter === '' || !rice.Tags) {
-                return true;
-              }
-              return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);
-            }))
-            .sort((a, b) => {
-              if (this.state.activeTab === POPULAR) {
-                return b.likes - a.likes;
-              } else if (this.state.activeTab === NEW) {
-                return moment(b) - moment(a);
-              }
-            })
-            .map(rice => 
-              <Thumbnail
-                key={rice.id}
-                riceId={rice.id}
-                scrot={rice.scrot}
-              />)
-              : null}
+          {this.renderGrid()}
         </Masonry>
       </div>
     );
@@ -139,10 +142,10 @@ class Home extends Component {
 Home.propTypes = propTypes;
 
 function mapStateToProps(state) {
+  const posts = Object.keys(state.rice.posts).map(key => state.rice.posts[key]);
   return {
-    list: state.rice.list,
-    errors: state.rice.errors,
-    isFetching: state.rice.isFetching,
+    posts,
+    hasFetchedList: state.rice.hasFetchedList,
   };
 }
 

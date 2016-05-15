@@ -6,9 +6,6 @@ module.exports = function rice(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true,
     },
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    // },
     title: {
       type: DataTypes.STRING,
       validate: {
@@ -17,10 +14,6 @@ module.exports = function rice(sequelize, DataTypes) {
     },
     description: {
       type: DataTypes.TEXT,
-    },
-    likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
     },
     files: {
       type: DataTypes.TEXT,

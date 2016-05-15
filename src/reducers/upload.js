@@ -6,9 +6,9 @@ import {
 } from '../actions/upload';
 
 const initialState = {
-  files: {},   // { 'uid': { name: '', mimetype: '' }, ... }
-  percentages: {}, // { 'uid': 20, ... }
-  errors: {},
+  files: {},       // by uid slug
+  percentages: {}, // by uid slug
+  errors: {},      // by uid slug
 };
 
 export default function (state = initialState, action) {

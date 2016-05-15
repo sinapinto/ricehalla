@@ -11,23 +11,21 @@ import {
 } from '../actions/auth';
 
 const initialState = {
-  isFetching: false,
   isAuthenticated: false,
   token: null,
   loginInvalid: false,
   logoutError: null,
   registerError: '',
+  isFetching: false,
 };
 
 export default function (state = initialState, action) {
   // merge the partial initial state from server
-  let initializedState = { ...state };
+  let initializedState = Object.assign({}, state);
   if (!state.hydrated) {
-    initializedState = {
-      ...initialState,
-      ...state,
+    initializedState = Object.assign({}, initialState, state, {
       hydrated: true,
-    };
+    });
   }
 
   switch (action.type) {

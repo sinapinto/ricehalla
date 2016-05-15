@@ -27,7 +27,6 @@ const propTypes = {
   }).isRequired,
   rice: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
-    errors: PropTypes.array,
   }).isRequired,
   submitRice: PropTypes.func.isRequired,
   uploadFile: PropTypes.func.isRequired,
