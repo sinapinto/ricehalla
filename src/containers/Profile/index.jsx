@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import moment from 'moment';
 import marked from 'marked';
+import Icon from '../../components/Icon';
 import { loadUser } from '../../actions/user';
 import style from './style.css';
 
@@ -62,6 +63,18 @@ class Profile extends Component {
       emailHash = this.props.users[username].emailHash;
       about = this.props.users[username].about;
       createdAt = this.props.users[username].createdAt;
+    }
+    if (!this.props.isFetching && !email) {
+      return (
+        <div className={style.root}>
+          <Helmet title={`User not found | Ricehalla`} />
+          <div className={style.notFoundWrapper}>
+            <Icon name="sad-outline" size={180} className={style.sadIcon} />
+            <h1>User not found</h1>
+            <p>There doesn&apos;t seem to be a user named <b>{username}</b>.</p>
+          </div>
+        </div>
+      );
     }
     return (
       <div className={style.root}>

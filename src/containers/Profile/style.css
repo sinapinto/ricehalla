@@ -89,10 +89,6 @@
   font-size: 14px;
   transition: opacity .2s;
 
-  /* & + & { */
-  /* margin: 2px; */
-  /* } */
-
   &:hover {
     opacity: 1;
   }
@@ -100,4 +96,13 @@
 
 .rAge {
   font-size: 12px;
+}
+
+.notFoundWrapper {
+  text-align: center;
+  color: var(--font-color);
+  font-size: 130%;
+}
+.sadIcon {
+  fill: color(var(--link-color) tint(80%));
 }
