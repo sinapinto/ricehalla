@@ -112,13 +112,6 @@ class Submit extends Component {
         <Helmet title="Submit" />
         <h2 className={style.header}>Post your rice.</h2>
         <Form onSubmit={this.handleSubmit} className={style.form}>
-          <Label htmlFor="title">Title</Label>
-          <TextInput
-            id="title"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleTextInputChange}
-          />
           <Dropzone
             action={this.upload}
             percentages={this.props.upload.percentages}
@@ -126,14 +119,24 @@ class Submit extends Component {
             errors={this.props.upload.errors}
           >
             <Icon name="upload" size={64} className={style.dzIcon} />
-            <p className={style.dzHeader}>drop files here or click to upload (max 3MB/file)</p>
+            <p className={style.dzHeader}>Drop files here or click to upload</p>
+            <p className={style.dzSubHeader}>max 3MB / file</p>
           </Dropzone>
+          <Label htmlFor="title">Title</Label>
+          <TextInput
+            id="title"
+            name="title"
+            className={style.input}
+            value={this.state.title}
+            onChange={this.handleTextInputChange}
+          />
           <Label>Tags</Label>
           <Select
             multi
             joinValues
             allowCreate
             name="tags"
+            className={style.input}
             value={this.state.tags}
             onChange={this.handleTags}
             asyncOptions={this.fetchTags}
@@ -145,6 +148,8 @@ class Submit extends Component {
             height={130}
             id="description"
             name="description"
+            placeholder="Enter markdown description..."
+            className={style.input}
             value={this.state.description}
             onChange={this.handleTextInputChange}
           />

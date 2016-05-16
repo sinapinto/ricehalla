@@ -18,20 +18,26 @@
   text-align: center;
 }
 
-.submitBtn {
-  margin-top: 10px;
-  float: right;
+.input {
+  margin-bottom: 40px;
 }
 
 .dzIcon {
-  fill: color(var(--color-primary) tint(20%));
+  fill: gray(92%);
 }
 
 .dzHeader {
-  font-size: 12px;
-  color: gray(50%);
+  font-size: 14px;
+  color: gray(40%);
 }
 
-.error {
-  color: var(--color-red);
+.dzSubHeader {
+  margin: 0;
+  font-size: 11px;
+  color: gray(60%);
+}
+
+.submitBtn {
+  padding: 1.4em 4em;
+  float: right;
 }

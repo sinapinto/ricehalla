@@ -70,7 +70,7 @@ class RiceDetail extends Component {
   render() {
     const { User, Tags, files, title = '', scrot, likers, userId, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
-    const updatedAt = moment(this.props.detail.updatedAt).from();
+    // const updatedAt = moment(this.props.detail.updatedAt).from();
     let likeIcon;
     if (likers && ~likers.indexOf(this.props.username)) {
       likeIcon = 'heart';
@@ -136,7 +136,7 @@ class RiceDetail extends Component {
             >
               <Icon
                 name={likeIcon}
-                size={24}
+                size={32}
                 className={style.heart}
               />
               {typeof likers !== 'undefined' ? likers.length : null}
