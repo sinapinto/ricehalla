@@ -118,6 +118,7 @@ export default new Resource('rice', {
         'description',
         'files',
         'scrot',
+        'createdAt',
         // [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'likeCount'],
       ],
       include: [
@@ -144,10 +145,6 @@ export default new Resource('rice', {
     this.status = 200;
     this.body = rice;
   },
-
-  // PUT /rice/:rice
-  // *update() {
-  // },
 
   // DELETE /rice/:rice
   // destroy: [requireAuth, function *destroy() {

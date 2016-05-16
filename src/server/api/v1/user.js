@@ -68,7 +68,7 @@ export default new Resource('user', {
       if (!user) {
         this.throw(403);
       }
-      yield user.setLikedRice(rice);
+      yield user.addLikedRice(rice);
       this.status = 204;
     } catch (err) {
       debug(err);

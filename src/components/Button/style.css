@@ -9,7 +9,7 @@
   text-align: center;
   line-height: 1em;
   padding: 0.8em 1em;
-  border-radius: 3px;
+  border-radius: 2px;
   border-width: 1px;
   border-color: rgba(0,0,0,0);
   color: color(var(--font-color) tint(40%));

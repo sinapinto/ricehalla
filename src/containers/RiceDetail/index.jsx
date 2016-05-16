@@ -32,7 +32,6 @@ const propTypes = {
     scrot: PropTypes.string,
     likers: PropTypes.array(PropTypes.string),
     createdAt: PropTypes.string,
-    updatedAt: PropTypes.string,
   }),
   isFetchingLike: PropTypes.bool.isRequired,
   showRice: PropTypes.func.isRequired,
