@@ -35,13 +35,23 @@ function toggleLike(post, username) {
       ...post,
       likers: post.likers.filter(name => name !== username),
     };
-  } else {
-    // add username
-    return {
-      ...post,
-      likers: post.likers.concat(username),
-    };
   }
+  // add username
+  return {
+    ...post,
+    likers: post.likers.concat(username),
+  };
+}
+
+// return a copy of the post with `Liker` object mapped to a `likers` array
+function mapLikers(post) {
+  if (!post.Liker) {
+    return post;
+  }
+  let likers = post.Liker.map(user => user.username);
+  let ret = Object.assign({}, post, { likers });
+  delete ret.Liker;
+  return ret;
 }
 
 export default function (state = initialState, action) {
@@ -65,18 +75,15 @@ export default function (state = initialState, action) {
         isFetching: true,
       };
     case SHOW_RICE_SUCCESS: {
-      const files = typeof action.detail.files !== 'undefined' ? JSON.parse(action.detail.files) : [];
-      let { detail } = action;
-      if (action.detail.Liker) {
-        let likers = action.detail.Liker.map(user => user.username);
-        detail = Object.assign({}, action.detail, { files }, { likers });
-        delete detail.Liker;
-      }
+      const files = typeof action.detail.files !== 'undefined'
+        ? JSON.parse(action.detail.files)
+        : [];
+      let post = Object.assign({}, mapLikers(action.detail), { files });
       return {
         ...state,
-        showing: detail.id,
+        showing: post.id,
         posts: Object.assign({}, state.posts, {
-          [detail.id]: detail,
+          [post.id]: post,
         }),
         isFetching: false,
       };
@@ -86,15 +93,17 @@ export default function (state = initialState, action) {
         ...state,
         isFetching: true,
       };
-    case LIST_RICE_SUCCESS:
+    case LIST_RICE_SUCCESS: {
+      let posts = action.list.map(post => mapLikers(post));
       return {
         ...state,
         isFetching: false,
         hasFetchedList: true,
         posts: Object.assign({}, state.posts,
-           ...action.list.map(post => ({ [post.id]: post }))
+           ...posts.map(post => ({ [post.id]: post }))
         ),
       };
+    }
     case LIKE_RICE_REQUEST:
     case UNLIKE_RICE_REQUEST:
       return {

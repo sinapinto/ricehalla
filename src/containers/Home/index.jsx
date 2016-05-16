@@ -83,6 +83,9 @@ class Home extends Component {
       }))
       .sort((a, b) => {
         if (this.state.activeTab === POPULAR) {
+          if (!a.likers || !b.likers) {
+            return 0;
+          }
           return b.likers.length - a.likers.length;
         } else if (this.state.activeTab === NEW) {
           return moment(b) - moment(a);

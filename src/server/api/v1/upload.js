@@ -41,7 +41,7 @@ export default new Resource('upload', {
       return;
     }
     const { name, mimetype, buffer } = this.req.files[filename];
-    const [error, data] = yield new Promise(resolve => {
+    const [error] = yield new Promise(resolve => {
       s3.putObject({
         ACL: 'public-read',
         Bucket: 'ricehalla',

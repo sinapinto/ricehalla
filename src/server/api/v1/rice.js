@@ -2,7 +2,7 @@ import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
 import _debug from 'debug';
-import { Rice, User, Tag, sequelize } from '../../db';
+import { Rice, User, Tag } from '../../db';
 const debug = _debug('app:server:rice');
 const parameter = new Parameter({});
 
