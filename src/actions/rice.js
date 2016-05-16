@@ -95,7 +95,7 @@ export const LIKE_RICE_FAILURE = 'LIKE_RICE_FAILURE';
 async function putLike(username, riceId) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'PUT',
-    body: JSON.stringify({ riceId }),
+    body: JSON.stringify({ riceId: +riceId }),
   })
   .then(handleErrors);
 }
@@ -148,7 +148,7 @@ export const UNLIKE_RICE_FAILURE = 'UNLIKE_RICE_FAILURE';
 async function deleteLike(username, riceId) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'DELETE',
-    body: JSON.stringify({ riceId }),
+    body: JSON.stringify({ riceId: +riceId }),
   })
   .then(handleErrors);
 }
