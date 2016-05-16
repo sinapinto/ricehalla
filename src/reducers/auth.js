@@ -17,6 +17,7 @@ const initialState = {
   logoutError: null,
   registerError: '',
   isFetching: false,
+  hydrated: false,
 };
 
 export default function (state = initialState, action) {

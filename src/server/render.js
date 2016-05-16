@@ -31,6 +31,7 @@ export default function *() {
   if (isCached) {
     return;
   }
+
   const initialState = {
     auth: {
       token: this.cookies.get('token'),
@@ -40,6 +41,13 @@ export default function *() {
   const store = configureStore(initialState);
   const location = createLocation(this.originalUrl);
   const routes = createRouter(createMemoryHistory(), store);
+
+  // disable SSR on profile page
+  if (this.originalUrl.indexOf('/user/') > -1) {
+    const html = <Html state={store.getState()} assets={assets} />;
+    this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
+    return;
+  }
 
   const [error, redirectLocation, renderProps] = yield new Promise((resolve) => {
     match({ routes, location }, (...args) => resolve(args));
