@@ -7,7 +7,7 @@ import atImport from 'postcss-import';
 import colorGray from 'postcss-color-gray';
 import colorFunction from 'postcss-color-function';
 import nesting from 'postcss-nesting';
-import customSelectors from 'postcss-custom-selectors';
+import calc from 'postcss-calc';
 
 export const ROOT_PATH = path.resolve(__dirname, '..', '..');
 export const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
@@ -79,7 +79,7 @@ export function POSTCSS() {
     atImport({ addDependencyTo: webpack }),
     customProps(),
     nesting(),
-    customSelectors(),
+    calc(),
     colorGray(),
     colorFunction(),
     autoprefixer({ browsers: ['last 2 versions'] })

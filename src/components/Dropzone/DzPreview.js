@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ProgressBar from '../ProgressBar';
+import Icon from '../../components/Icon';
 import style from './style.css';
 
 const propTypes = {
@@ -43,12 +44,15 @@ class DzPreview extends Component {
   render() {
     const { name, size, thumbnail, progress, error } = this.props;
     const inner = (
-      <div style={{ display: 'flex', width: '100%' }}>
-        <img src={thumbnail} width={60} height={60} alt={name} className={style.dzThumbnail} />
+      <div className={style.previewWrapper}>
+        {thumbnail
+          ? <img src={thumbnail} width={60} height={60} alt={name} className={style.dzThumbnail} />
+          : <Icon name="document" size={60} className={style.fileIcon} />
+          }
         <div className={style.dzInfo}>
-          <p>{name}</p>
-          <p>{this.humanizeBytes(size)}</p>
-          <ProgressBar percent={progress} width={5} hasError={!!error} />
+          <p className={style.fileName}>{name}</p>
+          <p className={style.fileSize}>{this.humanizeBytes(size)}</p>
+          <ProgressBar percent={progress} width={2} hasError={!!error} />
         </div>
       </div>
     );

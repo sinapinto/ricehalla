@@ -20,11 +20,12 @@
 }
 
 .dzPreview {
+  --preview-width: 300px;
+  width: var(--preview-width);
   display: flex;
-  width: 200px;
   height: 100px;
   margin: 10px;
-  padding: 10px;
+  padding: 6px;
   border: 1px solid gray(90%);
   border-radius: 5px;
   color: gray(40%);
@@ -36,10 +37,34 @@
   }
 }
 
+.previewWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fileIcon {
+  fill: var(--link-color);
+}
+
+.fileName {
+  font-weight: 600;
+  margin: 0;
+}
+
+.fileSize {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
 .dzInfo {
   padding-left: 10px;
-  font-size: 9px;
-  width: 100%;
+  font-size: 12px;
+  /* width: calc(var(--preview-width) - 60px); */ /* FIXME */
+  width: calc(300px - 60px);
 }
 
 .dzThumbnail {

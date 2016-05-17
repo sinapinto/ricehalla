@@ -59,12 +59,13 @@ class Dropzone extends Component {
     file.uid = uid;
     this.props.action(file);
     const reader = new FileReader();
+    console.log(file.type);
     reader.onload = (ev) => {
       this.setState({
         uploads: this.state.uploads.concat({
           uid,
           file,
-          thumbnail: ev.target.result,
+          thumbnail: /^image\//.test(file.type) ? ev.target.result : '',
         })
       });
     };
