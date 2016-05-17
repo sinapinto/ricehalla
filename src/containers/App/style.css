@@ -43,10 +43,10 @@
   user-select: none;
   text-decoration: none;
   color: color(var(--link-color) shade(0%));
-  padding: 1em 0.5em;
+  padding: 0.4em 0.5em;
 
   &:hover {
-    color: color(var(--link-color) shade(10%));
+    text-decoration: underline;
   }
 }
 

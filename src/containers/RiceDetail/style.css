@@ -55,7 +55,6 @@
   }
 }
 
-
 .likes {
   display: flex;
   justify-content: center;
@@ -84,4 +83,8 @@
 
 .rTag {
   composes: rTag from "../Profile/style.css";
+}
+
+.avatar {
+  border-radius: 99em;
 }

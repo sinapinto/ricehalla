@@ -118,34 +118,38 @@ class Submit extends Component {
             files={this.props.upload.files}
             errors={this.props.upload.errors}
           >
-            <Icon name="upload" size={64} className={style.dzIcon} />
+            <Icon name="images" size={100} className={style.dzIcon} />
             <p className={style.dzHeader}>Drop files here or click to upload</p>
-            <p className={style.dzSubHeader}>max 3MB / file</p>
+            <p className={style.dzSubHeader}>Maximum 3 MB per file</p>
           </Dropzone>
-          <Label htmlFor="title">Title</Label>
-          <TextInput
-            id="title"
-            name="title"
-            className={style.input}
-            value={this.state.title}
-            onChange={this.handleTextInputChange}
-          />
-          <Label>Tags</Label>
-          <Select
-            multi
-            joinValues
-            allowCreate
-            name="tags"
-            className={style.input}
-            value={this.state.tags}
-            onChange={this.handleTags}
-            asyncOptions={this.fetchTags}
-          />
-          <Label htmlFor="description">Description</Label>
+          <div className={style.inputWrapper}>
+            <Label htmlFor="title" className={style.label}>Title</Label>
+            <TextInput
+              id="title"
+              name="title"
+              className={style.input}
+              value={this.state.title}
+              onChange={this.handleTextInputChange}
+            />
+          </div>
+          <div className={style.inputWrapper}>
+            <Label className={style.label}>Tags</Label>
+            <Select
+              multi
+              joinValues
+              allowCreate
+              name="tags"
+              className={style.input}
+              value={this.state.tags}
+              onChange={this.handleTags}
+              asyncOptions={this.fetchTags}
+            />
+          </div>
+          <Label htmlFor="description" className={style.label}>Description</Label>
           <TextInput
             multiline
             spellCheck={false}
-            height={130}
+            height={200}
             id="description"
             name="description"
             placeholder="Enter markdown description..."

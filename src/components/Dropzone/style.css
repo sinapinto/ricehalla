@@ -10,7 +10,7 @@
   border-style: dashed;
   border-color: color(var(--color-primary) tint(70%));
   border-radius: 5px;
-  min-height: 200px;
+  min-height: 300px;
   margin: 40px 0;
   transition: border-color .2s;
 

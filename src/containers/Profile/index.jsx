@@ -70,8 +70,8 @@ class Profile extends Component {
           <Helmet title={`User not found | Ricehalla`} />
           <div className={style.notFoundWrapper}>
             <Icon name="sad-outline" size={180} className={style.sadIcon} />
-            <h1>User not found</h1>
-            <p>There doesn&apos;t seem to be a user named <b>{username}</b>.</p>
+            <h1 className={style.h1}>User not found</h1>
+            <h2 className={style.h2}>There doesn&apos;t seem to be a user named <b>{username}</b>.</h2>
           </div>
         </div>
       );
@@ -102,7 +102,7 @@ class Profile extends Component {
           </div>
         </div>
         <div className={style.activity}>
-        {Rice ? <h2 className={style.header}>Recent</h2> : null}
+        {Rice ? <h3 className={style.h3}>Recent</h3> : null}
           {Rice ? Rice.map(rice =>
             <Link key={rice.id} to={`/rice/${rice.id}`}>
               <div className={style.rWrapper}>

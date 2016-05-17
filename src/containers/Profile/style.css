@@ -41,7 +41,7 @@
   width: 80%;
   margin: 0 auto;
 
-  & .header {
+  & .h3 {
     color: var(--font-color-light);
     font-weight: 400;
     font-size: 18px;
@@ -82,11 +82,10 @@
   background-color: var(--link-color);
   color: #fff;
   border-radius: 5px;
-  padding: 0 8px;
-  line-height: 22px;
+  padding: 1px 8px;
   margin-right: 6px;
-  opacity: 0.85;
   font-size: 14px;
+  opacity: 0.85;
   transition: opacity .2s;
 
   &:hover {
@@ -99,10 +98,23 @@
 }
 
 .notFoundWrapper {
+  & .sadIcon {
+    fill: hsla(198, 86%, 91%, 1);
+  }
+
   text-align: center;
   color: var(--font-color);
   font-size: 130%;
-}
-.sadIcon {
-  fill: color(var(--link-color) tint(80%));
+
+  & .h1 {
+    color: hsla(204, 29%, 25%, 1);
+    font-size: 34px;
+    font-weight: 600;
+  }
+
+  & .h2 {
+    color: hsla(205, 28%, 63%, 1);
+    font-size: 22px;
+    font-weight: 400;
+  }
 }

@@ -6,7 +6,7 @@
 }
 
 .form {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -18,23 +18,38 @@
   text-align: center;
 }
 
+.inputWrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .input {
   margin-bottom: 40px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.label {
+  font-size: 28px;
+  margin-right: 2em;
 }
 
 .dzIcon {
-  fill: gray(92%);
+  fill: hsla(198, 86%, 91%, 1);
 }
 
 .dzHeader {
-  font-size: 14px;
-  color: gray(40%);
+  color: hsla(204, 29%, 25%, 1);
+  font-size: 22px;
+  font-weight: 400;
+  margin: 5px;
 }
 
 .dzSubHeader {
-  margin: 0;
-  font-size: 11px;
-  color: gray(60%);
+  color: hsla(205, 28%, 63%, 1);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px;
 }
 
 .submitBtn {
