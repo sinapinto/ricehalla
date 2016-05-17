@@ -67,7 +67,7 @@
 
   & .rTitle {
     font-size: 36px;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0;
     transition: color .2s;
   }
@@ -94,6 +94,7 @@
 }
 
 .rAge {
+  margin-top: 5px;
   font-size: 12px;
 }
 
@@ -109,7 +110,7 @@
   & .h1 {
     color: hsla(204, 29%, 25%, 1);
     font-size: 34px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   & .h2 {

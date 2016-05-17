@@ -110,7 +110,7 @@ class Submit extends Component {
     return (
       <div className={style.root}>
         <Helmet title="Submit" />
-        <h2 className={style.header}>Post your rice.</h2>
+        <h2 className={style.header}>Post your rice</h2>
         <Form onSubmit={this.handleSubmit} className={style.form}>
           <Dropzone
             action={this.upload}
@@ -120,7 +120,7 @@ class Submit extends Component {
           >
             <Icon name="images" size={100} className={style.dzIcon} />
             <p className={style.dzHeader}>Drop files here or click to upload</p>
-            <p className={style.dzSubHeader}>Maximum 3 MB per file</p>
+            <p className={style.dzSubHeader}>Limit 3 MB per file</p>
           </Dropzone>
           <div className={style.inputWrapper}>
             <Label htmlFor="title" className={style.label}>Title</Label>

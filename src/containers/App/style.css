@@ -1,5 +1,4 @@
 @import "../../style/variables.css";
-@import "https://fonts.googleapis.com/css?family=Fira+Mono:700";
 
 .root {
   max-width: var(--body-width);
@@ -35,18 +34,15 @@
 .logo {
   display: flex;
   align-items: center;
-  font-family: "Fira Mono", Arial;
   font-size: 20px;
   font-weight: 700;
   margin-right:auto;
-  letter-spacing: -.5px;
   user-select: none;
   text-decoration: none;
-  color: color(var(--link-color) shade(0%));
+  color: var(--color-primary);
   padding: 0.4em 0.5em;
 
   &:hover {
-    text-decoration: underline;
   }
 }
 

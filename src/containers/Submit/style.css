@@ -13,7 +13,6 @@
 .header {
   color: var(--font-color);
   font-size: 32px;
-  font-family: "Fira Mono", Arial;
   font-weight: 700;
   text-align: center;
 }
@@ -30,7 +29,7 @@
 }
 
 .label {
-  font-size: 28px;
+  font-size: 22px;
   margin-right: 2em;
 }
 
