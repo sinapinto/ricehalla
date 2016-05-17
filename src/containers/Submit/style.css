@@ -11,7 +11,7 @@
 }
 
 .header {
-  color: #666;
+  color: var(--font-color);
   font-size: 32px;
   font-family: "Fira Mono", Arial;
   font-weight: 700;
