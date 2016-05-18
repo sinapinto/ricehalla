@@ -92,9 +92,12 @@ export const LIKE_RICE_REQUEST = 'LIKE_RICE_REQUEST';
 export const LIKE_RICE_SUCCESS = 'LIKE_RICE_SUCCESS';
 export const LIKE_RICE_FAILURE = 'LIKE_RICE_FAILURE';
 
-async function putLike(username, riceId) {
+async function putLike(username, riceId, token) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ riceId: +riceId }),
   })
   .then(handleErrors);
@@ -119,7 +122,7 @@ export function likeRice(riceId) {
         username,
         riceId,
       });
-      const res = await putLike(username, riceId);
+      const res = await putLike(username, riceId, token);
       if (res.status === 204) {
         dispatch({ type: LIKE_RICE_SUCCESS });
       } else {
@@ -145,9 +148,12 @@ export const UNLIKE_RICE_REQUEST = 'UNLIKE_RICE_REQUEST';
 export const UNLIKE_RICE_SUCCESS = 'UNLIKE_RICE_SUCCESS';
 export const UNLIKE_RICE_FAILURE = 'UNLIKE_RICE_FAILURE';
 
-async function deleteLike(username, riceId) {
+async function deleteLike(username, riceId, token) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ riceId: +riceId }),
   })
   .then(handleErrors);
@@ -172,7 +178,7 @@ export function unlikeRice(riceId) {
         username,
         riceId,
       });
-      const res = await deleteLike(username, riceId);
+      const res = await deleteLike(username, riceId, token);
       if (res.status === 204) {
         dispatch({ type: UNLIKE_RICE_SUCCESS });
       } else {
