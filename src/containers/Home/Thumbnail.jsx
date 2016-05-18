@@ -8,6 +8,7 @@ const propTypes = {
   image: PropTypes.string.isRequired,
   likers: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
+  currentUser: PropTypes.string.isRequired,
   emailHash: PropTypes.string.isRequired,
   likeRice: PropTypes.func.isRequired,
   unlikeRice: PropTypes.func.isRequired,
@@ -86,7 +87,7 @@ class Thumbnail extends Component {
               <span className={style.flexCenter} onClick={this.handleLikeClick}>
                 <span>{this.props.likers.length}</span>
                 <Icon
-                  name={this.props.likers.includes(this.props.username) ? "heart" : "heart-outline"}
+                  name={this.props.likers.includes(this.props.currentUser) ? "heart" : "heart-outline"}
                   size={28}
                   className={style.likeIcon}
                 />

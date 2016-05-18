@@ -101,7 +101,8 @@ class Home extends Component {
           id={rice.id}
           image={rice.scrot}
           likers={rice.likers}
-          username={this.props.username}
+          username={rice.User.username}
+          currentUser={this.props.username}
           emailHash={rice.User.emailHash}
           likeRice={this.props.likeRice}
           unlikeRice={this.props.unlikeRice}
