@@ -1,5 +1,5 @@
-import bcrypt from 'co-bcrypt';
 import crypto from 'crypto';
+import bcrypt from 'co-bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from './db';
 import config from '../../config/index.json';

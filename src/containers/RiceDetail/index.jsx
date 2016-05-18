@@ -136,7 +136,7 @@ class RiceDetail extends Component {
             >
               <Icon
                 name={likeIcon}
-                size={32}
+                size={28}
                 className={style.heart}
               />
               {typeof likers !== 'undefined' ? likers.length : null}

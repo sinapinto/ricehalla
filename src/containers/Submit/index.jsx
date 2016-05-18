@@ -158,8 +158,8 @@ class Submit extends Component {
             onChange={this.handleTextInputChange}
           />
           <Button
+            success
             className={style.submitBtn}
-            primary
             disabled={this.props.rice.isFetching}
           >
             Submit

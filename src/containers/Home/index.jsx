@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import moment from 'moment';
-import { fetchList } from '../../actions/rice';
+import { fetchList, likeRice, unlikeRice } from '../../actions/rice';
 import Thumbnail from './Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
@@ -20,6 +20,10 @@ const propTypes = {
   }).isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
+      User: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        emailHash: PropTypes.string.isRequired,
+      }),
       Tags: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
@@ -73,7 +77,7 @@ class Home extends Component {
     this.setState({ activeTab: POPULAR });
   }
 
-  renderGrid() {
+  renderThumbnails() {
     return this.props.posts.filter(rice =>
       this.state.filterText.split(/\s|,/).every(filter => {
         if (filter === '' || !rice.Tags) {
@@ -94,8 +98,14 @@ class Home extends Component {
       .map(rice => 
         <Thumbnail
           key={rice.id}
-          riceId={rice.id}
-          scrot={rice.scrot}
+          id={rice.id}
+          image={rice.scrot}
+          likers={rice.likers}
+          username={this.props.username}
+          emailHash={rice.User.emailHash}
+          likeRice={this.props.likeRice}
+          unlikeRice={this.props.unlikeRice}
+          isFetchingLike={this.props.isFetchingLike}
         />);
   }
 
@@ -135,7 +145,7 @@ class Home extends Component {
           options={{ transitionDuration: '0.2s', gutter: 10 }}
           elementType="div"
         >
-          {this.renderGrid()}
+          {this.renderThumbnails()}
         </Masonry>
       </div>
     );
@@ -149,7 +159,12 @@ function mapStateToProps(state) {
   return {
     posts,
     hasFetchedList: state.rice.hasFetchedList,
+    isFetchingLike: state.rice.isFetchingLike,
   };
 }
 
-export default connect(mapStateToProps, { fetchList })(Home);
+export default connect(mapStateToProps, {
+  fetchList,
+  likeRice,
+  unlikeRice,
+})(Home);

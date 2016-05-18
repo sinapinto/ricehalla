@@ -12,9 +12,8 @@ const propTypes = {
   children: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   route: PropTypes.object,
-  userId: PropTypes.number,
-  username: PropTypes.string,
-  email: PropTypes.string,
+  userId: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -76,7 +75,7 @@ class App extends Component {
       <div className={style.nav}>
         <div className={style.navWrapper}>
           <Link to="/" className={style.logo}>ricehalla</Link>
-          <NavLink to="/submit" success>Submit</NavLink>
+          <NavLink to="/submit" primary outline>Submit</NavLink>
           <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
           </Button>
@@ -112,7 +111,7 @@ class App extends Component {
   }
 
   render() {
-    const { username, userId, email } = this.props;
+    const { username, userId } = this.props;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" meta={this.getMeta()} />

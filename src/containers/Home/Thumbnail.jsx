@@ -1,29 +1,105 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import Icon from '../../components/Icon';
 import style from './thumbnail.css';
 
 const propTypes = {
-  riceId: PropTypes.number.isRequired,
-  scrot: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  likers: PropTypes.array.isRequired,
+  username: PropTypes.string.isRequired,
+  emailHash: PropTypes.string.isRequired,
+  likeRice: PropTypes.func.isRequired,
+  unlikeRice: PropTypes.func.isRequired,
+  isFetchingLike: PropTypes.bool.isRequired,
+};
+
+const contextTypes = {
+  router: PropTypes.object
 };
 
 class Thumbnail extends Component {
+  constructor() {
+    super();
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.state = {
+      isHovered: false,
+    };
+  }
+
+  handleMouseEnter() {
+    this.setState({ isHovered: true });
+  }
+
+  handleMouseLeave() {
+    this.setState({ isHovered: false });
+  }
+
+  handleLikeClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const { isFetchingLike, likers, username, likeRice, unlikeRice, id } = this.props;
+    if (isFetchingLike) {
+      return;
+    }
+    if (likers.includes(username)) {
+      unlikeRice(id);
+    } else {
+      likeRice(id);
+    }
+  }
+
+  handleUsernameClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.context.router.push(`/user/${this.props.username}`);
+  }
+
   render() {
     return (
       <Link
-        to={`/rice/${this.props.riceId}`}
-        className={style.thumbnailWrapper}
+        to={`/rice/${this.props.id}`}
+        className={style.container}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       >
         <img
-          className={style.thumbnailImage}
-          src={`https://s3-us-west-2.amazonaws.com/ricehallaresized/thumb-${this.props.scrot}`}
+          src={`https://s3-us-west-2.amazonaws.com/ricehallaresized/thumb-${this.props.image}`}
           width={315}
+          alt={this.props.image}
         />
+        {this.state.isHovered ?
+          <div className={style.infoWrapper}>
+            <div className={style.infoWrapper2}>
+              <span className={style.flexCenter}>
+                <img
+                  src={`http://www.gravatar.com/avatar/${this.props.emailHash}?s=20&d=identicon`}
+                  className={style.avatar}
+                  width={20}
+                  height={20}
+                  alt="avatar"
+                />
+                <span className={style.username}>{this.props.username}</span>
+              </span>
+              <span className={style.flexCenter} onClick={this.handleLikeClick}>
+                <span>{this.props.likers.length}</span>
+                <Icon
+                  name={this.props.likers.includes(this.props.username) ? "heart" : "heart-outline"}
+                  size={28}
+                  className={style.likeIcon}
+                />
+              </span>
+            </div>
+          </div>
+          : null}
       </Link>
     );
   }
 }
 
 Thumbnail.propTypes = propTypes;
+Thumbnail.contextTypes = contextTypes;
 
 export default Thumbnail;

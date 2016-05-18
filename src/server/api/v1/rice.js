@@ -27,11 +27,11 @@ export default new Resource('rice', {
           // [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'likeCount'],
         ],
         include: [
-          // {
-          //   model: User,
-          //   attributes: ['username'],
-          //   required: true,
-          // },
+          {
+            model: User,
+            attributes: ['username', 'emailHash'],
+            required: true,
+          },
           {
             model: User,
             as: 'Liker',
