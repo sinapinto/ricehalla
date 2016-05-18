@@ -49,7 +49,7 @@ class RiceDetail extends Component {
     if (this.props.isFetchingLike) {
       return;
     }
-    if (~this.props.detail.likers.indexOf(this.props.username)) {
+    if (this.props.detail.likers.includes(this.props.username)) {
       this.props.unlikeRice(this.props.detail.id);
     } else {
       this.props.likeRice(this.props.detail.id);
@@ -71,7 +71,7 @@ class RiceDetail extends Component {
     const { User, Tags, files, title = '', scrot, likers, userId, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
     let likeIcon;
-    if (likers && ~likers.indexOf(this.props.username)) {
+    if (likers && likers.includes(this.props.username)) {
       likeIcon = 'heart';
     } else {
       likeIcon = 'heart-outline';
@@ -104,7 +104,7 @@ class RiceDetail extends Component {
                   className={style.fileIcon}
                 />
                 <span>
-                  <div className={style.fileName}>{file.replace(/_\w{13}/, '')}</div>
+                  <div className={style.fileName}>{file.replace(/_\d{13}/, '')}</div>
                   <div className={style.fileName2}>{file}</div>
                 </span>
               </div>
