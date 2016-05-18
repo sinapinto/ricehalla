@@ -25,6 +25,7 @@ class Thumbnail extends Component {
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleUsernameClick = this.handleUsernameClick.bind(this);
     this.state = {
       isHovered: false,
     };
@@ -74,7 +75,7 @@ class Thumbnail extends Component {
         {this.state.isHovered ?
           <div className={style.infoWrapper}>
             <div className={style.infoWrapper2}>
-              <span className={style.flexCenter}>
+              <span className={style.flexCenter} onClick={this.handleUsernameClick}>
                 <img
                   src={`http://www.gravatar.com/avatar/${this.props.emailHash}?s=20&d=identicon`}
                   className={style.avatar}

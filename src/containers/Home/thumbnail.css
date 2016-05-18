@@ -21,7 +21,7 @@
   padding-bottom: 3px;
   padding-left: 6px;
   padding-right: 6px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,.4) 30%, rgba(0,0,0,0));
+  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,.5) 35%, rgba(0,0,0,0));
   text-align: left;
   color: white;
 }
@@ -32,7 +32,7 @@
   align-items: center;
   opacity: 0.8;
   transition: opacity .3s;
-  animation: slideinthedms .2s;
+  animation: slideinthedms .3s;
 
   &:hover {
     opacity: 1;

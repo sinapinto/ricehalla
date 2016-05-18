@@ -66,7 +66,7 @@ class Home extends Component {
   }
 
   filterChange(e) {
-    this.setState({ filterText: e.target.value });
+    this.setState({ filterText: e.target.value || '' });
   }
 
   sortNew() {
