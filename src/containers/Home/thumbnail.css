@@ -1,7 +1,6 @@
 .container {
   position: absolute;
   margin-bottom: 5px;
-  z-index: 20;
 }
 
 .infoWrapper {
@@ -18,8 +17,11 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 3px 6px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,.2) 20%, rgba(0,0,0,0));
+  padding-top: 10px;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,.4) 30%, rgba(0,0,0,0));
   text-align: left;
   color: white;
 }
@@ -29,7 +31,7 @@
   justify-content: space-between;
   align-items: center;
   opacity: 0.8;
-  transition: opacity .2s;
+  transition: opacity .3s;
   animation: slideinthedms .2s;
 
   &:hover {

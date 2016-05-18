@@ -57,14 +57,14 @@ class Popover extends Component {
     }
     return (
       <div className={classes.join(' ')} {...other}>
-        { isOpen &&
+        {isOpen &&
           <div className={style.popover} ref="popover">
             <span className={style.tip} />
-            {children.map((item, i) => (
-              <div onClick={this._close} className={style.itemWrapper} key={i}>
-                <div className={style.item}>{item}</div>
-              </div>
-            ))}
+            {children.map((item, i) =>
+              (<div onClick={this._close} className={style.itemWrapper} key={i}>
+                <span className={style.item}>{item}</span>
+              </div>)
+            )}
           </div>
         }
       </div>

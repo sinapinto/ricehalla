@@ -15,29 +15,30 @@
   top: 0;
   right: 10px;
   font-size: 14px;
-  transform: translateY(65px);
+  transform: translateY(63px);
 }
 
 .itemWrapper {
   width: 100%;
-  line-height: 28px;
+  line-height: 40px;
   background-color: #fff;
   transition: background-color .2s;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+  text-align: center;
 
   & a {
-    color: color(var(--font-color) tint(20%));
     display: block;
+    color: color(var(--font-color-light) tint(20%));
+    transition: color .2s;
+
+    &:hover {
+      color: var(--font-color);
+    }
   }
 
   &:hover {
-    background-color: #ECF9FE;
     cursor: pointer;
   }
 }
 
-.item {
-  text-align: center;
-}
-
-.tip {
-}
