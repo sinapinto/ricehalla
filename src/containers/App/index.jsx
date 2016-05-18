@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import jwtDecode from 'jwt-decode';
+import Icon from '../../components/Icon';
 import Popover from '../../components/Popover';
 import Button from '../../components/Button';
 import NavLink from '../../components/NavLink';
@@ -78,6 +79,11 @@ class App extends Component {
           <NavLink to="/submit" primary outline>Submit</NavLink>
           <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
+            <Icon
+              name={this.state.isPopoverOpen ? 'chevron-up' : 'chevron-down'}
+              size={12}
+              className={style.arrowIcon}
+            />
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isPopoverOpen}>
             <Link to={`/user/${this.props.username}`}>Profile</Link>

@@ -70,7 +70,6 @@ class RiceDetail extends Component {
   render() {
     const { User, Tags, files, title = '', scrot, likers, userId, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
-    // const updatedAt = moment(this.props.detail.updatedAt).from();
     let likeIcon;
     if (likers && ~likers.indexOf(this.props.username)) {
       likeIcon = 'heart';
@@ -92,15 +91,26 @@ class RiceDetail extends Component {
           </div>
           : null}
         {files ? files.map((file, i) =>
-          <div key={i}>
-            <div className={style.fileLinkWrapper}>
-              <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`} className={style.fileLink}>
-                <Icon name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'} size={32} />
-                <span className={style.fileName}>{file}</span>
-              </a>
-            </div>
+          <div className={style.fileWrapper} key={i}>
+            <a
+              target="_blank"
+              href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`}
+              className={style.fileLink}
+            >
+              <div className={style.file}>
+                <Icon
+                  name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'}
+                  size={40}
+                  className={style.fileIcon}
+                />
+                <span>
+                  <div className={style.fileName}>{file.replace(/_\w{13}/, '')}</div>
+                  <div className={style.fileName2}>{file}</div>
+                </span>
+              </div>
+            </a>
           </div>)
-        : null}
+          : null}
         {User ?
           <div className={style.rWrapper}>
             <div style={{display: 'inline-block'}}>

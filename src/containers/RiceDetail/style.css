@@ -8,6 +8,7 @@
 
 .imageWrapper {
   text-align: center;
+  margin-bottom: 20px;
 
   & .image {
     height: auto;
@@ -35,7 +36,7 @@
   }
 }
 
-.fileLinkWrapper {
+.fileWrapper {
   display: inline-block;
 }
 
@@ -45,14 +46,47 @@
   border-radius: 5px;
   color: var(--link-color);
   transition: color .2s;
+  margin: 10px;
 
   & .fileName {
-    padding: 4px;
+    color: var(--font-color);
+  }
+
+  & .fileName2 {
+    font-size: 11px;
+    color: color(var(--font-color-light) tint(30%));
   }
 
   &:hover {
     color: color(var(--link-color) shade(15%));
   }
+
+  &:hover .fileIcon {
+    fill: hsla(198, 86%, 80%, 1);
+  }
+}
+
+.file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  height: 60px;
+  border: 1px solid rgba(0,0,0,0.11);
+  border-radius: 4px;
+  background-color: white;
+  transition: background-color .2s;
+  color: var(--font-color);
+
+  &:hover {
+    background-color: gray(97%);
+  }
+}
+
+.fileIcon {
+  margin-right: 10px;
+  fill: hsla(198, 86%, 85%, 1);
+  transition: fill .2s;
 }
 
 .likes {

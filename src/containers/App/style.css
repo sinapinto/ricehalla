@@ -41,13 +41,11 @@
   text-decoration: none;
   color: var(--color-primary);
   padding: 0.4em 0.5em;
-
-  &:hover {
-  }
 }
 
-.icon {
-  fill: var(--color-primary);
+.arrowIcon {
+  margin-left: 5px;
+  fill: color(var(--font-color) tint(40%));
 }
 
 .childWrapper {

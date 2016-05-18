@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import style from './style.css';
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
   className: PropTypes.string,
 
   // mutually exclusive
@@ -45,7 +45,9 @@ function Button({
       className={classes.join(' ')}
       disabled={!!disabled}
     >
-      {children}
+      <div className={style.children}>
+        {children}
+      </div>
     </button>
   );
 }
