@@ -9,8 +9,7 @@ function *requireAuth(next) {
   if (this.state.user) {
     yield next;
   } else {
-    yield next;
-    // this.throw(401);
+    this.throw(401);
   }
 }
 

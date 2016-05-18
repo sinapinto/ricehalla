@@ -32,7 +32,7 @@ const propTypes = {
       id: PropTypes.number.isRequired,
       scrot: PropTypes.string.isRequired,
       likers: PropTypes.arrayOf(PropTypes.string).isRequired,
-      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string,
     })
   ),
   hasFetchedList: PropTypes.bool.isRequired,
@@ -92,7 +92,7 @@ class Home extends Component {
           }
           return b.likers.length - a.likers.length;
         } else if (this.state.activeTab === NEW) {
-          return moment(b) - moment(a);
+          return moment(b.updatedAt) - moment(a.updatedAt);
         }
       })
       .map(rice => 

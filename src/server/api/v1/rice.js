@@ -24,7 +24,7 @@ export default new Resource('rice', {
         attributes: [
           'scrot',
           'id',
-          // [sequelize.fn('COUNT', sequelize.col('Liker.id')), 'likeCount'],
+          'updatedAt',
         ],
         include: [
           {
