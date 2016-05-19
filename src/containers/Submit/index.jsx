@@ -45,6 +45,7 @@ class Submit extends Component {
       description: '',
       // files: [],
       tags: '',
+      errorMessage: null,
     };
   }
 
@@ -59,18 +60,19 @@ class Submit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (!title) {
+    if (!this.state.title) {
+      this.setState({ errorMessage: 'Please give your post a title.' });
       return;
     }
     if (Object.keys(this.props.upload.files).length === 0) {
-      debug('no files in this.props.upload', this.props.upload);
+      this.setState({ errorMessage: 'You must upload at least one file to be able to submit.' });
       return;
     }
     const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
     const fileNames = filesArray.map(obj => obj.name);
     const scrot = filesArray.find(f => /^(jpe?g|png|gif)$/.test(f.name.split('.').pop()));
     if (!scrot) {
-      debug('no scrot in filesArray', filesArray);
+      this.setState({ errorMessage: 'You must upload an image to be able to submit.' });
       return;
     }
     this.props.submitRice({
@@ -157,13 +159,21 @@ class Submit extends Component {
             value={this.state.description}
             onChange={this.handleTextInputChange}
           />
-          <Button
-            success
-            className={style.submitBtn}
-            disabled={this.props.rice.isFetching}
-          >
-            Submit
-          </Button>
+          <div className={style.footer}>
+            {this.state.errorMessage ?
+              <span className={style.error}>
+                <Icon name="alert-circle" className={style.errorIcon} />
+                <span>{this.state.errorMessage}</span>
+              </span>
+              : <div />}
+            <Button
+              success
+              className={style.submitBtn}
+              disabled={this.props.rice.isFetching}
+            >
+              Submit
+            </Button>
+          </div>
         </Form>
       </div>
     );

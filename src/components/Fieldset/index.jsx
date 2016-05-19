@@ -14,7 +14,7 @@ class Fieldset extends Component {
       <fieldset {...other} className={style.fieldset}>
         {children}
         {this.props.errorMessage ?
-          <div className={style.errorWrapper}>
+          <div className={style.error}>
             <Icon name="alert-circle" className={style.icon} />
             <div>{this.props.errorMessage}</div>
           </div>

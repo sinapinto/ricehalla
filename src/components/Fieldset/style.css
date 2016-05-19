@@ -6,7 +6,7 @@
   padding-bottom: 1.5em;
 }
 
-.errorWrapper {
+.error {
   display: flex;
   align-items: center;
   margin-top: 5px;

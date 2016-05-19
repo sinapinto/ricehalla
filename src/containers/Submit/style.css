@@ -52,7 +52,23 @@
   margin: 0px;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  color: var(--color-red);
+}
+
+.errorIcon {
+  margin-right: 7px;
+}
+
 .submitBtn {
   padding: 1.4em 4em;
-  float: right;
 }
