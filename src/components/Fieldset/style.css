@@ -6,11 +6,14 @@
   padding-bottom: 1.5em;
 }
 
-.errorMessage {
+.errorWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
   color: var(--color-red);
 }
 
 .icon {
-  transform: translateY(6px);
+  fill: var(--color-red);
   margin-right: 6px;
 }

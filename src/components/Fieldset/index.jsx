@@ -8,21 +8,17 @@ const propTypes = {
 };
 
 class Fieldset extends Component {
-  renderErrorMessage() {
-    return this.props.errorMessage ?
-      <div className={style.errorMessage}>
-        <Icon name="alert-circle" className={style.icon} />
-        {this.props.errorMessage}
-      </div>
-      : null;
-  }
-
   render() {
     const { children, ...other } = this.props;
     return (
       <fieldset {...other} className={style.fieldset}>
         {children}
-        {this.renderErrorMessage()}
+        {this.props.errorMessage ?
+          <div className={style.errorWrapper}>
+            <Icon name="alert-circle" className={style.icon} />
+            <div>{this.props.errorMessage}</div>
+          </div>
+        : null}
       </fieldset>
     );
   }
