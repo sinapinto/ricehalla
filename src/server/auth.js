@@ -34,7 +34,7 @@ router.post('/signup', function *signup() {
   } catch (e) {
     this.type = 'json';
     this.status = 403;
-    this.body = { message: 'an account with that username or email already exists' };
+    this.body = { message: 'Username or email already exists' };
   }
 });
 

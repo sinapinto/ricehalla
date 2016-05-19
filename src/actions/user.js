@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
-import handleErrors from '../utils/fetchErrorHandler';
+import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
 
 export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
@@ -14,8 +14,7 @@ async function get(username, token) {
       Authorization: `Bearer ${token}`,
     },
   })
-  .then(handleErrors)
-  .then(res => res.json());
+  .then(handleResponse);
 }
 
 

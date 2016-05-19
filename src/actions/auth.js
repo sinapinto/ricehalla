@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
-import handleErrors from '../utils/fetchErrorHandler';
+import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -16,8 +16,7 @@ function auth(endpoint, body) {
     },
     body: JSON.stringify(body),
   })
-  .then(handleErrors)
-  .then(res => res.json());
+  .then(handleResponse);
 }
 
 export function login(body) {

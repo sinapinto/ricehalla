@@ -13,8 +13,8 @@ const propTypes = {
   children: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   route: PropTypes.object,
-  userId: PropTypes.number.isRequired,
-  username: PropTypes.string.isRequired,
+  userId: PropTypes.number,
+  username: PropTypes.string,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -55,11 +55,7 @@ class App extends Component {
   }
 
   openPopover() {
-    this.setState((prev) => {
-      if (!prev.isPopoverOpen) {
-        return { isPopoverOpen: true };
-      }
-    });
+    this.setState({ isPopoverOpen: true });
   }
 
   closePopover() {
@@ -68,7 +64,7 @@ class App extends Component {
 
   noNav() {
     const { route, location } = this.props;
-    return ~route.noNav.indexOf(location.pathname);
+    return route.noNav.includes(location.pathname);
   }
 
   loggedInNav() {

@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import cookie from '../utils/cookie';
-import handleErrors from '../utils/fetchErrorHandler';
+import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
 
 export const POST_RICE_REQUEST = 'POST_RICE_REQUEST';
@@ -23,8 +23,7 @@ async function post(body) {
     },
     body: JSON.stringify(body),
   })
-  .then(handleErrors)
-  .then(res => res.json());
+  .then(handleResponse);
 }
 
 export function submit(body) {
@@ -50,8 +49,7 @@ export const SHOW_RICE_FAILURE = 'SHOW_RICE_FAILURE';
 
 function get(id) {
   return fetch(`${API_BASE}/api/v1/rice/${id}`)
-    .then(handleErrors)
-    .then(res => res.json());
+    .then(handleResponse);
 }
 
 export function showRice(id) {
@@ -72,8 +70,7 @@ export const LIST_RICE_FAILURE = 'LIST_RICE_FAILURE';
 
 function list(queryParams = '') {
   return fetch(`${API_BASE}/api/v1/rice/${queryParams}`)
-    .then(handleErrors)
-    .then(res => res.json());
+    .then(handleResponse);
 }
 
 export function fetchList() {
@@ -100,7 +97,12 @@ async function putLike(username, riceId, token) {
     },
     body: JSON.stringify({ riceId: +riceId }),
   })
-  .then(handleErrors);
+  .then(response => {
+    if (!response.ok) {
+      throw new Error;
+    }
+    return response;
+  });
 }
 
 export function likeRice(riceId) {
@@ -156,7 +158,12 @@ async function deleteLike(username, riceId, token) {
     },
     body: JSON.stringify({ riceId: +riceId }),
   })
-  .then(handleErrors);
+  .then(response => {
+    if (!response.ok) {
+      throw new Error;
+    }
+    return response;
+  });
 }
 
 export function unlikeRice(riceId) {
