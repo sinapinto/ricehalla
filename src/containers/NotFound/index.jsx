@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet';
+import NotFoundComponent from '../../components/NotFound';
 
 class NotFound extends Component {
   render() {
     return (
-      <div>
-        <Helmet title="Not Found" />
-        <div style={{ textAlign: 'center' }}>
-          <h1>404</h1>
-          <p>not found :-(</p>
-        </div>
-      </div>
+      <NotFoundComponent title="Not Found">
+        <NotFoundComponent.H1>404</NotFoundComponent.H1>
+        <NotFoundComponent.H2>Not Found</NotFoundComponent.H2>
+      </NotFoundComponent>
     );
   }
 }

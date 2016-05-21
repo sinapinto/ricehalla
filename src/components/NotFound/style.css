@@ -1,0 +1,27 @@
+.root {
+  margin: 1em 0;
+  width: 100%;
+  text-align: center;
+}
+
+.wrapper {
+  text-align: center;
+  color: var(--font-color);
+  font-size: 130%;
+}
+
+.sadIcon {
+  fill: hsla(198, 86%, 91%, 1);
+}
+
+.h1 {
+  color: hsla(204, 29%, 25%, 1);
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.h2 {
+  color: hsla(205, 28%, 63%, 1);
+  font-size: 22px;
+  font-weight: 400;
+}

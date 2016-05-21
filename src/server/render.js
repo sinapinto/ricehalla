@@ -42,8 +42,8 @@ export default function *() {
   const location = createLocation(this.originalUrl);
   const routes = createRouter(createMemoryHistory(), store);
 
-  // disable SSR on profile page
-  if (this.originalUrl.indexOf('/user/') > -1) {
+  // disable SSR
+  if (~this.originalUrl.indexOf('/user/') || ~this.originalUrl.indexOf('/rice/')) {
     const html = <Html state={store.getState()} assets={assets} />;
     this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
     return;

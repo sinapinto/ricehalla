@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import moment from 'moment';
 import marked from 'marked';
-import Icon from '../../components/Icon';
+import NotFound from '../../components/NotFound';
 import { loadUser } from '../../actions/user';
 import { getUserByUsername, getPostsByUsername } from '../../reducers';
 import style from './style.css';
@@ -29,14 +29,10 @@ class Profile extends Component {
 
     if (!this.props.isFetching && !email) {
       return (
-        <div className={style.root}>
-          <Helmet title={`User not found | Ricehalla`} />
-          <div className={style.notFoundWrapper}>
-            <Icon name="sad-outline" size={180} className={style.sadIcon} />
-            <h1 className={style.h1}>User not found</h1>
-            <h2 className={style.h2}>There doesn&apos;t seem to be a user named <b>{username}</b>.</h2>
-          </div>
-        </div>
+        <NotFound title='User not found | Ricehalla'>
+          <NotFound.H1>User not found</NotFound.H1>
+          <NotFound.H2>There doesn&apos;t seem to be a user named <b>{username}</b>.</NotFound.H2>
+        </NotFound>
       );
     }
     return (

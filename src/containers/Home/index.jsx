@@ -32,7 +32,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.hasFetchedList) {
+    if (!this.props.didFetchList) {
       this.props.fetchList();
     }
   }
@@ -149,7 +149,7 @@ Home.propTypes = {
       createdAt: PropTypes.string,
     })
   ),
-  hasFetchedList: PropTypes.bool.isRequired,
+  didFetchList: PropTypes.bool.isRequired,
   fetchList: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
@@ -158,7 +158,7 @@ Home.propTypes = {
 function mapStateToProps(state) {
   return {
     posts: getAllPosts(state),
-    hasFetchedList: state.post.hasFetchedList,
+    didFetchList: state.post.didFetchList,
     isFetchingLike: state.post.isFetchingLike,
   };
 }

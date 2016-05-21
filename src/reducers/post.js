@@ -22,7 +22,7 @@ const initialState = {
     // name: [3, 42]
   },
   didSubmit: false,
-  hasFetchedList: false,
+  didFetchList: false,
   isFetching: false,
   isFetchingLike: false,
   error: null,
@@ -130,7 +130,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        hasFetchedList: true,
+        didFetchList: true,
         byId: Object.assign({}, state.byId,
            ...posts.map(post => ({ [post.id]: post }))
         ),

@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router';
 import moment from 'moment';
 import marked from 'marked';
+import NotFound from '../../components/NotFound';
 import Icon from '../../components/Icon';
 import { showPost, likePost, unlikePost } from '../../actions/post';
 import { getPostById } from '../../reducers'
@@ -33,10 +34,8 @@ class PostDetail extends Component {
   }
 
   createMarkdown() {
-    if (this.props.detail.description) {
-      return {__html: marked(this.props.detail.description, { sanitize: true })};
-    }
-    return {__html: ''};
+    const { description } = this.props.detail;
+    return { __html: description ?  marked(description, { sanitize: true }) : '' };
   }
 
   render() {
@@ -47,6 +46,14 @@ class PostDetail extends Component {
       likeIcon = 'heart';
     } else {
       likeIcon = 'heart-outline';
+    }
+    if (!this.props.isFetching && !scrot) {
+      return (
+        <NotFound title='Rice not found | Ricehalla'>
+          <NotFound.H1>Rice not found</NotFound.H1>
+          <NotFound.H2>This rice doesn&apos;t seem to exist.</NotFound.H2>
+        </NotFound>
+      );
     }
     return (
       <div className={style.root}>
@@ -155,6 +162,7 @@ PostDetail.propTypes = {
     likers: PropTypes.array(PropTypes.string),
     createdAt: PropTypes.string,
   }),
+  isFetching: PropTypes.bool.isRequired,
   isFetchingLike: PropTypes.bool.isRequired,
   showPost: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
@@ -162,10 +170,11 @@ PostDetail.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { isFetchingLike } = state.post;
+  const { isFetching, isFetchingLike } = state.post;
   const id = ownProps.params.id;
   return {
     detail: getPostById(state, id),
+    isFetching,
     isFetchingLike,
   };
 }
