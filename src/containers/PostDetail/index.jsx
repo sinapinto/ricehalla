@@ -96,7 +96,7 @@ class PostDetail extends Component {
             <div style={{display: 'inline-block'}}>
               <Link to={`/user/${User.username}`} className={style.authorWrapper}>
                 <img
-                  src={`http://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
+                  src={`https://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
                   className={style.avatar}
                   alt="avatar"
                 />

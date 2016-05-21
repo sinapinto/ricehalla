@@ -42,7 +42,7 @@ class Profile extends Component {
           <div className={style.bio}>
             {emailHash ?
               <img
-                src={`http://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
+                src={`https://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
                 width={100}
                 height={100}
                 className={style.avatar}

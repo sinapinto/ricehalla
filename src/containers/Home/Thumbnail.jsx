@@ -61,7 +61,7 @@ class Thumbnail extends Component {
             <div className={style.infoWrapper2}>
               <span className={style.flexCenter} onClick={this.handleUsernameClick}>
                 <img
-                  src={`http://www.gravatar.com/avatar/${this.props.emailHash}?s=20&d=identicon`}
+                  src={`https://www.gravatar.com/avatar/${this.props.emailHash}?s=20&d=identicon`}
                   className={style.avatar}
                   width={20}
                   height={20}
