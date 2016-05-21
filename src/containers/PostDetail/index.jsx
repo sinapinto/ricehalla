@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import marked from 'marked';
 import NotFound from '../../components/NotFound';
+import Spinner from '../../components/Spinner';
 import Icon from '../../components/Icon';
 import { showPost, likePost, unlikePost } from '../../actions/post';
 import { getPostById } from '../../reducers'
@@ -58,17 +59,17 @@ class PostDetail extends Component {
     return (
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
-        {scrot ? 
-          <div className={style.imageWrapper}>
-            <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}>
-              <img
-                className={style.image}
-                src={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}
-                alt={scrot}
-              />
-            </a>
-          </div>
-          : null}
+        <div className={style.imageWrapper}>
+          {scrot ?
+              <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}>
+                <img
+                  className={style.image}
+                  src={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}
+                  alt={scrot}
+                />
+              </a>
+            : <Spinner />}
+        </div>
         {files ? files.map((file, i) =>
           <div className={style.fileWrapper} key={i}>
             <a

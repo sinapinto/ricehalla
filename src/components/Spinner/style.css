@@ -1,0 +1,50 @@
+@import '../../style/variables.css';
+
+.spinner {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5em 0;
+}
+
+.dot {
+  background-color: var(--link-color);
+  border-radius: 99em;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+  animation: pulse 1.2s infinite;
+
+  & + & {
+    margin-left: 5px;
+  }
+}
+
+.dotOne {
+  composes: dot;
+}
+
+.dotTwo {
+  composes: dot;
+  animation-delay: 200ms;
+}
+
+.dotThree {
+  composes: dot;
+  animation-delay: 400ms;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
