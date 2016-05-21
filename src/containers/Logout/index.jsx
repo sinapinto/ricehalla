@@ -4,14 +4,6 @@ import { logout } from '../../actions/auth';
 import cookie from '../../utils/cookie';
 import style from './style.css';
 
-const propTypes = {
-  logout: PropTypes.func.isRequired,
-};
-
-const contextTypes = {
-  router: PropTypes.object
-};
-
 class Logout extends Component {
   componentDidMount() {
     cookie.removeAll();
@@ -34,7 +26,14 @@ class Logout extends Component {
   }
 }
 
-Logout.propTypes = propTypes;
-Logout.contextTypes = contextTypes;
+Logout.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
 
-export default connect(undefined, { logout })(Logout);
+Logout.contextTypes = {
+  router: PropTypes.object
+};
+
+export default connect(null, {
+  logout,
+})(Logout);

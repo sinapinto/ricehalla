@@ -1,17 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-const propTypes = {
-  percent: PropTypes.number,
-  width: PropTypes.number,
-  hasError: PropTypes.bool,
-};
-
-const defaultProps = {
-  percent: 0,
-  width: 1,
-  hasError: false,
-};
-
 // css modules kinda sucks for this =/
 const colors = {
   fg: 'rgb(0, 170, 220)',
@@ -54,7 +42,16 @@ function ProgressBar({ percent, width, hasError }) {
   );
 }
 
-ProgressBar.propTypes = propTypes;
-ProgressBar.defaultProps = defaultProps;
+ProgressBar.propTypes = {
+  percent: PropTypes.number,
+  width: PropTypes.number,
+  hasError: PropTypes.bool,
+};
+
+ProgressBar.defaultProps = {
+  percent: 0,
+  width: 1,
+  hasError: false,
+};
 
 export default ProgressBar;

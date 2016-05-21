@@ -1,17 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
-  className: PropTypes.string,
-  children: PropTypes.node,
-};
-
-const defaultProps = {
-  isOpen: false,
-};
-
 class Popover extends Component {
   constructor() {
     super();
@@ -72,7 +61,15 @@ class Popover extends Component {
   }
 }
 
-Popover.propTypes = propTypes;
-Popover.defaultProps = defaultProps;
+Popover.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+Popover.defaultProps = {
+  isOpen: false,
+};
 
 export default Popover;

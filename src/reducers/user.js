@@ -3,10 +3,10 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
 } from '../actions/user';
-import SHOW_RICE_SUCCESS from '../actions/rice';
+import SHOW_POST_SUCCESS from '../actions/post';
 
 const initialState = {
-  users: {}, // by username
+  byName: {},
   isFetching: false,
   error: null,
 };
@@ -22,8 +22,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        users: {
-          ...state.users,
+        byName: {
+          ...state.byName,
           [action.user.username]: action.user,
         },
       };
@@ -33,20 +33,34 @@ export default function (state = initialState, action) {
         isFetching: false,
         error: action.error,
       };
-    case SHOW_RICE_SUCCESS: {
-      const user = state.users[action.detail.User.username];
-      if (!user) {
+    case SHOW_POST_SUCCESS: {
+      const name = action.detail.User.username;
+      if (!state.byName[name]) {
         return state;
       }
       return {
         ...state,
-        users: {
-          ...state.users,
-          [action.detail.User.username]: user.Rice.concat(action.detail),
+        byName: {
+          ...state.byName,
+          [name]: {
+            ...state.byName[name],
+            posts: (state.byName[name].posts || []).concat(action.detail.id),
+          },
         },
       };
     }
     default:
       return state;
   }
+}
+
+export function getUserByUsername(state, username) {
+  return state.byName[username] || {};
+}
+
+export function getPostsByUsername(state, username) {
+  if (!state.byName[username]) {
+    return [];
+  }
+  return state.byName[username].Rice || [];
 }

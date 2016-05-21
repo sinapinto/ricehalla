@@ -13,13 +13,6 @@ import Fieldset from '../../components/Fieldset';
 import Label from '../../components/Label';
 import style from './style.css';
 
-const propTypes = {
-  registerError: PropTypes.string,
-  isFetching: PropTypes.bool,
-  register: PropTypes.func.isRequired,
-  clearAuthErrors: PropTypes.func.isRequired,
-};
-
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -228,7 +221,12 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = propTypes;
+Register.propTypes = {
+  registerError: PropTypes.string,
+  isFetching: PropTypes.bool,
+  register: PropTypes.func.isRequired,
+  clearAuthErrors: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
@@ -237,4 +235,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { register, clearAuthErrors })(Register);
+export default connect(mapStateToProps, {
+  register,
+  clearAuthErrors,
+})(Register);

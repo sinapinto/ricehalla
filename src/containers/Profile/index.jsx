@@ -6,64 +6,27 @@ import moment from 'moment';
 import marked from 'marked';
 import Icon from '../../components/Icon';
 import { loadUser } from '../../actions/user';
+import { getUserByUsername, getPostsByUsername } from '../../reducers';
 import style from './style.css';
-
-const propTypes = {
-  userId: PropTypes.number,
-  username: PropTypes.string,
-  users: PropTypes.object,
-    // username: PropTypes.string,
-    // email: PropTypes.string,
-    // emailHash: PropTypes.string,
-    // about: PropTypes.string,
-    // createdAt: PropTypes.string,
-    // Rice: PropTypes.arrayOf(
-    //   PropTypes.shape({
-    //     Tags: PropTypes.arrayOf(
-    //       PropTypes.shape({
-    //         name: PropTypes.string,
-    //       }).isRequired
-    //     ),
-    //     title: PropTypes.string,
-    //     description: PropTypes.string,
-    //     createdAt: PropTypes.string,
-    //     id: PropTypes.number,
-    //   })
-    // ),
-  error: PropTypes.object,
-  isFetching: PropTypes.bool,
-  params: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-  }).isRequired,
-  loadUser: PropTypes.func.isRequired,
-};
 
 class Profile extends Component {
   componentDidMount() {
-    const { users, params, loadUser } = this.props;
-    if (!users[params.username]) {
+    const { username, user, params, loadUser, didSubmit } = this.props;
+    // FIXME: if user has submitted a post, fetch own data
+    // ugly side-effect of having posts redundant in state tree.
+    if (Object.keys(user).length === 0 || (params.username === username && didSubmit)) {
       loadUser(params.username);
     }
   }
 
   createMarkdown(text) {
-    if (text) {
-      return {__html: marked(text, { sanitize: true })};
-    }
-    return {__html: ''};
+    return { __html: text ? marked(text, { sanitize: true }) : '' };
   }
 
   render() {
     const { username } = this.props.params;
-    let Rice, email, emailHash, about, createdAt;
+    const { email, emailHash, about, createdAt } = this.props.user;
 
-    if (typeof this.props.users[username] !== 'undefined') {
-      Rice = this.props.users[username].Rice;
-      email = this.props.users[username].email;
-      emailHash = this.props.users[username].emailHash;
-      about = this.props.users[username].about;
-      createdAt = this.props.users[username].createdAt;
-    }
     if (!this.props.isFetching && !email) {
       return (
         <div className={style.root}>
@@ -104,18 +67,18 @@ class Profile extends Component {
           </div>
         </div>
         <div className={style.activity}>
-        {Rice ? <h3 className={style.h3}>Recent</h3> : null}
-          {Rice ? Rice.map(rice =>
-            <Link key={rice.id} to={`/rice/${rice.id}`}>
+        {this.props.posts ? <h3 className={style.h3}>Recent</h3> : null}
+          {this.props.posts ? this.props.posts.map(post =>
+            <Link key={post.id} to={`/rice/${post.id}`}>
               <div className={style.rWrapper}>
-                <h3 className={style.rTitle}>{rice.title}</h3>
-                <div dangerouslySetInnerHTML={this.createMarkdown(rice.description)} />
-                {rice.Tags ? rice.Tags.map((tag, i) =>
+                <h3 className={style.rTitle}>{post.title}</h3>
+                <div dangerouslySetInnerHTML={this.createMarkdown(post.description)} />
+                {post.Tags ? post.Tags.map((tag, i) =>
                   <span key={i} className={style.rTag}>
                     {tag.name}
                   </span>)
                 : null}
-                <div className={style.rAge}>{moment(rice.createdAt).from()}</div>
+                <div className={style.rAge}>{moment(post.createdAt).from()}</div>
               </div>
             </Link>)
           : null}
@@ -125,14 +88,29 @@ class Profile extends Component {
   }
 }
 
-Profile.propTypes = propTypes;
+Profile.propTypes = {
+  userId: PropTypes.number,
+  username: PropTypes.string,
+  user: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  didSubmit: PropTypes.bool.isRequired,
+  params: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+  }).isRequired,
+  loadUser: PropTypes.func.isRequired,
+};
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const username = ownProps.params.username;
   return {
+    user: getUserByUsername(state, username),
+    posts: getPostsByUsername(state, username),
     isFetching: state.user.isFetching,
-    error: state.user.error,
-    users: state.user.users,
+    didSubmit: state.post.didSubmit,
   };
 }
 
-export default connect(mapStateToProps, { loadUser })(Profile);
+export default connect(mapStateToProps, {
+  loadUser,
+})(Profile);

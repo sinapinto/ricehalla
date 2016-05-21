@@ -1,18 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  handleFile: PropTypes.func.isRequired,
-  hidden: PropTypes.bool,
-  multiple: PropTypes.bool,
-  accept: PropTypes.string,
-};
-
-const defaultProps = {
-  hidden: false,
-  multiple: true,
-};
-
 class FileInput extends Component {
   constructor() {
     super();
@@ -45,7 +33,16 @@ class FileInput extends Component {
   }
 }
 
-FileInput.propTypes = propTypes;
-FileInput.defaultProps = defaultProps;
+FileInput.propTypes = {
+  handleFile: PropTypes.func.isRequired,
+  hidden: PropTypes.bool,
+  multiple: PropTypes.bool,
+  accept: PropTypes.string,
+};
+
+FileInput.defaultProps = {
+  hidden: false,
+  multiple: true,
+};
 
 export default FileInput;

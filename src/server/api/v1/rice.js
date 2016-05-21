@@ -24,12 +24,12 @@ export default new Resource('rice', {
         attributes: [
           'scrot',
           'id',
-          'updatedAt',
+          'createdAt',
         ],
         include: [
           {
             model: User,
-            attributes: ['username', 'emailHash'],
+            attributes: ['id', 'username', 'emailHash'],
             required: true,
           },
           {

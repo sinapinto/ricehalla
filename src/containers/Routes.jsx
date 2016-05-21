@@ -5,7 +5,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
-import RiceDetail from './RiceDetail';
+import PostDetail from './PostDetail';
 import Submit from './Submit';
 import Logout from './Logout';
 import NotFound from './NotFound';
@@ -38,7 +38,7 @@ export default function createRouter(history, store) {
       <Route path="/" component={App} noNav={['/login', '/logout', '/register']}>
         <IndexRoute component={Home} />
         <Route path="/user/:username" component={Profile} />
-        <Route path="/rice/:id" component={RiceDetail} />
+        <Route path="/rice/:id" component={PostDetail} />
         <Route onEnter={requireUnauth}>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

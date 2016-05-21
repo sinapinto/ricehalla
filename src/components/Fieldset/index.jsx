@@ -2,11 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Icon from '../Icon';
 import style from './style.css';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  errorMessage: PropTypes.string,
-};
-
 class Fieldset extends Component {
   render() {
     const { children, ...other } = this.props;
@@ -24,6 +19,9 @@ class Fieldset extends Component {
   }
 }
 
-Fieldset.propTypes = propTypes;
+Fieldset.propTypes = {
+  children: PropTypes.node.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export default Fieldset;

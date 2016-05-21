@@ -5,44 +5,20 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import marked from 'marked';
 import Icon from '../../components/Icon';
-import { showRice, likeRice, unlikeRice } from '../../actions/rice';
+import { showPost, likePost, unlikePost } from '../../actions/post';
+import { getPostById } from '../../reducers'
 import style from './style.css';
 
-const propTypes = {
-  userId: PropTypes.number,
-  username: PropTypes.string,
-  params: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  detail: PropTypes.shape({
-    User: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      emailHash: PropTypes.string.isRequired,
-    }),
-    Tags: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      }).isRequired
-    ),
-    id: PropTypes.number,
-    userId: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    files: PropTypes.arrayOf(PropTypes.string),
-    scrot: PropTypes.string,
-    likers: PropTypes.array(PropTypes.string),
-    createdAt: PropTypes.string,
-  }),
-  isFetchingLike: PropTypes.bool.isRequired,
-  showRice: PropTypes.func.isRequired,
-  likeRice: PropTypes.func.isRequired,
-  unlikeRice: PropTypes.func.isRequired,
-};
-
-class RiceDetail extends Component {
+class PostDetail extends Component {
   constructor() {
     super();
     this.handleLikeClick = this.handleLikeClick.bind(this);
+  }
+
+  componentDidMount() {
+    if (!this.props.detail || !this.props.detail.files) {
+      this.props.showPost(this.props.params.id);
+    }
   }
 
   handleLikeClick() {
@@ -50,14 +26,10 @@ class RiceDetail extends Component {
       return;
     }
     if (this.props.detail.likers.includes(this.props.username)) {
-      this.props.unlikeRice(this.props.detail.id);
+      this.props.unlikePost(this.props.detail.id);
     } else {
-      this.props.likeRice(this.props.detail.id);
+      this.props.likePost(this.props.detail.id);
     }
-  }
-
-  componentDidMount() {
-    this.props.showRice(this.props.params.id);
   }
 
   createMarkdown() {
@@ -68,7 +40,7 @@ class RiceDetail extends Component {
   }
 
   render() {
-    const { User, Tags, files, title = '', scrot, likers, userId, id } = this.props.detail;
+    const { User, Tags, files, title = '', scrot, likers, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
     let likeIcon;
     if (likers && likers.includes(this.props.username)) {
@@ -158,19 +130,48 @@ class RiceDetail extends Component {
   }
 }
 
-RiceDetail.propTypes = propTypes;
+PostDetail.propTypes = {
+  userId: PropTypes.number,
+  username: PropTypes.string,
+  params: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  detail: PropTypes.shape({
+    User: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      emailHash: PropTypes.string.isRequired,
+    }),
+    Tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired
+    ),
+    id: PropTypes.number,
+    userId: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    files: PropTypes.arrayOf(PropTypes.string),
+    scrot: PropTypes.string,
+    likers: PropTypes.array(PropTypes.string),
+    createdAt: PropTypes.string,
+  }),
+  isFetchingLike: PropTypes.bool.isRequired,
+  showPost: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
+};
 
-function mapStateToProps(state) {
-  const { posts, showing, isFetchingLike } = state.rice;
-  const detail = posts[showing] ? posts[showing] : {};
+function mapStateToProps(state, ownProps) {
+  const { isFetchingLike } = state.post;
+  const id = ownProps.params.id;
   return {
-    detail,
+    detail: getPostById(state, id),
     isFetchingLike,
   };
 }
 
 export default connect(mapStateToProps, {
-  showRice,
-  likeRice,
-  unlikeRice,
-})(RiceDetail);
+  showPost,
+  likePost,
+  unlikePost,
+})(PostDetail);

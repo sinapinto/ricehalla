@@ -12,7 +12,7 @@ export function xhrUpload({
   file,
   url,
   headers = {},
-  onProgress = () => {},
+  onProgress = () => null,
 } = {}) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

@@ -1,18 +1,6 @@
 import React, { PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  className: PropTypes.string,
-  type: PropTypes.string,
-  valid: PropTypes.bool,
-  invalid: PropTypes.bool,
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
-  multiline: PropTypes.bool,
-};
-
 function TextInput({ type = 'text', valid, invalid, className, multiline, height, ...other }) {
   const classes = [style.input];
   if (invalid) {
@@ -45,6 +33,16 @@ function TextInput({ type = 'text', valid, invalid, className, multiline, height
   );
 }
 
-TextInput.propTypes = propTypes;
+TextInput.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes.string,
+  valid: PropTypes.bool,
+  invalid: PropTypes.bool,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  multiline: PropTypes.bool,
+};
 
 export default TextInput;

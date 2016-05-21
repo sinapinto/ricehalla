@@ -6,9 +6,9 @@ import {
 } from '../actions/upload';
 
 const initialState = {
-  files: {},       // by uid slug
-  percentages: {}, // by uid slug
-  errors: {},      // by uid slug
+  filesByUid: {},
+  progressByUid: {},
+  errorsByUid: {},
 };
 
 export default function (state = initialState, action) {
@@ -16,16 +16,16 @@ export default function (state = initialState, action) {
     case UPLOAD_PROGRESS:
       return {
         ...state,
-        percentages: {
-          ...state.percentages,
+        progressByUid: {
+          ...state.progressByUid,
           [action.uid]: action.percentage,
         },
       };
     case UPLOAD_SUCCESS:
       return {
         ...state,
-        files: {
-          ...state.files,
+        filesByUid: {
+          ...state.filesByUid,
           [action.uid]: {
             name: action.response.name,
             mimetype: action.response.mimetype,
@@ -35,8 +35,8 @@ export default function (state = initialState, action) {
     case UPLOAD_FAILURE:
       return {
         ...state,
-        errors: {
-          ...state.errors,
+        errorsByUid: {
+          ...state.errorsByUid,
           [action.uid]: action.error,
         },
       };

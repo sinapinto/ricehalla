@@ -1,11 +1,6 @@
 import React, { PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
 function Form({ children, className, ...other }) {
   const classes = [style.form];
   if (className) {
@@ -22,6 +17,9 @@ function Form({ children, className, ...other }) {
   );
 }
 
-Form.propTypes = propTypes;
+Form.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
 
 export default Form;

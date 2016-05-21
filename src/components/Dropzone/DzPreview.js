@@ -3,22 +3,6 @@ import ProgressBar from '../ProgressBar';
 import Icon from '../../components/Icon';
 import style from './style.css';
 
-const propTypes = {
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  progress: PropTypes.number,
-  file: PropTypes.shape({
-    name: PropTypes.string,
-    mimetype: PropTypes.string,
-  }),
-  error: PropTypes.string,
-};
-
-const defaultProps = {
-  progress: 0,
-};
-
 class DzPreview extends Component {
   constructor() {
     super();
@@ -72,7 +56,20 @@ class DzPreview extends Component {
   }
 }
 
-DzPreview.propTypes = propTypes;
-DzPreview.defaultProps = defaultProps;
+DzPreview.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  progress: PropTypes.number,
+  file: PropTypes.shape({
+    name: PropTypes.string,
+    mimetype: PropTypes.string,
+  }),
+  error: PropTypes.string,
+};
+
+DzPreview.defaultProps = {
+  progress: 0,
+};
 
 export default DzPreview;

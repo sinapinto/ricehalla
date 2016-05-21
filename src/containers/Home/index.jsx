@@ -2,42 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import Masonry from 'react-masonry-component';
 import moment from 'moment';
-import { fetchList, likeRice, unlikeRice } from '../../actions/rice';
 import Thumbnail from './Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
+import { fetchList, likePost, unlikePost } from '../../actions/post';
+import { getAllPosts } from '../../reducers';
 import style from './style.css';
-import Masonry from 'react-masonry-component';
-const debug = require('debug')('app:home');
-
-const propTypes = {
-  userId: PropTypes.number,
-  username: PropTypes.string,
-  email: PropTypes.string,
-  location: PropTypes.shape({
-    query: PropTypes.object,
-  }).isRequired,
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      User: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-        emailHash: PropTypes.string.isRequired,
-      }),
-      Tags: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-        }).isRequired
-      ),
-      id: PropTypes.number.isRequired,
-      scrot: PropTypes.string.isRequired,
-      likers: PropTypes.arrayOf(PropTypes.string).isRequired,
-      updatedAt: PropTypes.string,
-    })
-  ),
-  hasFetchedList: PropTypes.bool.isRequired,
-  fetchList: PropTypes.func.isRequired,
-};
 
 const NEW = 0;
 const POPULAR = 1;
@@ -92,7 +64,7 @@ class Home extends Component {
           }
           return b.likers.length - a.likers.length;
         } else if (this.state.activeTab === NEW) {
-          return moment(b.updatedAt) - moment(a.updatedAt);
+          return moment(b.createdAt) - moment(a.createdAt);
         }
       })
       .map(rice => 
@@ -104,8 +76,8 @@ class Home extends Component {
           username={rice.User.username}
           currentUser={this.props.username}
           emailHash={rice.User.emailHash}
-          likeRice={this.props.likeRice}
-          unlikeRice={this.props.unlikeRice}
+          likePost={this.props.likePost}
+          unlikePost={this.props.unlikePost}
           isFetchingLike={this.props.isFetchingLike}
         />);
   }
@@ -153,19 +125,46 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = propTypes;
+Home.propTypes = {
+  userId: PropTypes.number,
+  username: PropTypes.string,
+  email: PropTypes.string,
+  location: PropTypes.shape({
+    query: PropTypes.object,
+  }).isRequired,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      User: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        emailHash: PropTypes.string.isRequired,
+      }),
+      Tags: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+        }).isRequired
+      ),
+      id: PropTypes.number.isRequired,
+      scrot: PropTypes.string.isRequired,
+      likers: PropTypes.arrayOf(PropTypes.string).isRequired,
+      createdAt: PropTypes.string,
+    })
+  ),
+  hasFetchedList: PropTypes.bool.isRequired,
+  fetchList: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
-  const posts = Object.keys(state.rice.posts).map(key => state.rice.posts[key]);
   return {
-    posts,
-    hasFetchedList: state.rice.hasFetchedList,
-    isFetchingLike: state.rice.isFetchingLike,
+    posts: getAllPosts(state),
+    hasFetchedList: state.post.hasFetchedList,
+    isFetchingLike: state.post.isFetchingLike,
   };
 }
 
 export default connect(mapStateToProps, {
   fetchList,
-  likeRice,
-  unlikeRice,
+  likePost,
+  unlikePost,
 })(Home);

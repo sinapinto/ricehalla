@@ -1,23 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import Icon from '../../components/Icon';
-import style from './thumbnail.css';
-
-const propTypes = {
-  id: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  likers: PropTypes.array.isRequired,
-  username: PropTypes.string.isRequired,
-  currentUser: PropTypes.string.isRequired,
-  emailHash: PropTypes.string.isRequired,
-  likeRice: PropTypes.func.isRequired,
-  unlikeRice: PropTypes.func.isRequired,
-  isFetchingLike: PropTypes.bool.isRequired,
-};
-
-const contextTypes = {
-  router: PropTypes.object
-};
+import style from './Thumbnail.css';
 
 class Thumbnail extends Component {
   constructor() {
@@ -42,14 +26,14 @@ class Thumbnail extends Component {
   handleLikeClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    const { isFetchingLike, likers, currentUser, likeRice, unlikeRice, id } = this.props;
+    const { isFetchingLike, likers, currentUser, likePost, unlikePost, id } = this.props;
     if (isFetchingLike) {
       return;
     }
     if (likers.includes(currentUser)) {
-      unlikeRice(id);
+      unlikePost(id);
     } else {
-      likeRice(id);
+      likePost(id);
     }
   }
 
@@ -101,7 +85,20 @@ class Thumbnail extends Component {
   }
 }
 
-Thumbnail.propTypes = propTypes;
-Thumbnail.contextTypes = contextTypes;
+Thumbnail.propTypes = {
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  likers: PropTypes.array.isRequired,
+  username: PropTypes.string.isRequired,
+  currentUser: PropTypes.string.isRequired,
+  emailHash: PropTypes.string.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
+  isFetchingLike: PropTypes.bool.isRequired,
+};
+
+Thumbnail.contextTypes = {
+  router: PropTypes.object
+};
 
 export default Thumbnail;

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import fetch from 'isomorphic-fetch';
 import API_BASE from '../../utils/APIBase';
 import Button from '../../components/Button';
@@ -11,26 +11,9 @@ import TextInput from '../../components/TextInput';
 import Dropzone from '../../components/Dropzone';
 import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
-import { submit as submitRice } from '../../actions/rice';
+import { submitPost } from '../../actions/post';
 import { uploadFile, clearUploads } from '../../actions/upload';
 import style from './style.css';
-import "react-select/dist/react-select.css";
-const debug = require('debug')('app:submit');
-
-const propTypes = {
-  userId: PropTypes.number.isRequired,
-  username: PropTypes.string.isRequired,
-  upload: PropTypes.shape({
-    files: PropTypes.object.isRequired,       // { 'uid': { name: '', mimetype: '' }, ... }
-    percentages: PropTypes.object.isRequired, // { 'uid': 20, ... }
-    error: PropTypes.object,
-  }).isRequired,
-  rice: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-  }).isRequired,
-  submitRice: PropTypes.func.isRequired,
-  uploadFile: PropTypes.func.isRequired,
-};
 
 class Submit extends Component {
   constructor() {
@@ -64,18 +47,19 @@ class Submit extends Component {
       this.setState({ errorMessage: 'Please give your post a title.' });
       return;
     }
-    if (Object.keys(this.props.upload.files).length === 0) {
+    if (Object.keys(this.props.filesByUid).length === 0) {
       this.setState({ errorMessage: 'You must upload at least one file to be able to submit.' });
       return;
     }
-    const filesArray = Object.keys(this.props.upload.files).map(uid => this.props.upload.files[uid]);
+    const filesArray = Object.keys(this.props.filesByUid)
+      .map(uid => this.props.filesByUid[uid]);
     const fileNames = filesArray.map(obj => obj.name);
     const scrot = filesArray.find(f => /^(jpe?g|png|gif)$/.test(f.name.split('.').pop()));
     if (!scrot) {
       this.setState({ errorMessage: 'You must upload an image to be able to submit.' });
       return;
     }
-    this.props.submitRice({
+    this.props.submitPost({
       userId: this.props.userId,
       title: this.state.title,
       description: this.state.description,
@@ -116,9 +100,9 @@ class Submit extends Component {
         <Form onSubmit={this.handleSubmit} className={style.form}>
           <Dropzone
             action={this.upload}
-            percentages={this.props.upload.percentages}
-            files={this.props.upload.files}
-            errors={this.props.upload.errors}
+            percentages={this.props.progressByUid}
+            files={this.props.filesByUid}
+            errors={this.props.errorsByUid}
           >
             <Icon name="images" size={100} className={style.dzIcon} />
             <p className={style.dzHeader}>Drop files here or click to upload</p>
@@ -169,7 +153,7 @@ class Submit extends Component {
             <Button
               success
               className={style.submitBtn}
-              disabled={this.props.rice.isFetching}
+              disabled={this.props.isSubmitting}
             >
               Submit
             </Button>
@@ -180,13 +164,28 @@ class Submit extends Component {
   }
 }
 
-Submit.propTypes = propTypes;
+Submit.propTypes = {
+  userId: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  filesByUid: PropTypes.object.isRequired,
+  progressByUid: PropTypes.object.isRequired,
+  errorsByUid: PropTypes.object,
+  isSubmitting: PropTypes.bool.isRequired,
+  submitPost: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
-    upload: state.upload,
-    rice: state.rice,
+    filesByUid: state.upload.filesByUid,
+    progressByUid: state.upload.progressByUid,
+    errorsByUid: state.upload.errorsByUid,
+    isSubmitting: state.post.isFetching,
   };
 }
 
-export default connect(mapStateToProps, { submitRice, uploadFile, clearUploads })(Submit);
+export default connect(mapStateToProps, {
+  submitPost,
+  uploadFile,
+  clearUploads,
+})(Submit);

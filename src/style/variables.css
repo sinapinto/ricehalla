@@ -1,4 +1,3 @@
-/* note that custom props cannot be changed at runtime */
 :root {
   --font-color: rgb(46, 68, 83);
   --font-color-light: color(var(--font-color) tint(20%));

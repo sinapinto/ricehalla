@@ -2,12 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 
-const propTypes = {
-  component: PropTypes.element,
-  state: PropTypes.object,
-  assets: PropTypes.object
-};
-
 class Page extends Component {
   render() {
     const { component, state = '', assets } = this.props;
@@ -36,6 +30,10 @@ class Page extends Component {
   }
 }
 
-Page.propTypes = propTypes;
+Page.propTypes = {
+  component: PropTypes.element,
+  state: PropTypes.object,
+  assets: PropTypes.object
+};
 
 export default Page;

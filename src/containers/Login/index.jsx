@@ -9,14 +9,8 @@ import Label from '../../components/Label';
 import TextInput from '../../components/TextInput';
 import Checkbox from '../../components/Checkbox';
 import Icon from '../../components/Icon';
-import style from './style.css';
 import { login } from '../../actions/auth';
-
-const propTypes = {
-  loginInvalid: PropTypes.bool.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-};
+import style from './style.css';
 
 class Login extends Component {
   constructor() {
@@ -134,7 +128,11 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = propTypes;
+Login.propTypes = {
+  loginInvalid: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
@@ -144,4 +142,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, {
+  login,
+})(Login);

@@ -9,19 +9,6 @@ import Button from '../../components/Button';
 import NavLink from '../../components/NavLink';
 import style from './style.css';
 
-const propTypes = {
-  children: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  route: PropTypes.object,
-  userId: PropTypes.number,
-  username: PropTypes.string,
-  isAuthenticated: PropTypes.bool,
-};
-
-const contextTypes = {
-  router: PropTypes.object
-};
-
 class App extends Component {
   constructor(props, context) {
     super(props, context);
@@ -33,12 +20,9 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // login
     if (!this.props.isAuthenticated && nextProps.isAuthenticated) {
-      // login
       this.context.router.push('/');
-    } else if (this.props.isAuthenticated && !nextProps.isAuthenticated) {
-      // logout
-      // this.context.router.push('/');
     }
   }
 
@@ -95,8 +79,8 @@ class App extends Component {
       <div className={style.nav}>
         <div className={style.navWrapper}>
           <Link to="/" className={style.logo}>ricehalla</Link>
-          <NavLink to="/register" outline style={{ border: 0 }}>Register</NavLink>
-          <NavLink to="/login" outline>Log In</NavLink>
+          <NavLink to="/login" outline style={{ border: 0 }}>Log In</NavLink>
+          <NavLink to="/register" outline>Register</NavLink>
         </div>
       </div>
     );
@@ -127,8 +111,18 @@ class App extends Component {
   }
 }
 
-App.propTypes = propTypes;
-App.contextTypes = contextTypes;
+App.propTypes = {
+  children: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  route: PropTypes.object,
+  userId: PropTypes.number,
+  username: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
+};
+
+App.contextTypes = {
+  router: PropTypes.object
+};
 
 function mapStateToProps(state) {
   const { auth: { isAuthenticated, token } } = state;

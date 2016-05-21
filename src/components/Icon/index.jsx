@@ -1,18 +1,6 @@
 import React, { PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-};
-
-const defaultProps = {
-  size: 24,
-  onClick: () => {},
-};
-
 function Icon({ name, size, onClick, className }) {
   const classes = [style.icon];
   if (className) {
@@ -51,7 +39,16 @@ function Icon({ name, size, onClick, className }) {
   };
 }
 
-Icon.propTypes = propTypes;
-Icon.defaultProps = defaultProps;
+Icon.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+};
+
+Icon.defaultProps = {
+  size: 24,
+  onClick: () => null,
+};
 
 export default Icon;

@@ -49,7 +49,7 @@ export default new Resource('user', {
   update: [requireAuth, function *create() {
     const body = yield parse.json(this);
     const rule = {
-      riceId: { type: 'number', required: true },
+      postId: { type: 'number', required: true },
     };
     const errors = parameter.validate(rule, body);
     if (errors) {
@@ -59,7 +59,7 @@ export default new Resource('user', {
       return;
     }
     try {
-      const rice = yield Rice.findOne({ where: { id: body.riceId } });
+      const rice = yield Rice.findOne({ where: { id: body.postId } });
       if (!rice) {
         this.throw(403);
       }
@@ -79,7 +79,7 @@ export default new Resource('user', {
   destroy: [requireAuth, function *destroy() {
     const body = yield parse.json(this);
     const rule = {
-      riceId: { type: 'number', required: true },
+      postId: { type: 'number', required: true },
     };
     const errors = parameter.validate(rule, body);
     if (errors) {
@@ -89,7 +89,7 @@ export default new Resource('user', {
       return;
     }
     try {
-      const rice = yield Rice.findOne({ where: { id: body.riceId } });
+      const rice = yield Rice.findOne({ where: { id: body.postId } });
       if (!rice) {
         this.throw(403);
       }

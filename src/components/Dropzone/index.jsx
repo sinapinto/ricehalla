@@ -4,26 +4,6 @@ import FileInput from '../FileInput';
 import DzPreview from './DzPreview';
 import style from './style.css';
 
-const propTypes = {
-  action: PropTypes.func.isRequired,
-  files: PropTypes.shape({
-    name: PropTypes.string,
-    mimetype: PropTypes.string,
-  }),
-  errors: PropTypes.object,
-  percentages: PropTypes.object,
-  accept: PropTypes.string,
-  multiple: PropTypes.bool,
-  children: PropTypes.node,
-};
-
-const defaultProps = {
-  files: {},
-  errors: {},
-  percentages: {},
-  multiple: true,
-};
-
 class Dropzone extends Component {
   constructor() {
     super();
@@ -107,7 +87,24 @@ class Dropzone extends Component {
   }
 }
 
-Dropzone.propTypes = propTypes;
-Dropzone.defaultProps = defaultProps;
+Dropzone.propTypes = {
+  action: PropTypes.func.isRequired,
+  files: PropTypes.shape({
+    name: PropTypes.string,
+    mimetype: PropTypes.string,
+  }),
+  errors: PropTypes.object,
+  percentages: PropTypes.object,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool,
+  children: PropTypes.node,
+};
+
+Dropzone.defaultProps = {
+  files: {},
+  errors: {},
+  percentages: {},
+  multiple: true,
+};
 
 export default Dropzone;

@@ -1,12 +1,6 @@
 import React, { PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  htmlFor: PropTypes.string,
-};
-
 function Label({ children, className, htmlFor }) {
   const classes = [style.label];
   if (className) {
@@ -19,6 +13,10 @@ function Label({ children, className, htmlFor }) {
   );
 }
 
-Label.propTypes = propTypes;
+Label.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  htmlFor: PropTypes.string,
+};
 
 export default Label;

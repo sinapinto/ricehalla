@@ -1,19 +1,6 @@
 import React, { PropTypes } from 'react';
 import style from './style.css';
 
-const propTypes = {
-  children: PropTypes.any.isRequired,
-  className: PropTypes.string,
-
-  // mutually exclusive
-  primary: PropTypes.bool,
-  success: PropTypes.bool,
-  danger: PropTypes.bool,
-
-  outline: PropTypes.bool,
-  disabled: PropTypes.bool,
-};
-
 function Button({
   children,
   className,
@@ -52,6 +39,14 @@ function Button({
   );
 }
 
-Button.propTypes = propTypes;
+Button.propTypes = {
+  children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+  primary: PropTypes.bool,
+  success: PropTypes.bool,
+  danger: PropTypes.bool,
+  outline: PropTypes.bool,
+  disabled: PropTypes.bool,
+};
 
 export default Button;

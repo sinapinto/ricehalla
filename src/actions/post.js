@@ -5,9 +5,9 @@ import cookie from '../utils/cookie';
 import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
 
-export const POST_RICE_REQUEST = 'POST_RICE_REQUEST';
-export const POST_RICE_SUCCESS = 'POST_RICE_SUCCESS';
-export const POST_RICE_FAILURE = 'POST_RICE_FAILURE';
+export const SUBMIT_POST_REQUEST = 'SUBMIT_POST_REQUEST';
+export const SUBMIT_POST_SUCCESS = 'SUBMIT_POST_SUCCESS';
+export const SUBMIT_POST_FAILURE = 'SUBMIT_POST_FAILURE';
 
 async function post(body) {
   const token = cookie.get('token');
@@ -26,47 +26,47 @@ async function post(body) {
   .then(handleResponse);
 }
 
-export function submit(body) {
+export function submitPost(body) {
   return async dispatch => {
     try {
-      dispatch({ type: POST_RICE_REQUEST });
+      dispatch({ type: SUBMIT_POST_REQUEST });
       const submitted = await post(body);
       if (submitted.error) {
-        dispatch({ type: POST_RICE_FAILURE, error: submitted.error });
+        dispatch({ type: SUBMIT_POST_FAILURE, error: submitted.error });
       } else {
-        dispatch({ type: POST_RICE_SUCCESS, submitted });
+        dispatch({ type: SUBMIT_POST_SUCCESS, submitted });
         browserHistory.push(`/rice/${submitted.id}`);
       }
     } catch (err) {
-      dispatch({ type: POST_RICE_FAILURE, error: err });
+      dispatch({ type: SUBMIT_POST_FAILURE, error: err });
     }
   };
 }
 
-export const SHOW_RICE_REQUEST = 'SHOW_RICE_REQUEST';
-export const SHOW_RICE_SUCCESS = 'SHOW_RICE_SUCCESS';
-export const SHOW_RICE_FAILURE = 'SHOW_RICE_FAILURE';
+export const SHOW_POST_REQUEST = 'SHOW_POST_REQUEST';
+export const SHOW_POST_SUCCESS = 'SHOW_POST_SUCCESS';
+export const SHOW_POST_FAILURE = 'SHOW_POST_FAILURE';
 
 function get(id) {
   return fetch(`${API_BASE}/api/v1/rice/${id}`)
     .then(handleResponse);
 }
 
-export function showRice(id) {
+export function showPost(id) {
   return async dispatch => {
     try {
-      dispatch({ type: SHOW_RICE_REQUEST });
+      dispatch({ type: SHOW_POST_REQUEST });
       const detail = await get(id);
-      dispatch({ type: SHOW_RICE_SUCCESS, detail });
+      dispatch({ type: SHOW_POST_SUCCESS, detail });
     } catch (err) {
-      dispatch({ type: SHOW_RICE_FAILURE, error: err });
+      dispatch({ type: SHOW_POST_FAILURE, error: err });
     }
   };
 }
 
-export const LIST_RICE_REQUEST = 'LIST_RICE_REQUEST';
-export const LIST_RICE_SUCCESS = 'LIST_RICE_SUCCESS';
-export const LIST_RICE_FAILURE = 'LIST_RICE_FAILURE';
+export const LIST_POST_REQUEST = 'LIST_POST_REQUEST';
+export const LIST_POST_SUCCESS = 'LIST_POST_SUCCESS';
+export const LIST_POST_FAILURE = 'LIST_POST_FAILURE';
 
 function list(queryParams = '') {
   return fetch(`${API_BASE}/api/v1/rice/${queryParams}`)
@@ -76,26 +76,26 @@ function list(queryParams = '') {
 export function fetchList() {
   return async dispatch => {
     try {
-      dispatch({ type: LIST_RICE_REQUEST });
+      dispatch({ type: LIST_POST_REQUEST });
       const riceList = await list();
-      dispatch({ type: LIST_RICE_SUCCESS, list: riceList });
+      dispatch({ type: LIST_POST_SUCCESS, list: riceList });
     } catch (err) {
-      dispatch({ type: LIST_RICE_FAILURE, error: err });
+      dispatch({ type: LIST_POST_FAILURE, error: err });
     }
   };
 }
 
-export const LIKE_RICE_REQUEST = 'LIKE_RICE_REQUEST';
-export const LIKE_RICE_SUCCESS = 'LIKE_RICE_SUCCESS';
-export const LIKE_RICE_FAILURE = 'LIKE_RICE_FAILURE';
+export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 
-async function putLike(username, riceId, token) {
+async function putLike(username, postId, token) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ riceId: +riceId }),
+    body: JSON.stringify({ postId: +postId }),
   })
   .then(response => {
     if (!response.ok) {
@@ -105,9 +105,9 @@ async function putLike(username, riceId, token) {
   });
 }
 
-export function likeRice(riceId) {
+export function likePost(postId) {
   return async dispatch => {
-    if (!riceId) {
+    if (!postId) {
       return;
     }
     let token = cookie.get('token');
@@ -120,43 +120,43 @@ export function likeRice(riceId) {
     }
     try {
       dispatch({
-        type: LIKE_RICE_REQUEST,
+        type: LIKE_POST_REQUEST,
         username,
-        riceId,
+        postId,
       });
-      const res = await putLike(username, riceId, token);
+      const res = await putLike(username, postId, token);
       if (res.status === 204) {
-        dispatch({ type: LIKE_RICE_SUCCESS });
+        dispatch({ type: LIKE_POST_SUCCESS });
       } else {
         dispatch({
-          type: LIKE_RICE_FAILURE,
+          type: LIKE_POST_FAILURE,
           username,
-          riceId,
+          postId,
           error: res.error,
         });
       }
     } catch (err) {
       dispatch({
-        type: LIKE_RICE_FAILURE,
+        type: LIKE_POST_FAILURE,
         username,
-        riceId,
+        postId,
         error: err,
       });
     }
   };
 }
 
-export const UNLIKE_RICE_REQUEST = 'UNLIKE_RICE_REQUEST';
-export const UNLIKE_RICE_SUCCESS = 'UNLIKE_RICE_SUCCESS';
-export const UNLIKE_RICE_FAILURE = 'UNLIKE_RICE_FAILURE';
+export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
+export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
+export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 
-async function deleteLike(username, riceId, token) {
+async function deleteLike(username, postId, token) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ riceId: +riceId }),
+    body: JSON.stringify({ postId: +postId }),
   })
   .then(response => {
     if (!response.ok) {
@@ -166,9 +166,9 @@ async function deleteLike(username, riceId, token) {
   });
 }
 
-export function unlikeRice(riceId) {
+export function unlikePost(postId) {
   return async dispatch => {
-    if (!riceId) {
+    if (!postId) {
       return;
     }
     let token = cookie.get('token');
@@ -181,26 +181,26 @@ export function unlikeRice(riceId) {
     }
     try {
       dispatch({
-        type: UNLIKE_RICE_REQUEST,
+        type: UNLIKE_POST_REQUEST,
         username,
-        riceId,
+        postId,
       });
-      const res = await deleteLike(username, riceId, token);
+      const res = await deleteLike(username, postId, token);
       if (res.status === 204) {
-        dispatch({ type: UNLIKE_RICE_SUCCESS });
+        dispatch({ type: UNLIKE_POST_SUCCESS });
       } else {
         dispatch({
-          type: UNLIKE_RICE_FAILURE,
+          type: UNLIKE_POST_FAILURE,
           username,
-          riceId,
+          postId,
           error: res.error,
         });
       }
     } catch (err) {
       dispatch({
-        type: UNLIKE_RICE_FAILURE,
+        type: UNLIKE_POST_FAILURE,
         username,
-        riceId,
+        postId,
         error: err,
       });
     }
