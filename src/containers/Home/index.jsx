@@ -115,7 +115,7 @@ class Home extends Component {
         </div>
         <Masonry
           style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: '0.2s', gutter: 10 }}
+          options={{ transitionDuration: '0.2s', gutter: 25, fitWidth: true }}
           elementType="div"
         >
           {this.renderThumbnails()}
