@@ -6,21 +6,8 @@ import style from './Thumbnail.css';
 class Thumbnail extends Component {
   constructor() {
     super();
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleLikeClick = this.handleLikeClick.bind(this);
     this.handleUsernameClick = this.handleUsernameClick.bind(this);
-    this.state = {
-      isHovered: false,
-    };
-  }
-
-  handleMouseEnter() {
-    this.setState({ isHovered: true });
-  }
-
-  handleMouseLeave() {
-    this.setState({ isHovered: false });
   }
 
   handleLikeClick(e) {
@@ -48,16 +35,13 @@ class Thumbnail extends Component {
       <Link
         to={`/rice/${this.props.id}`}
         className={style.container}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
       >
         <img
           src={`https://s3-us-west-2.amazonaws.com/ricehallaresized/thumb-${this.props.image}`}
           width={315}
           alt={this.props.image}
         />
-        {this.state.isHovered ?
-          <div className={style.infoWrapper}>
+        <div className={style.infoWrapper}>
             <div className={style.infoWrapper2}>
               <span className={style.flexCenter} onClick={this.handleUsernameClick}>
                 <img
@@ -75,11 +59,12 @@ class Thumbnail extends Component {
                   name={this.props.likers.includes(this.props.currentUser) ? "heart" : "heart-outline"}
                   size={28}
                   className={style.likeIcon}
+                  stroke="white"
+                  strokeWidth="10px"
                 />
               </span>
             </div>
-          </div>
-          : null}
+        </div>
       </Link>
     );
   }

@@ -9,6 +9,16 @@
   bottom: 0;
   right: 0;
   left: 0;
+  opacity: 0;
+  transition: opacity .15s ease-in-out;
+
+  &:hover .flexCenter {
+    transform: translateY(0px);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .infoWrapper2 {
@@ -17,36 +27,23 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding-top: 10px;
-  padding-bottom: 3px;
-  padding-left: 6px;
-  padding-right: 6px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,.5) 35%, rgba(0,0,0,0));
+  padding: 12px;
   text-align: left;
   color: white;
+  height: 40px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0));
 }
 
 .flexCenter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0.8;
-  transition: opacity .2s;
-  animation: slideinthedms .3s;
+  opacity: 0.9;
+  transform: translateY(5px);
+  transition: transform .15s ease-in-out, opacity .1s;
 
   &:hover {
     opacity: 1;
-  }
-}
-
-@keyframes slideinthedms {
-  from {
-    transform: translateY(5px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0px);
-    opacity: 0.8;
   }
 }
 
