@@ -106,9 +106,9 @@ class Login extends Component {
             />
           </Fieldset>
           <Checkbox
-            id="rememberme"
-            onClick={this.toggleRemember}
             defaultChecked
+            checked={this.state.remember}
+            onChange={this.toggleRemember}
           >
             Remember me
           </Checkbox>
