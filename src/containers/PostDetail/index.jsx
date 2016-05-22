@@ -12,6 +12,10 @@ import { getPostById } from '../../reducers'
 import style from './style.css';
 
 class PostDetail extends Component {
+  static prefetchData({ dispatch, params: { id } }) {
+    dispatch(showPost(id));
+  }
+
   constructor() {
     super();
     this.handleLikeClick = this.handleLikeClick.bind(this);

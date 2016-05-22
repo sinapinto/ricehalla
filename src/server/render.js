@@ -42,13 +42,6 @@ export default function *() {
   const location = createLocation(this.originalUrl);
   const routes = createRouter(createMemoryHistory(), store);
 
-  // disable SSR
-  if (~this.originalUrl.indexOf('/user/') || ~this.originalUrl.indexOf('/rice/')) {
-    const html = <Html state={store.getState()} assets={assets} />;
-    this.body = `<!DOCTYPE html>\n${renderToString(html)}`;
-    return;
-  }
-
   const [error, redirectLocation, renderProps] = yield new Promise((resolve) => {
     match({ routes, location }, (...args) => resolve(args));
   });

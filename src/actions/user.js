@@ -7,11 +7,10 @@ export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
-async function get(username, token) {
+async function get(username) {
   return fetch(`${API_BASE}/api/v1/user/${username}`, {
     headers: {
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
     },
   })
   .then(handleResponse);
@@ -20,13 +19,12 @@ async function get(username, token) {
 
 export function loadUser(username) {
   return async dispatch => {
+    if (!username || typeof username !== 'string') {
+      throw new Error('Invalid username');
+    }
     try {
       dispatch({ type: LOAD_USER_REQUEST });
-      const token = cookie.get('token');
-      if (!username || typeof username !== 'string') {
-        throw new Error('Invalid username');
-      }
-      const res = await get(username, token);
+      const res = await get(username);
       dispatch({
         type: LOAD_USER_SUCCESS,
         user: res,

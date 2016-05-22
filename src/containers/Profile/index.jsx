@@ -10,6 +10,10 @@ import { getUserByUsername, getPostsByUsername } from '../../reducers';
 import style from './style.css';
 
 class Profile extends Component {
+  static prefetchData({ dispatch, params: { username } }) {
+    dispatch(loadUser(username));
+  }
+
   componentDidMount() {
     const { username, user, params, loadUser, didSubmit } = this.props;
     // FIXME: if user has submitted a post, fetch own data
