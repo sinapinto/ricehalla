@@ -70,27 +70,6 @@ class PostDetail extends Component {
               </a>
             : <Spinner />}
         </div>
-        {files ? files.map((file, i) =>
-          <div className={style.fileWrapper} key={i}>
-            <a
-              target="_blank"
-              href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`}
-              className={style.fileLink}
-            >
-              <div className={style.file}>
-                <Icon
-                  name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'}
-                  size={40}
-                  className={style.fileIcon}
-                />
-                <span>
-                  <div className={style.fileName}>{file.replace(/_\d{13}/, '')}</div>
-                  <div className={style.fileName2}>{file}</div>
-                </span>
-              </div>
-            </a>
-          </div>)
-          : null}
         {User ?
           <div className={style.rWrapper}>
             <div style={{display: 'inline-block'}}>
@@ -133,6 +112,27 @@ class PostDetail extends Component {
             </span>
           </div>
         : null}
+        {files ? files.map((file, i) =>
+          <div className={style.fileWrapper} key={i}>
+            <a
+              target="_blank"
+              href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`}
+              className={style.fileLink}
+            >
+              <div className={style.file}>
+                <Icon
+                  name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'}
+                  size={40}
+                  className={style.fileIcon}
+                />
+                <span>
+                  <div className={style.fileName}>{file.replace(/_\d{13}/, '')}</div>
+                  <div className={style.fileName2}>{file}</div>
+                </span>
+              </div>
+            </a>
+          </div>)
+          : null}
       </div>
     );
   }

@@ -5,7 +5,7 @@ import Button from '../Button';
 
 function NavLink({ children, to, ...other }) {
   return (
-    <Link to={to} className={style.navLink} tabIndex={-1} onClick={e => e.target.blur()}>
+    <Link to={to} className={style.navLink} tabIndex={-1}>
       <Button {...other}>
         {children}
       </Button>

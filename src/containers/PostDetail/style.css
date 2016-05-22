@@ -47,7 +47,7 @@
   border-radius: 5px;
   color: var(--link-color);
   transition: color .2s;
-  margin: 10px;
+  margin-right: 10px;
 
   & .fileName {
     color: var(--font-color);
@@ -72,6 +72,7 @@
   justify-content: center;
   align-items: center;
   min-width: 300px;
+  padding: 0 6px;
   height: 60px;
   border: 1px solid rgba(0,0,0,0.11);
   border-radius: 4px;
