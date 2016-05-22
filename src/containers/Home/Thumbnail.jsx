@@ -75,7 +75,7 @@ Thumbnail.propTypes = {
   image: PropTypes.string.isRequired,
   likers: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
-  currentUser: PropTypes.string.isRequired,
+  currentUser: PropTypes.string,
   emailHash: PropTypes.string.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,

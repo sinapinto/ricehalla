@@ -8,9 +8,9 @@ function Spinner({ className, ...other }) {
   }
   return (
     <div className={classes} {...other}>
-      <div className={style.dotOne} />
-      <div className={style.dotTwo} />
-      <div className={style.dotThree} />
+      <span className={style.dot} />
+      <span className={style.dot} />
+      <span className={style.dot} />
     </div>
   );
 }
