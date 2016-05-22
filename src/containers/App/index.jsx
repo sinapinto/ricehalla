@@ -60,9 +60,9 @@ class App extends Component {
           <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
             <Icon
-              name={this.state.isPopoverOpen ? 'chevron-up' : 'chevron-down'}
+              name="chevron-up"
               size={12}
-              className={style.arrowIcon}
+              className={this.state.isPopoverOpen ? style.arrowUp : style.arrowDown}
             />
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isPopoverOpen}>

@@ -43,9 +43,19 @@
   padding: 0.4em 0.5em;
 }
 
-.arrowIcon {
+.arrow {
   margin-left: 5px;
   fill: color(var(--font-color) tint(40%));
+}
+.arrowUp {
+  composes: arrow;
+  transition: transform .2s;
+}
+
+.arrowDown {
+  composes: arrow;
+  transform: rotate(180deg);
+  transition: transform .2s;
 }
 
 .childWrapper {
