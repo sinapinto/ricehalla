@@ -13,7 +13,10 @@ class Thumbnail extends Component {
   handleLikeClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    const { isFetchingLike, likers, currentUser, likePost, unlikePost, id } = this.props;
+    const { isFetchingLike, isloggedIn, likers, currentUser, likePost, unlikePost, id } = this.props;
+    if (!isloggedIn) {
+      this.context.router.push('/login');
+    }
     if (isFetchingLike) {
       return;
     }

@@ -6,7 +6,8 @@ import config from '../../config/index.json';
 const router = require('koa-router')();
 
 router.post('/signup', function *signup() {
-  const { username, password } = this.request.body;
+  let { username, password } = this.request.body;
+  username = username.substr(0, 20);
   const email = this.request.body.email.trim();
   const salt = yield bcrypt.genSalt(10);
   const passwordHash = yield bcrypt.hash(password, salt);

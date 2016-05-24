@@ -8,6 +8,7 @@
   text-align: center;
   color: var(--font-color);
   font-size: 130%;
+  overflow: hidden;
 }
 
 .sadIcon {

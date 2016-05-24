@@ -79,6 +79,7 @@ class Home extends Component {
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}
           isFetchingLike={this.props.isFetchingLike}
+          isloggedIn={!!this.props.userId}
         />);
   }
 

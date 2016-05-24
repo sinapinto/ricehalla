@@ -46,7 +46,6 @@
   align-items: center;
   border-radius: 5px;
   color: var(--link-color);
-  transition: color .2s;
   margin-right: 10px;
 
   & .fileName {
@@ -56,14 +55,16 @@
   & .fileName2 {
     font-size: 11px;
     color: color(var(--font-color-light) tint(30%));
-  }
 
-  &:hover {
-    color: color(var(--link-color) shade(15%));
   }
 
   &:hover .fileIcon {
-    fill: hsla(198, 86%, 80%, 1);
+    fill: white;
+  }
+
+  &:hover .fileName,
+  &:hover .fileName2 {
+    color: white;
   }
 }
 
@@ -71,24 +72,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 300px;
-  padding: 0 6px;
+  min-width: 200px;
+  padding: 0 10px;
   height: 60px;
   border: 1px solid rgba(0,0,0,0.11);
   border-radius: 4px;
-  background-color: white;
-  transition: background-color .2s;
   color: var(--font-color);
+  background-color: white;
 
   &:hover {
-    background-color: gray(97%);
+    background-color: var(--link-color);
   }
 }
 
 .fileIcon {
   margin-right: 10px;
-  fill: hsla(198, 86%, 85%, 1);
-  transition: fill .2s;
+  fill: hsla(198, 86%, 75%, 1);
 }
 
 .likes {

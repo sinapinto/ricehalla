@@ -35,7 +35,9 @@ class Profile extends Component {
       return (
         <NotFound title='User not found | Ricehalla'>
           <NotFound.H1>User not found</NotFound.H1>
-          <NotFound.H2>There doesn&apos;t seem to be a user named <b>{username}</b>.</NotFound.H2>
+          <NotFound.H2>
+            There doesn&apos;t seem to be a user named <b>{username.substr(0, 20)}</b>.
+          </NotFound.H2>
         </NotFound>
       );
     }

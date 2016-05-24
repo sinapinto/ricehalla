@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import cookie from '../utils/cookie';
 import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
 
