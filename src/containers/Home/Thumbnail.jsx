@@ -33,6 +33,33 @@ class Thumbnail extends Component {
     this.context.router.push(`/user/${this.props.username}`);
   }
 
+  renderLike() {
+    let { currentUser, likers } = this.props;
+    let iconName;
+    if (likers.includes(currentUser)) {
+      iconName = 'heart';
+    } else {
+      iconName = 'heart-outline';
+    }
+    const icon = <Icon
+            name={iconName}
+            size={28}
+            className={style.likeIcon}
+            stroke="white"
+            strokeWidth="10px"
+          />;
+    if (currentUser) {
+      return <span className={style.flexCenter} onClick={this.handleLikeClick}>
+        <span>{likers.length}</span> {icon}
+      </span>;
+    }
+    return <span className={style.flexCenter}>
+      <Link to="/login" className={style.link}>
+        <span>{likers.length}</span> {icon}
+      </Link>
+    </span>;
+  }
+
   render() {
     return (
       <Link
@@ -56,16 +83,7 @@ class Thumbnail extends Component {
                 />
                 <span className={style.username}>{this.props.username}</span>
               </span>
-              <span className={style.flexCenter} onClick={this.handleLikeClick}>
-                <span>{this.props.likers.length}</span>
-                <Icon
-                  name={this.props.likers.includes(this.props.currentUser) ? "heart" : "heart-outline"}
-                  size={28}
-                  className={style.likeIcon}
-                  stroke="white"
-                  strokeWidth="10px"
-                />
-              </span>
+              {this.renderLike()}
             </div>
         </div>
       </Link>

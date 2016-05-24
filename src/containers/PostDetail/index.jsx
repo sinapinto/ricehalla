@@ -43,15 +43,28 @@ class PostDetail extends Component {
     return { __html: description ?  marked(description, { sanitize: true }) : '' };
   }
 
+  renderLike() {
+    let iconName;
+    let { likers } = this.props.detail;
+    if (likers && likers.includes(this.props.username)) {
+      iconName = 'heart';
+    } else {
+      iconName = 'heart-outline';
+    }
+    const icon = <Icon name={iconName} size={28} className={style.heart} />;
+    if (this.props.userId) {
+      return <span onClick={this.handleLikeClick} className={style.likes}>
+        {icon} {typeof likers !== 'undefined' ? likers.length : null}
+      </span>;
+    }
+    return <Link to="/login" className={style.likes}>
+      {icon} {typeof likers !== 'undefined' ? likers.length : null}
+    </Link>;
+  }
+
   render() {
     const { User, Tags, files, title = '', scrot, likers, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
-    let likeIcon;
-    if (likers && likers.includes(this.props.username)) {
-      likeIcon = 'heart';
-    } else {
-      likeIcon = 'heart-outline';
-    }
     if (!this.props.isFetching && !scrot) {
       return (
         <NotFound title='Rice not found | Ricehalla'>
@@ -103,17 +116,7 @@ class PostDetail extends Component {
                 {tag.name}
               </Link>)
             : null}
-            <span
-              onClick={this.handleLikeClick}
-              className={style.likes}
-            >
-              <Icon
-                name={likeIcon}
-                size={28}
-                className={style.heart}
-              />
-              {typeof likers !== 'undefined' ? likers.length : null}
-            </span>
+            {this.renderLike()}
           </div>
         : null}
         {files ? files.map((file, i) =>

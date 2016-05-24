@@ -46,6 +46,12 @@
   }
 }
 
+.link {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
 .avatar {
   border-radius: 99em;
   margin-right: 7px;
