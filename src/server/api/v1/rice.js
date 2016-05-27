@@ -21,11 +21,7 @@ export default new Resource('rice', {
   index: function *index() {
     try {
       const rice = yield Rice.findAll({
-        attributes: [
-          'scrot',
-          'id',
-          'createdAt',
-        ],
+        attributes: ['scrot', 'id', 'createdAt'],
         include: [
           {
             model: User,
@@ -124,7 +120,7 @@ export default new Resource('rice', {
       include: [
         {
           model: User,
-          attributes: ['username', 'emailHash'],
+          attributes: ['id', 'username', 'emailHash'],
           required: true,
         },
         {

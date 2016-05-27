@@ -10,7 +10,7 @@ class Logout extends Component {
     this.props.logout();
     this.timeoutId = setTimeout(() => {
       this.context.router.replace('/');
-    }, 1500);
+    }, 1200);
   }
 
   componentWillUnmount() {
@@ -20,7 +20,7 @@ class Logout extends Component {
   render() {
     return (
       <div className={style.logout}>
-        You&apos;ve logged out. Time to go home..
+         Logged out successfully. Hang on..
       </div>
     );
   }

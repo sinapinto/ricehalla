@@ -55,8 +55,13 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.logo}>ricehalla</Link>
-          <NavLink to="/submit" primary outline>Submit</NavLink>
+          <Link to="/" className={style.logo}>
+            <Icon name="rice" size={40} className={style.bowl} />
+          </Link>
+          <NavLink to="/submit" primary>
+            <Icon name="plus" size={16} className={style.plusIcon} />
+            Submit
+          </NavLink>
           <Button onClick={this.openPopover} outline style={{ marginRight: '.8em' }}>
             {this.props.username}
             <Icon
@@ -78,8 +83,10 @@ class App extends Component {
     return (
       <div className={style.nav}>
         <div className={style.navWrapper}>
-          <Link to="/" className={style.logo}>ricehalla</Link>
-          <NavLink to="/login" outline style={{ border: 0 }}>Log In</NavLink>
+          <Link to="/" className={style.logo}>
+            <Icon name="rice" size={40} className={style.bowl} />
+          </Link>
+          <NavLink to="/login" outline style={{ border: 0 }}>Log&nbsp;In</NavLink>
           <NavLink to="/register" outline>Register</NavLink>
         </div>
       </div>

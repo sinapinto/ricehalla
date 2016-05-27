@@ -27,13 +27,26 @@ export default new Resource('user', {
       include: [
         {
           model: Rice,
-          attributes: ['id', 'title', 'description', 'createdAt'],
+          attributes: ['scrot', 'id', 'createdAt'],
           required: false,
-          include: [{
-            model: Tag,
-            attributes: ['name'],
-            required: false,
-          }],
+          include: [
+            {
+              model: Tag,
+              attributes: ['name'],
+              required: false,
+            },
+            {
+              model: User,
+              as: 'Liker',
+              attributes: ['username'],
+            },
+          ],
+        },
+        {
+          model: Rice,
+          as: 'LikedRice',
+          attributes: ['scrot', 'id', 'createdAt'],
+          required: false,
         },
       ],
     });

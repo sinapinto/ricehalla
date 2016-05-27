@@ -16,6 +16,15 @@ module.exports = function riceTag(sequelize, DataTypes) {
       allowNull: false,
       unique: 'RiceTag',
     },
+  }, {
+    instanceMethods: {
+      toJSON() {
+        const values = this.get();
+        delete values.updatedAt;
+        delete values.deletedAt;
+        return values;
+      },
+    },
   });
 
   return RiceTag;

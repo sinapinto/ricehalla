@@ -27,11 +27,15 @@ class PostDetail extends Component {
     }
   }
 
+  isLikedByCurrentUser() {
+    return this.props.detail.Liker.some(liker => liker.username === this.props.username);
+  }
+
   handleLikeClick() {
     if (this.props.isFetchingLike) {
       return;
     }
-    if (this.props.detail.likers.includes(this.props.username)) {
+    if (this.isLikedByCurrentUser()) {
       this.props.unlikePost(this.props.detail.id);
     } else {
       this.props.likePost(this.props.detail.id);
@@ -45,8 +49,8 @@ class PostDetail extends Component {
 
   renderLike() {
     let iconName;
-    let { likers } = this.props.detail;
-    if (likers && likers.includes(this.props.username)) {
+    let { Liker } = this.props.detail;
+    if (this.isLikedByCurrentUser()) {
       iconName = 'heart';
     } else {
       iconName = 'heart-outline';
@@ -54,16 +58,16 @@ class PostDetail extends Component {
     const icon = <Icon name={iconName} size={28} className={style.heart} />;
     if (this.props.userId) {
       return <span onClick={this.handleLikeClick} className={style.likes}>
-        {icon} {typeof likers !== 'undefined' ? likers.length : null}
+        {icon} {typeof Liker !== 'undefined' ? Liker.length : null}
       </span>;
     }
     return <Link to="/login" className={style.likes}>
-      {icon} {typeof likers !== 'undefined' ? likers.length : null}
+      {icon} {typeof Liker !== 'undefined' ? Liker.length : null}
     </Link>;
   }
 
   render() {
-    const { User, Tags, files, title = '', scrot, likers, id } = this.props.detail;
+    const { User, Tags, files, title = '', scrot, id } = this.props.detail;
     const createdAt = moment(this.props.detail.createdAt).from();
     if (!this.props.isFetching && !scrot) {
       return (
@@ -107,6 +111,29 @@ class PostDetail extends Component {
               {title}
             </h3>
             <div dangerouslySetInnerHTML={this.createMarkdown()} />
+            <div className={style.filesWrapper}>
+              {files ? files.map((file, i) =>
+                <div className={style.fileWrapper} key={i}>
+                  <a
+                    target="_blank"
+                    href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`}
+                    className={style.fileLink}
+                  >
+                    <div className={style.file}>
+                      <Icon
+                        name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'}
+                        size={40}
+                        className={style.fileIcon}
+                      />
+                      <span>
+                        <div className={style.fileName}>{file.replace(/_\d{13}/, '')}</div>
+                        <div className={style.fileName2}>{file}</div>
+                      </span>
+                    </div>
+                  </a>
+                </div>)
+                : null}
+            </div>
             {Tags ? Tags.map((tag, i) =>
               <Link
                 to={`/?tag=${tag.name}`}
@@ -119,27 +146,6 @@ class PostDetail extends Component {
             {this.renderLike()}
           </div>
         : null}
-        {files ? files.map((file, i) =>
-          <div className={style.fileWrapper} key={i}>
-            <a
-              target="_blank"
-              href={`https://s3-us-west-2.amazonaws.com/ricehalla/${file}`}
-              className={style.fileLink}
-            >
-              <div className={style.file}>
-                <Icon
-                  name={/(png|jpe?g|gif)$/.test(file) ? 'image' : 'document'}
-                  size={40}
-                  className={style.fileIcon}
-                />
-                <span>
-                  <div className={style.fileName}>{file.replace(/_\d{13}/, '')}</div>
-                  <div className={style.fileName2}>{file}</div>
-                </span>
-              </div>
-            </a>
-          </div>)
-          : null}
       </div>
     );
   }
@@ -161,13 +167,13 @@ PostDetail.propTypes = {
         name: PropTypes.string.isRequired,
       }).isRequired
     ),
+    RiceLikedByUser: PropTypes.object,
     id: PropTypes.number,
     userId: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
     files: PropTypes.arrayOf(PropTypes.string),
     scrot: PropTypes.string,
-    likers: PropTypes.array(PropTypes.string),
     createdAt: PropTypes.string,
   }),
   isFetching: PropTypes.bool.isRequired,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Masonry from 'react-masonry-component';
 import moment from 'moment';
-import Thumbnail from './Thumbnail';
+import Thumbnail from '../../components/Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
 import { fetchList, likePost, unlikePost } from '../../actions/post';
@@ -59,10 +59,10 @@ class Home extends Component {
       }))
       .sort((a, b) => {
         if (this.state.activeTab === POPULAR) {
-          if (!a.likers || !b.likers) {
+          if (!a.Liker.length || !b.Liker.length) {
             return 0;
           }
-          return b.likers.length - a.likers.length;
+          return b.Liker.length - a.Liker.length;
         } else if (this.state.activeTab === NEW) {
           return moment(b.createdAt) - moment(a.createdAt);
         }
@@ -72,10 +72,10 @@ class Home extends Component {
           key={rice.id}
           id={rice.id}
           image={rice.scrot}
-          likers={rice.likers}
           username={rice.User.username}
-          currentUser={this.props.username}
           emailHash={rice.User.emailHash}
+          likes={rice.Liker.length}
+          isLikedByCurrentUser={rice.Liker.some(liker => liker.username === this.props.username)}
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}
           isFetchingLike={this.props.isFetchingLike}
@@ -116,7 +116,7 @@ class Home extends Component {
         </div>
         <Masonry
           style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: '0.2s', gutter: 25, fitWidth: true }}
+          options={{ transitionDuration: '0.2s', gutter: 15, fitWidth: true }}
           elementType="div"
         >
           {this.renderThumbnails()}
@@ -144,13 +144,14 @@ Home.propTypes = {
           name: PropTypes.string.isRequired,
         }).isRequired
       ),
+      Liker: PropTypes.arrayOf(PropTypes.object),
       id: PropTypes.number.isRequired,
       scrot: PropTypes.string.isRequired,
-      likers: PropTypes.arrayOf(PropTypes.string).isRequired,
       createdAt: PropTypes.string,
     })
   ),
   didFetchList: PropTypes.bool.isRequired,
+  isFetchingLike: PropTypes.bool.isRequired,
   fetchList: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,

@@ -43,6 +43,7 @@
   font-size: 22px;
   font-weight: 400;
   margin: 5px;
+  text-align: center;
 }
 
 .dzSubHeader {
@@ -67,8 +68,4 @@
 
 .errorIcon {
   margin-right: 7px;
-}
-
-.submitBtn {
-  padding: 1.4em 4em;
 }

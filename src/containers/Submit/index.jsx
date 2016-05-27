@@ -12,7 +12,7 @@ import Dropzone from '../../components/Dropzone';
 import Icon from '../../components/Icon';
 import { connect } from 'react-redux';
 import { submitPost } from '../../actions/post';
-import { uploadFile, clearUploads } from '../../actions/upload';
+import { uploadFile } from '../../actions/upload';
 import style from './style.css';
 
 class Submit extends Component {
@@ -30,10 +30,6 @@ class Submit extends Component {
       tags: '',
       errorMessage: null,
     };
-  }
-
-  componentWillMount() {
-    this.props.clearUploads();
   }
 
   upload(file) {
@@ -152,7 +148,7 @@ class Submit extends Component {
               : <div />}
             <Button
               success
-              className={style.submitBtn}
+              style={{ padding: '1.4em 5em', height: '55px' }}
               disabled={this.props.isSubmitting}
             >
               Submit
@@ -187,5 +183,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   submitPost,
   uploadFile,
-  clearUploads,
 })(Submit);

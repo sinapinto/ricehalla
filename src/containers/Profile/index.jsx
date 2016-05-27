@@ -4,8 +4,11 @@ import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import moment from 'moment';
 import marked from 'marked';
+import Masonry from 'react-masonry-component';
 import NotFound from '../../components/NotFound';
+import Thumbnail from '../../components/Thumbnail';
 import { loadUser } from '../../actions/user';
+import { likePost, unlikePost } from '../../actions/post';
 import { getUserByUsername, getPostsByUsername } from '../../reducers';
 import style from './style.css';
 
@@ -15,28 +18,23 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { username, user, params, loadUser, didSubmit } = this.props;
-    // FIXME: if user has submitted a post, fetch own data
-    // ugly side-effect of having posts redundant in state tree.
-    if (Object.keys(user).length === 0 || (params.username === username && didSubmit)) {
+    const { user, params, loadUser } = this.props;
+    if (Object.keys(user).length === 0) {
       loadUser(params.username);
     }
   }
 
-  createMarkdown(text) {
-    return { __html: text ? marked(text, { sanitize: true }) : '' };
-  }
-
   render() {
+    const { posts, isFetching } = this.props;
     const { username } = this.props.params;
-    const { email, emailHash, about, createdAt } = this.props.user;
+    const { id, emailHash, about, createdAt } = this.props.user;
 
-    if (!this.props.isFetching && !email) {
+    if (!isFetching && !id) {
       return (
         <NotFound title='User not found | Ricehalla'>
           <NotFound.H1>User not found</NotFound.H1>
           <NotFound.H2>
-            There doesn&apos;t seem to be a user named <b>{username.substr(0, 20)}</b>.
+            There doesn&apos;t seem to be anybody named <b>{username.substr(0, 20)}</b>.
           </NotFound.H2>
         </NotFound>
       );
@@ -51,6 +49,7 @@ class Profile extends Component {
                 src={`https://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
                 width={100}
                 height={100}
+                alt="avatar"
                 className={style.avatar}
               />
               : null}
@@ -69,21 +68,30 @@ class Profile extends Component {
           </div>
         </div>
         <div className={style.activity}>
-        {this.props.posts ? <h3 className={style.h3}>Recent</h3> : null}
-          {this.props.posts ? this.props.posts.map(post =>
-            <Link key={post.id} to={`/rice/${post.id}`}>
-              <div className={style.rWrapper}>
-                <h3 className={style.rTitle}>{post.title}</h3>
-                <div dangerouslySetInnerHTML={this.createMarkdown(post.description)} />
-                {post.Tags ? post.Tags.map((tag, i) =>
-                  <span key={i} className={style.rTag}>
-                    {tag.name}
-                  </span>)
-                : null}
-                <div className={style.rAge}>{moment(post.createdAt).from()}</div>
-              </div>
-            </Link>)
-          : null}
+          {posts ? 
+            <h3 className={style.h3}>{posts.length} post{posts.length === 1 ? '' : 's'}</h3>
+            : null}
+        <Masonry
+          style={{ margin: 'auto', textAlign: 'center'}}
+          options={{ transitionDuration: '0.2s', gutter: 15, fitWidth: true }}
+          elementType="div"
+        >
+          {posts ? posts.map(post => {
+            return <Thumbnail
+              key={post.id}
+              id={post.id}
+              image={post.scrot}
+              username={username}
+              emailHash={emailHash}
+              likes={post.Liker.length}
+              isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
+              likePost={this.props.likePost}
+              unlikePost={this.props.unlikePost}
+              isFetchingLike={this.props.isFetchingLike}
+              isloggedIn={!!this.props.userId}
+            />})
+            : null}
+        </Masonry>
         </div>
       </div>
     );
@@ -96,11 +104,13 @@ Profile.propTypes = {
   user: PropTypes.object.isRequired,
   posts: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  didSubmit: PropTypes.bool.isRequired,
+  isFetchingLike: PropTypes.bool.isRequired,
   params: PropTypes.shape({
     username: PropTypes.string.isRequired,
   }).isRequired,
   loadUser: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -108,11 +118,15 @@ function mapStateToProps(state, ownProps) {
   return {
     user: getUserByUsername(state, username),
     posts: getPostsByUsername(state, username),
+    // TODO
+    // likedPosts: getLikedPostsByUsername(state, username),
     isFetching: state.user.isFetching,
-    didSubmit: state.post.didSubmit,
+    isFetchingLike: state.post.isFetchingLike,
   };
 }
 
 export default connect(mapStateToProps, {
   loadUser,
+  likePost,
+  unlikePost,
 })(Profile);

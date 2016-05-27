@@ -2,8 +2,8 @@ import {
   UPLOAD_PROGRESS,
   UPLOAD_SUCCESS,
   UPLOAD_FAILURE,
-  CLEAR_UPLOADS,
 } from '../actions/upload';
+import { SUBMIT_POST_SUCCESS } from '../actions/post';
 
 const initialState = {
   filesByUid: {},
@@ -11,7 +11,7 @@ const initialState = {
   errorsByUid: {},
 };
 
-export default function (state = initialState, action) {
+export default function uploadReducer(state = initialState, action) {
   switch (action.type) {
     case UPLOAD_PROGRESS:
       return {
@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
           [action.uid]: action.error,
         },
       };
-    case CLEAR_UPLOADS:
+    case SUBMIT_POST_SUCCESS:
       return initialState;
     default:
       return state;

@@ -3,20 +3,48 @@ import auth from './auth';
 import upload from './upload';
 import user, * as fromUser from './user';
 import post, * as fromPost from './post';
+import { SHOW_POST_SUCCESS, LIST_POST_SUCCESS } from '../actions/post';
+import { LOAD_USER_SUCCESS } from '../actions/user';
+
+// maintain a map of username to id to simplify lookups by username
+function usersMap(state = {}, action) {
+  switch (action.type) {
+    case SHOW_POST_SUCCESS: {
+      let u = action.detail.User;
+      return Object.assign({}, state, { [u.username]: u.id });
+    }
+    case LIST_POST_SUCCESS: {
+      return Object.assign({}, state,
+        ...action.list.map(p => ({ [p.User.username]: p.User.id })),
+      );
+    }
+    case LOAD_USER_SUCCESS: {
+      let u = action.user;
+      return Object.assign({}, state, { [u.username]: u.id });
+    }
+    default:
+      return state;
+  }
+}
 
 export default combineReducers({
+  usersMap,
   auth,
   upload,
   user,
   post,
 });
 
+// exports for selectors
+// ---------------------
+
 export function getUserByUsername(state, username) {
-  return fromUser.getUserByUsername(state.user, username);
+  const id = state.usersMap[username];
+  return fromUser.showUser(state.user, id);
 }
 
 export function getPostsByUsername(state, username) {
-  return fromUser.getPostsByUsername(state.user, username);
+  return fromPost.getPostsByUsername(state.post, username);
 }
 
 export function getPostById(state, id) {

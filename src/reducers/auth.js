@@ -20,7 +20,7 @@ const initialState = {
   hydrated: false,
 };
 
-export default function (state = initialState, action) {
+export default function authReducer(state = initialState, action) {
   // merge the partial initial state from server
   let initializedState = Object.assign({}, state);
   if (!state.hydrated) {

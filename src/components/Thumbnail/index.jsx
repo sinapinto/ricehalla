@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import Icon from '../../components/Icon';
-import style from './Thumbnail.css';
+import style from './style.css';
 
 class Thumbnail extends Component {
   constructor() {
@@ -13,14 +13,14 @@ class Thumbnail extends Component {
   handleLikeClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    const { isFetchingLike, isloggedIn, likers, currentUser, likePost, unlikePost, id } = this.props;
+    const { isFetchingLike, isloggedIn, isLikedByCurrentUser, likePost, unlikePost, id } = this.props;
     if (!isloggedIn) {
-      this.context.router.push('/login');
+      this.context.router.push('/register');
     }
     if (isFetchingLike) {
       return;
     }
-    if (likers.includes(currentUser)) {
+    if (isLikedByCurrentUser) {
       unlikePost(id);
     } else {
       likePost(id);
@@ -34,30 +34,25 @@ class Thumbnail extends Component {
   }
 
   renderLike() {
-    let { currentUser, likers } = this.props;
+    let { currentUser, isLikedByCurrentUser, likes } = this.props;
     let iconName;
-    if (likers.includes(currentUser)) {
+    if (isLikedByCurrentUser) {
       iconName = 'heart';
     } else {
       iconName = 'heart-outline';
     }
-    const icon = <Icon
-            name={iconName}
-            size={28}
-            className={style.likeIcon}
-            stroke="white"
-            strokeWidth="10px"
-          />;
-    if (currentUser) {
-      return <span className={style.flexCenter} onClick={this.handleLikeClick}>
-        <span>{likers.length}</span> {icon}
-      </span>;
-    }
-    return <span className={style.flexCenter}>
-      <Link to="/login" className={style.link}>
-        <span>{likers.length}</span> {icon}
-      </Link>
-    </span>;
+    return (
+      <span className={style.flexCenter} onClick={this.handleLikeClick}>
+        <span>{likes}</span>
+        <Icon
+          name={iconName}
+          size={28}
+          className={style.likeIcon}
+          stroke="white"
+          strokeWidth="10px"
+        />
+      </span>
+    );
   }
 
   render() {
@@ -94,10 +89,10 @@ class Thumbnail extends Component {
 Thumbnail.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
-  likers: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
-  currentUser: PropTypes.string,
   emailHash: PropTypes.string.isRequired,
+  likes: PropTypes.number,
+  isLikedByCurrentUser: PropTypes.bool,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
   isFetchingLike: PropTypes.bool.isRequired,

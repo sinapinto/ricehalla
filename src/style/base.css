@@ -1,9 +1,10 @@
 @import "./variables.css";
-@import "https://fonts.googleapis.com/css?family=Fira+Mono:400,700";
+@import "https://fonts.googleapis.com/css?family=Lato:400,700";
 
 body {
-  font-family: "Fira Mono", "Liberation Mono", monospace, serif;
+  font-family: "Lato", "Liberation Mono", monospace, serif;
   font-size: 14px;
+  background: var(--body-bg-color);
 }
 
 html {
