@@ -46,25 +46,25 @@ class Profile extends Component {
           <div className={style.bio}>
             {emailHash ?
               <img
-                src={`https://www.gravatar.com/avatar/${emailHash}?s=100&d=identicon`}
-                width={100}
-                height={100}
+                src={`https://www.gravatar.com/avatar/${emailHash}?s=150&d=identicon`}
+                width={150}
+                height={150}
                 alt="avatar"
                 className={style.avatar}
               />
               : null}
-            {createdAt ?
               <div>
                 <h1 className={style.username}>
                   <Link to={`/user/${username}`}>
                     {username}
                   </Link>
                 </h1>
-                <span className={style.joined}>
-                  Joined on {moment(createdAt).format('dddd, MMMM Do YYYY')}
-                </span>
+                {createdAt ?
+                  <p className={style.joined}>
+                    Joined on {moment(createdAt).format('dddd, MMMM Do YYYY')}
+                  </p>
+                  : null}
               </div>
-              : null}
           </div>
         </div>
         <div className={style.activity}>

@@ -47,7 +47,7 @@
 }
 
 .fileIcon {
-  fill: var(--link-color);
+  fill: var(--color-primary-light);
 }
 
 .fileName {

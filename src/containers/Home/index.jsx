@@ -100,7 +100,7 @@ class Home extends Component {
           <div className={style.search}>
             <Icon
               name="search"
-              size={24}
+              size={28}
               className={isSearchActive ? style.iconActive : style.iconInactive}
               onClick={() => findDOMNode(this.refs.searchInput).focus()}
             />

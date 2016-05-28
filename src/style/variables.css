@@ -1,10 +1,10 @@
 :root {
   --body-bg-color: #fff;
   --font-color: rgb(46, 68, 83);
-  --font-color-light: color(var(--font-color) tint(20%));
+  --font-color-light: color(var(--font-color) tint(30%));
   --font-color-dark: color(var(--font-color) shade(20%));
-  --link-color: rgb(45, 183, 245);
   --color-primary: rgb(0, 170, 220);
+  --color-primary-light: rgb(45, 183, 245);
   --color-green: rgb(40, 210, 110);
   --color-red: rgb(240, 60, 50);
   --color-default: #eee;

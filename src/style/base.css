@@ -39,5 +39,5 @@ a:focus {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: var(--link-color);
+  color: var(--color-primary);
 }

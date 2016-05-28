@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   border-radius: 5px;
-  color: var(--link-color);
+  color: var(--color-primary-light);
   margin-right: 10px;
 
   & .fileName {
@@ -84,7 +84,7 @@
   background-color: white;
 
   &:hover {
-    background-color: var(--link-color);
+    background-color: var(--color-primary-light);
   }
 }
 

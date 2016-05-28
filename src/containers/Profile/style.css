@@ -1,25 +1,27 @@
 @import "../../style/variables.css";
 
 .root {
-  margin: 1em 0;
   width: 100%;
 }
 
 .bioWrapper {
   margin: 0 auto;
-  width: 400px;
 }
 
 .bio {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5em 0;
+  margin: 4em 0;
+  text-align: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .username {
-  margin: 0;
-  font-size: 48px;
+  margin: 10px 0;
+  font-size: 40px;
+  font-weight: 400;
 
   & a {
     color: var(--font-color);
@@ -27,18 +29,13 @@
 }
 
 .joined {
+  margin: 0;
   color: var(--font-color-light);
-  font-size: 12px;
-}
-
-.avatar {
-  border-radius: 999em;
-  margin-right: 40px;
+  font-size: 16px;
 }
 
 .activity {
   color: var(--font-color);
-  width: 80%;
   margin: 0 auto;
 
   & .h3 {
@@ -74,7 +71,7 @@
 }
 
 .rTag {
-  background-color: var(--link-color);
+  background-color: var(--color-primary-light);
   color: #fff;
   border-radius: 5px;
   padding: 1px 8px;

@@ -10,7 +10,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
-  border-bottom: 1px solid gray(90%);
 }
 
 .tab {
@@ -18,25 +17,24 @@
   margin-right: 30px;
   cursor: pointer;
   padding: 9px 20px;
-  border-bottom: 2px solid transparent;
   transition: color .2s;
-  font-size: 12px;
+  font-size: 14px;
 
   &:hover {
-    color: var(--link-color);
+    color: var(--color-primary-light);
   }
 }
 
 .tabActive {
   composes: tab;
   color: var(--color-primary);
-  border-bottom: 2px solid var(--link-color);
 }
 
 .search {
   float: right;
   display: flex;
   align-items: center;
+  font-size: 16px;
 }
 
 .iconInactive {
@@ -49,7 +47,7 @@
 }
 
 .iconActive {
-  fill: var(--link-color);
+  fill: var(--color-primary-light);
   cursor: pointer;
 }
 

@@ -15,8 +15,8 @@
 
 .checkboxChecked {
   composes: checkbox;
-  background-color: var(--link-color);
-  border-color: var(--link-color);
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
   transition: background-color .1s, border-color .1s;
 }
 

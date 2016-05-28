@@ -61,7 +61,7 @@ class PostDetail extends Component {
         {icon} {typeof Liker !== 'undefined' ? Liker.length : null}
       </span>;
     }
-    return <Link to="/login" className={style.likes}>
+    return <Link to="/register" className={style.likes}>
       {icon} {typeof Liker !== 'undefined' ? Liker.length : null}
     </Link>;
   }
