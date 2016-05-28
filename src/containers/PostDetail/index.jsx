@@ -73,7 +73,7 @@ class PostDetail extends Component {
       return (
         <NotFound title='Rice not found | Ricehalla'>
           <NotFound.H1>Rice not found</NotFound.H1>
-          <NotFound.H2>This rice doesn&apos;t seem to exist.</NotFound.H2>
+          <NotFound.H2>This rice doesn&rsquo;t seem to exist.</NotFound.H2>
         </NotFound>
       );
     }

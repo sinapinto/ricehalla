@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Masonry from 'react-masonry-component';
 import moment from 'moment';
+import Masonry from '../../components/Masonry';
 import Thumbnail from '../../components/Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
@@ -114,11 +114,7 @@ class Home extends Component {
             />
           </div>
         </div>
-        <Masonry
-          style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: '0.2s', gutter: 15, fitWidth: true }}
-          elementType="div"
-        >
+        <Masonry>
           {this.renderThumbnails()}
         </Masonry>
       </div>

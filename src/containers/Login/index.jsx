@@ -120,7 +120,7 @@ class Login extends Component {
             Log In
           </Button>
           <div className={style.footer}>
-            Don&apos;t have an account? <Link to="/register">Sign up</Link>
+            Don&rsquo;t have an account? <Link to="/register">Sign up</Link>
           </div>
         </Form>
       </div>

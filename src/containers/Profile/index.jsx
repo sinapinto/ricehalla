@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import moment from 'moment';
 import marked from 'marked';
-import Masonry from 'react-masonry-component';
+import Masonry from '../../components/Masonry';
 import NotFound from '../../components/NotFound';
 import Thumbnail from '../../components/Thumbnail';
 import { loadUser } from '../../actions/user';
@@ -34,7 +34,7 @@ class Profile extends Component {
         <NotFound title='User not found | Ricehalla'>
           <NotFound.H1>User not found</NotFound.H1>
           <NotFound.H2>
-            There doesn&apos;t seem to be anybody named <b>{username.substr(0, 20)}</b>.
+            There doesn&rsquo;t seem to be anybody named <b>{username.substr(0, 20)}</b>.
           </NotFound.H2>
         </NotFound>
       );
@@ -71,11 +71,7 @@ class Profile extends Component {
           {posts ? 
             <h3 className={style.h3}>{posts.length} post{posts.length === 1 ? '' : 's'}</h3>
             : null}
-        <Masonry
-          style={{ margin: 'auto', textAlign: 'center'}}
-          options={{ transitionDuration: '0.2s', gutter: 15, fitWidth: true }}
-          elementType="div"
-        >
+        <Masonry>
           {posts ? posts.map(post => {
             return <Thumbnail
               key={post.id}
