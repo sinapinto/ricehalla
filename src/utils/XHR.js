@@ -36,7 +36,6 @@ export function xhrUpload({
       reject(new Error(xhr.statusText));
     };
 
-    xhr.withCredentials = true;
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     Object.keys(headers).forEach(name => {

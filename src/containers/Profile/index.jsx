@@ -46,9 +46,9 @@ class Profile extends Component {
           <div className={style.bio}>
             {emailHash ?
               <img
-                src={`https://www.gravatar.com/avatar/${emailHash}?s=150&d=identicon`}
-                width={150}
-                height={150}
+                src={`https://www.gravatar.com/avatar/${emailHash}?s=130&d=identicon`}
+                width={130}
+                height={130}
                 alt="avatar"
                 className={style.avatar}
               />

@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode';
-import cookie from '../utils/cookie';
 import { xhrUpload } from '../utils/XHR';
 import API_BASE from '../utils/APIBase';
 
@@ -11,16 +9,11 @@ export function uploadFile(file) {
   return async dispatch => {
     try {
       const uid = file.uid;
-      const token = cookie.get('token');
-      if (!jwtDecode(token).username) {
-        throw new Error('invalid token');
-      }
       const res = await xhrUpload({
         url: `${API_BASE}/api/v1/upload`,
         file,
         headers: {
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         onProgress: (percentage) => {
           dispatch({

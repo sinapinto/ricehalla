@@ -31,7 +31,7 @@ function H1({ children, ...other }) {
 NotFound.H1 = H1;
 
 function H2({ children, ...other }) {
-  return <h1 className={style.h2} {...other}>{children}</h1>;
+  return <h2 className={style.h2} {...other}>{children}</h2>;
 }
 
 NotFound.H2 = H2;
