@@ -2,13 +2,13 @@
 
 .root {
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
   max-width: 300px;
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  margin-top: 7%;
+  margin-top: 5%;
 
   & fieldset input {
     height: 43px;

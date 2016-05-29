@@ -7,113 +7,60 @@ import Masonry from '../../components/Masonry';
 import Thumbnail from '../../components/Thumbnail';
 import TextInput from '../../components/TextInput';
 import Icon from '../../components/Icon';
-import { fetchList, likePost, unlikePost } from '../../actions/post';
-import { getAllPosts } from '../../reducers';
+import { fetchList, searchPosts, likePost, unlikePost } from '../../actions/post';
+import { getAllPosts, getSearchResults } from '../../reducers';
 import style from './style.css';
 
-const NEW = 0;
-const POPULAR = 1;
-
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.filterChange = this.filterChange.bind(this);
-    this.sortNew = this.sortNew.bind(this);
-    this.sortPopular = this.sortPopular.bind(this);
-    let filterText = '';
-    if (this.props.location && this.props.location.query.tag) {
-      filterText = this.props.location.query.tag;
-    }
-    this.state = {
-      filterText,
-      activeTab: NEW,
-      isSearchActive: false,
-    };
-  }
-
   componentDidMount() {
-    if (!this.props.didFetchList) {
-      this.props.fetchList();
+    this.fetchQuery();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      this.fetchQuery();
     }
   }
 
-  filterChange(e) {
-    this.setState({ filterText: e.target.value || '' });
-  }
-
-  sortNew() {
-    this.setState({ activeTab: NEW });
-  }
-
-  sortPopular() {
-    this.setState({ activeTab: POPULAR });
+  fetchQuery() {
+    if (this.props.location.query.q) {
+      this.props.searchPosts(this.props.location.search);
+    } else {
+      this.props.fetchList(this.props.location.search);
+    }
   }
 
   renderThumbnails() {
-    return this.props.posts.filter(rice =>
-      this.state.filterText.split(/\s|,/).every(filter => {
-        if (filter === '' || !rice.Tags) {
-          return true;
-        }
-        return rice.Tags.some(tag => tag.name.indexOf(filter) > -1);
-      }))
-      .sort((a, b) => {
-        if (this.state.activeTab === POPULAR) {
-          if (!a.Liker.length || !b.Liker.length) {
-            return 0;
-          }
-          return b.Liker.length - a.Liker.length;
-        } else if (this.state.activeTab === NEW) {
-          return moment(b.createdAt) - moment(a.createdAt);
-        }
-      })
-      .map(rice => 
-        <Thumbnail
-          key={rice.id}
-          id={rice.id}
-          image={rice.scrot}
-          username={rice.User.username}
-          emailHash={rice.User.emailHash}
-          likes={rice.Liker.length}
-          isLikedByCurrentUser={rice.Liker.some(liker => liker.username === this.props.username)}
-          likePost={this.props.likePost}
-          unlikePost={this.props.unlikePost}
-          isFetchingLike={this.props.isFetchingLike}
-          isloggedIn={!!this.props.userId}
-        />);
+    const posts = this.props.location.query.q ? this.props.searchResults : this.props.posts;
+    if (!posts) {
+      return null;
+    }
+    return posts.map(post =>
+      <Thumbnail
+        key={post.id}
+        id={post.id}
+        image={post.scrot}
+        username={post.User.username}
+        emailHash={post.User.emailHash}
+        likes={post.Liker.length}
+        isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
+        likePost={this.props.likePost}
+        unlikePost={this.props.unlikePost}
+        isFetchingLike={this.props.isFetchingLike}
+        isloggedIn={!!this.props.userId}
+      />);
   }
 
   render() {
-    const { activeTab, isSearchActive } = this.state;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" />
-        <div className={style.navWrapper}>
-          <div style={{ display: 'flex' }}>
-            <div className={activeTab === NEW ? style.tabActive : style.tab} onClick={this.sortNew}>
-              New
-            </div>
-            <div className={activeTab === POPULAR ? style.tabActive : style.tab} onClick={this.sortPopular}>
-              Popular
-            </div>
+        {this.props.location.query.q ?
+          <div>
+            <h2>results for {this.props.location.query.q}</h2>
+            <p>{this.props.searchResults.length} results</p>
           </div>
-          <div className={style.search}>
-            <Icon
-              name="search"
-              size={28}
-              className={isSearchActive ? style.iconActive : style.iconInactive}
-              onClick={() => findDOMNode(this.refs.searchInput).focus()}
-            />
-            <input
-              ref="searchInput"
-              className={style.searchInput}
-              value={this.state.filterText}
-              onChange={this.filterChange}
-              onFocus={() => this.setState({ isSearchActive: true })}
-              onBlur={() => this.setState({ isSearchActive: false })}
-            />
-          </div>
-        </div>
+          : null}
         <Masonry>
           {this.renderThumbnails()}
         </Masonry>
@@ -146,7 +93,7 @@ Home.propTypes = {
       createdAt: PropTypes.string,
     })
   ),
-  didFetchList: PropTypes.bool.isRequired,
+  searchResults: PropTypes.array,
   isFetchingLike: PropTypes.bool.isRequired,
   fetchList: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
@@ -156,13 +103,14 @@ Home.propTypes = {
 function mapStateToProps(state) {
   return {
     posts: getAllPosts(state),
-    didFetchList: state.post.didFetchList,
+    searchResults: getSearchResults(state),
     isFetchingLike: state.post.isFetchingLike,
   };
 }
 
 export default connect(mapStateToProps, {
   fetchList,
+  searchPosts,
   likePost,
   unlikePost,
 })(Home);

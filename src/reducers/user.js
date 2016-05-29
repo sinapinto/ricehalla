@@ -10,7 +10,7 @@ const initialState = {
   error: null,
 };
 
-export function showUser(state, id) {
+export function getUserByUsername(state, id) {
   return state.byId[id] || {};
 }
 

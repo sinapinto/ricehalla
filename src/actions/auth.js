@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import cookie from '../utils/cookie';
 import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
+import { SET_NOTICE } from './notice';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -46,6 +47,11 @@ export function register(body) {
         type: REGISTER_SUCCESS,
         username: body.username,
         token: res.token,
+      });
+      dispatch({
+        type: SET_NOTICE,
+        level: 'success',
+        message: 'Welcome to ricehalla!',
       });
     } catch (err) {
       dispatch({ type: REGISTER_FAILURE, error: err.message });

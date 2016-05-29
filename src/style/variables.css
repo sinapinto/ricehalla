@@ -5,12 +5,14 @@
   --font-color-dark: color(var(--font-color) shade(20%));
   --color-primary: rgb(0, 170, 220);
   --color-primary-light: rgb(45, 183, 245);
+  --color-primary-lightest: hsla(198, 86%, 91%, 1);
   --color-green: rgb(40, 210, 110);
   --color-red: rgb(240, 60, 50);
+  --color-yellow: rgb(255, 193, 7);
   --color-default: #eee;
   --btn-disabled-color: hsl(0, 0%, 80%);
   --btn-disabled-bg: hsl(0, 0%, 97%);
   --btn-disabled-border: hsl(0, 0%, 90%);
   --body-width: 1050px;
-  --nav-height: 80px;
+  --nav-height: 60px;
 }

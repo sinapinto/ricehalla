@@ -1,0 +1,73 @@
+@import '../../style/variables.css';
+
+.info,
+.warn,
+.success,
+.error {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 8px 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--font-color);
+  margin-bottom: 15px;
+  animation: fadein .2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0 }
+  to { opacity: .98 }
+}
+
+.warn {
+  border: 1px solid color(var(--color-yellow) tint(65%));
+  background-color: color(var(--color-yellow) tint(88%));
+
+  & .icon {
+    fill: var(--color-yellow);
+  }
+}
+
+.info {
+  border: 1px solid color(var(--color-primary) tint(85%));
+  background-color: color(var(--color-primary) tint(95%));
+
+  & .icon {
+    fill: var(--color-primary);
+  }
+}
+
+.success {
+  border: 1px solid color(var(--color-green) tint(85%));
+  background-color: color(var(--color-green) tint(95%));
+
+  & .icon {
+    fill: var(--color-green);
+  }
+}
+
+.error {
+  border: 1px solid color(var(--color-red) tint(85%));
+  background-color: color(var(--color-red) tint(95%));
+
+  & .icon {
+    fill: var(--color-red);
+  }
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.close {
+  margin-left: auto;
+  fill: gray(65%);
+  transition: fill .2s;
+
+  &:hover {
+    fill: gray(30%);
+    cursor: pointer;
+  }
+}

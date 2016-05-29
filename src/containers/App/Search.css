@@ -1,0 +1,41 @@
+@import "../../style/variables.css";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  fill: #aaa;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  opacity: .98;
+  animation: fadein .2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0 }
+  to { opacity: .98 }
+}
+
+.input {
+  width: 100vw;
+  height: 100vh;
+  outline: 0;
+  border: 0;
+  padding: 1em;
+  font-size: 128px;
+
+  &::placeholder {
+    color: gray(90%);
+  }
+}

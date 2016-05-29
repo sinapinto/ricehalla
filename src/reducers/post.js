@@ -1,4 +1,7 @@
 import {
+  SEARCH_POST_REQUEST,
+  SEARCH_POST_SUCCESS,
+  SEARCH_POST_FAILURE,
   SUBMIT_POST_REQUEST,
   SUBMIT_POST_SUCCESS,
   SUBMIT_POST_FAILURE,
@@ -19,7 +22,7 @@ import { LOAD_USER_SUCCESS } from '../actions/user';
 
 const initialState = {
   byId: {},
-  didFetchList: false,
+  searchResults: {},
   isFetching: false,
   isFetchingLike: false,
   error: null,
@@ -41,6 +44,10 @@ export function getPostById(state, postId) {
 
 export function getAllPosts(state) {
   return Object.keys(state.byId).map(key => state.byId[key]);
+}
+
+export function getSearchResults(state) {
+  return Object.keys(state.searchResults).map(key => state.searchResults[key]);
 }
 
 // helpers
@@ -86,20 +93,15 @@ export default function postReducer(state = initialState, action) {
         byId,
       };
     }
-    case SUBMIT_POST_REQUEST:
+    case SEARCH_POST_SUCCESS:
       return {
         ...state,
-        isFetching: true,
+        searchResults: action.results,
       };
     case SUBMIT_POST_SUCCESS:
       return {
         ...state,
         isFetching: false,
-      };
-    case SHOW_POST_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
       };
     case SHOW_POST_SUCCESS: {
       const files = typeof action.detail.files !== 'undefined'
@@ -114,16 +116,10 @@ export default function postReducer(state = initialState, action) {
         isFetching: false,
       };
     }
-    case LIST_POST_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
     case LIST_POST_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        didFetchList: true,
         byId: Object.assign({}, state.byId,
            ...action.list.map(post => ({ [post.id]: post }))
         ),
@@ -154,6 +150,15 @@ export default function postReducer(state = initialState, action) {
           [action.postId]: toggleLike(state.byId[action.postId], action.username),
         },
       };
+    case SEARCH_POST_REQUEST:
+    case SUBMIT_POST_REQUEST:
+    case SHOW_POST_REQUEST:
+    case LIST_POST_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case SEARCH_POST_FAILURE:
     case SUBMIT_POST_FAILURE:
     case SHOW_POST_FAILURE:
     case LIST_POST_FAILURE:

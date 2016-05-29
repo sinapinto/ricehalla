@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import cookie from '../utils/cookie';
 import handleResponse from '../utils/fetchHandler';
 import API_BASE from '../utils/APIBase';
+import { SET_NOTICE } from './notice';
 
 export const SUBMIT_POST_REQUEST = 'SUBMIT_POST_REQUEST';
 export const SUBMIT_POST_SUCCESS = 'SUBMIT_POST_SUCCESS';
@@ -36,6 +37,11 @@ export function submitPost(body) {
       } else {
         dispatch({ type: SUBMIT_POST_SUCCESS, submitted });
         browserHistory.push(`/rice/${submitted.id}`);
+        dispatch({
+          type: SET_NOTICE,
+          level: 'success',
+          message: 'Successfully posted your rice!',
+        });
       }
     } catch (err) {
       dispatch({ type: SUBMIT_POST_FAILURE, error: err });
@@ -68,19 +74,36 @@ export const LIST_POST_REQUEST = 'LIST_POST_REQUEST';
 export const LIST_POST_SUCCESS = 'LIST_POST_SUCCESS';
 export const LIST_POST_FAILURE = 'LIST_POST_FAILURE';
 
-function list(queryParams = '') {
-  return fetch(`${API_BASE}/api/v1/rice/${queryParams}`)
+function list(queryString = '') {
+  return fetch(`${API_BASE}/api/v1/rice${queryString}`)
     .then(handleResponse);
 }
 
-export function fetchList() {
+export function fetchList(queryString) {
   return async dispatch => {
     try {
       dispatch({ type: LIST_POST_REQUEST });
-      const riceList = await list();
+      const riceList = await list(queryString);
       dispatch({ type: LIST_POST_SUCCESS, list: riceList });
     } catch (err) {
       dispatch({ type: LIST_POST_FAILURE, error: err });
+    }
+  };
+}
+
+
+export const SEARCH_POST_REQUEST = 'SEARCH_POST_REQUEST';
+export const SEARCH_POST_SUCCESS = 'SEARCH_POST_SUCCESS';
+export const SEARCH_POST_FAILURE = 'SEARCH_POST_FAILURE';
+
+export function searchPosts(queryString) {
+  return async dispatch => {
+    try {
+      dispatch({ type: SEARCH_POST_REQUEST });
+      const results = await list(queryString);
+      dispatch({ type: SEARCH_POST_SUCCESS, results });
+    } catch (err) {
+      dispatch({ type: SEARCH_POST_FAILURE, error: err });
     }
   };
 }

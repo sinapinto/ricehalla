@@ -1,7 +1,6 @@
 @import "../../style/variables.css";
 
 .root {
-  margin: 1em 0;
   width: 100%;
   overflow: hidden;
 }
@@ -90,7 +89,7 @@
 
 .fileIcon {
   margin-right: 10px;
-  fill: hsla(198, 86%, 75%, 1);
+  fill: #ccc;
 }
 
 .likes {

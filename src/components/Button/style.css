@@ -144,6 +144,12 @@
   }
 }
 
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .btn:disabled,
 .btn[disabled] {
   &,

@@ -5,6 +5,24 @@ import user, * as fromUser from './user';
 import post, * as fromPost from './post';
 import { SHOW_POST_SUCCESS, LIST_POST_SUCCESS } from '../actions/post';
 import { LOAD_USER_SUCCESS } from '../actions/user';
+import { SET_NOTICE, CLEAR_NOTICE } from '../actions/notice';
+
+function notice(state = { message: '', level: '' }, action) {
+  switch (action.type) {
+    case SET_NOTICE:
+      return {
+        level: action.level,
+        message: action.message,
+      };
+    case CLEAR_NOTICE:
+      return {
+        message: '',
+        level: '',
+      };
+    default:
+      return state;
+  }
+}
 
 // maintain a map of username to id to simplify lookups by username
 function usersMap(state = {}, action) {
@@ -28,6 +46,7 @@ function usersMap(state = {}, action) {
 }
 
 export default combineReducers({
+  notice,
   usersMap,
   auth,
   upload,
@@ -40,7 +59,7 @@ export default combineReducers({
 
 export function getUserByUsername(state, username) {
   const id = state.usersMap[username];
-  return fromUser.showUser(state.user, id);
+  return fromUser.getUserByUsername(state.user, id);
 }
 
 export function getPostsByUsername(state, username) {
@@ -53,4 +72,8 @@ export function getPostById(state, id) {
 
 export function getAllPosts(state) {
   return fromPost.getAllPosts(state.post);
+}
+
+export function getSearchResults(state) {
+  return fromPost.getSearchResults(state.post);
 }

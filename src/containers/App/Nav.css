@@ -1,0 +1,76 @@
+@import "../../style/variables.css";
+
+.navWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--body-bg-color);
+  opacity: .99;
+  z-index: 1;
+}
+
+.nav {
+  max-width: var(--body-width);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left,
+.right {
+  display: flex;
+}
+
+.left .plain,
+.right .plain {
+  border: 0;
+}
+
+.right > * {
+  margin: 0 8px;
+}
+
+.left .active {
+  border: 0;
+  color: var(--font-color);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  user-select: none;
+  color: var(--color-primary);
+  margin-left: 0.4em;
+}
+
+.bowl {
+  fill: gray(80%);
+  transition: fill .3s;
+}
+
+.plusIcon {
+  margin-right: 5px;
+}
+
+.arrow {
+  margin-left: 5px;
+  fill: color(var(--font-color) tint(40%));
+}
+
+.arrowUp {
+  composes: arrow;
+  transition: transform .2s;
+}
+
+.arrowDown {
+  composes: arrow;
+  transform: rotate(180deg);
+  transition: transform .2s;
+}

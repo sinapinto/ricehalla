@@ -77,8 +77,8 @@ class Profile extends Component {
               key={post.id}
               id={post.id}
               image={post.scrot}
-              username={username}
-              emailHash={emailHash}
+              username={post.User.username}
+              emailHash={post.User.emailHash}
               likes={post.Liker.length}
               isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
               likePost={this.props.likePost}

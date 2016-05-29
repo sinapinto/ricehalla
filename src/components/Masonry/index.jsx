@@ -12,7 +12,7 @@ class Masonry extends Component {
     };
     return (
       <MasonryComponent
-        style={{ margin: 'auto', textAlign: 'center'}}
+        style={this.props.style}
         options={options}
         elementType="div"
       >
@@ -24,6 +24,14 @@ class Masonry extends Component {
 
 Masonry.propTypes = {
   children: PropTypes.node,
+  style: PropTypes.object,
+};
+
+Masonry.defaultProps = {
+  style: {
+    margin: 'auto',
+    textAlign: 'center',
+  },
 };
 
 export default Masonry;

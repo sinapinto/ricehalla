@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import style from './style.css';
 
 function Button({
+  to,
   children,
   className,
   primary,
@@ -25,7 +27,7 @@ function Button({
   if (className) {
     classes.push(className);
   }
-  return (
+  const button = (
     <button
       {...other}
       type="submit"
@@ -37,6 +39,10 @@ function Button({
       </div>
     </button>
   );
+  if (to) {
+    return <Link to={to} className={style.link} tabIndex={-1}>{button}</Link>;
+  }
+  return button;
 }
 
 Button.propTypes = {

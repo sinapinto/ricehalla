@@ -2,7 +2,7 @@ import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
 import _debug from 'debug';
-import { Rice, User, Tag } from '../../db';
+import { sequelize, Rice, User, Tag } from '../../db';
 const debug = _debug('app:server:rice');
 const parameter = new Parameter({});
 
@@ -19,9 +19,38 @@ function *requireAuth(next) {
 export default new Resource('rice', {
   // GET /rice
   index: function *index() {
+    const rule = {
+      q: { type: 'string', required: false },
+      sort: { type: 'string', required: false },
+      order: { type: 'string', required: false },
+      offset: { type: 'number', required: false },
+      limit: { type: 'number', required: false },
+    };
+    const errors = parameter.validate(rule, this.request.query);
+    if (errors) {
+      this.type = 'json';
+      this.status = 200;
+      this.body = { error: errors[0] };
+      return;
+    }
+    const {
+      q = '',
+      sort = 'createdAt',
+      order = 'desc',
+      offset = 0,
+      limit = 25
+    } = this.request.query;
     try {
       const rice = yield Rice.findAll({
-        attributes: ['scrot', 'id', 'createdAt'],
+        offset,
+        limit,
+        order: [[ sort, order ]],
+        attributes: [
+          'scrot',
+          'id',
+          'createdAt',
+          // [sequelize.fn('COUNT', sequelize.col('Liker.username')), 'likeCount'],
+        ],
         include: [
           {
             model: User,
@@ -36,9 +65,11 @@ export default new Resource('rice', {
           {
             model: Tag,
             attributes: ['name'],
-            required: false,
+            where: { 'name': { $like: q ? `%${q}%` : null } },
+            required: !!q,
           },
         ],
+        // logging: console.log,
       });
       this.type = 'json';
       this.status = 200;
@@ -143,16 +174,16 @@ export default new Resource('rice', {
   },
 
   // DELETE /rice/:rice
-  // destroy: [requireAuth, function *destroy() {
-  //   const found = yield Rice.findOne({
-  //     where: { id: this.params.rice },
-  //   });
-  //   if (!found) {
-  //     this.throw(404);
-  //   }
-  //   const rice = yield found.destroy();
-  //   this.type = 'json';
-  //   this.status = 200;
-  //   this.body = rice;
-  // }],
+  destroy: [requireAuth, function *destroy() {
+    const found = yield Rice.findOne({
+      where: { id: this.params.rice },
+    });
+    if (!found) {
+      this.throw(404);
+    }
+    const rice = yield found.destroy();
+    this.type = 'json';
+    this.status = 200;
+    this.body = rice;
+  }],
 });

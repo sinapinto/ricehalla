@@ -11,9 +11,9 @@
 }
 
 .header {
-  color: var(--font-color);
-  font-size: 26px;
-  font-weight: 700;
+  color: var(--font-color-light);
+  font-size: 20px;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .dzIcon {
-  fill: hsla(198, 86%, 91%, 1);
+  fill: var(--color-primary-lightest);
 }
 
 .dzHeader {
