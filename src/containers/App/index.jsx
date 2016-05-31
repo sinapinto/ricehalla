@@ -58,6 +58,7 @@ class App extends Component {
         username={this.props.username}
         loggedIn={!!this.props.isAuthenticated}
         query={this.props.location.query}
+        pathname={this.props.location.pathname}
         onLogout={this.handleLogout}
       />
     );

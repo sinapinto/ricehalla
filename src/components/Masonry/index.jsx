@@ -6,14 +6,15 @@ class Masonry extends Component {
     const options = {
       transitionDuration: '0.2s',
       gutter: 15,
-      fitWidth: true,
+      fitWidth: !!this.props.centered,
       hiddenStyle: { opacity: 0 },
       visibleStyle: { opacity: 1 }
     };
+    const style = this.props.centered ?  { margin: 'auto', textAlign: 'center' } : {};
     return (
       <MasonryComponent
-        style={this.props.style}
         options={options}
+        style={style}
         elementType="div"
       >
         {this.props.children}
@@ -24,14 +25,11 @@ class Masonry extends Component {
 
 Masonry.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object,
+  centered: PropTypes.bool,
 };
 
 Masonry.defaultProps = {
-  style: {
-    margin: 'auto',
-    textAlign: 'center',
-  },
+  centered: false,
 };
 
 export default Masonry;

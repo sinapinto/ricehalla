@@ -2,7 +2,7 @@ import Resource from 'koa-resource-router';
 import parse from 'co-body';
 import Parameter from 'parameter';
 import _debug from 'debug';
-import { sequelize, Rice, User, Tag } from '../../db';
+import { Rice, User, Tag } from '../../db';
 const debug = _debug('app:server:rice');
 const parameter = new Parameter({});
 
@@ -38,17 +38,18 @@ export default new Resource('rice', {
       sort = 'createdAt',
       order = 'desc',
       offset = 0,
-      limit = 25
+      limit = 25,
     } = this.request.query;
     try {
       const rice = yield Rice.findAll({
         offset,
         limit,
-        order: [[ sort, order ]],
+        order: [[sort, order]],
         attributes: [
           'scrot',
           'id',
           'createdAt',
+          // TODO
           // [sequelize.fn('COUNT', sequelize.col('Liker.username')), 'likeCount'],
         ],
         include: [
@@ -65,7 +66,7 @@ export default new Resource('rice', {
           {
             model: Tag,
             attributes: ['name'],
-            where: { 'name': { $like: q ? `%${q}%` : null } },
+            where: { name: { $like: q ? `%${q}%` : null } },
             required: !!q,
           },
         ],

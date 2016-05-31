@@ -25,6 +25,10 @@ class Nav extends Component {
   }
 
   renderLeftNav() {
+    const popoularClass = (this.props.query.sort !== 'createdAt' && this.props.pathname === '/')
+      ? style.active
+      : style.plain;
+    const newClass = this.props.query.sort === 'createdAt' ? style.active : style.plain;
     return (
       <span className={style.left}>
         <Link to="/" className={style.logo}>
@@ -33,14 +37,14 @@ class Nav extends Component {
         <Button
           to={{ pathname: '/', query: { q: this.props.query.q } }}
           outline
-          className={this.props.query.sort !== 'createdAt' ? style.active : style.plain}
+          className={popoularClass}
         >
           Popular
         </Button>
         <Button
           to={{ pathname: '/', query: { ...this.props.query, sort: 'createdAt' } }}
           outline
-          className={this.props.query.sort === 'createdAt' ? style.active : style.plain}
+          className={newClass}
         >
           New
         </Button>
@@ -97,6 +101,7 @@ Nav.propTypes = {
   username: PropTypes.string,
   loggedIn: PropTypes.bool,
   query: PropTypes.object.isRequired,
+  pathname: PropTypes.string.isRequired,
   onLogout: PropTypes.func.isRequired,
 };
 

@@ -8,7 +8,9 @@
 
 .childWrapper {
   width: 100%;
-  padding-top: var(--nav-height);
   margin-bottom: 50px;
   margin-top: 25px;
+  padding-top: var(--nav-height);
+  padding-left: 15px;
+  padding-right: 15px;
 }

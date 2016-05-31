@@ -9,23 +9,78 @@ import NotFound from '../../components/NotFound';
 import Thumbnail from '../../components/Thumbnail';
 import { loadUser } from '../../actions/user';
 import { likePost, unlikePost } from '../../actions/post';
-import { getUserByUsername, getPostsByUsername } from '../../reducers';
+import {
+  getUserByUsername,
+  getPostsByUsername,
+  getLikedPostsByUsername,
+} from '../../reducers';
 import style from './style.css';
+
+const POST = 1;
+const LIKE = 2;
 
 class Profile extends Component {
   static prefetchData({ dispatch, params: { username } }) {
     dispatch(loadUser(username));
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeTab: POST,
+    };
+  }
+
   componentDidMount() {
-    const { user, params, loadUser } = this.props;
-    if (Object.keys(user).length === 0) {
-      loadUser(params.username);
+    // const { user, params, loadUser } = this.props;
+    // if (Object.keys(user).length === 0) {
+    //   loadUser(params.username);
+    // }
+    // TODO: cache
+    this.props.loadUser(this.props.params.username);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.shouldRefetch && nextProps.shouldRefetch) {
+      this.props.loadUser(this.props.username);
     }
   }
 
+  renderThumbnails() {
+    if (this.state.activeTab === POST) {
+      return this.props.posts ? this.props.posts.map(post =>
+        <Thumbnail
+          key={post.id}
+          id={post.id}
+          image={post.scrot}
+          username={post.User.username}
+          emailHash={post.User.emailHash}
+          likes={post.Liker.length}
+          isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
+          likePost={this.props.likePost}
+          unlikePost={this.props.unlikePost}
+          isFetchingLike={this.props.isFetchingLike}
+          isloggedIn={!!this.props.userId}
+        />) : null;
+    }
+    return this.props.likedPosts ? this.props.likedPosts.map(post =>
+      <Thumbnail
+        key={post.id}
+        id={post.id}
+        image={post.scrot}
+        username={post.User.username}
+        emailHash={post.User.emailHash}
+        likes={post.Liker.length}
+        isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
+        likePost={this.props.likePost}
+        unlikePost={this.props.unlikePost}
+        isFetchingLike={this.props.isFetchingLike}
+        isloggedIn={!!this.props.userId}
+      />) : null;
+  }
+
   render() {
-    const { posts, isFetching } = this.props;
+    const { posts, likedPosts, isFetching } = this.props;
     const { username } = this.props.params;
     const { id, emailHash, about, createdAt } = this.props.user;
 
@@ -68,26 +123,23 @@ class Profile extends Component {
           </div>
         </div>
         <div className={style.activity}>
-          {posts ? 
-            <h3 className={style.h3}>{posts.length} post{posts.length === 1 ? '' : 's'}</h3>
-            : null}
-        <Masonry>
-          {posts ? posts.map(post => {
-            return <Thumbnail
-              key={post.id}
-              id={post.id}
-              image={post.scrot}
-              username={post.User.username}
-              emailHash={post.User.emailHash}
-              likes={post.Liker.length}
-              isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
-              likePost={this.props.likePost}
-              unlikePost={this.props.unlikePost}
-              isFetchingLike={this.props.isFetchingLike}
-              isloggedIn={!!this.props.userId}
-            />})
-            : null}
-        </Masonry>
+          <div className={style.tabWrapper}>
+            <span
+              className={this.state.activeTab === POST ? style.tabActive : style.tab}
+              onClick={() => this.setState({ activeTab: POST })}
+            >
+              {posts.length} post{posts.length === 1 ? '' : 's'}
+            </span>
+            <span
+              className={this.state.activeTab === LIKE ? style.tabActive : style.tab}
+              onClick={() => this.setState({ activeTab: LIKE })}
+            >
+              {likedPosts.length} like{likedPosts.length === 1 ? '' : 's'}
+            </span>
+          </div>
+          <Masonry>
+            {this.renderThumbnails()}
+          </Masonry>
         </div>
       </div>
     );
@@ -99,8 +151,10 @@ Profile.propTypes = {
   username: PropTypes.string,
   user: PropTypes.object.isRequired,
   posts: PropTypes.array.isRequired,
+  likedPosts: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isFetchingLike: PropTypes.bool.isRequired,
+  shouldRefetch: PropTypes.bool.isRequired,
   params: PropTypes.shape({
     username: PropTypes.string.isRequired,
   }).isRequired,
@@ -114,10 +168,10 @@ function mapStateToProps(state, ownProps) {
   return {
     user: getUserByUsername(state, username),
     posts: getPostsByUsername(state, username),
-    // TODO
-    // likedPosts: getLikedPostsByUsername(state, username),
+    likedPosts: getLikedPostsByUsername(state, username),
     isFetching: state.user.isFetching,
     isFetchingLike: state.post.isFetchingLike,
+    shouldRefetch: state.user.shouldRefetch,
   };
 }
 

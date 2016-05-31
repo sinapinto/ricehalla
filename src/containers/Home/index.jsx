@@ -12,6 +12,10 @@ import { getAllPosts, getSearchResults } from '../../reducers';
 import style from './style.css';
 
 class Home extends Component {
+  static prefetchData({ dispatch }) {
+    dispatch(fetchList());
+  }
+
   componentDidMount() {
     this.fetchQuery();
   }
@@ -52,16 +56,19 @@ class Home extends Component {
   }
 
   render() {
+    const { location, searchResults } = this.props;
     return (
       <div className={style.root}>
         <Helmet title="Ricehalla" />
-        {this.props.location.query.q ?
+        {location.query.q ?
           <div>
-            <h2>results for {this.props.location.query.q}</h2>
-            <p>{this.props.searchResults.length} results</p>
+            <h2>results for "{location.query.q}"</h2>
+            <p className={style.small}>
+              {searchResults.length} result{searchResults.length === 1 ? '' : 's'}
+            </p>
           </div>
           : null}
-        <Masonry>
+        <Masonry centered>
           {this.renderThumbnails()}
         </Masonry>
       </div>

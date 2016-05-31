@@ -53,7 +53,7 @@ export function getSearchResults(state) {
 // helpers
 // -------
 
-function toggleLike(post, username) {
+export function toggleLike(post, username) {
   if (typeof post === 'undefined') {
     return {};
   }

@@ -47,6 +47,22 @@ export default new Resource('user', {
           as: 'LikedRice',
           attributes: ['scrot', 'id', 'createdAt'],
           required: false,
+          include: [
+            {
+              model: Tag,
+              attributes: ['name'],
+              required: false,
+            },
+            {
+              model: User,
+              attributes: ['username', 'emailHash'],
+            },
+            {
+              model: User,
+              as: 'Liker',
+              attributes: ['username'],
+            },
+          ],
         },
       ],
     });
