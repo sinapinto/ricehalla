@@ -63,7 +63,7 @@ class Thumbnail extends Component {
       >
         <img
           src={`https://s3-us-west-2.amazonaws.com/ricehallaresized/thumb-${this.props.image}`}
-          width={315}
+          width={370}
           alt={this.props.image}
         />
         <div className={style.infoWrapper}>

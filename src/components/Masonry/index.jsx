@@ -5,7 +5,7 @@ class Masonry extends Component {
   render() {
     const options = {
       transitionDuration: '0.2s',
-      gutter: 15,
+      gutter: 25,
       fitWidth: !!this.props.centered,
       hiddenStyle: { opacity: 0 },
       visibleStyle: { opacity: 1 }
