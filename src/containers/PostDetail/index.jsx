@@ -6,8 +6,9 @@ import moment from 'moment';
 import marked from 'marked';
 import NotFound from '../../components/NotFound';
 import Spinner from '../../components/Spinner';
+import Button from '../../components/Button';
 import Icon from '../../components/Icon';
-import { showPost, likePost, unlikePost } from '../../actions/post';
+import { showPost, deletePost, likePost, unlikePost } from '../../actions/post';
 import { getPostById } from '../../reducers'
 import style from './style.css';
 
@@ -19,6 +20,7 @@ class PostDetail extends Component {
   constructor() {
     super();
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,12 @@ class PostDetail extends Component {
       this.props.unlikePost(this.props.detail.id);
     } else {
       this.props.likePost(this.props.detail.id);
+    }
+  }
+
+  handleDeleteClick() {
+    if (!this.props.isFetching) {
+      this.props.deletePost(this.props.detail.id);
     }
   }
 
@@ -146,6 +154,10 @@ class PostDetail extends Component {
             {this.renderLike()}
           </div>
         : null}
+        {User && this.props.username === User.username &&
+          <Button danger outline large onClick={this.handleDeleteClick}>
+            Delete
+          </Button>}
       </div>
     );
   }
@@ -195,6 +207,7 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   showPost,
+  deletePost,
   likePost,
   unlikePost,
 })(PostDetail);

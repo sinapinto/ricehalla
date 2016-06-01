@@ -32,10 +32,6 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    // const { user, params, loadUser } = this.props;
-    // if (Object.keys(user).length === 0) {
-    //   loadUser(params.username);
-    // }
     // TODO: cache
     this.props.loadUser(this.props.params.username);
   }
@@ -47,23 +43,7 @@ class Profile extends Component {
   }
 
   renderThumbnails() {
-    if (this.state.activeTab === POST) {
-      return this.props.posts ? this.props.posts.map(post =>
-        <Thumbnail
-          key={post.id}
-          id={post.id}
-          image={post.scrot}
-          username={post.User.username}
-          emailHash={post.User.emailHash}
-          likes={post.Liker.length}
-          isLikedByCurrentUser={post.Liker.some(liker => liker.username === this.props.username)}
-          likePost={this.props.likePost}
-          unlikePost={this.props.unlikePost}
-          isFetchingLike={this.props.isFetchingLike}
-          isloggedIn={!!this.props.userId}
-        />) : null;
-    }
-    return this.props.likedPosts ? this.props.likedPosts.map(post =>
+    const mapThumb = (post) =>
       <Thumbnail
         key={post.id}
         id={post.id}
@@ -76,7 +56,11 @@ class Profile extends Component {
         unlikePost={this.props.unlikePost}
         isFetchingLike={this.props.isFetchingLike}
         isloggedIn={!!this.props.userId}
-      />) : null;
+      />;
+    if (this.state.activeTab === POST) {
+      return this.props.posts ? this.props.posts.map(mapThumb) : null;
+    }
+    return this.props.likedPosts ? this.props.likedPosts.map(mapThumb) : null;
   }
 
   render() {
@@ -107,7 +91,7 @@ class Profile extends Component {
                 alt="avatar"
                 className={style.avatar}
               />
-              : null}
+              : <div style={{ width: '130px', height: '130px' }} />}
               <div>
                 <h1 className={style.username}>
                   <Link to={`/user/${username}`}>

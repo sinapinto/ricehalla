@@ -30,6 +30,7 @@ module.exports = function rice(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false,
           },
+          onDelete: 'cascade',
         });
         Rice.belongsToMany(models.Tag, {
           through: {
@@ -42,11 +43,13 @@ module.exports = function rice(sequelize, DataTypes) {
             allowNull: true,
           },
           constraints: false,
+          onDelete: 'cascade',
         });
         Rice.belongsToMany(models.User, {
           as: 'Liker',
           through: 'RiceLikedByUser',
           foreignKey: 'riceId',
+          onDelete: 'cascade',
         });
       },
     },

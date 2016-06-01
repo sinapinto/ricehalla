@@ -26,9 +26,9 @@ class Search extends Component {
   }
 
   handleKeypress(e) {
-    if (e.which === 47) { // forward slash
-      this.setState({ isFocused: true });
+    if (e.which === 47 && !this.state.isFocused) { // forward slash
       e.preventDefault();
+      this.setState({ isFocused: true });
     }
   }
 
@@ -42,8 +42,10 @@ class Search extends Component {
 
   handleKeyDown(e) {
     if (e.keyCode === 27) { // escape
+      e.preventDefault();
       this.setState({ isFocused: false });
     } else if (e.keyCode === 13) { // enter
+      e.preventDefault();
       this.setState({ isFocused: false, value: '' });
       const query = this.state.value ? `/?q=${this.state.value}` : '/';
       this.context.router.push(query);

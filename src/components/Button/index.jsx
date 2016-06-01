@@ -4,6 +4,7 @@ import style from './style.css';
 
 function Button({
   to,
+  large,
   children,
   className,
   primary,
@@ -29,6 +30,7 @@ function Button({
   }
   const button = (
     <button
+      style={large ? {padding: '1.4em 5em', height: '55px'} : {}}
       {...other}
       type="submit"
       className={classes.join(' ')}

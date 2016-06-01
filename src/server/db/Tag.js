@@ -21,6 +21,7 @@ module.exports = function tag(sequelize, DataTypes) {
             unique: false,
           },
           foreignKey: 'tagId',
+          onDelete: 'cascade',
         });
       },
     },

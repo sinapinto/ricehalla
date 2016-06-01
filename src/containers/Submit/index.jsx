@@ -148,7 +148,7 @@ class Submit extends Component {
               : <div />}
             <Button
               success
-              style={{ padding: '1.4em 5em', height: '55px' }}
+              large
               disabled={this.props.isSubmitting}
             >
               Submit

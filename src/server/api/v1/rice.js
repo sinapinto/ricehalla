@@ -176,15 +176,25 @@ export default new Resource('rice', {
 
   // DELETE /rice/:rice
   destroy: [requireAuth, function *destroy() {
-    const found = yield Rice.findOne({
-      where: { id: this.params.rice },
-    });
-    if (!found) {
-      this.throw(404);
+    try {
+      const found = yield Rice.findOne({
+        where: { id: this.params.rice },
+        include: [{ model: User }],
+      });
+      if (!found) {
+        throw new Error;
+      }
+      if (found.User.username !== this.state.user.username) {
+        throw new Error;
+      }
+      const rice = yield found.destroy();
+      this.type = 'json';
+      this.status = 200;
+      this.body = rice;
+    } catch (e) {
+      this.type = 'json';
+      this.status = 403;
+      this.body = { message: 'failed to delete rice' };
     }
-    const rice = yield found.destroy();
-    this.type = 'json';
-    this.status = 200;
-    this.body = rice;
   }],
 });

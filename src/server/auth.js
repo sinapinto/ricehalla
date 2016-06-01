@@ -17,6 +17,17 @@ router.post('/signup', function *signup() {
   const emailHash = md5.digest('hex');
 
   try {
+    let query;
+    // `ILIKE` is postgres-only
+    if (__DEV__) {
+      query = { where: { username: { $like: username } } };
+    } else {
+      query = { where: { username: { $iLike: username } } };
+    }
+    const exists = yield User.findOne(query);
+    if (exists) {
+      throw new Error;
+    }
     const user = yield User.create({
       username,
       email,

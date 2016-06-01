@@ -11,6 +11,9 @@ import {
   LIST_POST_REQUEST,
   LIST_POST_SUCCESS,
   LIST_POST_FAILURE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
   LIKE_POST_REQUEST,
   LIKE_POST_SUCCESS,
   LIKE_POST_FAILURE,
@@ -22,7 +25,7 @@ import { LOAD_USER_SUCCESS } from '../actions/user';
 
 const initialState = {
   byId: {},
-  searchResults: {},
+  searchResults: [],
   isFetching: false,
   isFetchingLike: false,
   error: null,
@@ -47,7 +50,7 @@ export function getAllPosts(state) {
 }
 
 export function getSearchResults(state) {
-  return Object.keys(state.searchResults).map(key => state.searchResults[key]);
+  return state.searchResults;
 }
 
 // helpers
@@ -96,6 +99,7 @@ export default function postReducer(state = initialState, action) {
     case SEARCH_POST_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         searchResults: action.results,
       };
     case SUBMIT_POST_SUCCESS:
@@ -150,9 +154,19 @@ export default function postReducer(state = initialState, action) {
           [action.postId]: toggleLike(state.byId[action.postId], action.username),
         },
       };
+    case DELETE_POST_SUCCESS: {
+      const byId = Object.assign({}, state.byId);
+      delete byId[action.id];
+      return {
+        ...state,
+        isFetching: false,
+        byId,
+      };
+    }
     case SEARCH_POST_REQUEST:
     case SUBMIT_POST_REQUEST:
     case SHOW_POST_REQUEST:
+    case DELETE_POST_REQUEST:
     case LIST_POST_REQUEST:
       return {
         ...state,
@@ -161,6 +175,7 @@ export default function postReducer(state = initialState, action) {
     case SEARCH_POST_FAILURE:
     case SUBMIT_POST_FAILURE:
     case SHOW_POST_FAILURE:
+    case DELETE_POST_FAILURE:
     case LIST_POST_FAILURE:
       return {
         ...state,

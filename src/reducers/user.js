@@ -10,6 +10,7 @@ import {
   UNLIKE_POST_REQUEST,
   UNLIKE_POST_SUCCESS,
   UNLIKE_POST_FAILURE,
+  DELETE_POST_SUCCESS,
 } from '../actions/post';
 // import { toggleLike } from './post';
 
@@ -34,6 +35,12 @@ export function getLikedPostsByUsername(state, username) {
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
+    case DELETE_POST_SUCCESS:
+      // TODO
+      return {
+        ...state,
+        byName: {},
+      };
     case LOAD_USER_REQUEST:
       return {
         ...state,

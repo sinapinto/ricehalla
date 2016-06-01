@@ -9,7 +9,7 @@ module.exports = function user(sequelize, DataTypes) {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
         min: 2,
       },
@@ -37,11 +37,13 @@ module.exports = function user(sequelize, DataTypes) {
       associate(models) {
         User.hasMany(models.Rice, {
           foreignKey: 'userId',
+          onDelete: 'cascade',
         });
         User.belongsToMany(models.Rice, {
           as: 'LikedRice',
           through: 'RiceLikedByUser',
           foreignKey: 'userId',
+          onDelete: 'cascade',
         });
       },
     },

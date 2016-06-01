@@ -91,6 +91,49 @@ export function fetchList(queryString) {
   };
 }
 
+export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
+
+function destroy(id, token) {
+  return fetch(`${API_BASE}/api/v1/rice/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(handleResponse);
+}
+
+export function deletePost(id) {
+  return async dispatch => {
+    if (!id) {
+      return;
+    }
+    let token = cookie.get('token');
+    if (!token) {
+      return;
+    }
+    let username = jwtDecode(token).username;
+    if (!username) {
+      return;
+    }
+    try {
+      dispatch({ type: DELETE_POST_REQUEST });
+      await destroy(id, token);
+      dispatch({ type: DELETE_POST_SUCCESS, id });
+      browserHistory.push('/');
+      dispatch({
+        type: SET_NOTICE,
+        level: 'success',
+        message: 'Successfully deleted your rice!',
+      });
+    } catch (err) {
+      dispatch({ type: DELETE_POST_FAILURE, error: err });
+    }
+  };
+}
+
 
 export const SEARCH_POST_REQUEST = 'SEARCH_POST_REQUEST';
 export const SEARCH_POST_SUCCESS = 'SEARCH_POST_SUCCESS';
