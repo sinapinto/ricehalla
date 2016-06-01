@@ -13,6 +13,7 @@ class Page extends Component {
         <head>
           {head.title.toComponent()}
           {head.meta.toComponent()}
+          {head.link.toComponent()}
           {assets &&
             <link href={assets.main.css} rel="stylesheet" type="text/css" charSet="UTF-8" />}
         </head>
