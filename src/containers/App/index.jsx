@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleCloseNotice = this.handleCloseNotice.bind(this);
+    this.state = { showNotice: true };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,6 +23,9 @@ class App extends Component {
     }
     if (this.props.location.pathname !== nextProps.location.pathname && this.props.notice.message) {
       this.props.clearNotice();
+      this.setState({ showNotice: false });
+    } else if (!this.props.notice.message && nextProps.notice.message) {
+      this.setState({ showNotice: true });
     }
   }
 
@@ -96,8 +100,11 @@ class App extends Component {
         <Helmet title="Ricehalla" meta={this.getMetaTags()} link={this.getLinkTags()} />
         {this.renderNav()}
         <div className={style.childWrapper}>
-          {notice.message &&
-            <Notice level={notice.level} message={notice.message} onClose={this.handleCloseNotice} />}
+          {this.state.showNotice && <Notice
+            level={notice.level}
+            message={notice.message}
+            onClose={this.handleCloseNotice}
+          />}
           {/* assumes single child */}
           {React.cloneElement(this.props.children, { username, userId })}
         </div>

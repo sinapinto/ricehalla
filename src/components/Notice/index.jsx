@@ -28,8 +28,9 @@ class Notice extends Component {
 
   render() {
     return (
-      <div className={classes[this.props.level]}>
-        <Icon name={icons[this.props.level]} size={15} className={style.icon} />
+      <div className={this.props.message ? classes[this.props.level] : style.hidden}>
+        {this.props.message &&
+          <Icon name={icons[this.props.level]} size={15} className={style.icon} />}
         <span>{this.props.message}</span>
         <Icon name="close" size={22} className={style.close} onClick={this.handleClick} />
       </div>
@@ -38,8 +39,8 @@ class Notice extends Component {
 }
 
 Notice.propTypes = {
-  message: PropTypes.string.isRequired,
-  level: PropTypes.oneOf(['error', 'info', 'warn', 'success']).isRequired,
+  message: PropTypes.string,
+  level: PropTypes.oneOf(['error', 'info', 'warn', 'success']),
   onClose: PropTypes.func.isRequired,
 };
 

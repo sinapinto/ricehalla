@@ -9,10 +9,22 @@
   flex-flow: column nowrap;
   align-items: center;
   margin-top: 5%;
+  animation: fadeup .5s;
 
   & fieldset input {
     height: 43px;
     padding: 10px;
+  }
+}
+
+@keyframes fadeup {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

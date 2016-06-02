@@ -13,12 +13,16 @@
   line-height: 16px;
   color: var(--font-color);
   margin-bottom: 15px;
-  animation: fadein .2s;
+  opacity: 1;
+  transition: opacity .3s;
 }
 
-@keyframes fadein {
-  from { opacity: 0 }
-  to { opacity: .98 }
+.hidden {
+  composes: warn;
+  background: transparent !important;
+  opacity: 0;
+  height: 0;
+  transition: opacity .3s, background .3s, height .3s;
 }
 
 .warn {
