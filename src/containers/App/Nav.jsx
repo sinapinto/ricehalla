@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import Icon from '../../components/Icon';
 import Popover from '../../components/Popover';
 import Button from '../../components/Button';
+import Tooltip from '../../components/Tooltip';
 import Search from './Search';
 import style from './Nav.css';
 
@@ -53,10 +54,15 @@ class Nav extends Component {
   }
 
   renderRightNav() {
+    const search = (
+      <Tooltip message={(<span><strong>Tip:</strong> Press '/' to search</span>)}>
+        <Search />
+      </Tooltip>
+    );
     if (this.props.loggedIn) {
       return (
         <span className={style.right}>
-          <Search />
+          {search}
           <Button to="/submit" primary>
             <Icon name="plus" size={16} className={style.plusIcon} />
             Submit
@@ -78,7 +84,7 @@ class Nav extends Component {
     }
     return (
       <span className={style.right}>
-        <Search />
+        {search}
         <Button to="/login" outline className={style.plain}>Log&nbsp;In</Button>
         <Button to="/register">Register</Button>
       </span>

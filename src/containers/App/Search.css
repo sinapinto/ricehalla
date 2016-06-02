@@ -11,7 +11,7 @@
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   z-index: 999;
   top: 0;
   left: 0;
@@ -23,8 +23,12 @@
 }
 
 @keyframes fadein {
-  from { opacity: 0 }
-  to { opacity: .98 }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: .98;
+  }
 }
 
 .input {
