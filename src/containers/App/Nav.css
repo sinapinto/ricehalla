@@ -9,7 +9,6 @@
   display: flex;
   justify-content: space-around;
   background-color: var(--body-bg-color);
-  opacity: .99;
   z-index: 1;
 }
 

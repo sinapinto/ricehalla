@@ -22,20 +22,21 @@ class Checkbox extends Component{
   }
 
   render() {
+    const { onChange, defaultChecked, checked, id, children, ...other } = this.props;
     return (
-      <div className={style.root} style={this.props.style}>
+      <div {...other}>
         <span className={this.state.checked ? style.checkboxChecked : style.checkbox}>
           {this.state.checked && <span className={style.check} />}
           <input
             className={style.input}
-            id={this.props.id}
+            id={id}
             type="checkbox"
-            checked={this.state.checked}
-            onChange={this.props.onChange}
+            checked={checked}
+            onChange={onChange}
           />
         </span>
-        <label className={style.label} htmlFor={this.props.id}>
-          {this.props.children}
+        <label className={style.label} htmlFor={id}>
+          {children}
         </label>
       </div>
     );
@@ -48,7 +49,6 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   id: PropTypes.string,
   children: PropTypes.string,
-  style: PropTypes.object,
 };
 
 Checkbox.defaultProps = {

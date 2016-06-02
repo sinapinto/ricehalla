@@ -1,16 +1,15 @@
 @import "../../style/variables.css";
 
-.root {
-  padding-bottom: 10px;
-}
-
 .checkbox {
   display: inline-block;
   position: relative;
+  vertical-align: middle;
   border-radius: 2px;
   border: 1px solid #ccc;
   line-height: 1;
   transition: background-color .1s;
+  width: 15px;
+  height: 15px;
 }
 
 .checkboxChecked {
@@ -37,6 +36,8 @@
   margin: 0;
   opacity: 0;
   cursor: pointer;
+  width: 15px;
+  height: 15px;
 }
 
 .label {

@@ -109,6 +109,7 @@ class Login extends Component {
             defaultChecked
             checked={this.state.remember}
             onChange={this.toggleRemember}
+            style={{ marginBottom: '10px' }}
           >
             Remember me
           </Checkbox>
