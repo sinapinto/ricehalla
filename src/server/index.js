@@ -37,7 +37,9 @@ if (__DEV__) {
 }
 
 // set X-Response-Time header
-app.use(responseTime());
+if (__DEV__) {
+  app.use(responseTime());
+}
 
 // console.log HTTP traffic
 app.use(logger());
@@ -68,8 +70,11 @@ if (!__DEV__) {
 }
 
 // serve static assets
-app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
-app.use(serve(path.join(__dirname, '../../static')));
+// in production, an upstream server should serve them
+if (__DEV__) {
+  app.use(favicon(path.resolve(__dirname, '../../static/favicon.ico')));
+  app.use(serve(path.join(__dirname, '../../static')));
+}
 
 // verify jwt token and set `this.state.user`
 app.use(jwt({
