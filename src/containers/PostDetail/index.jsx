@@ -144,7 +144,7 @@ class PostDetail extends Component {
             </div>
             {Tags ? Tags.map((tag, i) =>
               <Link
-                to={`/?tag=${tag.name}`}
+                to={`/?q=${tag.name}`}
                 key={i}
                 className={style.rTag}
               >
