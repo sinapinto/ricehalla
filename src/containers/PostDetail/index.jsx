@@ -7,6 +7,7 @@ import marked from 'marked';
 import NotFound from '../../components/NotFound';
 import Spinner from '../../components/Spinner';
 import Button from '../../components/Button';
+import Tag from '../../components/Tag';
 import Icon from '../../components/Icon';
 import { showPost, deletePost, likePost, unlikePost } from '../../actions/post';
 import { getPostById } from '../../reducers'
@@ -89,6 +90,7 @@ class PostDetail extends Component {
       <div className={style.root}>
         <Helmet title={`${title} | Ricehalla`} />
         <div className={style.imageWrapper}>
+          {title && <h3 className={style.title}>{title}</h3>}
           {scrot ?
               <a target="_blank" href={`https://s3-us-west-2.amazonaws.com/ricehalla/${scrot}`}>
                 <img
@@ -100,26 +102,24 @@ class PostDetail extends Component {
             : <Spinner />}
         </div>
         {User ?
-          <div className={style.rWrapper}>
+          <div className={style.postWrap}>
             <div style={{display: 'inline-block'}}>
               <Link to={`/user/${User.username}`} className={style.authorWrapper}>
                 <img
-                  src={`https://www.gravatar.com/avatar/${User.emailHash}?s=20&d=identicon`}
+                  src={`https://www.gravatar.com/avatar/${User.emailHash}?s=30&d=identicon`}
                   className={style.avatar}
+                  width={30} height={30}
                   alt="avatar"
                 />
                 <span className={style.postInfoWrapper}>
                   <span className={style.author}>{User.username}</span>
-                  <span> posted </span>
-                  <span>{createdAt}</span>
+                  <div className={style.age}>{createdAt}</div>
                 </span>
               </Link>
             </div>
-            <h3 className={style.rTitle}>
-              {title}
-            </h3>
-            <div dangerouslySetInnerHTML={this.createMarkdown()} />
-            <div className={style.filesWrapper}>
+            {this.renderLike()}
+            <div dangerouslySetInnerHTML={this.createMarkdown()} style={{overflow: 'wrap'}}/>
+            <div className={style.fileListWrapper}>
               {files ? files.map((file, i) =>
                 <div className={style.fileWrapper} key={i}>
                   <a
@@ -142,22 +142,16 @@ class PostDetail extends Component {
                 </div>)
                 : null}
             </div>
-            {Tags ? Tags.map((tag, i) =>
-              <Link
-                to={`/?q=${tag.name}`}
-                key={i}
-                className={style.rTag}
-              >
-                {tag.name}
-              </Link>)
-            : null}
-            {this.renderLike()}
+            {Tags && Tags.map((tag, i) =>
+              <Tag to={`/?q=${tag.name}`} key={i}>{tag.name}</Tag>)}
+            {User && this.props.username === User.username &&
+              <div style={{ marginTop: '30px' }}>
+                <Button danger outline large onClick={this.handleDeleteClick}>
+                  Delete
+                </Button>
+              </div>}
           </div>
         : null}
-        {User && this.props.username === User.username &&
-          <Button danger outline large onClick={this.handleDeleteClick}>
-            Delete
-          </Button>}
       </div>
     );
   }

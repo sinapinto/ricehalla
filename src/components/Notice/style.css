@@ -22,6 +22,8 @@
   background: transparent !important;
   opacity: 0;
   height: 0;
+  margin: 0;
+  padding: 0;
   transition: opacity .3s, background .3s, height .3s;
 }
 

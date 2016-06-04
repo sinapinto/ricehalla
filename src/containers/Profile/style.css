@@ -20,7 +20,7 @@
 .username {
   margin: 10px 0;
   font-size: 40px;
-  font-weight: 400;
+  font-weight: 700;
 
   & a {
     color: var(--font-color);
@@ -58,49 +58,4 @@
 .tabActive {
   composes: tab;
   color: var(--font-color);
-}
-
-.rWrapper {
-  overflow: hidden;
-  padding: 10px;
-  margin: 20px 0;
-  border: 1px solid rgba(0,0,0,0.11);
-  border-radius: 4px;
-  color: var(--font-color);
-  font-size: 16px;
-  background-color: #fff;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  transition: box-shadow .2s;
-
-  &:hover,
-  &:active {
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.10);
-  }
-
-  & .rTitle {
-    font-size: 30px;
-    font-weight: 700;
-    margin-top: 0;
-  }
-}
-
-.rTag {
-  background-color: var(--color-primary-light);
-  color: #fff;
-  border-radius: 5px;
-  padding: 1px 8px;
-  margin-right: 6px;
-  font-size: 14px;
-  opacity: 0.85;
-  transition: opacity .2s;
-
-  &:hover,
-  &:active {
-    opacity: 1;
-  }
-}
-
-.rAge {
-  margin-top: 5px;
-  font-size: 11px;
 }

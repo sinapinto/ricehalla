@@ -5,6 +5,12 @@
   overflow: hidden;
 }
 
+.title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 0;
+}
+
 .imageWrapper {
   text-align: center;
   margin-bottom: 20px;
@@ -15,14 +21,20 @@
   }
 }
 
+.postWrap {
+  overflow: hidden;
+  margin: 20px 0;
+  padding: 0 15px;
+  color: var(--font-color);
+}
+
 .authorWrapper {
   display: flex;
-  align-items: flex-start;
-  font-size: 14px;
-  margin-bottom: 1em;
+  align-items: center;
 
   & .postInfoWrapper {
     color: var(--font-color-light);
+    margin-left: 10px;
 
     &:hover {
       color: var(--font-color);
@@ -30,12 +42,21 @@
   }
 
   & .author {
-    font-weight: 700;
-    margin-left: 7px;
+    font-size: 16px;
+    color: var(--color-primary);
+  }
+
+  & .age {
+    font-size: 11px;
+    color: var(--font-color-light);
   }
 }
 
-.filesWrapper {
+.avatar {
+  border-radius: 50%;
+}
+
+.fileListWrapper {
   margin-bottom: 20px;
 }
 
@@ -46,28 +67,7 @@
 .fileLink {
   display: flex;
   align-items: center;
-  border-radius: 5px;
-  color: var(--color-primary-light);
   margin-right: 10px;
-
-  & .fileName {
-    color: var(--font-color);
-  }
-
-  & .fileName2 {
-    font-size: 11px;
-    color: color(var(--font-color-light) tint(30%));
-
-  }
-
-  &:hover .fileIcon {
-    fill: white;
-  }
-
-  &:hover .fileName,
-  &:hover .fileName2 {
-    color: white;
-  }
 }
 
 .file {
@@ -75,21 +75,34 @@
   justify-content: center;
   align-items: center;
   min-width: 200px;
-  padding: 0 10px;
-  height: 60px;
+  padding: 0 30px;
+  height: 70px;
   border: 1px solid rgba(0,0,0,0.11);
-  border-radius: 4px;
+  border-radius: 2px;
   color: var(--font-color);
   background-color: white;
+  box-shadow: 0px 2px 3px rgba(0,0,0,.08);
+  transition: background-color .2s;
 
   &:hover {
-    background-color: var(--color-primary-light);
+    background-color: gray(99%);
   }
+}
+
+.fileName {
+  color: var(--font-color);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.fileName2 {
+  font-size: 11px;
+  color: color(var(--font-color-light) tint(30%));
 }
 
 .fileIcon {
   margin-right: 10px;
-  fill: #ccc;
+  fill: gray(85%);
 }
 
 .likes {
@@ -98,7 +111,7 @@
   align-items: center;
   color: gray(65%);
   float: right;
-  margin-right: 8px;
+  margin: 7px;
 
   & .heart {
     fill: var(--color-red);
@@ -108,20 +121,4 @@
   &:hover {
     cursor: pointer;
   }
-}
-
-.rWrapper {
-  composes: rWrapper from "../Profile/style.css";
-}
-
-.rTitle {
-  composes: rTitle from "../Profile/style.css";
-}
-
-.rTag {
-  composes: rTag from "../Profile/style.css";
-}
-
-.avatar {
-  border-radius: 99em;
 }

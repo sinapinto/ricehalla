@@ -9,12 +9,11 @@
 .wrapper {
   text-align: center;
   color: var(--font-color);
-  font-size: 130%;
   overflow: hidden;
 }
 
 .sadIcon {
-  fill: var(--color-primary-lightest);
+  fill: gray(90%);
 }
 
 .h1 {
@@ -25,6 +24,6 @@
 
 .h2 {
   color: hsla(205, 28%, 63%, 1);
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 400;
 }
