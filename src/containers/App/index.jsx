@@ -100,11 +100,12 @@ class App extends Component {
         <Helmet title="Ricehalla" meta={this.getMetaTags()} link={this.getLinkTags()} />
         {this.renderNav()}
         <div className={style.childWrapper}>
-          {this.state.showNotice && <Notice
-            level={notice.level}
-            message={notice.message}
-            onClose={this.handleCloseNotice}
-          />}
+          {this.state.showNotice &&
+            <Notice
+              level={notice.level}
+              message={notice.message}
+              onClose={this.handleCloseNotice}
+            />}
           {/* assumes single child */}
           {React.cloneElement(this.props.children, { username, userId })}
         </div>

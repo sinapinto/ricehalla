@@ -64,7 +64,6 @@ class Nav extends Component {
         <span className={style.right}>
           {search}
           <Button to="/submit" primary>
-            <Icon name="plus" size={16} className={style.plusIcon} />
             Submit
           </Button>
           <Button onClick={this.openPopover} outline>

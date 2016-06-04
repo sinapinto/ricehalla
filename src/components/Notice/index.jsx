@@ -40,7 +40,7 @@ class Notice extends Component {
 
 Notice.propTypes = {
   message: PropTypes.string,
-  level: PropTypes.oneOf(['error', 'info', 'warn', 'success']),
+  level: PropTypes.oneOf(['error', 'info', 'warn', 'success', '']),
   onClose: PropTypes.func.isRequired,
 };
 
