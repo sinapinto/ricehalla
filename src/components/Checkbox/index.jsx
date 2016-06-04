@@ -22,12 +22,22 @@ class Checkbox extends Component{
   }
 
   render() {
-    const { onChange, defaultChecked, checked, id, children, ...other } = this.props;
+    const { onChange, defaultChecked, checked, disabled, id, children, ...other } = this.props;
+    const boxClasses = [style.box];
+    const checkClasses = [style.check];
+    if (this.state.checked) {
+      boxClasses.push(style.boxChecked);
+    }
+    if (disabled) {
+      checkClasses.push(style.checkDisabled);
+      boxClasses.push(style.boxDisabled);
+    }
     return (
       <div {...other}>
-        <span className={this.state.checked ? style.checkboxChecked : style.checkbox}>
-          {this.state.checked && <span className={style.check} />}
+        <span className={boxClasses.join(' ')}>
+          {this.state.checked && <span className={checkClasses.join(' ')} />}
           <input
+            disabled={disabled}
             className={style.input}
             id={id}
             type="checkbox"
@@ -47,6 +57,7 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   defaultChecked: PropTypes.bool,
   checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   id: PropTypes.string,
   children: PropTypes.string,
 };

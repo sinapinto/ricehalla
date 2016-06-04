@@ -1,6 +1,6 @@
 @import "../../style/variables.css";
 
-.checkbox {
+.box {
   display: inline-block;
   position: relative;
   vertical-align: middle;
@@ -12,11 +12,15 @@
   height: 15px;
 }
 
-.checkboxChecked {
-  composes: checkbox;
+.boxChecked {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   transition: background-color .1s, border-color .1s;
+}
+
+.boxDisabled {
+  background-color: var(--btn-disabled-bg);
+  border: 1px solid var(--btn-disabled-border);
 }
 
 .check {
@@ -29,6 +33,10 @@
   border: 2px solid white;
   border-top: 0;
   border-left: 0;
+}
+
+.checkDisabled {
+  border-color: #ccc;
 }
 
 .input {

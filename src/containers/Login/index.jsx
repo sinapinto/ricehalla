@@ -106,6 +106,7 @@ class Login extends Component {
             />
           </Fieldset>
           <Checkbox
+            disabled={isFetching}
             defaultChecked
             checked={this.state.remember}
             onChange={this.toggleRemember}
