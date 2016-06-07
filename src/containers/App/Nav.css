@@ -29,6 +29,10 @@
 .left .plain,
 .right .plain {
   border: 0;
+
+  &:active {
+    color: gray(70%);
+  }
 }
 
 .right > * {

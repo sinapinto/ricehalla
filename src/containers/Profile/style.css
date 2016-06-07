@@ -53,9 +53,17 @@
   &:hover {
     color: var(--font-color);
   }
+
+  &:active {
+    color: gray(70%);
+  }
 }
 
 .tabActive {
   composes: tab;
   color: var(--font-color);
+
+  &:active {
+    color: var(--font-color);
+  }
 }

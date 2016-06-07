@@ -85,7 +85,7 @@
   transition: background-color .2s;
 
   &:hover {
-    background-color: gray(99%);
+    background-color: gray(98%);
   }
 }
 

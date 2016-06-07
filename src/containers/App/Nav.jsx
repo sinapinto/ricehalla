@@ -76,7 +76,7 @@ class Nav extends Component {
           </Button>
           <Popover onClose={this.closePopover} isOpen={this.state.isPopoverOpen}>
             <Link to={`/user/${this.props.username}`}>Profile</Link>
-            <Button onClick={this.props.onLogout} outline className={style.plain}>Logout</Button>
+            <a onClick={this.props.onLogout} className={style.plain}>Logout</a>
           </Popover>
         </span>
       );

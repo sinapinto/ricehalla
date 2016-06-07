@@ -29,8 +29,8 @@
   padding: 8px;
   text-align: left;
   color: white;
-  height: 45px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0));
+  height: 40px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0));
 }
 
 .flexCenter {

@@ -17,7 +17,7 @@
 }
 
 body {
-  font-family: "Lato", "Liberation Mono", monospace, serif;
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   background: var(--body-bg-color);
 }
