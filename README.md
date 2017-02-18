@@ -114,7 +114,7 @@ hot reloading.
 
 ## Thanks
 
-Daniel F. Gray for providing code/advice contributions
+[DanielFGray](https://github.com/DanielFGray) for providing code/advice contributions
 
 Uncled1023 for feedback and making the original ricehalla
 
